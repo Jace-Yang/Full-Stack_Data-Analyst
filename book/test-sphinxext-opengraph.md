@@ -1,3 +1,0 @@
-# Test Sphinxext-opengraph
-
-fixed?

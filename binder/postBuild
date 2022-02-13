@@ -1,6 +1,0 @@
-python -m pip install --no-cache-dir -r requirements.txt
-python -m pip install --no-cache-dir -r book/requirements.txt
-jupyter labextension install jupyterlab-jupytext --no-build
-jupyter labextension install nbdime-jupyterlab --no-build
-jupyter lab build -y
-jupyter lab clean -y

@@ -1,0 +1,67 @@
+# Book settings
+title: Statistics and Data Science
+author: Kyle Cranmer
+logo: logo.png
+copyright: ""
+
+parse:
+  myst_extended_syntax: true
+
+execute:
+  exclude_patterns : ["*/Central-Limit-Theorem.ipynb","*/prop-error-plots.ipynb","*/track-example.ipynb"]
+  execute_notebooks : off # force, off, auto
+
+# Information about where the book exists on the web
+repository:
+  url: https://github.com/cranmer/stats-ds-book
+  path_to_book: book
+  branch: master
+
+html:
+  home_page_in_navbar : true
+  use_repository_button: true
+  use_issues_button: true
+  use_edit_page_button: true
+  google_analytics_id: UA-178330963-1
+  comments:
+    hypothesis: true
+  extra_footer : |
+    <div>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png"></a>
+        All content on this site (unless otherwise specified) is licensed under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0 license</a>
+    </div>
+
+sphinx:
+  extra_extensions:
+  - sphinx_tabs.tabs
+  - sphinxext.opengraph
+  html_show_copyright: false
+  config:
+    ogp_site_url: "https://cranmer.github.io/stats-ds-book/"
+    ogp_image: "https://cranmer.github.io/stats-ds-book/_images/Neyman-pearson.006.png"
+    ogp_description_length: 200
+    mathjax_config:
+      TeX:
+        Macros:
+          "N": "\\mathbb{N}"
+          "indep": "{\\perp\\kern-5pt\\perp}"
+          "floor": ["\\lfloor#1\\rfloor", 1]
+          "bmat": ["\\left[\\begin{array}"]
+          "emat": ["\\end{array}\\right]"]
+          "bered": ["\\color{#DC2830}{#1}",1]
+          "ecol": ["}}"]
+
+# Launch button settings
+launch_buttons:
+  notebook_interface: classic #jupyterlab
+  binderhub_url: https://mybinder.org
+  colab_url: https://colab.research.google.com
+
+latex:
+  latex_documents:
+    targetname: book.tex
+
+extra_extensions:
+    - sphinx_click.ext
+    - sphinx_tabs.tabs
+    - sphinx_panels

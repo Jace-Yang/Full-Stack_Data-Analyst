@@ -1,0 +1,29 @@
+/*********************************************
+* Print-specific CSS *
+*********************************************/
+
+@media print {
+
+    div.topbar {
+        display: none;
+    }
+
+    .pr-md-0 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+
+    .page_break {
+        /* 
+        Control where and how page-breaks happen in pdf prints
+         This page has a nice guide: https://tympanus.net/codrops/css_reference/break-before/
+         This SO link describes how to use it: https://stackoverflow.com/a/1664058
+         Simply add an empty div with this class where you want a page break
+         like so: <div class="page_break"></div>;
+        */
+        clear: both;
+        page-break-after: always !important;
+        break-after: always !important;
+    }
+
+}

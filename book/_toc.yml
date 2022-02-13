@@ -1,0 +1,14 @@
+format: jb-book
+root: intro
+parts:
+  - caption: NLP
+    chapters:
+    - file: Word2vec
+    - file: notebooks
+      sections:
+      - file: markdown2
+  - caption: Name of Part 2
+    chapters:
+    - file: markdown3
+      sections:
+      - file: markdown4

@@ -395,9 +395,9 @@
 </ul>
 <center><img src="../../images/DL_hyperparameters_1.png" width="70%"/></center>
 <center><img src="../../images/DL_hyperparameters_2.png" width="70%"/></center>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>+ 最佳：model adjust weight **in subsequent training loops** to arrive at cost minima
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- 最佳：model adjust weight **in subsequent training loops** to arrive at cost minima
 
-+ 低learning rate ⇒ converge过慢：converge to cost minima but very slowly
+- 低learning rate ⇒ converge过慢：converge to cost minima but very slowly
 
 + 高learning rate ⇒ 震荡(miss the minima)、不能converge（随着loops不断提升）
 &gt; Large learning rate may allow the algorithm to come close to a good solution but will then oscillate around the point or even diverge

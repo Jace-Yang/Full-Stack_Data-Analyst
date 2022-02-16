@@ -470,35 +470,14 @@
 </ul>
 </li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-
-
-
-**4、学习率动态更新策略的说明**
-
-负责学习率调整的类：StepLR、ExponentialLR和CosineAnnealingLR，其完整对学习率的更新都是在其**step()函数被调用以后完成的**。根据pytorch官网上给出的说明，scheduler.step()函数的调用应该在训练代码以后：
-
-```python
-scheduler = ...
-&gt;&gt;&gt; for epoch in range(100):
-&gt;&gt;&gt;     train(...)
-&gt;&gt;&gt;     validate(...)
-&gt;&gt;&gt;     scheduler.step()
-```
-
+<p><strong>4、学习率动态更新策略的说明</strong></p>
+<p>负责学习率调整的类：StepLR、ExponentialLR和CosineAnnealingLR，其完整对学习率的更新都是在其<strong>step()函数被调用以后完成的</strong>。根据pytorch官网上给出的说明，scheduler.step()函数的调用应该在训练代码以后：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scheduler</span> <span class="o">=</span> <span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+<span class="o">&gt;&gt;&gt;</span>     <span class="n">train</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span>     <span class="n">validate</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span>     <span class="n">scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  File &quot;/var/folders/vn/78yrfhs92slfj6nr61fhb9w00000gn/T/ipykernel_36773/1195869720.py&quot;, line 1
-    **4、学习率动态更新策略的说明**
-      ^
-SyntaxError: invalid decimal literal
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="cyclical-learning-rate">

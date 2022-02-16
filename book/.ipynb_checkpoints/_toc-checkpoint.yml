@@ -1,9 +1,14 @@
 format: jb-book
 root: intro
 parts:
+  - caption: 深度学习
+    chapters:
+    - file: NLP/Word2vec
+    - file: Transformer/Transformer
+    - file: notebooks
   - caption: NLP
     chapters:
-    - file: Word2vec
+    - file: NLP/Word2vec
     - file: Transformer/Transformer
     - file: notebooks
       sections:

@@ -46,6 +46,8 @@
     <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -280,6 +282,46 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#single-node-single-gpu-training">
+   Single Node, Single GPU Training
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dl-scaling-with-gpu">
+   DL Scaling with GPU
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#commonly-used-gpu-accelerators-in-deep-learning">
+     硬件选择：Commonly used GPU Accelerators in Deep Learning
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     对比单GPU的提升
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#single-node-multi-gpu-training">
+   Single Node, Multi-GPU Training
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#distributed-training">
+   Distributed Training
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -292,6 +334,46 @@
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#single-node-single-gpu-training">
+   Single Node, Single GPU Training
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dl-scaling-with-gpu">
+   DL Scaling with GPU
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#commonly-used-gpu-accelerators-in-deep-learning">
+     硬件选择：Commonly used GPU Accelerators in Deep Learning
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     对比单GPU的提升
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#single-node-multi-gpu-training">
+   Single Node, Multi-GPU Training
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#distributed-training">
+   Distributed Training
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -300,6 +382,68 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="gpu">
 <h1>GPU训练<a class="headerlink" href="#gpu" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="single-node-single-gpu-training">
+<h2>Single Node, Single GPU Training<a class="headerlink" href="#single-node-single-gpu-training" title="Permalink to this headline">¶</a></h2>
+<p>Training throughput depends on:</p>
+<ul class="simple">
+<li><p>Neural network model (activations, parameters, compute operations)</p></li>
+<li><p>Batch size</p></li>
+<li><p>Compute hardware: GPU type (e.g., Nvidia M60, K80, P100, V100)</p></li>
+<li><p>Floating point precision (FP32 vs FP16)</p>
+<ul>
+<li><p>换了FP16之后相当于working with reduced precision arithmetic｜Using FP16 can reduce training times and enable larger batch sizes/models without significantly impacting the accuracy of the trained model</p></li>
+</ul>
+</li>
+</ul>
+<p>训练时间：Training time with single GPU very large: 6 days with Places dataset (2.5M images) using Alexnet on a single K40.</p>
+<p>提高performance的办法一般是Increasing batch size increases throughput</p>
+<ul class="simple">
+<li><p>然而Batch size is restricted by GPU memory！</p></li>
+<li><p>GPU的限制下⇒Small batch size <span class="math notranslate nohighlight">\(=&gt;\)</span> noisier approximation of the gradient <span class="math notranslate nohighlight">\(\Rightarrow\)</span> lower learning rate <span class="math notranslate nohighlight">\(=&gt;\)</span> slower convergence</p></li>
+</ul>
+</div>
+<div class="section" id="dl-scaling-with-gpu">
+<h2>DL Scaling with GPU<a class="headerlink" href="#dl-scaling-with-gpu" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="commonly-used-gpu-accelerators-in-deep-learning">
+<h3>硬件选择：Commonly used GPU Accelerators in Deep Learning<a class="headerlink" href="#commonly-used-gpu-accelerators-in-deep-learning" title="Permalink to this headline">¶</a></h3>
+<img src="https://cdn.mathpix.com/snip/images/EgvWEJqCtlVEjyoLDQ1kqDWtRSVN5q_ZW9jcmnqsJFM.original.fullsize.png" /><ul class="simple">
+<li><p>两个K80就可以实现6个TFLOPS</p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h3>对比单GPU的提升<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<img src="https://cdn.mathpix.com/snip/images/ym85dUm7bzwccOmHZq03IOOmqBdaK34LrMLl783Nyws.original.fullsize.png" />
+<ul class="simple">
+<li><p>不同模型的speedup不一样，因为different networks have different structure, they have different amount of floating point operations requirement, they have different memory requirement</p></li>
+</ul>
+<img src="https://cdn.mathpix.com/snip/images/F8v3Uz9CFYVg0XIHolZnrAKvV4u5H-AE1mapfdeJrMQ.original.fullsize.png" />
+- 从batch size提高后的improve来看也是一样的model dependent！</div>
+</div>
+<div class="section" id="single-node-multi-gpu-training">
+<h2>Single Node, Multi-GPU Training<a class="headerlink" href="#single-node-multi-gpu-training" title="Permalink to this headline">¶</a></h2>
+<p>最重要的是communicate的cost！让Scaling not linear的各种影响因素——Synchronization</p>
+<ul class="simple">
+<li><p>Communication libraries (e.g., NCCL) and supported communication algorithms/collectives (broadcast, all-reduce, gather)</p>
+<ul>
+<li><p>NCCL (“Nickel”) is library of accelerated collectives that is easily integrated and topology-aware so as to improve the scalability of multi-GPU applications</p></li>
+</ul>
+</li>
+<li><p>Communication link bandwidth: PCle/QPI or NVlink</p></li>
+<li><p>Communication algorithms depend on the communication topology (ring, hub-spoke, fully connected) between the GPUs.</p></li>
+<li><p>Most collectives amenable to bandwidth-optimal implementation on rings, and many topologies can be interpreted as one or more rings [P. Patarasuk and X. Yuan]</p></li>
+</ul>
+<img src="https://cdn.mathpix.com/snip/images/XWDeJcrg4WsPOm1CDXkWF005zbjCK7KoXanRu0yo630.original.fullsize.png" />
+<ul class="simple">
+<li><p>V100优势在于GPU和GPU之间的connectivity很好</p></li>
+</ul>
+<p>没有NVLINK的时候：</p>
+<img src="https://cdn.mathpix.com/snip/images/pwqaKYxymHmAt-5HJ7HR37vmC5lgVfR8ITd73dYZVjE.original.fullsize.png" /><p>有NVLINK的时候：</p>
+<img src="https://cdn.mathpix.com/snip/images/bFRPoR_Y-bsmIVYEzzLtJzSnchkKboILT1Zh3O7HCus.original.fullsize.png" />
+<img src="https://cdn.mathpix.com/snip/images/EUtejV4EyMXJtlUlGNuAA6XayYDeicPhJlmuCSw_oH4.original.fullsize.png" />
+<img src="https://cdn.mathpix.com/snip/images/6UpUK2ib1ACVqIj-N7a42p-Gs-V2xUZrTcFTkAWHbD8.original.fullsize.png" /></div>
+<div class="section" id="distributed-training">
+<h2>Distributed Training<a class="headerlink" href="#distributed-training" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
     <script type="text/x-thebe-config">

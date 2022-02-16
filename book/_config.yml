@@ -8,7 +8,9 @@ logo: images/logo2.png
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
-  execute_notebooks: force
+  # execute_notebooks: force
+  execute_notebooks: cache
+  cache: ../jupyter_cache
 
 # Define the name of the latex output file for PDF builds
 latex:
@@ -37,3 +39,5 @@ html:
 sphinx:
   config:
     language: en # Change language to English. 没有这一行会是强行翻译的中文
+
+images_url: "images"

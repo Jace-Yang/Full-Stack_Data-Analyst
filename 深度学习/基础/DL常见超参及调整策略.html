@@ -390,20 +390,18 @@
 <h2>学习率<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="constant-learning-rate">
 <h3>constant learning rate会遇到的问题<a class="headerlink" href="#constant-learning-rate" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>Constant Learning Rate过大或者过小：<center><img src="../../images/DL_hyperparameters_1.png" width="70%"/></center><center><img src="../../images/DL_hyperparameters_2.png" width="70%"/></center></p>
 <ul class="simple">
-<li><p>Constant Learning Rate过大或者过小：</p></li>
+<li><p>最佳：model adjust weight <strong>in subsequent training loops</strong> to arrive at cost minima</p></li>
+<li><p>低learning rate ⇒ converge过慢：converge to cost minima but very slowly</p></li>
+<li><p>高learning rate ⇒ 震荡(miss the minima)、不能converge（随着loops不断提升）</p></li>
 </ul>
-<center><img src="../../images/DL_hyperparameters_1.png" width="70%"/></center>
-<center><img src="../../images/DL_hyperparameters_2.png" width="70%"/></center>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- 最佳：model adjust weight **in subsequent training loops** to arrive at cost minima
-
-- 低learning rate ⇒ converge过慢：converge to cost minima but very slowly
-
-- 高learning rate ⇒ 震荡(miss the minima)、不能converge（随着loops不断提升）
-
-&gt; Large learning rate may allow the algorithm to come close to a good solution but will then oscillate around the point or even diverge
-</pre></div>
-</div>
+<blockquote>
+<div><p>Large learning rate may allow the algorithm to come close to a good solution but will then oscillate around the point or even diverge</p>
+</div></blockquote>
+</li>
+</ul>
 </div>
 <div class="section" id="learning-rate-schedule">
 <h3>Learning rate schedule<a class="headerlink" href="#learning-rate-schedule" title="Permalink to this headline">¶</a></h3>

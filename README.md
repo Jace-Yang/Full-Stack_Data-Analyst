@@ -20,17 +20,17 @@ cp -R images _build/html/images
 - Looks good? Push the result:
 
 ```
-cd ..
-git add .
-git commit -m "Update on the notebooks"
-git push origin main
-
 cd book
 rm -r _build
 jupyter-book build ./
 cp -R images _build/html/images
 ghp-import -n -p -f _build/html
 rm -r _build
+
+cd ..
+git add .
+git commit -m "Update on the notebooks"
+git push origin main
 ```
 
 - Check [Github Deployment page](https://github.com/Jace-Yang/Full-Stack_Data-Analyst/deployments/activity_log?environment=github-pages)

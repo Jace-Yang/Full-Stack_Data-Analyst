@@ -5,7 +5,7 @@ parts:
     chapters:
       - file: 深度学习/基础/README.md
         sections:
-        - file: 深度学习/基础/DL常见超参及调整策略/DL常见超参及调整策略
+        - file: 深度学习/基础/DL常见超参及调整策略
       - file: 深度学习/NLP/README.md
         sections:
         - file: 深度学习/NLP/word2vec/word2vec

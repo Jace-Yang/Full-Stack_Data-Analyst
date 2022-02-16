@@ -3,7 +3,7 @@
 
 title: Towards a Full-stack DA
 author: Jace Yang
-logo: logo2.png
+logo: images/logo2.png
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html

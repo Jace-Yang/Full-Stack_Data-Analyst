@@ -437,7 +437,7 @@
 </li>
 <li><p>例2：Alexnet中的learningrate</p></li>
 </ul>
-   <center><img src="3.png" width="70%"/></center>
+   <center><img src="../../images/DL_hyperparameters_3.png" width="70%"/></center>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  &gt;[Link](https://blog.csdn.net/guzhao9901/article/details/116484887)：在每10、15、25、30的时候把原先的学习率乘个0.1
   &gt;```python
   model = ANet(classes=5)     #加载模型
@@ -492,7 +492,7 @@ scheduler = ...
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  File &quot;/var/folders/vn/78yrfhs92slfj6nr61fhb9w00000gn/T/ipykernel_36502/1195869720.py&quot;, line 1
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  File &quot;/var/folders/vn/78yrfhs92slfj6nr61fhb9w00000gn/T/ipykernel_36609/1195869720.py&quot;, line 1
     **4、学习率动态更新策略的说明**
       ^
 SyntaxError: invalid decimal literal
@@ -504,7 +504,7 @@ SyntaxError: invalid decimal literal
 <div class="section" id="cyclical-learning-rate">
 <h4>2、Cyclical Learning Rate<a class="headerlink" href="#cyclical-learning-rate" title="Permalink to this headline">¶</a></h4>
 <p>Idea is to have learning rate continuously change in cyclical manner with alternate increase and decrease phases</p>
-<img src="4.png" width="40%"/>
+<img src="../../images/DL_hyperparameters_4.png" width="40%"/>
 <ul>
 <li><p>意义：比如说我们到一个local minimum之后 gradient很低，比如到了一个很平的地方，并不是一个good minimum，这个时候通过提升learning rate我们还有probability可以escape it</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">余弦退火衰减</span></code>：严格的说，余弦退火策略不应该算是学习率衰减策略，因为它使得学习率按照周期变化，其定义方式如下：</p>

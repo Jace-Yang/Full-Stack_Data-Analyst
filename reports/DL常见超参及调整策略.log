@@ -1,0 +1,45 @@
+Traceback (most recent call last):
+  File "/Users/jace/opt/anaconda3/envs/DL/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/Users/jace/opt/anaconda3/envs/DL/lib/python3.10/site-packages/nbclient/client.py", line 1085, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/jace/opt/anaconda3/envs/DL/lib/python3.10/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/Users/jace/opt/anaconda3/envs/DL/lib/python3.10/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/Users/jace/opt/anaconda3/envs/DL/lib/python3.10/asyncio/base_events.py", line 641, in run_until_complete
+    return future.result()
+  File "/Users/jace/opt/anaconda3/envs/DL/lib/python3.10/site-packages/nbclient/client.py", line 551, in async_execute
+    await self.async_execute_cell(
+  File "/Users/jace/opt/anaconda3/envs/DL/lib/python3.10/site-packages/nbclient/client.py", line 846, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/Users/jace/opt/anaconda3/envs/DL/lib/python3.10/site-packages/nbclient/client.py", line 748, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+
+
+
+
+**4、学习率动态更新策略的说明**
+
+负责学习率调整的类：StepLR、ExponentialLR和CosineAnnealingLR，其完整对学习率的更新都是在其**step()函数被调用以后完成的**。根据pytorch官网上给出的说明，scheduler.step()函数的调用应该在训练代码以后：
+
+```python
+scheduler = ...
+>>> for epoch in range(100):
+>>>     train(...)
+>>>     validate(...)
+>>>     scheduler.step()
+```
+
+
+------------------
+
+[0;36m  File [0;32m"/var/folders/vn/78yrfhs92slfj6nr61fhb9w00000gn/T/ipykernel_35934/1195869720.py"[0;36m, line [0;32m1[0m
+[0;31m    **4、学习率动态更新策略的说明**[0m
+[0m      ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid decimal literal
+
+SyntaxError: invalid decimal literal (1195869720.py, line 1)
+

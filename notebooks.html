@@ -37,9 +37,12 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
@@ -54,8 +57,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Markdown Files" href="markdown2.html" />
-    <link rel="prev" title="Transformer" href="Transformer/Transformer.html" />
+    <link rel="prev" title="Transformer" href="%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/NLP/Transformer/Transformer.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -81,7 +83,7 @@
         
       
       
-      <img src="_static/logo.png" class="logo" alt="logo">
+      <img src="_static/logo2.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Towards a Full-stack DA</h1>
@@ -95,77 +97,72 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Welcome to your Jupyter Book
+   欢迎来到Jace的六边形DA笔记库
   </a>
  </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  NLP
+  深度学习
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="Word2vec.html">
-   Word2vec
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80/README.html">
+   基础
   </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Transformer/Transformer.html">
-   Transformer
-  </a>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
-   Content with notebooks
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="markdown2.html">
-     Markdown Files
+   <li class="toctree-l2">
+    <a class="reference internal" href="%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80/DL%E5%B8%B8%E8%A7%81%E8%B6%85%E5%8F%82%E5%8F%8A%E8%B0%83%E6%95%B4%E7%AD%96%E7%95%A5/DL%E5%B8%B8%E8%A7%81%E8%B6%85%E5%8F%82%E5%8F%8A%E8%B0%83%E6%95%B4%E7%AD%96%E7%95%A5.html">
+     DL常见超参及调整策略
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-    <label for="toctree-checkbox-2">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="word2v.html">
-       Word2vec
-      </a>
-     </li>
-    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/NLP/README.html">
+   NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/NLP/word2vec/word2vec.html">
+     Word2vec
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/NLP/Transformer/Transformer.html">
+     Transformer
+    </a>
    </li>
   </ul>
  </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Name of Part 2
+  模板Part
  </span>
 </p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="markdown3.html">
-   Markdown Files
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
+   Content with notebooks
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="markdown4.html">
-     Markdown Files
-    </a>
-   </li>
    <li class="toctree-l2">
     <a class="reference external" href="https://www.linkedin.com/in/jinhang-yang/">
      LinkedIn
@@ -381,7 +378,7 @@ For example, here’s some sample Matplotlib code:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.pyplot._IonContext at 0x7fd9b84951f0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.pyplot._IonContext at 0x1113439d0&gt;
 </pre></div>
 </div>
 </div>
@@ -445,19 +442,12 @@ with your book. For more information about this, see <a class="reference externa
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="Transformer/Transformer.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/NLP/Transformer/Transformer.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">Transformer</p>
         </div>
-    </a>
-    <a class='right-next' id="next-link" href="markdown2.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Markdown Files</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             

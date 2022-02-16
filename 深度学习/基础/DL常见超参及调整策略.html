@@ -57,7 +57,7 @@
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="NLP" href="../NLP/README.html" />
+    <link rel="next" title="优化器" href="%E4%BC%98%E5%8C%96%E5%99%A8.html" />
     <link rel="prev" title="基础" href="README.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
@@ -121,6 +121,16 @@
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      DL常见超参及调整策略
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="%E4%BC%98%E5%8C%96%E5%99%A8.html">
+     优化器
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="GPU%E8%AE%AD%E7%BB%83.html">
+     GPU训练
     </a>
    </li>
   </ul>
@@ -309,12 +319,34 @@
      </li>
     </ul>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parameter-specific-learning-rates">
+     Parameter-specific learning rates
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#batch-size">
    Batch Size
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#effective-mini-batch">
+     Effective Mini-batch方法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-batch-size-to-choose">
+     What Batch size to choose ?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#learning-rate-and-batch-size-relationship">
+     Learning rate and Batch size relationship
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -368,12 +400,34 @@
      </li>
     </ul>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parameter-specific-learning-rates">
+     Parameter-specific learning rates
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#batch-size">
    Batch Size
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#effective-mini-batch">
+     Effective Mini-batch方法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-batch-size-to-choose">
+     What Batch size to choose ?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#learning-rate-and-batch-size-relationship">
+     Learning rate and Batch size relationship
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -469,15 +523,6 @@
 </ul>
 </li>
 </ul>
-<p><strong>4、学习率动态更新策略的说明</strong></p>
-<p>负责学习率调整的类：StepLR、ExponentialLR和CosineAnnealingLR，其完整对学习率的更新都是在其<strong>step()函数被调用以后完成的</strong>。根据pytorch官网上给出的说明，scheduler.step()函数的调用应该在训练代码以后：</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scheduler</span> <span class="o">=</span> <span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-<span class="o">&gt;&gt;&gt;</span>     <span class="n">train</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span>     <span class="n">validate</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span>     <span class="n">scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="cyclical-learning-rate">
 <h4>2、Cyclical Learning Rate<a class="headerlink" href="#cyclical-learning-rate" title="Permalink to this headline">¶</a></h4>
@@ -503,24 +548,106 @@
 <p>BERT的预训练过程就是用了学习率WarmUp的方法。</p>
 </div>
 </div>
+<div class="section" id="parameter-specific-learning-rates">
+<h3>Parameter-specific learning rates<a class="headerlink" href="#parameter-specific-learning-rates" title="Permalink to this headline">¶</a></h3>
+<p>Apply a different learning rate to <strong>each parameter at each step</strong></p>
+<ul class="simple">
+<li><p>Encourage faster relative movement in gently sloping direction <br>
+Penalize dimension with large fluctuations in gradient - 坏的gradient更新feature！</p></li>
+<li><p>Several methods: AdaGrad, RMSProp, RMSProp+Nestrov Momentum, AdaDelta, Adam</p>
+<ul>
+<li><p>Differ in the manner parameter specific learning rates are calculated</p></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div class="section" id="batch-size">
 <h2>Batch Size<a class="headerlink" href="#batch-size" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Batch</span> <span class="pre">Size</span></code>表示input中我们用来计算Loss、gradient，从而对weight进行<strong>一次update</strong>所用的数据batch的行数</p>
 <ul class="simple">
-<li><p>定义：input中我们用来计算Loss、gradient，从而对weight进行<strong>一次update</strong>所用的数据batch的行数</p></li>
-<li><p>意义：</p>
+<li><p>常见问题——GPU限制：Batch size is restricted by the GPU memory (12GB for K40, 16GB for P100 and V100) and the model size</p></li>
+</ul>
+<blockquote>
+<div><p>Model and batch of data needs to remain in GPU memory for one iteration <br>
+ResNet152 we need to stay below 10</p>
+</div></blockquote>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- 后果：calculate gradient using a small number of samples⇒ gradient estimates will be much noisy，即使做了更多的updates也会导致poor convergence
+</pre></div>
+</div>
+<p>但是，Are you restricted to work with small size mini-batches for large models and/or GPUs with limited memory？</p>
+<ul class="simple">
+<li><p>No, you can simulate large batch size by <strong>delaying gradient/weight updates</strong> to happen every <span class="math notranslate nohighlight">\(n\)</span> iterations (instead of <span class="math notranslate nohighlight">\(n=1\)</span> ) ; supported by frameworks</p></li>
+</ul>
+<div class="section" id="effective-mini-batch">
+<h3>Effective Mini-batch方法<a class="headerlink" href="#effective-mini-batch" title="Permalink to this headline">¶</a></h3>
+<p>核心：Calculate and accumulate gradients over <strong>multiple mini-batches</strong></p>
+<center><img src="../../images/DL_hyperparameters_5.png" width="65%"/></center>
+<ul class="simple">
+<li><p>左边：每过一个mini batch就做update</p></li>
+<li><p>右边：Simulate large batch——Perform optimizer step (update model parameters) only after specified number of mini-batches</p></li>
+</ul>
+<p>参数名</p>
+<ul class="simple">
+<li><p>Caffe: <code class="docutils literal notranslate"><span class="pre">iter_size</span></code>;</p></li>
+<li><p>Pytorch: <code class="docutils literal notranslate"><span class="pre">batch_multiplier</span></code></p></li>
+</ul>
+<p>需要注意：scale up the learning rate when working with large mini-batch size！因为我们现在对gradient更加confident了，大的lr可以让我们converge <strong>faster</strong> to a consisten direction</p>
+</div>
+<div class="section" id="what-batch-size-to-choose">
+<h3>What Batch size to choose ?<a class="headerlink" href="#what-batch-size-to-choose" title="Permalink to this headline">¶</a></h3>
+<p>Hardware constraints (GPU memory) dictate the largest batch size. Should we try to work with the largest possible batch size ?</p>
+<ul class="simple">
+<li><p>正向因素</p>
 <ul>
-<li><p>Batch size is restricted by the GPU memory (12GB for K40, 16GB for P100 and V100) and the model size</p>
+<li><p>Large batch size gives more confidence in gradient estimation</p></li>
+<li><p>Large batch size allows you to work with higher learning rates, faster convergence</p></li>
+</ul>
+</li>
+<li><p>副作用</p>
 <ul>
-<li><p>Model and batch of data needs to remain in GPU memory for one iteration</p></li>
+<li><p>Large batch size leads to poor <strong>generalization</strong> (Keskar et al 2016)
+<img src="../../images/DL_hyperparameters_4.png" width="65%"/></p>
+<ul>
+<li><p>大batch会lands on <strong>sharp minima</strong> wheareas <br>
+Small batch SGD find flat minimas which generalize better</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>ResNet152 we need to stay below 10</p></li>
-<li><p>Are you restricted to work with small size mini-batches for large models and/or GPUs with limited memory</p></li>
-<li><p>No, you can simulate large batch size by delaying gradient/weight updates to happen every <span class="math notranslate nohighlight">\(n\)</span> iterations (instead of <span class="math notranslate nohighlight">\(n=1\)</span> ) ; supported by frameworks</p></li>
 </ul>
+</div>
+<div class="section" id="learning-rate-and-batch-size-relationship">
+<h3>Learning rate and Batch size relationship<a class="headerlink" href="#learning-rate-and-batch-size-relationship" title="Permalink to this headline">¶</a></h3>
+<p>“Noise scale” in stochastic gradient descent (Smith et al 2017)</p>
+<p>\begin{aligned}
+&amp;g=\epsilon\left(\frac{N}{B}-1\right) \
+&amp;g \approx \frac{\epsilon N}{B} \quad as B \ll N
+\end{aligned}</p>
+<blockquote>
+<div><p>training dataset size｜B: batch size｜<span class="math notranslate nohighlight">\(\epsilon\)</span>: learning rate</p>
+</div></blockquote>
+<ul>
+<li><p>g: an optimum noise scale g that maximizes the test set accuracy (at constant learning rate)</p>
+<ul>
+<li><p>when B ≪ N的时候，学习率和Batch size是成正比的！增大batch size再减小learning rate可能效果互相抵消</p></li>
+<li><p>Increasing batch size will have the same effect as <strong>decreasing learning rate</strong></p>
+<ul class="simple">
+<li><p>Achieves near-identical model performance on the test set with the same number of training epochs but significantly fewer parameter updates</p></li>
+</ul>
+  <center><img src="../../images/DL_hyperparameters_7.png" width="65%"/></center>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  - 红色线和蓝色线一个表示降learning rate，一个表示提高batch size，两个方法在train和test的表现都差不多
+  - 这说明存在某个optimal scale，让effect of 这两个操作得到类似的效果
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>按照这个思路：固定BS后cyclic learning rate policy with max bound decay <span class="math notranslate nohighlight">\(\iff\)</span> 固定lr后cyclic batch size policy with base batch size increase to match the max batch size</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 </div>
 
@@ -556,10 +683,10 @@
             <p class="prev-next-title">基础</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../NLP/README.html" title="next page">
+    <a class='right-next' id="next-link" href="%E4%BC%98%E5%8C%96%E5%99%A8.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">NLP</p>
+        <p class="prev-next-title">优化器</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -57,7 +57,7 @@
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="优化器" href="%E4%BC%98%E5%8C%96%E5%99%A8.html" />
+    <link rel="next" title="优化器" href="Optimizer.html" />
     <link rel="prev" title="基础" href="README.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
@@ -124,12 +124,12 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="%E4%BC%98%E5%8C%96%E5%99%A8.html">
+    <a class="reference internal" href="Optimizer.html">
      优化器
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="GPU%E8%AE%AD%E7%BB%83.html">
+    <a class="reference internal" href="Trained_by_GPU.html">
      GPU训练
     </a>
    </li>
@@ -222,7 +222,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/深度学习/基础/DL常见超参及调整策略.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/Deep_Learning/Basics/DL_hyperparameter.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -242,10 +242,10 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2F深度学习/基础/DL常见超参及调整策略.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FDeep_Learning/Basics/DL_hyperparameter.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/深度学习/基础/DL常见超参及调整策略.ipynb"><button
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Deep_Learning/Basics/DL_hyperparameter.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -265,7 +265,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/Jace-Yang/Full-Stack_Data-Analyst/master?urlpath=tree/深度学习/基础/DL常见超参及调整策略.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/Jace-Yang/Full-Stack_Data-Analyst/master?urlpath=tree/Deep_Learning/Basics/DL_hyperparameter.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../_static/images/logo_binder.svg"
@@ -488,18 +488,15 @@
 <img alt="img" src="https://pic1.zhimg.com/80/v2-a1c38e6c8e26ad3e953d1ebb67d7243c_1440w.jpg" /></p></li>
 </ul>
 </li>
-<li><p>例2：Alexnet中的learningrate</p></li>
-</ul>
-   <center><img src="../../images/DL_hyperparameters_3.png" width="70%"/></center>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  &gt;[Link](https://blog.csdn.net/guzhao9901/article/details/116484887)：在每10、15、25、30的时候把原先的学习率乘个0.1
-  &gt;```python
-  model = ANet(classes=5)     #加载模型
-  optimizer = optim.SGD(params = model.parameters(), lr=0.05)   #优化方法使用SGD
-  #在指定的epoch值，如[10,15，25，30]处对学习率进行衰减，lr = lr * gamma
-  scheduler = lr_scheduler.MultiStepLR(optimizer, milestones=[10,15,25,30], gamma=0.1)
-  ```
+<li><p>例2：Alexnet中的learningrate<br><center><img src="../../images/DL_hyperparameters_3.png" width="70%"/></center><br><a class="reference external" href="https://blog.csdn.net/guzhao9901/article/details/116484887">Link</a>：在每10、15、25、30的时候把原先的学习率乘个0.1</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">ANet</span><span class="p">(</span><span class="n">classes</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>     <span class="c1">#加载模型</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">params</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>   <span class="c1">#优化方法使用SGD</span>
+<span class="c1">#在指定的epoch值，如[10,15，25，30]处对学习率进行衰减，lr = lr * gamma</span>
+<span class="n">scheduler</span> <span class="o">=</span> <span class="n">lr_scheduler</span><span class="o">.</span><span class="n">MultiStepLR</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">milestones</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">30</span><span class="p">],</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 </div>
+</li>
+</ul>
 </li>
 </ul>
 <ul>
@@ -570,11 +567,9 @@ Penalize dimension with large fluctuations in gradient - 坏的gradient更新fea
 </ul>
 <blockquote>
 <div><p>Model and batch of data needs to remain in GPU memory for one iteration <br>
-ResNet152 we need to stay below 10</p>
+ResNet152 we need to stay below 10
+- 后果：calculate gradient using a small number of samples⇒ gradient estimates will be much noisy，即使做了更多的updates也会导致poor convergence</p>
 </div></blockquote>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- 后果：calculate gradient using a small number of samples⇒ gradient estimates will be much noisy，即使做了更多的updates也会导致poor convergence
-</pre></div>
-</div>
 <p>但是，Are you restricted to work with small size mini-batches for large models and/or GPUs with limited memory？</p>
 <ul class="simple">
 <li><p>No, you can simulate large batch size by <strong>delaying gradient/weight updates</strong> to happen every <span class="math notranslate nohighlight">\(n\)</span> iterations (instead of <span class="math notranslate nohighlight">\(n=1\)</span> ) ; supported by frameworks</p></li>
@@ -620,27 +615,25 @@ Small batch SGD find flat minimas which generalize better</p></li>
 <div class="section" id="learning-rate-and-batch-size-relationship">
 <h3>Learning rate and Batch size relationship<a class="headerlink" href="#learning-rate-and-batch-size-relationship" title="Permalink to this headline">¶</a></h3>
 <p>“Noise scale” in stochastic gradient descent (Smith et al 2017)</p>
-<p>\begin{aligned}
-&amp;g=\epsilon\left(\frac{N}{B}-1\right) \
-&amp;g \approx \frac{\epsilon N}{B} \quad as B \ll N
-\end{aligned}</p>
+<div class="math notranslate nohighlight">
+\[g=\epsilon\left(\frac{N}{B}-1\right)\]</div>
+<div class="math notranslate nohighlight">
+\[g \approx \frac{\epsilon N}{B} \quad \text{as } B \ll N\]</div>
 <blockquote>
 <div><p>training dataset size｜B: batch size｜<span class="math notranslate nohighlight">\(\epsilon\)</span>: learning rate</p>
 </div></blockquote>
-<ul>
+<ul class="simple">
 <li><p>g: an optimum noise scale g that maximizes the test set accuracy (at constant learning rate)</p>
 <ul>
 <li><p>when B ≪ N的时候，学习率和Batch size是成正比的！增大batch size再减小learning rate可能效果互相抵消</p></li>
 <li><p>Increasing batch size will have the same effect as <strong>decreasing learning rate</strong></p>
-<ul class="simple">
-<li><p>Achieves near-identical model performance on the test set with the same number of training epochs but significantly fewer parameter updates</p></li>
+<ul>
+<li><p>Achieves near-identical model performance on the test set with the same number of training epochs but significantly fewer parameter updates<center><img src="../../images/DL_hyperparameters_7.png" width="90%"/></center></p>
+<ul>
+<li><p>红色线和蓝色线一个表示降learning rate，一个表示提高batch size，两个方法在train和test的表现都差不多</p></li>
+<li><p>这说明存在某个optimal scale，让effect of 这两个操作得到类似的效果</p></li>
 </ul>
-  <center><img src="../../images/DL_hyperparameters_7.png" width="65%"/></center>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  - 红色线和蓝色线一个表示降learning rate，一个表示提高batch size，两个方法在train和test的表现都差不多
-  - 这说明存在某个optimal scale，让effect of 这两个操作得到类似的效果
-</pre></div>
-</div>
-<ul class="simple">
+</li>
 <li><p>按照这个思路：固定BS后cyclic learning rate policy with max bound decay <span class="math notranslate nohighlight">\(\iff\)</span> 固定lr后cyclic batch size policy with base batch size increase to match the max batch size</p></li>
 </ul>
 </li>
@@ -664,7 +657,7 @@ Small batch SGD find flat minimas which generalize better</p></li>
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./深度学习/基础"
+            path: "./Deep_Learning/Basics"
         },
         predefinedOutput: true
     }
@@ -683,7 +676,7 @@ Small batch SGD find flat minimas which generalize better</p></li>
             <p class="prev-next-title">基础</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="%E4%BC%98%E5%8C%96%E5%99%A8.html" title="next page">
+    <a class='right-next' id="next-link" href="Optimizer.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">优化器</p>

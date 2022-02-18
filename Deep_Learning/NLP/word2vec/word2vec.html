@@ -1,0 +1,689 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Word2vec &#8212; Towards a Full-stack DA</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Transformer" href="../Transformer/Transformer.html" />
+    <link rel="prev" title="NLP" href="../README.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/logo2.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Towards a Full-stack DA</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../intro.html">
+   欢迎来到Jace的六边形DA笔记库
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  深度学习
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../Basics/README.html">
+   基础
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Basics/DL_hyperparameter.html">
+     DL常见超参及调整策略
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Basics/Optimizer.html">
+     优化器
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Basics/Trained_by_GPU.html">
+     GPU训练
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../README.html">
+   NLP
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Word2vec
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Transformer/Transformer.html">
+     Transformer
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  模板Part
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../notebooks.html">
+   Content with notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference external" href="https://www.linkedin.com/in/jinhang-yang/">
+     LinkedIn
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/Deep_Learning/NLP/word2vec/word2vec.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FDeep_Learning/NLP/word2vec/word2vec.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Deep_Learning/NLP/word2vec/word2vec.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/Jace-Yang/Full-Stack_Data-Analyst/master?urlpath=tree/Deep_Learning/NLP/word2vec/word2vec.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   1. 如何表示词语的含义？
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wordnet">
+     1.1 WordNet
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bag-of-words-2012">
+     1.2 离散式语义(bag of words, 2012年以前)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#distributed-representation-representing-words-by-their-context">
+     1.3 分布式语义(distributed representation, representing words by their context)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   2. Word2vec
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     2.1 概述
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     2.2 word2vec的目标函数
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       2.2.1 目标函数的表示
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       2.2.2 如何计算目标函数
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       2.2.3 梯度下降 训练模型
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#skip-gram-negative-sampling">
+       2.2.4 Skip-gram 模型的优化 – negative sampling
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#cbow-continuous-bag-of-words">
+       2.2.5 CBOW (Continuous Bag of Words)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#trick">
+       2.2.6 Trick
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lsa">
+     3. 潜在语义分析 LSA
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   4. 词向量的评估
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Word2vec</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   1. 如何表示词语的含义？
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wordnet">
+     1.1 WordNet
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bag-of-words-2012">
+     1.2 离散式语义(bag of words, 2012年以前)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#distributed-representation-representing-words-by-their-context">
+     1.3 分布式语义(distributed representation, representing words by their context)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   2. Word2vec
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     2.1 概述
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     2.2 word2vec的目标函数
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       2.2.1 目标函数的表示
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       2.2.2 如何计算目标函数
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       2.2.3 梯度下降 训练模型
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#skip-gram-negative-sampling">
+       2.2.4 Skip-gram 模型的优化 – negative sampling
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#cbow-continuous-bag-of-words">
+       2.2.5 CBOW (Continuous Bag of Words)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#trick">
+       2.2.6 Trick
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lsa">
+     3. 潜在语义分析 LSA
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   4. 词向量的评估
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="section" id="word2vec">
+<h1>Word2vec<a class="headerlink" href="#word2vec" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>1. 如何表示词语的含义？<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="wordnet">
+<h3>1.1 WordNet<a class="headerlink" href="#wordnet" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://wordnet.princeton.edu/">WordNet</a>是一个依靠专家的知识建立的大型英语词汇数据库(lexical database), 其中包含了同义词(synonym)和IS-A关系词(hypernym)。但是，WordNet的缺点是显而易见的。</p>
+<ul class="simple">
+<li><p>不能把握词语细微的差别。如”proficient”和”good”在WordNet中是同义词，但是它们在不同语境下意思未必完全一样。</p></li>
+<li><p>不能与时俱进，一些新词语的含义根本就没有。比如”wizard”,“ninja”,“ipad”</p></li>
+<li><p>需要大量的专家人力来完成，而且主观性很强</p></li>
+<li><p>不能够比较词语的相似性，这是非常致命的一点</p></li>
+</ul>
+</div>
+<div class="section" id="bag-of-words-2012">
+<h3>1.2 离散式语义(bag of words, 2012年以前)<a class="headerlink" href="#bag-of-words-2012" title="Permalink to this headline">¶</a></h3>
+<p>在传统NLP中，每个词被看作一个离散的symbol，这就是 localist representation。每个词都可以被表示成一个one-hot向量，如：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>                                                           $motel=[0,0,0,0,0,0,0,1,0,0,0,0] \\ hotel=[0,0,1,0,0,0,0,0,0,0,0,0]  $
+</pre></div>
+</div>
+<p>向量的维度就是词汇表vocab的大小，比如500000维。</p>
+<p>离散式语义的缺点：</p>
+<ul class="simple">
+<li><p>语料稍微大一点，词语对应的矩阵就会非常大且稀疏。</p></li>
+<li><p>不能衡量两个词语之间的相似度。从”motel”和”hotel”的例子中可以看出，每两个词语的表示都是正交的，也就是similarity=0. 这显然是很糟糕的。比如，我们在搜索”Seattle motel”的时候，也希望能显示”Seattle hotel”的结果。</p></li>
+</ul>
+</div>
+<div class="section" id="distributed-representation-representing-words-by-their-context">
+<h3>1.3 分布式语义(distributed representation, representing words by their context)<a class="headerlink" href="#distributed-representation-representing-words-by-their-context" title="Permalink to this headline">¶</a></h3>
+<p>一个词语的含义是由它周围的词来决定的(a word’s meaning is given by the words that frequently appear close-by)。</p>
+<p>分布式的意思意味着，一个dense vector的每一位可以表示多个特征、一个特征也可以由很多位来表示。</p>
+<p><img alt="img" src="https://pic3.zhimg.com/v2-5444c36c15470a33c9f112614f241c5e_b.png" /></p>
+<p>我们将每个词语都表示成一个dense vector，使得周围词(context word)相近的两个词的dense vector也相似。这样就可以衡量词语的相似性了。</p>
+<p>一个好的word representation 能够把握住词语的syntactic(句法，如主谓宾)与semantic(词语的语义含义)信息，例如，一个优秀的词语表示可以做到：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>                                 $$WR(“China”) - WR(“Beijing”) + WR(“Tokyo”) = WR(“Japan”)\\ WR(“King”) - WR(“Queen”) + WR(“Woman”) = WR(“Man”) $$
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>2. Word2vec<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>2.1 概述<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Word2vec (<a class="reference external" href="https://arxiv.org/pdf/1301.3781.pdf">Mikolov et al. 2013</a>)是学习词向量的一种方法。</p>
+<p>思想：</p>
+<ul class="simple">
+<li><p>我们有一个非常大的语料，需要把这个语料中的每个词表示成词向量</p></li>
+<li><p>遍历语料的每个位置 <span class="math notranslate nohighlight">\(t\)</span>，都有一个中心词 <span class="math notranslate nohighlight">\(c\)</span>  (center word) 和 上下文词 <span class="math notranslate nohighlight">\(o\)</span> (context word)。算法刚开始的时候，每个词的词向量都随机初始化。</p></li>
+<li><p>计算给定上下文词 <span class="math notranslate nohighlight">\(o\)</span> 的条件下中心词为 <span class="math notranslate nohighlight">\(c\)</span> 的概率，即  <span class="math notranslate nohighlight">\(p(c|o)\)</span> , 这就是 CBOW(continuous bag of words)的思想；或者相反，计算给定中心词 <span class="math notranslate nohighlight">\(c\)</span>  的条件下周围词为 <span class="math notranslate nohighlight">\(o\)</span> 的概率，这就是skip-gram的思想。</p></li>
+<li><p>一直调整每个词的词向量，使得上面说的这个概率最大。</p></li>
+</ul>
+<p><img alt="img" src="https://pic2.zhimg.com/v2-e88f8d529acf05a47dee3001915cac79_b.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>                                                                              skip-gram示意图
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>2.2 word2vec的目标函数<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h4>2.2.1 目标函数的表示<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>对于语料库中的每一个位置  <img alt="t= 1,2,...T" src="https://www.zhihu.com/equation?tex=t%3D%201%2C2%2C...T" />，都计算一下给定中心词 <img alt="w_t" src="https://www.zhihu.com/equation?tex=w_t" />的条件下，窗口大小为 <img alt="m" src="https://www.zhihu.com/equation?tex=m" /> 的上下文词出现的概率。这个概率(也叫似然度)就是：</p>
+<p><img alt="img" src="https://pic3.zhimg.com/v2-e0dcdec5aa4f889ddfe6a75435249e5e_b.jpeg" /></p>
+<p>损失函数就是：</p>
+<p><img alt="img" src="https://pic3.zhimg.com/v2-b0fc22afac66a9db6c40db88562f6e0a_b.jpeg" /></p>
+<p>最小化损失函数就相当于最大化概率。</p>
+</div>
+<div class="section" id="id6">
+<h4>2.2.2 如何计算目标函数<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>上文已经推导过了，损失函数为</p>
+<p><img alt="img" src="https://pic4.zhimg.com/v2-261efc7a514542617279fdc22075ae73_b.png" /></p>
+<p>那么如何计算 <img alt="log P(w_{t+j}|w_t;\theta)" src="https://www.zhihu.com/equation?tex=log%20P(w_%7Bt%2Bj%7D%7Cw_t%3B%5Ctheta)" /> 呢？</p>
+<p>解决办法是，我们为每个词语 <img alt="w" src="https://www.zhihu.com/equation?tex=w" /> 都训练两个向量：</p>
+<ul class="simple">
+<li><p><img alt="v_w" src="https://www.zhihu.com/equation?tex=v_w" /> 是当 <img alt="w" src="https://www.zhihu.com/equation?tex=w" /> 为中心词时，<img alt="w" src="https://www.zhihu.com/equation?tex=w" /> 的表示向量</p></li>
+<li><p><img alt="u_w" src="https://www.zhihu.com/equation?tex=u_w" /> 是当 <img alt="w" src="https://www.zhihu.com/equation?tex=w" /> 为上下文词时，<img alt="w" src="https://www.zhihu.com/equation?tex=w" /> 的表示向量</p></li>
+</ul>
+<p>最后的词向量结果可以是 <img alt="v_w" src="https://www.zhihu.com/equation?tex=v_w" /> 和 <img alt="u_w" src="https://www.zhihu.com/equation?tex=u_w" />的平均。</p>
+<p><img alt="img" src="https://pic4.zhimg.com/v2-716b8bec886223f4d232138054cd9c5f_b.jpeg" /></p>
+<p>这个概率 <img alt="P(o|c)" src="https://www.zhihu.com/equation?tex=P(o%7Cc)" /> 的计算方法是一个典型的**【softmax】**方法:</p>
+<ul class="simple">
+<li><p>“soft”: 对于那些不是最大值的值，softmax也给了它们一定的小值，而不是像hardmax那样采用one-hot编码，让非最大值的值都为0.</p></li>
+<li><p>“max”: 表示它使最大的值更加放大(exp函数特点)</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h4>2.2.3 梯度下降 训练模型<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<p>为了训练模型，需要每一步调整参数使得loss最小化。这里说的参数，实际上就是所有个词语的词向量表示：</p>
+<p><img alt="img" src="https://pic1.zhimg.com/v2-0439d7c6b9ca8a69fb566720465e83e8_b.jpeg" /></p>
+<p>参数的维度是 <img alt="2dV" src="https://www.zhihu.com/equation?tex=2dV" /> , 是因为每个词语都有两个表示(作为中心词时的 <img alt="v_{word}" src="https://www.zhihu.com/equation?tex=v_%7Bword%7D" />、作为周围词时的 <img alt="u_{word}" src="https://www.zhihu.com/equation?tex=u_%7Bword%7D" />，每个表示的维度为d。总共有V个词语，所以，总共需要有2dV个参数。</p>
+<p>使用随机梯度下降法(SGD)来更新参数，损失函数 <img alt=" J(\theta)" src="https://www.zhihu.com/equation?tex=%20J(%5Ctheta)" />  关于参数 <img alt=" \theta" src="https://www.zhihu.com/equation?tex=%20%5Ctheta" />  的梯度为：</p>
+<p><img alt="img" src="https://pic1.zhimg.com/v2-3649b734a5073aa7d861f8d1087fe294_b.jpeg" /></p>
+<p>这是因为如果采用随机梯度下降法(小批量梯度下降法也会遇到这个问题)，每次只考虑一个位置 t，这样只会更新2m+1个词语的词向量(m为窗口大小)。这样，梯度是一个非常稀疏的向量！</p>
+<p>解决这个问题的方法是：由于每次只会更新我们这轮迭代见到的2m+1个词语的词向量，其他词语的词向量根本不会发生变化，所以可以维护一个词语-&gt;词向量的哈希，这样每次只改变那2m+1个词语的词向量就可以了。尤其是当我们有非常多的词语的时候，绝对不能每次都传一个巨大的、稀疏的梯度向量！</p>
+</div>
+<div class="section" id="skip-gram-negative-sampling">
+<h4>2.2.4 Skip-gram 模型的优化 – negative sampling<a class="headerlink" href="#skip-gram-negative-sampling" title="Permalink to this headline">¶</a></h4>
+<p>skip-gram模型就是我们一直在讲的方法，即在给定中心词 c 的条件下，求上下文词 o 出现的概率，并不断调整模型参数使得这个概率最大化的一种方法。</p>
+<p>之前我们用朴素的softmax来衡量每个上下文词 o 出现的概率，分母是vocab中所有词语的概率总和。这显然需要太长的时间来计算，因为词汇表中的词语实在是太多了！所以，实际上我们使用negative sampling的方法。</p>
+<p><img alt="img" src="https://pic2.zhimg.com/v2-3174cef65ea9b90f32e6984c88fc61f5_b.jpeg" /></p>
+<p><img alt="img" src="https://pic1.zhimg.com/v2-3211110f259d9f1116a40e87e439a7b4_b.jpeg" /></p>
+<p>使用negative sampling的方法，每次只需采样k个负样本，并不需要计算所有词汇表，大大节省了计算时间。</p>
+</div>
+<div class="section" id="cbow-continuous-bag-of-words">
+<h4>2.2.5 CBOW (Continuous Bag of Words)<a class="headerlink" href="#cbow-continuous-bag-of-words" title="Permalink to this headline">¶</a></h4>
+<p>已知窗口中的一些上下文词，计算中心词为 <img alt="c" src="https://www.zhihu.com/equation?tex=c" /> 的概率，并最大化之。根据bag of words假设，周围词出现的顺序不会影响它们预测中心词的结果。</p>
+<p><img alt="img" src="https://pic4.zhimg.com/v2-face3d137347a8c9f5fbca87f3f50983_b.png" /></p>
+<p><img alt="img" src="https://pic1.zhimg.com/v2-82688699fffad2372ee45f3456ae713c_b.png" /></p>
+<p>对于CBOW，输入层是上下文词的词向量，投影层对其求和（简单的向量加法），输出层输出最可能的中心词w。由于语料库中词汇量是固定的|V|个，所以上述过程其实可以看做一个多分类问题。</p>
+<p>对于神经网络模型多分类，最朴素的做法是softmax回归，但是softmax回归需要对语料库中每个词语都计算一遍输出概率并进行归一化，在几十万词汇量的语料上无疑是令人头疼的。所以可以使用hierarchical softmax的方法，将复杂度由 <img alt="O(V)" src="https://www.zhihu.com/equation?tex=O(V)" /> 降为 <img alt="O(logV)" src="https://www.zhihu.com/equation?tex=O(logV)" /></p>
+<p>该模型用二叉树来表示词汇表中的所有单词。V个单词必须存储于二叉树的叶子节点，一共有V-1个内部节点。对于每个叶子节点，有一条唯一的路径可以从根节点到达该叶子节点；该路径被用来计算该叶子结点所代表的单词的概率。</p>
+<p><img alt="img" src="https://pic1.zhimg.com/v2-8ea867c99e7c6e6c1f3d50423b4e94a0_b.png" /></p>
+<p>用于分层softmax的二叉树示例。白色节点表示词汇表中的所有单词，黑色节点表示内部节点。</p>
+<p>记内部节点 <img alt="n(w,j)" src="https://www.zhihu.com/equation?tex=n(w%2Cj)" /> 为从根节点到单词 <img alt="w" src="https://www.zhihu.com/equation?tex=w" /> 的路径的第 <img alt="j" src="https://www.zhihu.com/equation?tex=j" /> 个节点，它对应一个向量<img alt="v_{n(w,j)}^{'}" src="https://www.zhihu.com/equation?tex=v_%7Bn(w%2Cj)%7D%5E%7B%27%7D" />。那么，一个单词作为输出词的概率被定义为：</p>
+<p><img alt="img" src="https://pic1.zhimg.com/v2-79fce4cbcbf3a2b0153629e2cd2b0588_b.jpeg" /></p>
+<p><img alt="ch(n)" src="https://www.zhihu.com/equation?tex=ch(n)" />是节点<img alt="n" src="https://www.zhihu.com/equation?tex=n" />的左侧子节点；<img alt="v_{n(w,j)}^{'}" src="https://www.zhihu.com/equation?tex=v_%7Bn(w%2Cj)%7D%5E%7B%27%7D" />是隐节点<img alt="n(w,j)" src="https://www.zhihu.com/equation?tex=n(w%2Cj)" />的向量表示；<img alt="h" src="https://www.zhihu.com/equation?tex=h" />是softmax之前最后一层隐藏层的输出值（即窗口内词语embedding的avg pooling，h=<img alt="1/C\sum_{c=1}^{C}{v_{w_{c}}}" src="https://www.zhihu.com/equation?tex=1%2FC%5Csum_%7Bc%3D1%7D%5E%7BC%7D%7Bv_%7Bw_%7Bc%7D%7D%7D" />。<span class="math notranslate nohighlight">\([[x]]\)</span> 是一个特殊的函数，定义如下：</p>
+<p><img alt="img" src="https://pic1.zhimg.com/v2-f4b6a6effe6b41e9385975d93f4c5390_b.jpg" /></p>
+<p>让我们通过一个例子来直观上理解一下这个公式。我们定义在当前内部节点 <img alt="n" src="https://www.zhihu.com/equation?tex=n" /> 往左走的概率为：</p>
+<p><img alt="img" src="https://pic4.zhimg.com/v2-309ec9bc8a5fa39cb3b27047bb05be5f_b.jpg" /></p>
+<p>它是由内部节点向量和隐藏层输出值共同决定。容易得到，从内部节点 <img alt="n" src="https://www.zhihu.com/equation?tex=n" /> 往右走的概率为：</p>
+<p><img alt="img" src="https://pic1.zhimg.com/v2-40c5f62fead84436efdedd67dcd8f634_b.jpg" /></p>
+<p>在上图中，我们可以计算<img alt="w_{2}" src="https://www.zhihu.com/equation?tex=w_%7B2%7D" />是输出单词的概率为：</p>
+<p><img alt="img" src="https://pic4.zhimg.com/v2-9828684dbbf2ea1b7a4638b726260b3f_b.png" /></p>
+</div>
+<div class="section" id="trick">
+<h4>2.2.6 Trick<a class="headerlink" href="#trick" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>因为罕见词会表示更多、更独特的信息，所以应该更加关注罕见词、不要过度关注常见词。因此，可以对词语进行欠采样，以<img alt="1-\sqrt{t/f(w)}" src="https://www.zhihu.com/equation?tex=1-%5Csqrt%7Bt%2Ff(w)%7D" /> 的概率丢弃词语 <img alt="w" src="https://www.zhihu.com/equation?tex=w" /> , 其中 <img alt="f(w)" src="https://www.zhihu.com/equation?tex=f(w)" /> 就是词语词频，t是一个可调阈值。</p></li>
+<li><p>Soft sliding window: 在一个窗口中，离target word较远的那些周围词应该具有较低的权重</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="lsa">
+<h3>3. 潜在语义分析 LSA<a class="headerlink" href="#lsa" title="Permalink to this headline">¶</a></h3>
+<p>在2013年之前，人们用LSA（Latent Semantic Analysis, 潜在语义分析）来把握词语的共现关系，以此来得到词向量。例如，一个词语共现矩阵是这样的：</p>
+<p><img alt="img" src="https://pic2.zhimg.com/v2-36484009c72c441173685a4b9d7e2bc1_b.jpeg" /></p>
+<p>使用SVD分解将其降维，就得到了词语的稠密表示。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>4. 词向量的评估<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>有两种方法来衡量word embedding方法的好坏：</p>
+<ul class="simple">
+<li><p>intrinsic evaluation：直接看embedding值相似的两个词，究竟是否相近？或者，类似“man之于king相当于woman之于？”这样的analogy问题，看word embedding能否很好的回答。当然这需要和人工标记的结果做对比。</p></li>
+<li><p>extrinsic evaluation：看word embedding下游任务完成的好坏。</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Deep_Learning/NLP/word2vec"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../README.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">NLP</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../Transformer/Transformer.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Transformer</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jace Yang<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

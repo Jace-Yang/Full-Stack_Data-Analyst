@@ -1,0 +1,655 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transformer &#8212; Towards a Full-stack DA</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Content with notebooks" href="../../../notebooks.html" />
+    <link rel="prev" title="Word2vec" href="../word2vec/word2vec.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/logo2.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Towards a Full-stack DA</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../intro.html">
+   欢迎来到Jace的六边形DA笔记库
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  深度学习
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../Basics/README.html">
+   基础
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Basics/DL_hyperparameter.html">
+     DL常见超参及调整策略
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Basics/Optimizer.html">
+     优化器
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Basics/Trained_by_GPU.html">
+     GPU训练
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../README.html">
+   NLP
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../word2vec/word2vec.html">
+     Word2vec
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Transformer
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  模板Part
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../notebooks.html">
+   Content with notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference external" href="https://www.linkedin.com/in/jinhang-yang/">
+     LinkedIn
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/Deep_Learning/NLP/Transformer/Transformer.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FDeep_Learning/NLP/Transformer/Transformer.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Deep_Learning/NLP/Transformer/Transformer.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/Jace-Yang/Full-Stack_Data-Analyst/master?urlpath=tree/Deep_Learning/NLP/Transformer/Transformer.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   引言
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#attention-is-all-you-need-step-by-step-walkthrough">
+   Attention Is All You Need — Step by Step Walkthrough
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introduction">
+     1. Introduction
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#backgound">
+     2. Backgound
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-architecture">
+     3. Model Architecture
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#encoder">
+     2.2 Encoder层详细说明
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#self-attention">
+     2.2.2 Self-attention层
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multi-headed-attention">
+     2.2.3 Multi-Headed Attention
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-residuals-and-layer-normalization">
+     2.2.4 The Residuals and Layer normalization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     2.2.5 小结
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#decoder">
+     2.3 Decoder层
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#q-a">
+   3. Q/A
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Transformer</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   引言
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#attention-is-all-you-need-step-by-step-walkthrough">
+   Attention Is All You Need — Step by Step Walkthrough
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introduction">
+     1. Introduction
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#backgound">
+     2. Backgound
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-architecture">
+     3. Model Architecture
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#encoder">
+     2.2 Encoder层详细说明
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#self-attention">
+     2.2.2 Self-attention层
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multi-headed-attention">
+     2.2.3 Multi-Headed Attention
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-residuals-and-layer-normalization">
+     2.2.4 The Residuals and Layer normalization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     2.2.5 小结
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#decoder">
+     2.3 Decoder层
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#q-a">
+   3. Q/A
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="transformer">
+<h1>Transformer<a class="headerlink" href="#transformer" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>引言<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>RNN (LSTM)的问题：precludes parallelization within training examples</p></li>
+</ul>
+<p>由于其顺序结构训练速度常常受到限制，而且由于梯度下降，它难以看到较远处的信息。既然Attention模型本身可以看到全局的信息， 那么一个自然的疑问是我们能不能去掉RNN结构，仅仅依赖于Attention模型，这样我们可以使训练并行化，同时拥有全局信息？</p>
+<p>你可能听说过不同的著名Transformer模型，如 BERT、GPT。在这篇文章中，我们将精读谷歌的这篇 <a class="reference external" href="https://arxiv.org/abs/1706.03762">Attention is All you need</a> 论文来回顾一下仅依赖于Self-Attention机制的Transformer架构。</p>
+<p>在开始之前，先让我们看一个好玩的例子。Transformer可以根据你写的一句开头，写出一段科幻小说！链接：<a class="reference external" href="https://huggingface.co/">Hugging Face – The AI community building the future.</a></p>
+<p><img alt="img" src="https://pic1.zhimg.com/v2-cca06e7f09b5cd0826e9ecfdb44026f0_b.png" /></p>
+<blockquote>
+<div><p>Our input: “As Aliens entered our planet”. Transformer output: “and began to colonized Earth, a certain group of extraterrestrials began to manipulate our society through their influences of a certain number of the elite to keep and iron grip over the populace.”</p>
+</div></blockquote>
+<p>这真是一个黑暗的故事…但有趣的是研究模型是如何生成这个黑暗故事的。当模型逐字生成文本时，它可以“关注”与生成的单词相关的单词(attention)。知道要关注哪些单词的能力也是在训练过程中通过反向传播学到的。</p>
+<p><img alt="img" src="https://pic2.zhimg.com/v2-f563efd10288e80bd85cdc2d61bf7ca1_b.gif" /></p>
+<p>Transformer的优势在于，它可以不受梯度消失的影响，能够保留<strong>任意长</strong>的长期记忆。而RNN的记忆窗口很短；LSTM和GRU虽然解决了一部分梯度消失的问题，但是它们的记忆窗口也是有限的。</p>
+<blockquote>
+<div><p>Recurrent neural networks (RNN) are also capable of looking at previous inputs too. But the power of the attention mechanism is that it doesn’t suffer from short term memory. RNNs have a shorter window to reference from, so when the story gets longer, RNNs can’t access words generated earlier in the sequence. This is still true for Gated Recurrent Units (GRU) and Long-short Term Memory (LSTM) networks, although they do a bigger capacity to achieve longer-term memory, therefore, having a longer window to reference from. The attention mechanism, in theory, and given enough compute resources, have an infinite window to reference from, therefore being capable of using the entire context of the story while generating the text.</p>
+</div></blockquote>
+<p><img alt="img" src="https://pic3.zhimg.com/v2-f015999a863d0c41636d19e159d53e4e_b.gif" /></p>
+</div>
+<div class="section" id="attention-is-all-you-need-step-by-step-walkthrough">
+<h2>Attention Is All You Need — Step by Step Walkthrough<a class="headerlink" href="#attention-is-all-you-need-step-by-step-walkthrough" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="introduction">
+<h3>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
+<p>RNN (LSTM)的问题很多：</p>
+<ul class="simple">
+<li><p>precludes parallelization within training examples, which becomes critical at longer sequence lengths, as memory constraints limit batching across examples</p></li>
+</ul>
+<p>怎么改进也没用，所以我们另起炉灶放弃recurrence，而是relying <strong>entirely on an attention mechanism</strong> to draw global dependencies between input and output</p>
+</div>
+<div class="section" id="backgound">
+<h3>2. Backgound<a class="headerlink" href="#backgound" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="model-architecture">
+<h3>3. Model Architecture<a class="headerlink" href="#model-architecture" title="Permalink to this headline">¶</a></h3>
+<p><strong>2.1 总体结构</strong></p>
+<p>Transformer的结构采用 Encoder-Decoder 架构。论文中Encoder层由6个Encoder堆叠在一起，Decoder层也是6层。</p>
+<p><img alt="img" src="https://pic3.zhimg.com/v2-93645bf35687d3065e766127d70c73a6_b.png" /></p>
+<p>先从整体来看：</p>
+<ul class="simple">
+<li><p>Encoder将输入序列做了一个复杂的、高阶的embedding；</p></li>
+<li><p>Decoder使用了Encoder的这个高阶embedding，同时还根据之前Decoder的输出，一步一步地产生输出。</p></li>
+</ul>
+<p>每一个Encoder和Decoder的内部结构如下图：</p>
+<p><img alt="img" src="https://pic2.zhimg.com/v2-f46e76fd5fe341834ea7135ec70ca661_b.png" /></p>
+<p>先来看Encoder。Encoder包含两层：</p>
+<ul class="simple">
+<li><p>多头Self-attention层，帮助当前节点不仅仅只关注当前的词，从而能获取到上下文的语义。</p></li>
+<li><p>前馈神经网络层(feed forward)，提供非线性。</p></li>
+</ul>
+</div>
+<div class="section" id="encoder">
+<h3>2.2 Encoder层详细说明<a class="headerlink" href="#encoder" title="Permalink to this headline">¶</a></h3>
+<p>首先，模型需要对输入的数据进行一个embedding操作，并输入到Self-attention层，处理完数据后把数据送给前馈神经网络，前馈神经网络的计算可以并行，得到的输出会输入到下一个Encoder。大致结构如下：</p>
+<p><img alt="img" src="https://pic1.zhimg.com/v2-4cefc7dcda98b0d26dc04c618cc49dcc_b.png" /></p>
+<p><img alt="x_1,x_2" src="https://www.zhihu.com/equation?tex=x_1%2Cx_2" />就是embedding， <img alt="z_1, z_2" src="https://www.zhihu.com/equation?tex=z_1%2C%20z_2" />是经过self-attention之后的输出，<img alt="r_1, r_2" src="https://www.zhihu.com/equation?tex=r_1%2C%20r_2" /> 是经过feed forward网络之后的输出，它们会被输入到下一层encoder中去。</p>
+<p><strong>2.2.1 Embedding层</strong></p>
+<p>Transformer模型中缺少一种解释输入序列中单词<strong>顺序</strong>的方法。为了处理这个问题，Transformer给Encoder层和Decoder层的输入添加了一个额外的向量Positional Encoding，维度和embedding的维度一样。这个位置向量的具体计算方法有很多种，论文中的计算方法如下：</p>
+<p><img alt="img" src="https://pic2.zhimg.com/v2-16d7c13974136bb6764b1abc19d5dfed_b.png" /></p>
+<p>其中 pos 是指当前词在句子中的位置，i 是指向量中每个值的 index，可以看出，在偶数位置，使用正弦编码，在奇数位置，使用余弦编码。</p>
+<p>所以，最终一个词的embedding，就是它的语义信息embedding+序列信息embedding (positional encoding):</p>
+<p><img alt="img" src="https://pic1.zhimg.com/v2-bc9c1fed86bdf07d8b132b6bdabb77f0_b.png" /></p>
+</div>
+<div class="section" id="self-attention">
+<h3>2.2.2 Self-attention层<a class="headerlink" href="#self-attention" title="Permalink to this headline">¶</a></h3>
+<p>让我们从宏观视角看自注意力机制，精炼一下它的工作原理。</p>
+<p>例如，下列句子是我们想要翻译的输入句子：</p>
+<blockquote>
+<div><p>The animal didn’t cross the street because it was too tired.</p>
+</div></blockquote>
+<p>​    这个“it”在这个句子是指什么呢？它指的是street还是这个animal呢？这对于人类来说是一个简单的问题，但是对于算法则不是。</p>
+<p>​    当模型处理这个单词“it”的时候，自注意力机制会允许“it”与“animal”建立联系。</p>
+<p>​    随着模型处理输入序列的每个单词，自注意力会关注整个输入序列的<strong>所有单词</strong>，帮助模型对本单词更好地进行编码(embedding)。</p>
+<p><img alt="img" src="https://pic3.zhimg.com/v2-db1893bb9039b565ed6c7e9415069a12_b.png" /></p>
+<p>​    如上图所示，当我们在编码器#5（栈中最上层编码器）中编码“it”这个单词的时，注意力机制的部分会去关注“The Animal”，将它的表示的一部分编入“it”的编码中。接下来我们看一下Self-Attention详细的处理过程。</p>
+<p>**step1：**首先，对于输入序列的每个单词，它都有三个向量编码，分别为：<span class="math notranslate nohighlight">\(Query、Key、Value\)</span>。这三个向量是用embedding向量与三个矩阵（ <span class="math notranslate nohighlight">\(W^Q, W^K, W^V\)</span> )相乘得到的结果。这三个矩阵的值在BP的过程中会一直进行更新。</p>
+<p>**step2：**第二步计算Self-Attention的分数值，该分数值决定了当我们在某个位置encode一个词时，对输入句子的其他部分的关注程度。这个分数值的计算方法是用该词语的<span class="math notranslate nohighlight">\(Query\)</span>与句子中其他词语的<span class="math notranslate nohighlight">\(Key\)</span>做点乘。以下图为例，假设我们在为这个例子中的第一个词“Thinking”计算自注意力向量，我们需要拿输入句子中的每个单词对“Thinking”打分。这些分数决定了在编码单词“Thinking”的过程中重视句子其它token的程度。</p>
+<p><img alt="img" src="https://pic2.zhimg.com/v2-0fd261302748ff1e312ccb84f1716191_b.png" /></p>
+<p><strong>step3:</strong> 再对每个分数除以 <span class="math notranslate nohighlight">\(\sqrt{d}\)</span> （d是embedding维度），之后做softmax进行归一化。</p>
+<p><img alt="img" src="https://pic3.zhimg.com/v2-9146baeb7e334246f4fd880bd270158e_b.png" /></p>
+<p>**step4：**把每个<span class="math notranslate nohighlight">\(Value\)</span>向量和softmax得到的权重值进行相乘，进行加权求和，得到的结果即是一个词语的self-attention embedding值。这个embedding值已经是融合了句子中其他token的了。</p>
+<p><img alt="img" src="https://pic1.zhimg.com/v2-958a90545951330591468e064fb0a0b0_b.png" /></p>
+<p>这样，自注意力的计算就完成了。得到的向量就可以传递给前馈神经网络。</p>
+</div>
+<div class="section" id="multi-headed-attention">
+<h3>2.2.3 Multi-Headed Attention<a class="headerlink" href="#multi-headed-attention" title="Permalink to this headline">¶</a></h3>
+<p>​    通过增加一种叫做”多头”注意力（”multi-headed”attention）的机制，论文进一步完善了自注意力层。</p>
+<p>​    接下来我们将看到，对于“多头”注意力机制，我们有多个Query/Key/Value权重矩阵集 <img alt="W^Q,W^K,W^V" src="https://www.zhihu.com/equation?tex=W%5EQ%2CW%5EK%2CW%5EV" /> (Transformer使用八个注意力头)。</p>
+<p><img alt="img" src="https://pic4.zhimg.com/v2-1e328407bef98b2168803ab80a0e133f_b.png" /></p>
+<p>​    现在对于每一个词语，我们有了八个向量 <img alt=" z_0,....,z_7" src="https://www.zhihu.com/equation?tex=%20z_0%2C....%2Cz_7" />，它们分别由八个head产生。但是对于下一个feed-forward层，我们应该把每个词语都用一个向量来表示。所以下一步，我们需要把这八个向量压缩成一个向量。</p>
+<p>​    可以直接把这些矩阵拼接在一起，然后用一个附加的权重矩阵 <img alt="W^O" src="https://www.zhihu.com/equation?tex=W%5EO" />与它们相乘:</p>
+<p><img alt="img" src="https://pic1.zhimg.com/v2-cda2410ace7ffb238770c6a9165de914_b.png" /></p>
+</div>
+<div class="section" id="the-residuals-and-layer-normalization">
+<h3>2.2.4 The Residuals and Layer normalization<a class="headerlink" href="#the-residuals-and-layer-normalization" title="Permalink to this headline">¶</a></h3>
+<p>​    在继续进行下去之前，我们需要提到一个encoder中的细节：在每个encoder中都有一个残差连接，并且都跟随着一个Layer Normalization（层-归一化）步骤。</p>
+<p><img alt="img" src="https://pic1.zhimg.com/v2-8fe26c64e4dc0d15631e699ca3453aa0_b.png" /></p>
+<p>Layer-Norm也是归一化数据的一种方式，不过 Layer-Norm 是在<strong>每一个样本上</strong>计算均值和方差，而不是 Batch-Norm 那种在<strong>批</strong>方向计算均值和方差！</p>
+<p><img alt="img" src="https://pic2.zhimg.com/v2-003de84ad4e5816ab9a40f62f71b1005_b.png" /></p>
+</div>
+<div class="section" id="id2">
+<h3>2.2.5 小结<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Encoder就是用来给input一个比较好的embedding，使用self-attention来使一个词的embedding包含了<strong>上下文</strong>的信息，而不是简单的查look-up table。Transformer使用了多层(6层)的Encoder是为了把握一些<strong>高阶</strong>的信息。</p>
+</div>
+<div class="section" id="decoder">
+<h3>2.3 Decoder层<a class="headerlink" href="#decoder" title="Permalink to this headline">¶</a></h3>
+<p>2.3.1 简介</p>
+<p>​    从更高的角度来看，Transformer的Decoder作用和普通seq2seq一样：从&lt;Start&gt;开始，基于<strong>之前的Decoder输出</strong>，以及<strong>Encoder的embedding</strong>，来预测<strong>下一个词的概率分布</strong>。</p>
+<p>​    以对话系统为例：</p>
+<blockquote>
+<div><p>Our Input: “Hi how are you” Transformer Output: “I am fine”</p>
+</div></blockquote>
+<p><img alt="img" src="https://pic2.zhimg.com/v2-8e2f0705d0e71404c8e37c2bc3312645_b.png" /></p>
+<p>​</p>
+<p>下面我们来详细介绍Decoder的内部结构。</p>
+<p><img alt="img" src="https://pic2.zhimg.com/v2-2264bc124efa6de7d498f499a420c291_b.jpeg" /></p>
+<p><strong>2.3.2 Masked Multi-Head Attention</strong></p>
+<p>和Encoder一样，Decoder先经过embedding+positional encoding之后得到了一个embedding。然后，输入到<strong>Masked</strong> Multi-Head Attention中。和前面不同的是，Decoder的self-attention层其实是<strong>masked</strong> multi-head attention。mask表示掩码，它对某些值进行掩盖。这是为了防止Decoder在计算某个词的attention权重时**“看到”这个词后面的词语。**</p>
+<blockquote>
+<div><p>Since the decoder is <strong>auto-regressive</strong> and generates the sequence word by word, you need to prevent it from conditioning to future tokens. For example, when computing attention scores on the word “am”, you should not have access to the word “fine”, because that word is a future word that was generated after. <strong>The word “am” should only have access to itself and the words before it</strong>. This is true for all other words, where they can only attend to previous words.</p>
+</div></blockquote>
+<p><img alt="img" src="https://pic3.zhimg.com/v2-b32f466acd31b74cf07d892ac85f3362_b.png" /></p>
+<p>Mask 是为了使得 decoder 不能看见未来的信息。也就是对于一个序列，在 time_step 为 t 的时刻，我们的Decoder只能依赖于 t 时刻之前的输出，而不能依赖 t 之后的输出。因此我们需要想一个办法，把 t 之后的信息给隐藏起来。</p>
+<p>那么具体怎么做呢？也很简单：产生一个上三角矩阵，上三角的值全为-inf。</p>
+<p><img alt="img" src="https://pic4.zhimg.com/v2-2e56261653655af539869dd73cd3c92f_b.png" /></p>
+<p>加上-inf的目的是，做softmax之后-inf会变成0：</p>
+<p><img alt="img" src="https://pic4.zhimg.com/v2-bce63dfed73f5c11cb46029b81568e33_b.png" /></p>
+<p>这个mask是Decoder中self-attention和Encoder中的self-attention唯一有区别的地方。  经过了masked self-attention之后，decoder的每一个词都得到了<strong>包含其以前信息的高阶融合embedding</strong>。</p>
+<p><strong>2.3.3 第二个Multi-head Attention</strong></p>
+<blockquote>
+<div><p>For this layer, the encoder’s outputs are keys and values, and the first multi-headed attention layer outputs are the queries. This process matches the encoder’s input to the decoder’s input, allowing the decoder to decide which encoder input is relevant to put a focus on.</p>
+</div></blockquote>
+<p>每个decoder的masked self-attention输出的token embedding都去和encoder输出的高阶融合embedding做self-attention：</p>
+<p><img alt="img" src="https://pic2.zhimg.com/v2-8f9e956a0244a30163c5a4279fee6929_b.gif" /></p>
+</div>
+</div>
+<div class="section" id="q-a">
+<h2>3. Q/A<a class="headerlink" href="#q-a" title="Permalink to this headline">¶</a></h2>
+<p>（1） Transformer为什么需要进行Multi-head Attention？</p>
+<p>​    原论文中说进行Multi-head Attention的原因是将模型分为多个头，形成多个子空间，可以让模型去关注不同方面的信息，最后再将各个方面的信息综合起来。其实直观上也可以想到，如果自己设计这样的一个模型，必然也不会只做一次attention，多次attention综合的结果至少能够起到增强模型的作用，也可以类比CNN中同时使用多个卷积核的作用，直观上讲，多头的注意力有助于网络捕捉到更丰富的特征/信息。</p>
+<p>（2） Transformer相比于RNN/LSTM，有什么优势？</p>
+<ul class="simple">
+<li><p>RNN系列的模型，并行计算能力很差，因为 T 时刻的计算依赖 T-1 时刻的隐层计算结果。</p></li>
+<li><p>Transformer的特征抽取能力也比RNN系列的模型要好，使用了self-attention和多头机制来让源序列和目标序列自身的embedding表示所蕴含的信息更加丰富。</p></li>
+</ul>
+<p>（3）Transformer如何并行化的？</p>
+<p>Transformer的并行化我认为主要体现在self-attention模块。对于某个序列<img alt="x_1, x_2, ...x_n" src="https://www.zhihu.com/equation?tex=x_1%2C%20x_2%2C%20...x_n" />，self-attention模块可以直接计算 <img alt="x_i, x_j" src="https://www.zhihu.com/equation?tex=x_i%2C%20x_j" />的点乘结果，并行得到每个token的表示。而RNN系列的模型就必须按照顺序从<img alt="x_1" src="https://www.zhihu.com/equation?tex=x_1" />计算到 <img alt="x_n" src="https://www.zhihu.com/equation?tex=x_n" /> .</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Deep_Learning/NLP/Transformer"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../word2vec/word2vec.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Word2vec</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../../../notebooks.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Content with notebooks</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jace Yang<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

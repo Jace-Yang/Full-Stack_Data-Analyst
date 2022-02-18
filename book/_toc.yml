@@ -3,15 +3,15 @@ root: intro
 parts:
   - caption: 深度学习
     chapters:
-      - file: 深度学习/基础/README.md
+      - file: Deep_Learning/Basics/README
         sections:
-        - file: 深度学习/基础/DL常见超参及调整策略
-        - file: 深度学习/基础/优化器
-        - file: 深度学习/基础/GPU训练
-      - file: 深度学习/NLP/README.md
+        - file: Deep_Learning/Basics/DL_hyperparameter
+        - file: Deep_Learning/Basics/Optimizer
+        - file: Deep_Learning/Basics/Trained_by_GPU
+      - file: Deep_Learning/NLP/README
         sections:
-        - file: 深度学习/NLP/word2vec/word2vec
-        - file: 深度学习/NLP/Transformer/Transformer
+        - file: Deep_Learning/NLP/word2vec/word2vec
+        - file: Deep_Learning/NLP/Transformer/Transformer
   - caption: 模板Part
     chapters:
     - file: notebooks

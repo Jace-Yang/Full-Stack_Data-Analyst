@@ -7,12 +7,11 @@ parts:
         sections:
         - file: Deep_Learning/Basics/DL_hyperparameter
         - file: Deep_Learning/Basics/Optimizer
-        - file: Deep_Learning/Basics/Self-attention
         - file: Deep_Learning/Basics/Trained_by_GPU
       - file: Deep_Learning/NLP/README
         sections:
-        - file: Deep_Learning/NLP/word2vec/word2vec
-        - file: Deep_Learning/NLP/Transformer/Transformer
+        - file: Deep_Learning/NLP/Self-attention
+        - file: Deep_Learning/NLP/Transformer
   - caption: 模板Part
     chapters:
     - file: notebooks

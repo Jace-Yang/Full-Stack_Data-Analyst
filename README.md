@@ -13,7 +13,7 @@ cd Desktop/GitHub/Full-Stack_Data-Analyst/book
 
 ```
 rm -r _build
-jupyter-book build ./
+jupyter-book build --all ./
 cp -R images _build/html/images
 open -a "Google Chrome" _build/html/index.html
 ```

@@ -3,10 +3,11 @@ root: intro
 parts:
   - caption: 深度学习
     chapters:
-      - file: Deep_Learning/Basics/README
+      - file: Deep_Learning/Basics/README.md
         sections:
         - file: Deep_Learning/Basics/DL_hyperparameter
         - file: Deep_Learning/Basics/Optimizer
+        - file: Deep_Learning/Basics/Self-attention
         - file: Deep_Learning/Basics/Trained_by_GPU
       - file: Deep_Learning/NLP/README
         sections:

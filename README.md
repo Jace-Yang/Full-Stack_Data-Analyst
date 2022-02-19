@@ -15,6 +15,7 @@ cd Desktop/GitHub/Full-Stack_Data-Analyst/book
 rm -r _build
 jupyter-book build ./
 cp -R images _build/html/images
+open -a "Google Chrome" _build/html/index.html
 ```
 
 - Looks good? Push the result:
@@ -29,7 +30,7 @@ rm -r _build
 
 cd ..
 git add .
-git commit -m "更新优化器部分"
+git commit -m "更新Self-Attention📒"
 git push origin main
 ```
 

@@ -232,9 +232,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/Deep_Learning/Basics/Trained_by_GPU.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/Deep_Learning/Basics/Trained_by_GPU.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
+                data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
                 onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -255,7 +255,7 @@
             href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FDeep_Learning/Basics/Trained_by_GPU.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Deep_Learning/Basics/Trained_by_GPU.ipynb"><button
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Deep_Learning/Basics/Trained_by_GPU.md"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -269,23 +269,6 @@
             class="fas fa-expand"></i></button></a>
 
             <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/Jace-Yang/Full-Stack_Data-Analyst/master?urlpath=tree/Deep_Learning/Basics/Trained_by_GPU.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
 
         </div>
 
@@ -328,6 +311,47 @@
   <a class="reference internal nav-link" href="#distributed-training">
    Distributed Training
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#partition-and-synchronize">
+     Partition and synchronize:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#aggregation">
+     Aggregation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#performance-metric-scaling-efficiency">
+     Performance metric: Scaling efficiency：
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parallelism">
+     Parallelism
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#model-parallelism">
+       Model Parallelism
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#data-parallelism">
+       Data Parallelism
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#parameter-server-ps-based-synchronization">
+         Parameter server (PS) based Synchronization
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -380,6 +404,47 @@
   <a class="reference internal nav-link" href="#distributed-training">
    Distributed Training
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#partition-and-synchronize">
+     Partition and synchronize:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#aggregation">
+     Aggregation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#performance-metric-scaling-efficiency">
+     Performance metric: Scaling efficiency：
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parallelism">
+     Parallelism
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#model-parallelism">
+       Model Parallelism
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#data-parallelism">
+       Data Parallelism
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#parameter-server-ps-based-synchronization">
+         Parameter server (PS) based Synchronization
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -416,7 +481,8 @@
 <h2>DL Scaling with GPU<a class="headerlink" href="#dl-scaling-with-gpu" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="commonly-used-gpu-accelerators-in-deep-learning">
 <h3>硬件选择：Commonly used GPU Accelerators in Deep Learning<a class="headerlink" href="#commonly-used-gpu-accelerators-in-deep-learning" title="Permalink to this headline">¶</a></h3>
-<img src="https://cdn.mathpix.com/snip/images/EgvWEJqCtlVEjyoLDQ1kqDWtRSVN5q_ZW9jcmnqsJFM.original.fullsize.png" /><ul class="simple">
+<img src="https://cdn.mathpix.com/snip/images/EgvWEJqCtlVEjyoLDQ1kqDWtRSVN5q_ZW9jcmnqsJFM.original.fullsize.png" />
+<ul class="simple">
 <li><p>两个K80就可以实现6个TFLOPS</p></li>
 </ul>
 </div>
@@ -427,7 +493,8 @@
 <li><p>不同模型的speedup不一样，因为different networks have different structure, they have different amount of floating point operations requirement, they have different memory requirement</p></li>
 </ul>
 <img src="https://cdn.mathpix.com/snip/images/F8v3Uz9CFYVg0XIHolZnrAKvV4u5H-AE1mapfdeJrMQ.original.fullsize.png" />
-- 从batch size提高后的improve来看也是一样的model dependent！</div>
+- 从batch size提高后的improve来看也是一样的model dependent！
+</div>
 </div>
 <div class="section" id="single-node-multi-gpu-training">
 <h2>Single Node, Multi-GPU Training<a class="headerlink" href="#single-node-multi-gpu-training" title="Permalink to this headline">¶</a></h2>
@@ -447,12 +514,208 @@
 <li><p>V100优势在于GPU和GPU之间的connectivity很好</p></li>
 </ul>
 <p>没有NVLINK的时候：</p>
-<img src="https://cdn.mathpix.com/snip/images/pwqaKYxymHmAt-5HJ7HR37vmC5lgVfR8ITd73dYZVjE.original.fullsize.png" /><p>有NVLINK的时候：</p>
+<img src="https://cdn.mathpix.com/snip/images/pwqaKYxymHmAt-5HJ7HR37vmC5lgVfR8ITd73dYZVjE.original.fullsize.png" />
+<p>有NVLINK的时候：</p>
 <img src="https://cdn.mathpix.com/snip/images/bFRPoR_Y-bsmIVYEzzLtJzSnchkKboILT1Zh3O7HCus.original.fullsize.png" />
 <img src="https://cdn.mathpix.com/snip/images/EUtejV4EyMXJtlUlGNuAA6XayYDeicPhJlmuCSw_oH4.original.fullsize.png" />
-<img src="https://cdn.mathpix.com/snip/images/6UpUK2ib1ACVqIj-N7a42p-Gs-V2xUZrTcFTkAWHbD8.original.fullsize.png" /></div>
+<img src="https://cdn.mathpix.com/snip/images/6UpUK2ib1ACVqIj-N7a42p-Gs-V2xUZrTcFTkAWHbD8.original.fullsize.png" />
+</div>
 <div class="section" id="distributed-training">
 <h2>Distributed Training<a class="headerlink" href="#distributed-training" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>multiple nodes in multiple machines (GPUs): parallelism by distributing your job across multiple machines</p>
+</div></blockquote>
+<div class="section" id="partition-and-synchronize">
+<h3>Partition and synchronize:<a class="headerlink" href="#partition-and-synchronize" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Type of Parallelism: Model, Data, Hybrid</p>
+<ul>
+<li><p>Data Parallelism: partition the data set across multiple machines and then each one of them can do the training using that dataset (但是有整个model)</p></li>
+<li><p>Model Parallelism: train portions of a big model on different machines (但用整个dataset)</p></li>
+<li><p>Hybrid: partition the model and also partition the data.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="aggregation">
+<h3>Aggregation<a class="headerlink" href="#aggregation" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>目的</p>
+<ul>
+<li><p><strong>Average model得不到我们想要的global的model</strong>：partition之后即使每个模型看到的local sub-dataset的分布一样，但因为features的区别还是会train出不一样的parameters. 因为每个local model不会向总体generalize，所以Averaging them之后也不会generalized</p></li>
+<li><p>因此，我们想要的是train一些iterations之后就做synchronize, 假设不分batch，做data parallelism的时候：</p>
+  <center><img src="../../images/DL_GPU_1.png" width="45%"/></center>
+<ul class="simple">
+<li><p>开始先initialize with same weight</p></li>
+<li><p>forward pas get the loss</p></li>
+<li><p>backward get the gradient</p></li>
+<li><p>sum the gradient （会<span class="math notranslate nohighlight">\(\iff\)</span>用总loss算的gradient）</p></li>
+<li><p>然后让每个submodel从这套parameter再继续迭代</p></li>
+</ul>
+<p>如果分了batch size n：</p>
+<ul class="simple">
+<li><p>那就总共就pass <span class="math notranslate nohighlight">\(n \times m\)</span>个samples</p></li>
+<li><p>得到<span class="math notranslate nohighlight">\(n \times m\)</span>个gradients</p></li>
+<li><p>再计算<span class="math notranslate nohighlight">\(\frac{\partial}{\partial w} \sum_{i=1}^{m} \sum_{j=1}^{n}Loss_{i, j}\)</span></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Type of Aggregation: Centralized, decentralized</p>
+<ul class="simple">
+<li><p><mark style="background-color:#e1e1e1;">Centralized aggregation: parameter server</mark>——就是把gradient传送到centralized server，center的只maintain model parameter不做training</p></li>
+<li><p><mark style="background-color:#e1e1e1;">Decentralized aggregation: P2P, all reduce</mark>——直接让workers之间交流实现aggregation</p></li>
+</ul>
+   <center><img src="../../images/DL_GPU_2.png" width="45%"/></center>
+</li>
+</ul>
+</div>
+<div class="section" id="performance-metric-scaling-efficiency">
+<h3>Performance metric: Scaling efficiency：<a class="headerlink" href="#performance-metric-scaling-efficiency" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\frac{\text{run time of one iteration {\bf on a single GPU}}}{\text{the run time of one iteration when {\bf distributed over $n$ GPUs}}}\]</div>
+<ul class="simple">
+<li><p>batch size一样的话：对于n个GPU来说 是<span class="math notranslate nohighlight">\(n \times\)</span> Single GPU batch size，但是是parallel进行，所以每个GPU还是处理一样的数据！因此时间in 2 cases应该是一样的 <span class="math notranslate nohighlight">\(\Rightarrow \text{scaling efficiency} = 1\)</span></p></li>
+<li><p>然而，GPU中需要communication的时间——Sychronize to get an aggregated gradient，所以会有更长的时间！ <span class="math notranslate nohighlight">\(\Rightarrow \text{scaling efficiency} &lt; 1\)</span></p></li>
+</ul>
+</div>
+<div class="section" id="parallelism">
+<h3>Parallelism<a class="headerlink" href="#parallelism" title="Permalink to this headline">¶</a></h3>
+<p>Parallel execution of a training job on different compute units through</p>
+<ul class="simple">
+<li><p>scale-up (single node, multiple and faster GPUs)：让one machine的比如4个GPU 连接很快，实现powerful</p></li>
+<li><p>scale-out (multiple nodes distributed training) ：用多个machine（nodes），可能每个都不是很贵但可以堆，不过这样network会成为bottleneck</p></li>
+</ul>
+<p>方式：</p>
+<ul class="simple">
+<li><p>Enables working with large models by partitioning model across learners</p></li>
+<li><p>Enables efficient training with large datasets using large “effective” batch sizes (batch split across learners)</p></li>
+<li><p>Speeds up computation</p></li>
+</ul>
+<div class="section" id="model-parallelism">
+<h4>Model Parallelism<a class="headerlink" href="#model-parallelism" title="Permalink to this headline">¶</a></h4>
+<p>Splitting the model across multiple learners，比如下面这个5层神经网络分给4个learner（learner之间连接加粗）</p>
+ <center><img src="../../images/DL_GPU_3.png" width="45%"/></center>
+<ul class="simple">
+<li><p>做Partition的criteria</p>
+<ul>
+<li><p>minimize这些bold edges</p></li>
+<li><p>也就是keep the nodes densely connect to each other in a same machine ⇒ exploit machine 的local compute power</p></li>
+</ul>
+</li>
+</ul>
+<p>Performance benefits depend on</p>
+<ul class="simple">
+<li><p>Connectivity structure</p></li>
+<li><p>Compute demand of operations</p></li>
+</ul>
+<p>Heavy compute and local connectivity -benefit most</p>
+<ul class="simple">
+<li><p>Each machine handles a subset of computation</p></li>
+<li><p>Low network traffic</p></li>
+</ul>
+</div>
+<div class="section" id="data-parallelism">
+<h4>Data Parallelism<a class="headerlink" href="#data-parallelism" title="Permalink to this headline">¶</a></h4>
+ <center><img src="../../images/DL_GPU_4.png" width="45%"/></center>
+<ul class="simple">
+<li><p>Model is replicated on different learners</p></li>
+<li><p>Data is sharded and each learner work on a different partition</p></li>
+<li><p>Helps in efficient training with large amount of data</p></li>
+<li><p>Parameters (weights, biases, gradients) from different replicas need to be synchronized</p></li>
+</ul>
+<div class="section" id="parameter-server-ps-based-synchronization">
+<h5>Parameter server (PS) based Synchronization<a class="headerlink" href="#parameter-server-ps-based-synchronization" title="Permalink to this headline">¶</a></h5>
+<p>Synchronous SGD：</p>
+<blockquote>
+<div><p>Synchronous: at any instance of time the model at each of the workers is same (always working on the same model)</p>
+</div></blockquote>
+ <center><img src="../../images/DL_GPU_5.png" width="45%"/></center>
+<ol class="simple">
+<li><p>Each learner executes the entire model</p></li>
+<li><p>After each mini-batch processing a learner calculates the gradient and sends it to the parameter server</p></li>
+<li><p>The parameter server calculates new value of weights and sends them to the model replicas</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">模型太大的问题</span></code>：partition into model shards，这样一个机器只用responsible for maintaining some parameters</p>
+<p><code class="docutils literal notranslate"><span class="pre">沟通问题</span></code>：当模型数量很大的时候，bottleneck可能会变成bandwidth</p>
+<p><code class="docutils literal notranslate"><span class="pre">内存问题</span></code>：模型很大的时候没法fit in single machine</p>
+<ul class="simple">
+<li><p>注意 比如每个模型10000个weight，100个模型，那parameter serve需要先接受100*10000，再average成10000个weight</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Straggler</span> <span class="pre">problem问题</span></code>：PS needs to wait for updated gradients from all the learners before calculating the model parameters在center收集gradient的时候learner只能idle 等最慢的worker好了然后得到new parameter完成一次iteration</p>
+<ul>
+<li><p>具体解释：</p>
+<ul class="simple">
+<li><p>Even though size of mini-batch processed by each learner is same, updates from different learners may be available at different times at the PS</p>
+<ul>
+<li><p>Randomness in compute time at learners</p></li>
+<li><p>Randomness in communication time between learners and Parameter Server</p></li>
+</ul>
+</li>
+<li><p>Waiting for slow and straggling learners diminishes the speed-up offered by parallelizing the training</p></li>
+</ul>
+</li>
+<li><p>解决方案1——Synchronous SGD Variants</p>
+  <center><img src="../../images/DL_GPU_6.png" width="100%"/></center>
+<blockquote>
+<div><p>P: total number of learners<br>
+K: number of learners/mini-batches the PS waits for before updating parameters<br>
+Lightly shaded arrows indicate straggling gradient computations that are canceled.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>K-sync SGD: PS waits for gradients from K learners before updating parameters; the remaining learners are canceled</p>
+<ul>
+<li><p>When K = P, K-sync SGD is same as Fully Sync-SGD</p></li>
+</ul>
+</li>
+<li><p>K-batch sync: PS waits for gradients from K mini-batches before updating parameters; the remaining (unfinished) learners are canceled</p>
+<ul>
+<li><p>特点</p>
+<ul>
+<li><p>Irrespective of which learner the gradients come from</p></li>
+<li><p>Wherever any learner finishes, it pushes its gradient to the PS, fetches current parameter at PS and starts computing gradient on the next mini-batch based on the same local value of the parameters</p></li>
+</ul>
+</li>
+<li><p>Runtime per iteration reduces with K-batch sync; error convergence is same as K-sync</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>解决方案2——Asynchronous SGD and variants</p>
+  <center><img src="../../images/DL_GPU_7.png" width="100%"/></center>
+<ul class="simple">
+<li><p>Async-SGD: do not need to guarantee that all the workers locally are working with the same model</p>
+<ul>
+<li><p>跟1-sync-SGD的异同：同样只用等一个model的结果，但不会把这个结果update到所有的learner而kill慢learner的结果，而是</p></li>
+</ul>
+</li>
+<li><p>K-async SGD: PS waits for gradients from K learners before updating parameters but the remaining learners are not canceled; each learner may be giving a gradient calculated at stale version of the parameters</p>
+<ul>
+<li><p>When <span class="math notranslate nohighlight">\(K=1\)</span>, K-async SGD is same as Async-SGD</p></li>
+<li><p>When <span class="math notranslate nohighlight">\(K=P\)</span>, K-async SGD is same as Fully Sync-SGD</p></li>
+</ul>
+</li>
+<li><p>K-batch async: PS waits for gradients from K mini-batches before updating parameters; the remaining learners are not canceled</p></li>
+<li><p>Wherever any learner finishes, it pushes its gradient to the PS, fetches current parameter at PS and starts computing gradient on the next mini-batch based on the current value of the PS</p></li>
+<li><p>Runtime per iteration reduces with K-batch async; error convergence is same as K-async</p></li>
+</ul>
+<p>单位时间更多update会让model收敛更快，但也会遇到新的<code class="docutils literal notranslate"><span class="pre">Stale</span> <span class="pre">Gradients</span></code>的问题</p>
+  <center><img src="../../images/DL_GPU_8.png" width="80%"/></center>
+<ul class="simple">
+<li><p>PS updates happen without waiting for all learners ⇒ Weights that a learner uses to evaluate gradients may be old values of the parameters at PS</p>
+<ul>
+<li><p>Parameter server asynchronously updates weights</p></li>
+<li><p>By the time learner gets back to the PS to submit gradient, the weights may have already been updated at the PS (by other learners)</p></li>
+<li><p>Gradients returned by this learner are stale (i.e., were evaluated at an older version of the model)</p></li>
+</ul>
+</li>
+<li><p>Stale gradients can make SGD unstable, slowdown convergence, cause sub-optimal convergence (compared to Sync-SGD)</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 </div>
 

@@ -23,7 +23,7 @@ open -a "Google Chrome" _build/html/index.html
 ```
 cd book
 rm -r _build
-jupyter-book build ./
+jupyter-book build --all ./
 cp -R images _build/html/images
 ghp-import -n -p -f _build/html
 rm -r _build

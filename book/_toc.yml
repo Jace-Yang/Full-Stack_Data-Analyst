@@ -10,8 +10,10 @@ parts:
         - file: Deep_Learning/Basics/Trained_by_GPU
       - file: Deep_Learning/NLP/README
         sections:
+        - file: Deep_Learning/NLP/basics
         - file: Deep_Learning/NLP/Self-attention
         - file: Deep_Learning/NLP/Transformer
+        - file: Deep_Learning/NLP/BERT
   - caption: 模板Part
     chapters:
     - file: notebooks

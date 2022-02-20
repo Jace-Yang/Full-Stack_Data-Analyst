@@ -3,3 +3,4 @@
 book/_build/
 jupyter_cache
 jupyter_cache/
+.ipynb_checkpoints/

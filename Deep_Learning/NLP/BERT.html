@@ -349,6 +349,11 @@
    其他Takeaways
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -438,6 +443,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#takeaways">
    其他Takeaways
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
   </a>
  </li>
 </ul>
@@ -590,9 +600,16 @@
 <p>(1) BERT官方提供了两个版本的BERT模型。一个是BERT的BASE版，另一个是BERT的LARGE版。BERT的BASE版有12层的Transformer，隐藏层Embedding的维度是768，head是12个，参数总数大概是一亿一千万。BERT的LARGE版有24层的Transformer，隐藏层Embedding的维度是1024，head是16个，参数总数大概是三亿四千万。</p>
 <p>(2)BERT 的bi-directional方法 (MLM) 的收敛速度比从左到右的directional方法慢（因为每批中<strong>只预测了 15% 的单词</strong>，而自回归语言模型每个样本都有<strong>全部</strong>的单词参与训练），但经过少量预训练步骤后，双向训练仍然优于从左到右的单向训练。</p>
 <p><img alt="img" src="https://pic3.zhimg.com/v2-aed7040addb42d7525c9a3a06c4ef2ba_b.png" /></p>
+</div>
 <hr class="docutils" />
-<p>参考资料：</p>
-<p><a class="reference external" href="https://towardsdatascience.com/bert-explained-state-of-the-art-language-model-for-nlp-f8b21a9b6270towardsdatascience.com">https://towardsdatascience.com/bert-explained-state-of-the-art-language-model-for-nlp-f8b21a9b6270towardsdatascience.com</a></p>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/hannawong/MLE-interview/tree/master/3.NLP%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B">https://github.com/hannawong/MLE-interview/tree/master/3.NLP语言模型</a></p></li>
+<li><p><a class="reference external" href="https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.php">HUNG-YI LEE (李宏毅)MACHINE LEARNING 2021 SPRING</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/1810.04805">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=xI0HHN5XKDo&amp;list=PLYEkBOruTDMJE0FBHpf2WRkavCu9FM-RD&amp;index=2&amp;t=52s">https://www.youtube.com/watch?v=xI0HHN5XKDo&amp;list=PLYEkBOruTDMJE0FBHpf2WRkavCu9FM-RD&amp;index=2&amp;t=52s</a></p></li>
+</ul>
 </div>
 </div>
 

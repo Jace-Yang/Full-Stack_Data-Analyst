@@ -1,6 +1,7 @@
 # BERT
 
 
+
 BERT（Bidirectional Encoder Representations from Transformers）来自谷歌人工智能语言研究人员发表的[论文 BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/pdf/1810.04805.pdf)。它在各种 NLP 任务：包括机器问答（SQuAD v1.1）、自然语言推理（MNLI）等中展示最先进的结果，在机器学习社区引起了轰动。
 
 BERT的出现，将NLP领域的预训练模型带入了一个新的纪元，其最重要的创新点在于训练策略的改变，将以往基于**自回归（Auto Regression,自左向右生成）**的训练策略转换为基于**去噪自编码(Denoising Auto Encoding)**的训练策略，即MLM任务。这使得词向量从先前只包含前文信息变为了可以学习到上下文的信息，虽然丢失了对自然语言**生成任务**的先天优势，但加强了词向量本身的特征。     
@@ -163,13 +164,15 @@ Natrual Language Inference (NLI): 从前提和假设得到两个句子的关系
 
 ![img](https://pic3.zhimg.com/v2-aed7040addb42d7525c9a3a06c4ef2ba_b.png)
 
-------
 
-参考资料：
+---
 
-https://towardsdatascience.com/bert-explained-state-of-the-art-language-model-for-nlp-f8b21a9b6270towardsdatascience.com
+## References
 
+- https://github.com/hannawong/MLE-interview/tree/master/3.NLP%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B
 
+- [HUNG-YI LEE (李宏毅)MACHINE LEARNING 2021 SPRING](https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.php)
 
+- [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
 
-  
+- https://www.youtube.com/watch?v=xI0HHN5XKDo&list=PLYEkBOruTDMJE0FBHpf2WRkavCu9FM-RD&index=2&t=52s

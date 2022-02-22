@@ -2,28 +2,23 @@
 
 ## 引言
 
+RNN: feed forward neural networks rolled out over time, 对input有顺序的很有用！比如Time Series
 
-- RNN (LSTM)的问题：precludes parallelization within training examples
+<center><img src="https://cdn.mathpix.com/snip/images/WL5kkhCnNXSpG3439U-a0ip1cbjfUeRaQo4rJ8qspNM.original.fullsize.png" width="65%"/></center>
 
-由于其顺序结构训练速度常常受到限制，而且由于梯度下降，它难以看到较远处的信息。既然Attention模型本身可以看到全局的信息， 那么一个自然的疑问是我们能不能去掉RNN结构，仅仅依赖于Attention模型，这样我们可以使训练并行化，同时拥有全局信息？
+由于其顺序结构训练速度常常受到限制（precludes parallelization within training examples），而且由于梯度下降/explode，它难以处理长Sequence中较远处的信息。
+
+因此，LSTM中让memory可以retain，但是LSTM比RNN更慢！
+
+
+ 既然Attention模型本身可以看到全局的信息， 那么一个自然的疑问是我们能不能去掉RNN结构，仅仅依赖于Attention模型，这样我们可以使训练并行化，同时拥有全局信息？
 
 你可能听说过不同的著名Transformer模型，如 BERT、GPT。在这篇文章中，我们将精读谷歌的这篇 [Attention is All you need](https://arxiv.org/abs/1706.03762) 论文来回顾一下仅依赖于Self-Attention机制的Transformer架构。
-
-在开始之前，先让我们看一个好玩的例子。Transformer可以根据你写的一句开头，写出一段科幻小说！链接：[Hugging Face – The AI community building the future.](https://huggingface.co/)
-
-![img](https://pic1.zhimg.com/v2-cca06e7f09b5cd0826e9ecfdb44026f0_b.png)
-
-> Our input: “As Aliens entered our planet”. Transformer output: “and began to colonized Earth, a certain group of extraterrestrials began to manipulate our society through their influences of a certain number of the elite to keep and iron grip over the populace.”
-
-这真是一个黑暗的故事...但有趣的是研究模型是如何生成这个黑暗故事的。当模型逐字生成文本时，它可以“关注”与生成的单词相关的单词(attention)。知道要关注哪些单词的能力也是在训练过程中通过反向传播学到的。
-
-![img](https://pic2.zhimg.com/v2-f563efd10288e80bd85cdc2d61bf7ca1_b.gif)
 
 Transformer的优势在于，它可以不受梯度消失的影响，能够保留**任意长**的长期记忆。而RNN的记忆窗口很短；LSTM和GRU虽然解决了一部分梯度消失的问题，但是它们的记忆窗口也是有限的。
 
 > Recurrent neural networks (RNN) are also capable of looking at previous inputs too. But the power of the attention mechanism is that it doesn't suffer from short term memory. RNNs have a shorter window to reference from, so when the story gets longer, RNNs can't access words generated earlier in the sequence. This is still true for Gated Recurrent Units (GRU) and Long-short Term Memory (LSTM) networks, although they do a bigger capacity to achieve longer-term memory, therefore, having a longer window to reference from. The attention mechanism, in theory, and given enough compute resources, have an infinite window to reference from, therefore being capable of using the entire context of the story while generating the text.
 
-![img](https://pic3.zhimg.com/v2-f015999a863d0c41636d19e159d53e4e_b.gif)
 
 ## 李宏毅机器学习笔记
 
@@ -35,28 +30,13 @@ Transformer是一个`Sequence-to-sequence`会写做`Seq2seq`——input是一个
 
 
 - **语音辨识**:
-
-    <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429093940488.png" alt="image-20210429093940488" style="width: 40%;" />
-
 - **机器翻译**:
-
-    <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429100049464.png" alt="image-20210429100049464" style="width: 40%;" />
-
 - **语音翻译**:
-
-    <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429100418127.png" alt="image-20210429100418127" style="width: 40%;" />
-    
     - 因為**世界上有很多语言,他根本连文字都没有**,所以不能直接先做一个语音辨识,再做一个机器翻译,把语音辨识系统跟机器翻译系统,接起来
     
 - **语音合成**
-
     - 语音辨识反过来就是**语音合成**Text-to-Speech (TTS) Synthesis  
-
-
 - **聊天机器人**
-
-    <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429110313820.png" alt="image-20210429110313820" style="width:40%;" />
-
 
 
 那事实上Seq2Seq model,在NLP的领域,在natural language processing的领域的使用,是比你想像的更為广泛,其实很多**natural language processing的任务,都可以想成是`question answering,QA`的任务**,而**QA的问题,就可以用Seq2Seq model来解**
@@ -65,30 +45,20 @@ Transformer是一个`Sequence-to-sequence`会写做`Seq2seq`——input是一个
 
     - 给机器一段文字，机器生成的**文法的剖析树**也可以是看做是一个一个Sequence
 
-        <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429202417748.png" alt="image-20210429202417748" style="zoom:30%;" />
-
 - multi-label classification
 
     - **同一个东西,它可以属於多个class**,比如文章分类：
-
-        <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429203936697.png" alt="image-20210429203936697" style="zoom:40%;" />
 
     - 每一篇文章对应的class的数目根本不一样，所以不能直接输出前三名之类的
     - 可以用seq2seq硬做,**输入一篇文章** **输出就是class** 就结束了,机器自己决定 它要输出几个class
 
 - Object Detection
 
-    <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429204527490.png" alt="image-20210429204527490" style="zoom: 50%;" />
-
-    或者是object detection,这个看起来跟seq2seq model,应该八竿子打不著的问题,它也可以用seq2seq's model硬解
+    - 这个看起来跟seq2seq model,应该八竿子打不著的问题,它也可以用seq2seq's model硬解
 
 ### Transformer架构
 
 一般的seq2seqmodel会分成两块Encoder和Decoder：input一个sequence有Encoder,负责处理这个sequence,再把处理好的结果丢给Decoder,由Decoder决定,它要输出什麼样的sequence
-
-<img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429205404198.png" alt="image-20210429205404198" style="zoom:30%;" />
-
-
 
 #### Encoder
 
@@ -100,6 +70,9 @@ seq2seq model `Encoder`要做的事情,就是**给一排向量，输出另外一
     
     核心还是self-attention
     <center><img src="../../images/DL_Transformer_2.png" width="70%"/></center>
+
+    - 注意这里做的是Layer Normalization（For a sample, across each feature！）
+        <center><img src="../../images/DL_Transformer_15.png" width="50%"/></center>
 
     整体（跟Bert一样）：
     <center><img src="../../images/DL_Transformer_3.png" width="70%"/></center>
@@ -133,16 +106,23 @@ Decoder整体做的事情是一个一个地输出，也就是auto- regressive（
 
     - 原因：现在decoder是一个一个输出，才看得到下一个的
 
+#### Encoder-Decoder
 - `Cross attention`:
 
     <center><img src="../../images/DL_Transformer_8.png" width="60%"/></center>
+
+    这个地方比如说 原先input时English的embedding，Decoder来的是French的embedding，这边学习的就是实现English和French的word mapping
 
     - 输出两个字的过程细节：
         
         <center><img src="../../images/DL_Transformer_9.png" width="50%"/><img src="../../images/DL_Transformer_10.png" width="45.3%"/></center>
         
 
-- 最后接一个`Linear`和`Softmax`
+- 最后接一个`Linear`：这一层的# Neurons，比如在英语翻译法语的时候数量就会是法语words的个数
+
+- `Softmax`：得到probability
+
+- `Output`：最高的！然后再把这个output shift right传给的coder继续output下一个单词，直到这个步骤输出`End`
 
 
 ### 训练
@@ -233,11 +213,11 @@ $$\begin{aligned} P E_{(p o s, 2 i)} &=\sin \left(p o s / 10000^{2 i / d_{\mathr
 - pos: 当前词在句子中的位置
 - i：是指向量中每个值的 index
 
+  (实际上 用any reasonable function应该都可以！)
 
 所以，最终一个词的embedding，就是它的语义信息embedding+序列信息embedding (positional encoding):
 
-![img](https://pic1.zhimg.com/v2-bc9c1fed86bdf07d8b132b6bdabb77f0_b.png)
-
+<img src="https://cdn.mathpix.com/snip/images/0FJrJ5ltV6QjNhlsvmEHphlq4fHDIbbM-obl3nddnwI.original.fullsize.png" />
 
 
 ##### Self-attention层
@@ -315,9 +295,14 @@ Transformer的Decoder作用和普通seq2seq一样：从\<Start\>开始，基于*
 
 ![img](https://pic2.zhimg.com/v2-2264bc124efa6de7d498f499a420c291_b.jpeg)
 
+#### Output的embedding
+
+和Encoder一样，Decoder中的Output先经过embedding变成数字向量然后+positional encoding之后得到了一个embedding
+
+
 #### Masked Multi-Head Attention
 
-和Encoder一样，Decoder先经过embedding+positional encoding之后得到了一个embedding。然后，输入到**Masked** Multi-Head Attention中。和前面不同的是，Decoder的self-attention层其实是**masked** multi-head attention。mask表示掩码，它对某些值进行掩盖。这是为了防止Decoder在计算某个词的attention权重时**“看到”这个词后面的词语。**
+和前面不同的是，Decoder的self-attention层其实是**masked** multi-head attention。mask表示掩码，它对某些值进行掩盖。这是为了防止Decoder在计算某个词的attention权重时“看到”这个词后面的词语。
 
 > Since the decoder is **auto-regressive** and generates the sequence word by word, you need to prevent it from conditioning to future tokens. For example, when computing attention scores on the word "am", you should not have access to the word "fine", because that word is a future word that was generated after. **The word "am" should only have access to itself and the words before it**. This is true for all other words, where they can only attend to previous words.
 

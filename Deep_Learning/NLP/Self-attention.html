@@ -552,9 +552,11 @@
 <blockquote>
 <div><p>CNN里面还特别强调了CV输入的图片<strong>大小都是一样</strong>的，那现在假设每次我们Model输入的不一样就叫Sequence，Sequence的长度都不一样</p>
 </div></blockquote>
-<ul class="simple">
+<ul>
 <li><p>Vector-Vector: 输入是一个向量，然后我们的输出,可能是一个<strong>数值</strong>,这个是<strong>Regression</strong>,可能是一个<strong>类别</strong>,这是<strong>Classification</strong></p></li>
-<li><p>Vector-Sequence: 比如Image captioning——input图像，output一句话</p></li>
+<li><p>Vector-Sequence: 比如Image captioning——input图像，output一句话</p>
+  <center><img src="https://cdn.mathpix.com/snip/images/sYKqUUS2O3e9dwthw1t1qznDv_P_PyLHEB_zdAm-ah0.original.fullsize.png" width="65%"/></center>
+</li>
 <li><p>Sequence-Vector: 比如输入Movie Review，输出评价</p></li>
 <li><p>Sequence- Sequence：比如机器翻译</p></li>
 </ul>
@@ -711,7 +713,9 @@
   <center><img src="../../images/DL_selfattention_4.png" width="80%"/></center></li>
 </ul>
 <p><mark style="background-color:#c3dbfc;">矩阵并行计算出四个<span class="math notranslate nohighlight">\(b\)</span></mark></p>
-<p>整体过程：I乘W得到QKV、K乘Q得到Attention Matrix、V乘Attention Matrix得到O</p>
+<p>整体过程：I乘W得到QKV、K乘Q得到Attention Matrix、V乘Attention Matrix得到O，也就是</p>
+<div class="math notranslate nohighlight">
+\[Z=\operatorname{softmax}\left(\frac{Q \cdot K^{T}}{\sqrt{\text { Dimension of vector } Q, K \text { or } V}}\right) \cdot V\]</div>
 <center><img src="../../images/DL_selfattention_9.png" width="80%"/></center>
 <ul>
 <li><ul class="simple">

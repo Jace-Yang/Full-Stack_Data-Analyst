@@ -317,6 +317,11 @@
        Decoder - AutoRegressive
       </a>
      </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#encoder-decoder">
+       Encoder-Decoder
+      </a>
+     </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -395,6 +400,11 @@
      Decoder层
     </a>
     <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#outputembedding">
+       Output的embedding
+      </a>
+     </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#masked-multi-head-attention">
        Masked Multi-Head Attention
@@ -466,6 +476,11 @@
        Decoder - AutoRegressive
       </a>
      </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#encoder-decoder">
+       Encoder-Decoder
+      </a>
+     </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -545,6 +560,11 @@
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#outputembedding">
+       Output的embedding
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#masked-multi-head-attention">
        Masked Multi-Head Attention
       </a>
@@ -571,23 +591,16 @@
 <h1>Transformer<a class="headerlink" href="#transformer" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
 <h2>引言<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>RNN (LSTM)的问题：precludes parallelization within training examples</p></li>
-</ul>
-<p>由于其顺序结构训练速度常常受到限制，而且由于梯度下降，它难以看到较远处的信息。既然Attention模型本身可以看到全局的信息， 那么一个自然的疑问是我们能不能去掉RNN结构，仅仅依赖于Attention模型，这样我们可以使训练并行化，同时拥有全局信息？</p>
+<p>RNN: feed forward neural networks rolled out over time, 对input有顺序的很有用！比如Time Series</p>
+<center><img src="https://cdn.mathpix.com/snip/images/WL5kkhCnNXSpG3439U-a0ip1cbjfUeRaQo4rJ8qspNM.original.fullsize.png" width="65%"/></center>
+<p>由于其顺序结构训练速度常常受到限制（precludes parallelization within training examples），而且由于梯度下降/explode，它难以处理长Sequence中较远处的信息。</p>
+<p>因此，LSTM中让memory可以retain，但是LSTM比RNN更慢！</p>
+<p>既然Attention模型本身可以看到全局的信息， 那么一个自然的疑问是我们能不能去掉RNN结构，仅仅依赖于Attention模型，这样我们可以使训练并行化，同时拥有全局信息？</p>
 <p>你可能听说过不同的著名Transformer模型，如 BERT、GPT。在这篇文章中，我们将精读谷歌的这篇 <a class="reference external" href="https://arxiv.org/abs/1706.03762">Attention is All you need</a> 论文来回顾一下仅依赖于Self-Attention机制的Transformer架构。</p>
-<p>在开始之前，先让我们看一个好玩的例子。Transformer可以根据你写的一句开头，写出一段科幻小说！链接：<a class="reference external" href="https://huggingface.co/">Hugging Face – The AI community building the future.</a></p>
-<p><img alt="img" src="https://pic1.zhimg.com/v2-cca06e7f09b5cd0826e9ecfdb44026f0_b.png" /></p>
-<blockquote>
-<div><p>Our input: “As Aliens entered our planet”. Transformer output: “and began to colonized Earth, a certain group of extraterrestrials began to manipulate our society through their influences of a certain number of the elite to keep and iron grip over the populace.”</p>
-</div></blockquote>
-<p>这真是一个黑暗的故事…但有趣的是研究模型是如何生成这个黑暗故事的。当模型逐字生成文本时，它可以“关注”与生成的单词相关的单词(attention)。知道要关注哪些单词的能力也是在训练过程中通过反向传播学到的。</p>
-<p><img alt="img" src="https://pic2.zhimg.com/v2-f563efd10288e80bd85cdc2d61bf7ca1_b.gif" /></p>
 <p>Transformer的优势在于，它可以不受梯度消失的影响，能够保留<strong>任意长</strong>的长期记忆。而RNN的记忆窗口很短；LSTM和GRU虽然解决了一部分梯度消失的问题，但是它们的记忆窗口也是有限的。</p>
 <blockquote>
 <div><p>Recurrent neural networks (RNN) are also capable of looking at previous inputs too. But the power of the attention mechanism is that it doesn’t suffer from short term memory. RNNs have a shorter window to reference from, so when the story gets longer, RNNs can’t access words generated earlier in the sequence. This is still true for Gated Recurrent Units (GRU) and Long-short Term Memory (LSTM) networks, although they do a bigger capacity to achieve longer-term memory, therefore, having a longer window to reference from. The attention mechanism, in theory, and given enough compute resources, have an infinite window to reference from, therefore being capable of using the entire context of the story while generating the text.</p>
 </div></blockquote>
-<p><img alt="img" src="https://pic3.zhimg.com/v2-f015999a863d0c41636d19e159d53e4e_b.gif" /></p>
 </div>
 <div class="section" id="id2">
 <h2>李宏毅机器学习笔记<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
@@ -596,49 +609,39 @@
 <p>Transformer是一个<code class="docutils literal notranslate"><span class="pre">Sequence-to-sequence</span></code>会写做<code class="docutils literal notranslate"><span class="pre">Seq2seq</span></code>——input是一个sequence不知道应该要output多长,由机器自己决定output的长度,即Seq2seq</p>
 <div class="section" id="id3">
 <h4>例子<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
-<ul>
-<li><p><strong>语音辨识</strong>:</p>
-  <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429093940488.png" alt="image-20210429093940488" style="width: 40%;" />
-</li>
-<li><p><strong>机器翻译</strong>:</p>
-  <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429100049464.png" alt="image-20210429100049464" style="width: 40%;" />
-</li>
-<li><p><strong>语音翻译</strong>:</p>
-  <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429100418127.png" alt="image-20210429100418127" style="width: 40%;" />
 <ul class="simple">
+<li><p><strong>语音辨识</strong>:</p></li>
+<li><p><strong>机器翻译</strong>:</p></li>
+<li><p><strong>语音翻译</strong>:</p>
+<ul>
 <li><p>因為<strong>世界上有很多语言,他根本连文字都没有</strong>,所以不能直接先做一个语音辨识,再做一个机器翻译,把语音辨识系统跟机器翻译系统,接起来</p></li>
 </ul>
 </li>
 <li><p><strong>语音合成</strong></p>
-<ul class="simple">
+<ul>
 <li><p>语音辨识反过来就是<strong>语音合成</strong>Text-to-Speech (TTS) Synthesis</p></li>
 </ul>
 </li>
-<li><p><strong>聊天机器人</strong></p>
-  <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429110313820.png" alt="image-20210429110313820" style="width:40%;" />
-</li>
+<li><p><strong>聊天机器人</strong></p></li>
 </ul>
 <p>那事实上Seq2Seq model,在NLP的领域,在natural language processing的领域的使用,是比你想像的更為广泛,其实很多<strong>natural language processing的任务,都可以想成是<code class="docutils literal notranslate"><span class="pre">question</span> <span class="pre">answering,QA</span></code>的任务</strong>,而<strong>QA的问题,就可以用Seq2Seq model来解</strong></p>
-<ul>
+<ul class="simple">
 <li><p><strong>文法剖析</strong>：Seq2seq for Syntactic Parsing</p>
 <ul>
-<li><p>给机器一段文字，机器生成的<strong>文法的剖析树</strong>也可以是看做是一个一个Sequence</p>
-  <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429202417748.png" alt="image-20210429202417748" style="zoom:30%;" />
-</li>
+<li><p>给机器一段文字，机器生成的<strong>文法的剖析树</strong>也可以是看做是一个一个Sequence</p></li>
 </ul>
 </li>
 <li><p>multi-label classification</p>
 <ul>
-<li><p><strong>同一个东西,它可以属於多个class</strong>,比如文章分类：</p>
-  <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429203936697.png" alt="image-20210429203936697" style="zoom:40%;" />
-</li>
+<li><p><strong>同一个东西,它可以属於多个class</strong>,比如文章分类：</p></li>
 <li><p>每一篇文章对应的class的数目根本不一样，所以不能直接输出前三名之类的</p></li>
 <li><p>可以用seq2seq硬做,<strong>输入一篇文章</strong> <strong>输出就是class</strong> 就结束了,机器自己决定 它要输出几个class</p></li>
 </ul>
 </li>
 <li><p>Object Detection</p>
-  <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429204527490.png" alt="image-20210429204527490" style="zoom: 50%;" />
-<p>或者是object detection,这个看起来跟seq2seq model,应该八竿子打不著的问题,它也可以用seq2seq’s model硬解</p>
+<ul>
+<li><p>这个看起来跟seq2seq model,应该八竿子打不著的问题,它也可以用seq2seq’s model硬解</p></li>
+</ul>
 </li>
 </ul>
 </div>
@@ -646,7 +649,6 @@
 <div class="section" id="id4">
 <h3>Transformer架构<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>一般的seq2seqmodel会分成两块Encoder和Decoder：input一个sequence有Encoder,负责处理这个sequence,再把处理好的结果丢给Decoder,由Decoder决定,它要输出什麼样的sequence</p>
-<img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210429205404198.png" alt="image-20210429205404198" style="zoom:30%;" />
 <div class="section" id="encoder">
 <h4>Encoder<a class="headerlink" href="#encoder" title="Permalink to this headline">¶</a></h4>
 <p>seq2seq model <code class="docutils literal notranslate"><span class="pre">Encoder</span></code>要做的事情,就是<strong>给一排向量，输出另外一排向量</strong></p>
@@ -655,6 +657,11 @@
 <li><p>Transformer中的Block：</p>
 <p>核心还是self-attention</p>
   <center><img src="../../images/DL_Transformer_2.png" width="70%"/></center>
+<ul>
+<li><p>注意这里做的是Layer Normalization（For a sample, across each feature！）</p>
+  <center><img src="../../images/DL_Transformer_15.png" width="50%"/></center>
+</li>
+</ul>
 <p>整体（跟Bert一样）：</p>
   <center><img src="../../images/DL_Transformer_3.png" width="70%"/></center>
 </li>
@@ -683,15 +690,23 @@
 <li><p>原因：现在decoder是一个一个输出，才看得到下一个的</p></li>
 </ul>
 </li>
+</ul>
+</div>
+<div class="section" id="encoder-decoder">
+<h4>Encoder-Decoder<a class="headerlink" href="#encoder-decoder" title="Permalink to this headline">¶</a></h4>
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">Cross</span> <span class="pre">attention</span></code>:</p>
   <center><img src="../../images/DL_Transformer_8.png" width="60%"/></center>
+<p>这个地方比如说 原先input时English的embedding，Decoder来的是French的embedding，这边学习的就是实现English和French的word mapping</p>
 <ul>
 <li><p>输出两个字的过程细节：</p>
   <center><img src="../../images/DL_Transformer_9.png" width="50%"/><img src="../../images/DL_Transformer_10.png" width="45.3%"/></center>
 </li>
 </ul>
 </li>
-<li><p>最后接一个<code class="docutils literal notranslate"><span class="pre">Linear</span></code>和<code class="docutils literal notranslate"><span class="pre">Softmax</span></code></p></li>
+<li><p>最后接一个<code class="docutils literal notranslate"><span class="pre">Linear</span></code>：这一层的# Neurons，比如在英语翻译法语的时候数量就会是法语words的个数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Softmax</span></code>：得到probability</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Output</span></code>：最高的！然后再把这个output shift right传给的coder继续output下一个单词，直到这个步骤输出<code class="docutils literal notranslate"><span class="pre">End</span></code></p></li>
 </ul>
 </div>
 </div>
@@ -777,12 +792,14 @@
 <p>这个位置向量的具体计算方法有很多种，论文中的计算方法是在偶数位置，使用正弦编码，在奇数位置，使用余弦编码：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned} P E_{(p o s, 2 i)} &amp;=\sin \left(p o s / 10000^{2 i / d_{\mathrm{model}}}\right) \\ P E_{(p o s, 2 i+1)} &amp;=\cos \left(p o s / 10000^{2 i / d_{\mathrm{model}}}\right) \end{aligned}\end{split}\]</div>
-<ul class="simple">
+<ul>
 <li><p>pos: 当前词在句子中的位置</p></li>
-<li><p>i：是指向量中每个值的 index</p></li>
+<li><p>i：是指向量中每个值的 index</p>
+<p>(实际上 用any reasonable function应该都可以！)</p>
+</li>
 </ul>
 <p>所以，最终一个词的embedding，就是它的语义信息embedding+序列信息embedding (positional encoding):</p>
-<p><img alt="img" src="https://pic1.zhimg.com/v2-bc9c1fed86bdf07d8b132b6bdabb77f0_b.png" /></p>
+<img src="https://cdn.mathpix.com/snip/images/0FJrJ5ltV6QjNhlsvmEHphlq4fHDIbbM-obl3nddnwI.original.fullsize.png" />
 </div>
 <div class="section" id="self-attention">
 <h5>Self-attention层<a class="headerlink" href="#self-attention" title="Permalink to this headline">¶</a></h5>
@@ -835,9 +852,13 @@
 <p>Transformer的Decoder作用和普通seq2seq一样：从&lt;Start&gt;开始，基于<strong>之前的Decoder输出</strong>，以及<strong>Encoder的embedding</strong>，来预测<strong>下一个词的概率分布</strong>。</p>
 <p>下面我们来详细介绍Decoder的内部结构。</p>
 <p><img alt="img" src="https://pic2.zhimg.com/v2-2264bc124efa6de7d498f499a420c291_b.jpeg" /></p>
+<div class="section" id="outputembedding">
+<h4>Output的embedding<a class="headerlink" href="#outputembedding" title="Permalink to this headline">¶</a></h4>
+<p>和Encoder一样，Decoder中的Output先经过embedding变成数字向量然后+positional encoding之后得到了一个embedding</p>
+</div>
 <div class="section" id="masked-multi-head-attention">
 <h4>Masked Multi-Head Attention<a class="headerlink" href="#masked-multi-head-attention" title="Permalink to this headline">¶</a></h4>
-<p>和Encoder一样，Decoder先经过embedding+positional encoding之后得到了一个embedding。然后，输入到<strong>Masked</strong> Multi-Head Attention中。和前面不同的是，Decoder的self-attention层其实是<strong>masked</strong> multi-head attention。mask表示掩码，它对某些值进行掩盖。这是为了防止Decoder在计算某个词的attention权重时**“看到”这个词后面的词语。**</p>
+<p>和前面不同的是，Decoder的self-attention层其实是<strong>masked</strong> multi-head attention。mask表示掩码，它对某些值进行掩盖。这是为了防止Decoder在计算某个词的attention权重时“看到”这个词后面的词语。</p>
 <blockquote>
 <div><p>Since the decoder is <strong>auto-regressive</strong> and generates the sequence word by word, you need to prevent it from conditioning to future tokens. For example, when computing attention scores on the word “am”, you should not have access to the word “fine”, because that word is a future word that was generated after. <strong>The word “am” should only have access to itself and the words before it</strong>. This is true for all other words, where they can only attend to previous words.</p>
 </div></blockquote>

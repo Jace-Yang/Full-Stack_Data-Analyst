@@ -12,7 +12,7 @@ BERT 的关键技术创新是将流行的注意力模型 Transformer 的 双向�
 - Representation：做词的表征。
 - Transformer：Transformer是BERT的核心内部元素。
 
-## 1.背景
+## 背景
 
 BERT是一种self-supervised Learning的模型
 
@@ -24,17 +24,33 @@ BERT就是先用Masked Language Model+Next Sentence Prediction两个任务做预
 
 ![img](https://pic1.zhimg.com/v2-875f787bdc84418d477e34a8d1cfbd94_b.png)
 
-## 2. BERT的原理
+### Bert跟ElMO和GPT的区别
+
+Elmo的缺点在于Bi-LSTM的架构中，input需要pass sequentially没法利用GPU
+
+<center><img src="../../images/DL_BERT_12.png" width="100%"/></center>
+
+- The feature-based approach, such as ELMo (Peters et al., 2018a), uses task-specific architectures that include the pre-trained representations as additional features. 
+
+- The fine-tuning approach, such as the Generative Pre-trained Transformer (OpenAI GPT) (Radford et al., 2018), introduces minimal task-specific parameters, and is trained on the downstream tasks by simply fine-tuning all pretrained parameters.
+
+
+### BERT跟Transformer的联系
+
+Transformer的encoder和decoder都有一些学习语言的能力，Bert建立在Encoder的stacking基础上，GPT建立在Decoder的Stacking基础上
+
+## BERT的Pre-train任务
 
 BERT 使用 Transformer，这是一种注意力机制，可以学习文本中单词（sub-word）之间的上下文关系。Transformer 包括两个独立的机制——一个读取文本输入的Encoder和一个为任务生成预测的Decoder。BERT只用了Encoder。
 
 与顺序读取文本输入（从左到右/从右到左）的directional模型相反，Transformer 的Encoder一次读取整个单词序列。因此它被认为是双向(bi-directional)的，尽管更准确地说它是非定向的(non-directional)。这个特性允许模型根据单词的所有上下文来学习单词在上下文中的embedding。
 
-![img](https://pic3.zhimg.com/v2-019b762c2f27332b50887fb4fbc4c586_b.png)
 
-BERT是如何做预训练的两个任务：一是Masked Language Model（MLM）；二是Next Sentence Prediction（NSP）。在训练BERT的时候，这两个任务是**同时训练**的。所以，BERT的损失函数是把这两个任务的损失函数加起来的，是一个多任务训练。
+BERT是如何做预训练的两个任务：一是Masked **Language Model**（MLM）；二是Next Sentence Prediction（NSP）。这两个任务可以更好地学习语言，而不是像Q&A任务一样会学习数据。
 
-### 2.1 Masked Language Model (MLM)
+在训练BERT的时候，这两个任务是**同时训练**的。所以，BERT的损失函数是把这两个任务的损失函数加起来的，是一个多任务训练。
+
+### Masked Language Model (MLM)
 
 ​    什么是Masked Language Model？它的灵感来源于完形填空。具体在BERT中，掩盖了15% 的Tokens。这掩盖了15%的Tokens又分为三种情况：
 
@@ -48,7 +64,11 @@ BERT是如何做预训练的两个任务：一是Masked Language Model（MLM）�
 
 ![img](https://pic1.zhimg.com/v2-2564a984de24488f688c582fd6a34024_b.png)
 
-### 2.2 Next Sentence Prediction
+<center><img src="../../images/DL_BERT_11.png" width="100%"/></center>
+
+这个原理跟CBOW是类似的！目的是enables the representation to fuse the left and the right context，BERT相当于是CBOW的deep+考虑context版本！
+
+### Next Sentence Prediction
 
 ​    Next Sentence Prediction是更关注于两个句子之间的关系。与Masked Language Model任务相比，Next Sentence Prediction更简单些。
 
@@ -82,34 +102,60 @@ BERT是如何做预训练的两个任务：一是Masked Language Model（MLM）�
 
 - *SOP: Sentence order prediction Used in ALBERT*提出前后句子是否改过来的任务，后面游泳！
 
-## 3. 如何用BERT做Fine-tuning
+## Bert为什么work
+
+- `Contextualized word embedding`: 除了把word本身意思embedding出来，BERT还会考虑这个字的context来出embedding，如苹果的果字：
+
+    <center><img src="../../images/DL_BERT_9.png" width="65%"/></center>
+
+    - 因为苹果手机的果 平时上下文的是电 股价，而苹果的果周围都是吃。这个上下文的区别让BERT知道了！
+    
+    从而通过训练做填空题的过程中，了解了语言的意思（了解上下文 抽取咨讯 完形填空），从而在其他的任务中做得更好。
+
+    论文中BERT介绍自己是deep bidirectional Transformer
+
+
+
+## 如何用BERT做Fine-tuning
 
 ​    Pre-train的BERT 经过微小的改造（Fine-tune，增加一个小小的层），就可以用于各种各样的语言任务。（Down stream Tasks下游任务：the tasks we care and have a little bit labeld data）
 
 - Pre-train和Fine-tune和起来之后，BERT相当于是一个`Semi-supervised`的过程
 
-（1）与 Next Sentence Prediction类似，通过在 [CLS] 标记的 Transformer 输出顶部添加分类层，完成诸如情感分析之类的分类任务：
+### 情感分析
+与 Next Sentence Prediction类似，通过在 [CLS] 标记的 Transformer 输出顶部添加分类层，完成诸如情感分析之类的分类任务：
 
 <center><img src="https://pic2.zhimg.com/v2-1b3474f96d02f2ddaecce875658d304d_b.png" width="65%"/></center>
 <center><img src="../../images/DL_BERT_3.png" width="65%"/></center>
 
 
-（2）在问答任务（例如 SQuAD v1.1）中，会收到一个关于文本序列的问题，并需要在序列中标记答案。使用 BERT，可以通过学习**标记答案开始和结束的两个额外向量**来训练问答模型。
+### Q&A
 
-<center>><img src="https://pic1.zhimg.com/v2-99e7f78d1e3394ddc53f680d8c9355cc_b.png" width="65%"/></center>
+问答任务（例如 SQuAD v1.1）中，会收到一个关于文本序列的问题，并需要在序列中标记答案。使用 BERT，可以通过学习**标记答案开始和结束的两个额外向量**来训练问答模型。
+
+<center><img src="https://pic1.zhimg.com/v2-99e7f78d1e3394ddc53f680d8c9355cc_b.png" width="65%"/></center>
 
 <center><img src="../../images/DL_BERT_6.png" width="65%"/></center>
 
 <center><img src="../../images/DL_BERT_7.png" width="48%"/><img src="../../images/DL_BERT_8.png" width="50%"/></center>
 
-（3）在命名实体识别 (NER) 中，接收文本序列，并需要标记文本中出现的各种类型的实体（人、组织、日期等）。输入输出是一样长的，使用 BERT，可以通过将每个标记的输出向量输入到预测 NER 标签的分类层来训练 NER 模型。
+### 命名实体识别 (NER) 
+
+命名实体识别 (NER) 中，接收文本序列，并需要标记文本中出现的各种类型的实体（人、组织、日期等）。输入输出是一样长的，使用 BERT，可以通过将每个标记的输出向量输入到预测 NER 标签的分类层来训练 NER 模型。
 
 <center><img src="../../images/DL_BERT_4.png" width="36.9%"/> <img src="https://pic2.zhimg.com/v2-9e2606ca8b1f14cddec24607dc60ca9d_b.png" width="50%"/></center>
 
-(4) Natrual Language Inference (NLI): 从前提和假设得到两个句子的关系，比如输入一篇文章和一条评论，判断评论对文章是赞成还是反对。
+### Natrual Language Inference (NLI):
+
+Natrual Language Inference (NLI): 从前提和假设得到两个句子的关系
+- 立场判断例子：输入一篇文章和一条评论，判断评论对文章是赞成还是反对。
 <center><img src="../../images/DL_BERT_5.png" width="50%"/></center>
 
-## 4. Takeaways
+- 骑着马跳过了飞机的premise，不能推出这个人在餐馆，所以要output contradiction
+- 输入两个句子用SEP分隔开
+- Bert会给一样的输出，但我们只取CLS的output进Linear Transform输出结果
+
+## 其他Takeaways
 
 (1) BERT官方提供了两个版本的BERT模型。一个是BERT的BASE版，另一个是BERT的LARGE版。BERT的BASE版有12层的Transformer，隐藏层Embedding的维度是768，head是12个，参数总数大概是一亿一千万。BERT的LARGE版有24层的Transformer，隐藏层Embedding的维度是1024，head是16个，参数总数大概是三亿四千万。
 

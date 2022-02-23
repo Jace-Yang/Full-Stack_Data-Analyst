@@ -30,7 +30,7 @@ rm -r _build
 
 cd ..
 git add .
-git commit -m "更新深度学习模块——基础章节——GPU"
+git commit -m "新增因果推断模块——统计章节——基础——辛普森悖论📒"
 git push origin main
 open -a "Google Chrome" https://github.com/Jace-Yang/Full-Stack_Data-Analyst/deployments/
 ```

@@ -1,6 +1,11 @@
 format: jb-book
 root: intro
 parts:
+  - caption: 因果推断
+    chapters:
+      - file: Causal_Inference/Basics/README.md
+        sections:
+        - file: Causal_Inference/Basics/Stats.md
   - caption: 深度学习
     chapters:
       - file: Deep_Learning/Basics/README.md

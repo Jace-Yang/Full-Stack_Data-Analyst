@@ -40,5 +40,7 @@ html:
     hypothesis: true
 
 sphinx:
+  extra_extensions:
+    - sphinx_proof
   config:
     language: en # Change language to English. 没有这一行会是强行翻译的中文

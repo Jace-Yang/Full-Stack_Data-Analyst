@@ -19,7 +19,12 @@ parts:
         - file: Deep_Learning/NLP/Self-attention
         - file: Deep_Learning/NLP/Transformer
         - file: Deep_Learning/NLP/BERT
-  - caption: 模板Part
+      - file: Deep_Learning/NN_compression/README
+        sections:
+        - file: Deep_Learning/NN_compression/KD.ipynb
+          sections:
+          - file: Deep_Learning/NN_compression/Distill_Bert.md
+  - caption: 备用的模板
     chapters:
     - file: notebooks
       sections:

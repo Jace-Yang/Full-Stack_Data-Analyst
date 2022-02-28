@@ -5,13 +5,22 @@ This is a notebook from Jace Yang.
 
 - Set up:
 ```
-conda activate DL
-cd Desktop/GitHub/Full-Stack_Data-Analyst/book
+conda create --name jupybook
+conda activate jupybook
+conda install -c conda-forge python=3
+conda install -c conda-forge 'jupyterlab>=3.0.0,<4.0.0a0' jupyterlab-lsp
+pip install 'python-lsp-server[all]'
+pip install -U jupyter-book
+pip install ghp-import
+pip install sphinx-inline-tabs
+pip install sphinx-proof
 ```
 
 - Everytime edit the code and want to see result:
 
 ```
+conda activate jupybook
+cd book
 rm -r _build
 jupyter-book build --all ./
 cp -R images _build/html/images
@@ -30,7 +39,7 @@ rm -r _build
 
 cd ..
 git add .
-git commit -m "更新深度学习模块——基础章节——GPU📒"
+git commit -m "新增深度学习模块——神经网络压缩章节——知识蒸馏📒"
 git push origin main
 open -a "Google Chrome" https://github.com/Jace-Yang/Full-Stack_Data-Analyst/deployments/
 ```

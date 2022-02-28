@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GPT &#8212; Towards a Full-stack DA</title>
+    <title>神经网络压缩 &#8212; Towards a Full-stack DA</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -55,6 +55,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="知识蒸馏" href="KD.html" />
+    <link rel="prev" title="BERT" href="../NLP/BERT.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -127,7 +129,7 @@ const thebe_selector_output = ".output, .cell_output"
   深度学习
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../Basics/README.html">
    基础
@@ -156,7 +158,7 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="README.html">
+  <a class="reference internal" href="../NLP/README.html">
    NLP
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -166,39 +168,39 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="basics.html">
+    <a class="reference internal" href="../NLP/basics.html">
      基础概念
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Self-attention.html">
+    <a class="reference internal" href="../NLP/Self-attention.html">
      Self-Attention
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Transformer.html">
+    <a class="reference internal" href="../NLP/Transformer.html">
      Transformer
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="BERT.html">
+    <a class="reference internal" href="../NLP/BERT.html">
      BERT
     </a>
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../NN_compression/README.html">
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
    神经网络压缩
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
   <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../NN_compression/KD.html">
+    <a class="reference internal" href="KD.html">
      知识蒸馏
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
@@ -208,7 +210,7 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../NN_compression/Distill_Bert.html">
+      <a class="reference internal" href="Distill_Bert.html">
        Distill Bert
       </a>
      </li>
@@ -281,7 +283,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/Deep_Learning/NLP/GPT.md"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/Deep_Learning/NN_compression/README.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -301,10 +303,10 @@ const thebe_selector_output = ".output, .cell_output"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FDeep_Learning/NLP/GPT.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FDeep_Learning/NN_compression/README.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Deep_Learning/NLP/GPT.md"><button
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Deep_Learning/NN_compression/README.md"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -330,23 +332,9 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#autoregressive-lm-ar">
-   自回归语言模型（Autoregressive LM, AR）
+  <a class="reference internal nav-link" href="#motivation">
+   Motivation
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   <strong>
-    GPT的总体结构：
-   </strong>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#in-context-learning">
-     In-context Learning
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -358,7 +346,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>GPT</h1>
+                <h1>神经网络压缩</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -369,23 +357,9 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#autoregressive-lm-ar">
-   自回归语言模型（Autoregressive LM, AR）
+  <a class="reference internal nav-link" href="#motivation">
+   Motivation
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   <strong>
-    GPT的总体结构：
-   </strong>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#in-context-learning">
-     In-context Learning
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -396,35 +370,28 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="gpt">
-<h1>GPT<a class="headerlink" href="#gpt" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="autoregressive-lm-ar">
-<h2>自回归语言模型（Autoregressive LM, AR）<a class="headerlink" href="#autoregressive-lm-ar" title="Permalink to this headline">¶</a></h2>
-<p>通常讲的”语言模型”(language model)其实就是根据上文内容预测下一个可能跟随的单词，也就是常说的自左向右的语言模型任务。或者反过来，就是根据下文预测前面的单词(比如ELMO使用了从左到右、从右到左的语言模型)，这种类型的language model被称为<strong>自回归语言模型(AR)</strong>。</p>
-<p>ELMO尽管看上去利用了上文、也利用了下文，但是本质上仍然是自回归语言模型。的确，ELMO做了两个方向，但是是分别有两个方向的自回归语言模型，然后把LSTM的两个方向的隐节点状态<em>拼接</em> 到一起，来体现双向语言模型这个事情的。（所以说，ELMO是”伪双向”，而BERT是”真双向”）。因为ELMO的这种融合模式过于简单，所以效果其实并不是太好。</p>
-<p>GPT也是典型的自回归语言模型。GPT其实就是Transformer的<strong>decoder</strong>部分（其实和transformer的decoder还有些不一样）经过大规模数据预训练之后得到的模型。GPT的”单向”源自于它在Transformer的decoder中用<strong>masked</strong> self-attention来遮挡住了当前词后面的那些词，防止在预测下一个词的时候”看到”下一个词是什么。例如下图中的”it”只能对其之前的token来分配注意力权重。</p>
-<p><img alt="img" src="https://pic3.zhimg.com/v2-4a286a52d26738a81e6253b7a5871fe6_b.png" /></p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1>神经网络压缩<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>模型压缩大体上可以分为5种</p>
+<ul class="simple">
+<li><p><strong>模型剪枝</strong>：即移除对结果作用较小的组件，如减少 head 的数量和去除作用较少的层，共享参数等，ALBERT属于这种；</p></li>
+<li><p><strong>量化</strong>：比如将 float32 降到 float8；</p></li>
+<li><p><strong>知识蒸馏</strong>：将 teacher 的能力蒸馏到 student上，一般 student 会比 teacher 小。我们可以把一个大而深的网络蒸馏到一个小的网络，也可以把集成的网络蒸馏到一个小的网络上。</p></li>
+<li><p><strong>参数共享</strong>：通过共享参数，达到减少网络参数的目的，如 ALBERT 共享了 Transformer 层；</p></li>
+<li><p><strong>参数矩阵近似</strong>：通过矩阵的低秩分解或其他方法达到降低矩阵参数的目的；</p></li>
+</ul>
+<div class="section" id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<p>训练和部署之间存在着一定的不一致性: :</p>
+<ul class="simple">
+<li><p>在训练过程中, 我们需要使用复杂的模型, 大量的计算资源, 以便从非常大、高度冗余的数据集 中提取出信息。在实验中, 效果最好的模型往往规模很大, 甚至由多个模型集成得到。而大模型 不方便部署到服务中去, 常见的瓶颈如下:</p></li>
+<li><p>推断速度慢</p></li>
+<li><p>对部署资源要求高(内存, 显存等)</p></li>
+<li><p>在部署时, 我们对延迟以及计算资源都有着严格的限制。
+这也就是模型压缩的动机：我们希望有一个规模较小的模型, 能达到和大模型一样或相当的结果。</p></li>
+</ul>
 </div>
-<div class="section" id="id1">
-<h2><strong>GPT的总体结构：</strong><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>做的任务是预测下一个token是什么：</p>
-<center><img src="../../images/DL_GPT_1.png" width="45%"/></center>
-<p>GPT是Transformer Decoder稍加修改、并配以特定的下游模型得到的。”稍加修改”指的是，把用于引入encoder输入的Multi-head Self-Attention砍掉，只保留<strong>Masked</strong> Multi-self Attention和FFN（其实也可以理解为GPT用的是Transformer Encoder，只不过把Multi-head Self Attention 换成了<strong>Masked</strong> Multi-head Self-attention）；”特定下游模型”指的是线性变换+分类这样的简单结构。</p>
-<p><img alt="img" src="https://pic4.zhimg.com/v2-74e91905cfe60054520db4a72fdeb893_b.jpeg" /></p>
-<p><strong>无监督训练</strong></p>
-<p>GPT的无监督预训练是基于语言模型的，给定一个无标签的序列 <img alt="\mathcal{U} = {u_1, \cdots, u_n}" src="https://www.zhihu.com/equation?tex=%5Cmathcal%7BU%7D%20%3D%20%5C%7Bu_1%2C%20%5Ccdots%2C%20u_n%5C%7D" />，语言模型的优化目标是最大化下面的似然值：</p>
-<p><img alt=" L_1(\mathcal{U}) = \sum_i \log P(u_i | u_{i-k}, \dots, u_{i-1}; \Theta) \tag1 " src="https://www.zhihu.com/equation?tex=%20L_1(%5Cmathcal%7BU%7D)%20%3D%20%5Csum_i%20%5Clog%20P(u_i%20%7C%20u_%7Bi-k%7D%2C%20%5Cdots%2C%20u_%7Bi-1%7D%3B%20%5CTheta)%20%5Ctag1%20" /></p>
-<p>其中，网络最后一层的输出概率分布为</p>
-<p><img alt="img" src="https://pic3.zhimg.com/v2-2426734ff0d12798329dfbd650b55e1e_b.jpeg" /></p>
-<p><strong>有监督微调</strong></p>
-<p><img alt="img" src="https://pic3.zhimg.com/v2-490353a74d8ad466ee7921a45f7d54ee_b.jpeg" /></p>
-<p>用预测值和真实的y值计算交叉熵损失 <img alt="L_2" src="https://www.zhihu.com/equation?tex=L_2" /></p>
-<p>同时，加入语言模型的loss <img alt="L_1(C)" src="https://www.zhihu.com/equation?tex=L_1(C)" />作为<strong>auxiliary loss</strong>有助于<strong>①增强泛化能力、同时②提升收敛的速度</strong>。因此完整的损失函数为：</p>
-<p>​                                                                        <img alt="L_3(\mathcal{C}) = L_2(\mathcal{C}) + \lambda L_1(\mathcal{C}) " src="https://www.zhihu.com/equation?tex=L_3(%5Cmathcal%7BC%7D)%20%3D%20L_2(%5Cmathcal%7BC%7D)%20%2B%20%5Clambda%20L_1(%5Cmathcal%7BC%7D)%20" /></p>
-<div class="section" id="in-context-learning">
-<h3>In-context Learning<a class="headerlink" href="#in-context-learning" title="Permalink to this headline">¶</a></h3>
-<p>GPT目标是一个Few-show learning——给几个examples之后不用gradient descent，甚至one-shot 和 zero-shot</p>
-</div>
+<div class="toctree-wrapper compound">
 </div>
 </div>
 
@@ -441,7 +408,7 @@ const thebe_selector_output = ".output, .cell_output"
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./Deep_Learning/NLP"
+            path: "./Deep_Learning/NN_compression"
         },
         predefinedOutput: true
     }
@@ -452,7 +419,21 @@ const thebe_selector_output = ".output, .cell_output"
               
             
                 <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../NLP/BERT.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">BERT</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="KD.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">知识蒸馏</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
             
         </div>

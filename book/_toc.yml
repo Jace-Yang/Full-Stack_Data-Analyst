@@ -24,6 +24,7 @@ parts:
         - file: Deep_Learning/NN_compression/KD.ipynb
           sections:
           - file: Deep_Learning/NN_compression/Distill_Bert.md
+        - file: Deep_Learning/NN_compression/Quantize.md
   - caption: 备用的模板
     chapters:
     - file: notebooks

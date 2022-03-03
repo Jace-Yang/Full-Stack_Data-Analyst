@@ -1,0 +1,764 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Q-BERT &#8212; Towards a Full-stack DA</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Q-BERT" href="Q-BERT.html" />
+    <link rel="prev" title="量化" href="../Quantize.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/logo2.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Towards a Full-stack DA</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../intro.html">
+   欢迎来到Jace的六边形DA笔记库
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  因果推断
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../Causal_Inference/Basics/README.html">
+   基础
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../Causal_Inference/Basics/Stats.html">
+     统计问题
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  深度学习
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../Basics/README.html">
+   基础
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Basics/DL_hyperparameter.html">
+     DL常见超参及调整策略
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Basics/Optimizer.html">
+     优化器
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Basics/Trained_by_GPU.html">
+     GPU训练
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../NLP/README.html">
+   NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../NLP/basics.html">
+     基础概念
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../NLP/Self-attention.html">
+     Self-Attention
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../NLP/Transformer.html">
+     Transformer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../NLP/BERT.html">
+     BERT
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../README.html">
+   神经网络压缩
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../KD.html">
+     知识蒸馏
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../Distill_Bert.html">
+       Distill Bert
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="../Quantize.html">
+     量化
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       Q-BERT
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="Q-BERT.html">
+       Q-BERT
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  备用的模板
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../notebooks.html">
+   Content with notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference external" href="https://www.linkedin.com/in/jinhang-yang/">
+     LinkedIn
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/Deep_Learning/NN_compression/Quantize/QBert.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FDeep_Learning/NN_compression/Quantize/QBert.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Deep_Learning/NN_compression/Quantize/QBert.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   背景
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   核心方法
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     量化
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mixed-precision-quantization">
+     Mixed precision quantization
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#motivation">
+       Motivation
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#hessian-aware-quantization-hawq">
+       Hessian AWare Quantization (HAWQ)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#qbert">
+       QBERT的改进
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#squadlocal-minima">
+       SQuAD没有达到local minima的问题
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#group-wise-quantization">
+     Group-wise Quantization 组量化
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   参考资料
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Q-BERT</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   背景
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   核心方法
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     量化
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mixed-precision-quantization">
+     Mixed precision quantization
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#motivation">
+       Motivation
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#hessian-aware-quantization-hawq">
+       Hessian AWare Quantization (HAWQ)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#qbert">
+       QBERT的改进
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#squadlocal-minima">
+       SQuAD没有达到local minima的问题
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#group-wise-quantization">
+     Group-wise Quantization 组量化
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   参考资料
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="q-bert">
+<h1>Q-BERT<a class="headerlink" href="#q-bert" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><a class="reference external" href="https://arxiv.org/pdf/1909.05840.pdf">Q-BERT: Hessian Based Ultra Low Precision Quantization of BERT</a></p>
+</div></blockquote>
+<ul>
+<li><p>效果</p>
+<p>Q-BERT achieves 13× compression ratio in weights, 4× smaller activation size, and 4× smaller embedding size, within at most 2.3% accuracy loss.</p>
+</li>
+<li><p>研究贡献：</p>
+<ul class="simple">
+<li><p>mixed precision quantization based on Hessian information——对二阶信息（即 Hessian 信息）进行大量逐层分析，进而对BERT执行混合精度量化。研究发现，与计算机视觉领域中的神经网络相比，BERT的Hessian 行为存在极大的不同。因此，该研究提出一种基于top特征值均值和方差的敏感度度量指标，以实现更好的混合精度量化。</p></li>
+<li><p>the group-wise quantizing scheme——研究者提出新的量化机制——组量化（group-wise quantization），该方法能够缓解准确率下降问题，同时不会导致硬件复杂度显著上升。具体而言，组量化机制将每个矩阵分割为不同的组，每个组拥有独立的量化范围和查找表。</p></li>
+<li><p>研究者调查了BERT量化中的瓶颈，即不同因素如何影响NLP性能和模型压缩率之间的权衡，这些因素包括量化机制，以及嵌入、自注意力和全连接层等模块。</p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="id1">
+<h2>背景<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Ultra low precision quantization can lead to significant accuracy degradation. Mixed precision quantization and multi-stage quantization have been proposed to solve/alleviate this problem.</p>
+<ul class="simple">
+<li><p>Mixed precision quantization的问题：指数化的搜索空间，比如我们可以对一个12层的BERT做2、4、或者8bit的三种量化，那么就一共有<span class="math notranslate nohighlight">\(3^{12} \approx 5.3 \times 10^{5}\)</span>种不同的量化方法！</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>核心方法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>对于一个fine-tuned的BERT：损失函数是</p>
+<div class="math notranslate nohighlight">
+\[
+L(\theta)=\sum_{(x_{i}, y_{i})} \operatorname{CE}(\operatorname{softmax}(W_{c}(W_{n}(\ldots W_{1}(W_{e}(x_{i}))))), y_{i})
+\]</div>
+<ul>
+<li><p>CE：Cross Entropy或者其他合适的loss function</p></li>
+<li><p>BERT三类主要的layers：</p>
+<ul>
+<li><p>最内层的<span class="math notranslate nohighlight">\(W_e\)</span>是embedding table，<span class="math notranslate nohighlight">\(BERT_{BASE}\)</span>中需要91MB.</p></li>
+<li><p>外面的<span class="math notranslate nohighlight">\(W_{1}, W_{2}, \ldots, W_{n}\)</span>是Encoder层，<span class="math notranslate nohighlight">\(BERT_{BASE}\)</span>中需要325MB</p></li>
+<li><p><span class="math notranslate nohighlight">\(W_{c}\)</span>是output layer，<span class="math notranslate nohighlight">\(BERT_{BASE}\)</span>中需要0.01MB.</p>
+<p>QBERT没有量化output layer，而是用两种不同的方法量化embedding和Encoder的parameters</p>
+</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="id3">
+<h3>量化<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>如果把一个NN中的activation或者权重real value <span class="math notranslate nohighlight">\(z\)</span>用quantization operator <span class="math notranslate nohighlight">\(Q\)</span>来量化的话，那么对每一个在 <span class="math notranslate nohighlight">\((t_{j}, t_{j+1}]\)</span> (<span class="math notranslate nohighlight">\(j=0, \ldots, 2^{k}-1\)</span>，k是这一层的quantization precision)这个区间的<span class="math notranslate nohighlight">\(z\)</span>来说，都会映射到一个固定的数<span class="math notranslate nohighlight">\(q_j\)</span>，也就是：
+$<span class="math notranslate nohighlight">\(
+Q(z)=q_{j}, \quad \text { for } z \in(t_{j}, t_{j+1}]
+\)</span>$</p>
+<ul class="simple">
+<li><p>Uniformly quantization function: <span class="math notranslate nohighlight">\((t_{j}, t_{j+1}]\)</span>这个区间的大小都是一样的，QBERT用的也是这种方法</p></li>
+</ul>
+<p>整体来说，QBERT实现的是一个非对称的quantization-aware fine-tuning，属于之前提到的QAT但是是在fine-tune的阶段实施的：</p>
+<ul>
+<li><p>在前向传播的过程里，对每一个weight或者激活函数tensor <span class="math notranslate nohighlight">\(X\)</span>中的每一个element都采取</p>
+<ol>
+<li><div class="math notranslate nohighlight">
+\[X^{\prime}=\operatorname{Clamp}(X, q_{0}, q_{2^{k}-1}) \]</div>
+<ul class="simple">
+<li><p>Clamp(X, min, max)这个函数的意思是把a里面比b小的设成b，比c大的设成c</p></li>
+<li><p>这一步之后得到的<span class="math notranslate nohighlight">\(X^{\prime}\)</span>相当于是被clip到了<span class="math notranslate nohighlight">\([q_{0}, q_{2^{k}-1}]\)</span>这个范围里面</p></li>
+<li><p>通常这个范围是[min, max]的一个subinterval，这样做的目的是get rid of outliers and better represent the majority of the given tensor</p></li>
+</ul>
+</li>
+<li><div class="math notranslate nohighlight">
+\[X^{I}=\lfloor\frac{X^{\prime}-q_{0}}{\Delta}\rceil, \text { where } \Delta=\frac{q_{2^{k}-1}-q_{0}}{2^{k}-1} \]</div>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\lfloor · \rceil\)</span>: 取整函数</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta\)</span>: 两个quantized的点的距离</p>
+<p>这个function得到的<span class="math notranslate nohighlight">\(X^{I}\)</span>相当于减掉了<span class="math notranslate nohighlight">\(X^{\prime}\)</span>的最小值之后算离最小值多少个interval，然后再被取个整，得到的matrix就是一个整数矩阵了！</p>
+</li>
+</ul>
+</li>
+<li><div class="math notranslate nohighlight">
+\[DQ(X)=\Delta X^{I}+q_{0}\]</div>
+<p>这是原文写的是Q，但说了是一个dequantization oepration，会把之前的float再次映射回到pre-trained好的网络熟悉的值域!</p>
+</li>
+</ol>
+<p>经过这三个步骤之后，这个Q DQ的block的输出大概是这么一回事：</p>
+  <center><img src="../../../images/DL_QBert_1.png" width="45%"/></center>
+<p>然而问题来了，这样的activation输出根本没有梯度可言呀！</p>
+</li>
+<li><p>所以，在back-propagation的时候我们要用Straight-through Estimator（<a class="reference external" href="https://arxiv.org/abs/1308.3432">STE</a>）方法绕过这一层activation！实现一个“Fake quantization forward and backward pass”的错觉让其他层正常去训练</p>
+<blockquote>
+<div><p>A straight-through estimator is exactly what it sounds like. It estimates the gradients of a function. Specifically it ignores the derivative of the threshold function and passes on the incoming gradient as if the function was an identity function.<center><img src="../../../images/DL_QBert_2.png" width="45%"/></center></p>
+</div></blockquote>
+<p>那么Intuition很简单，我们把刚刚对一个层的<span class="math notranslate nohighlight">\(w\)</span>变成<span class="math notranslate nohighlight">\([w_{min}, w_{max}]\)</span>之间的integer的这个过程记为<span class="math notranslate nohighlight">\(w arrow \hat{w}\)</span>，那么对这个不可导的forward layer，我们只需要把它原先到处不可导的导数<span class="math notranslate nohighlight">\(\frac{\partial \hat{w}_{L}}{\partial w_{L}}\)</span>给直接设成1，它就不影响chain rule上的其他back probagation了！</p>
+<p>但唯一要注意的细节是，反传回来的梯度是有可能在我们之前设定的<span class="math notranslate nohighlight">\([w_{min}, w_{max}]\)</span>范围之外的，对于这部分的情况我们之间不更新参数，所以导数直接设成0！</p>
+<p>整理效果来看，由于<span class="math notranslate nohighlight">\(\frac{\partial \hat{\boldsymbol{w}}_{L}}{\partial \boldsymbol{w}_{L}} \approx 1\)</span>，让<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial \hat{w}} \approx \frac{\partial \mathcal{L}}{\partial w}\)</span> 是没什么问题的！</p>
+</li>
+<li><p>Forward和Backward的整体效果用<a class="reference external" href="https://arxiv.org/abs/2107.11979">Towards Energy-efficient Quantized Deep Spiking Neural Networks for Hyperspectral Image Classification</a>这篇paper里的一张图表示就是：</p></li>
+</ul>
+<center><img src="../../../images/DL_QBert_3.png" width="55%"/></center>
+</div>
+<div class="section" id="mixed-precision-quantization">
+<h3>Mixed precision quantization<a class="headerlink" href="#mixed-precision-quantization" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="motivation">
+<h4>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h4>
+<p>Different encoder layers are attending to different structures, and it is expected that they exhibit different sensitivity. Thus, assigning the same number of bits to all the layers is sub-optimal. However, a brute force approach is not feasible for deep networks, as the search space for mixed-precision is exponential in the number of layers!</p>
+<p>比如从下面这张图展示了4个不同的fine-tuned之后的BERT层的Loss Landscape</p>
+<center><img src="../../../images/DL_QBert_4.png" width="75%"/></center>
+<ul>
+<li><p>解释：</p>
+<ul class="simple">
+<li><p>x, y 坐标是二阶导组成的Hessian矩阵中，特征值最大的两个特征向量</p></li>
+<li><p>z轴是这一层的loss function</p></li>
+<li><p>灰色小球是converge的地方，这里注意QBERT假设 在进行quantization之前的 fine-tuned后BERT已经跑了足够的iterations达到了local minima，因此梯度接近0，并且有正的curvature（positive Hessian eigenvalue）</p>
+<ul>
+<li><p>这个假设</p></li>
+</ul>
+</li>
+<li><p>x y的变化⇒z的变化，可以近似weight变化⇒loss的变化，也就是损失函数对weight的sensitivity</p></li>
+</ul>
+</li>
+<li><p>从这张图可以观察出来：每一层的sensitivity差别很大，如果对(a)的层动一点weight的话，loss会迅速increase，而对最后一层很flat的来说，由于它非常不sensitive所以我就算动了很大的weight，loss也不会偏离converge的地方非常远</p>
+<p>这就提示我们在后面的层可能可以采用更激进的策略，比如2 bit，也不会损失很大的accuracy，但有些敏度高的地方，就不能这么操作！</p>
+</li>
+</ul>
+<p>因此，我们不能采取统一的策略，特别是我们最终的目标model很小、需要我们进行ultra low precision (4-bits、2-bits)的时候。我们需要的策略是：assign more bits to more sensitive layers in order to retain performance.</p>
+</div>
+<div class="section" id="hessian-aware-quantization-hawq">
+<h4>Hessian AWare Quantization (HAWQ)<a class="headerlink" href="#hessian-aware-quantization-hawq" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://arxiv.org/pdf/1905.03696.pdf">HAWQ</a>是QBert伯克利lab的另外一篇用在Image上的量化方法，QBERT就是改进了HAWQ方法并应用在了BERT上。因此我们简单介绍一下HAWQ！</p>
+<p>HAWQ定义了一个叫Hessian spectrum，其实就是矩阵的top eigenvalues！核心思想是NN layers with higher Hessian spectrum (i.e., larger top eigenvalues) are more sensitive to quantization and require higher precision, as compared to layers with small Hessian spectrum (i.e., smaller top eigenvalues).</p>
+<p>这个方法的思路很简单，但对于非常高维度的矩阵，显式求特征值有求逆的过程是不可能的，比如一个 <span class="math notranslate nohighlight">\(\text {BERT}_{\text{BASE}}\)</span>有7M个参数，特征值就需要解<span class="math notranslate nohighlight">\(7 M \times 7 M\)</span>的矩阵！Although it is not possible to explicitly form the Hessian, it is possible to compute the Hessian eigenvalues without explicitly forming it, using a matrix-free power iteration algorithm to calculate <code class="docutils literal notranslate"><span class="pre">Hessian</span> <span class="pre">matvec</span></code> —— the result of multiplication of the Hessian matrix with a given (possibly random) vector v , that is, <span class="math notranslate nohighlight">\(H_{i} v\)</span>.</p>
+<ul>
+<li><p>Denote <span class="math notranslate nohighlight">\(g_{i}\)</span> as the gradient of loss <span class="math notranslate nohighlight">\(L\)</span> with respect to the <span class="math notranslate nohighlight">\(i^{t h}\)</span> block parameters,
+$<span class="math notranslate nohighlight">\(
+ g_{i}=\frac{\partial L}{\partial W_{i}}
+ \)</span>$</p>
+<p>Then, for a random vector <span class="math notranslate nohighlight">\(v\)</span> (which has the same dimension as <span class="math notranslate nohighlight">\(g_{i}\)</span> ), we have:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned} 
+    
+        \frac{\partial(g_{i}^{T} v)}{\partial W_{i}}
+        
+        &amp;=\frac{\partial g_{i}^{T}}{\partial W_{i}} v+g_{i}^{T} \frac{\partial v}{\partial W_{i}} \quad \text{// Product Rule} \\ 
+        &amp;=\frac{\partial g_{i}^{T}}{\partial W_{i}} v \quad \text{// $v$ is independent of $W_i$} \\
+        &amp;=H_{i} v \end{aligned} \end{split}\]</div>
+</li>
+<li><p>接着就可以使用Power Iteration算法来得到最大的特征根和特征向量</p>
+ <center><img src="../../../images/DL_QBert_6.png" width="55%"/></center>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(i\)</span>是迭代的轮次，一共跑n个iteration</p></li>
+<li><p>当我们对<span class="math notranslate nohighlight">\(gv\)</span>求导的时候，其实是给<span class="math notranslate nohighlight">\(v\)</span> 乘了一个<span class="math notranslate nohighlight">\(H\)</span>，随着这个H越乘越多，<span class="math notranslate nohighlight">\(v\)</span>就会converge to dominate eigenvector. 这其实是数值代数的一种方法！可以看<a class="reference external" href="http://mlwiki.org/index.php/Power_Iteration">这里</a></p></li>
+</ul>
+  <center><img src="../../../images/DL_QBert_7.png" width="65%"/></center>
+</li>
+</ul>
+<p>有了这个方法之后，对每一层来说，我们training data，我们都可以算出一个Heissian matrix并且计算得到top eigenvalues，而之前的方法就是把这些top eigenvalues做一个平均形成准则——More aggressive quantization is performed for layers with smaller top eigenvalue.</p>
+</div>
+<div class="section" id="qbert">
+<h4>QBERT的改进<a class="headerlink" href="#qbert" title="Permalink to this headline">¶</a></h4>
+<p>QBERT发现，assigning bits based only on the average top eigenvalues is infeasible for many NLP tasks，比如对BERT进行这个过程求得的特征值会发现：The distribution of top Hessian eigenvalue for different layers of <span class="math notranslate nohighlight">\(\text {BERT}_{\text{BASE}}\)</span> in different layers exhibit different magnitude of eigenvalues even though all layers have exactly same structure and size.</p>
+<center><img src="../../../images/DL_QBert_8.png" width="65%"/></center>
+<ul class="simple">
+<li><p>比如上面这张图SQuAD的第七层的variance是61.6，但均值是1.0！尽管这个variance是10个 10%数据计算出来的特征值 得到的！</p></li>
+</ul>
+<p>那么Bert提出的方法是这样的</p>
+<ol class="simple">
+<li><p>判断准则：再加上这个top eigenvalues的标准差！
+$<span class="math notranslate nohighlight">\(\Omega_{i} \triangleq\left|\operatorname{mean}\left(\lambda_{i}\right)\right|+\operatorname{std}\left(\lambda_{i}\right)\)</span>$</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\lambda_{i}\)</span>是第i层的weight的<span class="math notranslate nohighlight">\(H_{i}\)</span>的最高值 组成的向量（因为数据被分成了10份来算 所以有10个 top eigenvalues）</p></li>
+</ul>
+</li>
+<li><p>有了这个准则之后就可以比较了：sort them in descending order, and we use it as a metric to relatively determine the quantization precision. We then perform quantization-aware fine-tuning based on the selected precision setting.</p></li>
+</ol>
+<p>但文中并没有详细给出这些<span class="math notranslate nohighlight">\(\Omega_{i}\)</span>的具体数值，只在最后给出了他们在用2/3 bit mixed precision 以及 2/4-bit mixed precision的具体方案：</p>
+<center><img src="../../../images/DL_QBert_10.jpg" width="75%"/></center>
+<ul class="simple">
+<li><p>注意Embedding layer因为作者发现embedding layer is more sensitive to quantization than the encoder layers.</p></li>
+</ul>
+</div>
+<div class="section" id="squadlocal-minima">
+<h4>SQuAD没有达到local minima的问题<a class="headerlink" href="#squadlocal-minima" title="Permalink to this headline">¶</a></h4>
+<p>注意，这里作者还提出，SQuAD在fine-tuned的过程里没有达到local minimum，因为Hessian矩阵不是正定的。</p>
+<ul>
+<li><p>一般来说：before performing quantization the trained model has converged to a local minima!也就是已经跑了足够的迭代了</p>
+<p>达到local minima的话有两个条件：necessary optimality conditions are zero gradient以及positive curvature（positive Hessian eigenvalue)，但是这里</p>
+</li>
+<li><p>然而，SQuAD has actually not converged to a local minima!</p>
+  <center><img src="../../../images/DL_QBert_9.png" width="75%"/></center>
+<ul class="simple">
+<li><p>从这张图也可以看出来：SQuAD的fine-tuned BERT是converge在了saddle point点上！</p></li>
+</ul>
+</li>
+</ul>
+<p>因此，接下来的方法that performing quantization on SQuAD would lead to higher performance degradation as compared to other tasks, and this is indeed the case as will be discussed next.</p>
+</div>
+</div>
+<div class="section" id="group-wise-quantization">
+<h3>Group-wise Quantization 组量化<a class="headerlink" href="#group-wise-quantization" title="Permalink to this headline">¶</a></h3>
+<p>待更新ing😭</p>
+<center><img src="../../../images/DL_QBert_11.png" width="75%"/></center>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>参考资料<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.bilibili.com/video/av458127699?from=search&amp;seid=14421186488406937921&amp;spm_id_from=333.337.0.0">https://www.bilibili.com/video/av458127699?from=search&amp;seid=14421186488406937921&amp;spm_id_from=333.337.0.0</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=v1oHf1KV6kM">https://www.youtube.com/watch?v=v1oHf1KV6kM</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=aX4Tm1s01wY">https://www.youtube.com/watch?v=aX4Tm1s01wY</a></p></li>
+<li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/103429033">https://zhuanlan.zhihu.com/p/103429033</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/2107.11979">Towards Energy-efficient Quantized Deep Spiking Neural Networks for Hyperspectral Image Classification</a></p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Deep_Learning/NN_compression/Quantize"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../Quantize.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">量化</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Q-BERT.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Q-BERT</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jace Yang<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

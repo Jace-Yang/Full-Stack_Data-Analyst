@@ -66,7 +66,7 @@ $$
 
     经过这三个步骤之后，这个Q DQ的block的输出大概是这么一回事：
 
-    <center><img src="../../../images/DL_QBert_1.png" width="45%"/></center>
+    <center><img src="../../images/DL_QBERT_1.png" width="45%"/></center>
     
     然而问题来了，这样的activation输出根本没有梯度可言呀！
     
@@ -74,7 +74,7 @@ $$
 - 所以，在back-propagation的时候我们要用Straight-through Estimator（[STE](https://arxiv.org/abs/1308.3432)）方法绕过这一层activation！实现一个“Fake quantization forward and backward pass”的错觉让其他层正常去训练
 
     
-    > A straight-through estimator is exactly what it sounds like. It estimates the gradients of a function. Specifically it ignores the derivative of the threshold function and passes on the incoming gradient as if the function was an identity function.<center><img src="../../../images/DL_QBert_2.png" width="45%"/></center>
+    > A straight-through estimator is exactly what it sounds like. It estimates the gradients of a function. Specifically it ignores the derivative of the threshold function and passes on the incoming gradient as if the function was an identity function.<center><img src="../../images/DL_QBERT_2.png" width="45%"/></center>
 
 
     那么Intuition很简单，我们把刚刚对一个层的$w$变成$[w_{min}, w_{max}]$之间的integer的这个过程记为$w arrow \hat{w}$，那么对这个不可导的forward layer，我们只需要把它原先到处不可导的导数$\frac{\partial \hat{w}_{L}}{\partial w_{L}}$给直接设成1，它就不影响chain rule上的其他back probagation了！
@@ -85,7 +85,7 @@ $$
     
 - Forward和Backward的整体效果用[Towards Energy-efficient Quantized Deep Spiking Neural Networks for Hyperspectral Image Classification](https://arxiv.org/abs/2107.11979)这篇paper里的一张图表示就是：
 
-<center><img src="../../../images/DL_QBert_3.png" width="55%"/></center>
+<center><img src="../../images/DL_QBERT_3.png" width="55%"/></center>
 
 
 ### Mixed precision quantization
@@ -96,7 +96,7 @@ Different encoder layers are attending to different structures, and it is expect
 
 比如从下面这张图展示了4个不同的fine-tuned之后的BERT层的Loss Landscape
 
-<center><img src="../../../images/DL_QBert_4.png" width="75%"/></center>
+<center><img src="../../images/DL_QBERT_4.png" width="75%"/></center>
 
 - 解释：
     - x, y 坐标是二阶导组成的Hessian矩阵中，特征值最大的两个特征向量
@@ -136,13 +136,13 @@ HAWQ定义了一个叫Hessian spectrum，其实就是矩阵的top eigenvalues！
 
 - 接着就可以使用Power Iteration算法来得到最大的特征根和特征向量
 
-   <center><img src="../../../images/DL_QBert_6.png" width="55%"/></center>
+   <center><img src="../../images/DL_QBERT_6.png" width="55%"/></center>
 
    - $i$是迭代的轮次，一共跑n个iteration
 
    - 当我们对$gv$求导的时候，其实是给$v$ 乘了一个$H$，随着这个H越乘越多，$v$就会converge to dominate eigenvector. 这其实是数值代数的一种方法！可以看[这里](http://mlwiki.org/index.php/Power_Iteration)
 
-    <center><img src="../../../images/DL_QBert_7.png" width="65%"/></center>
+    <center><img src="../../images/DL_QBERT_7.png" width="65%"/></center>
 
 
 有了这个方法之后，对每一层来说，我们training data，我们都可以算出一个Heissian matrix并且计算得到top eigenvalues，而之前的方法就是把这些top eigenvalues做一个平均形成准则——More aggressive quantization is performed for layers with smaller top eigenvalue.
@@ -151,7 +151,7 @@ HAWQ定义了一个叫Hessian spectrum，其实就是矩阵的top eigenvalues！
 
 QBERT发现，assigning bits based only on the average top eigenvalues is infeasible for many NLP tasks，比如对BERT进行这个过程求得的特征值会发现：The distribution of top Hessian eigenvalue for different layers of $\text {BERT}_{\text{BASE}}$ in different layers exhibit different magnitude of eigenvalues even though all layers have exactly same structure and size.
 
-<center><img src="../../../images/DL_QBert_8.png" width="65%"/></center>
+<center><img src="../../images/DL_QBERT_8.png" width="65%"/></center>
 
 - 比如上面这张图SQuAD的第七层的variance是61.6，但均值是1.0！尽管这个variance是10个 10%数据计算出来的特征值 得到的！
 
@@ -167,7 +167,7 @@ QBERT发现，assigning bits based only on the average top eigenvalues is infeas
 
 但文中并没有详细给出这些$\Omega_{i}$的具体数值，只在最后给出了他们在用2/3 bit mixed precision 以及 2/4-bit mixed precision的具体方案：
 
-<center><img src="../../../images/DL_QBert_10.jpg" width="75%"/></center>
+<center><img src="../../images/DL_QBERT_10.png" width="75%"/></center>
 
 - 注意Embedding layer因为作者发现embedding layer is more sensitive to quantization than the encoder layers.
 
@@ -181,7 +181,7 @@ QBERT发现，assigning bits based only on the average top eigenvalues is infeas
 
 - 然而，SQuAD has actually not converged to a local minima!
 
-    <center><img src="../../../images/DL_QBert_9.png" width="75%"/></center>
+    <center><img src="../../images/DL_QBERT_9.png" width="75%"/></center>
 
     - 从这张图也可以看出来：SQuAD的fine-tuned BERT是converge在了saddle point点上！
 
@@ -192,8 +192,6 @@ QBERT发现，assigning bits based only on the average top eigenvalues is infeas
 ### Group-wise Quantization 组量化
 
 待更新ing😭
-
-<center><img src="../../../images/DL_QBert_11.png" width="75%"/></center>
 
 
 ## 参考资料

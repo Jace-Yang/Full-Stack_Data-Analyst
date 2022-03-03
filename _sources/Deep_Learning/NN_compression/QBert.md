@@ -193,6 +193,9 @@ QBERT发现，assigning bits based only on the average top eigenvalues is infeas
 
 待更新ing😭
 
+<center><img src="../../images/DL_QBert_11.png" width="75%"/></center>
+
+
 ## 参考资料
 
 - https://www.bilibili.com/video/av458127699?from=search&seid=14421186488406937921&spm_id_from=333.337.0.0

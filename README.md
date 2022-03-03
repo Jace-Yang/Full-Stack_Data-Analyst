@@ -39,7 +39,7 @@ rm -r _build
 
 cd ..
 git add .
-git commit -m "调试"
+git commit -m "新增深度学习模块——神经网络压缩章节——量化以及QBert📒"
 git push origin main
 open -a "Google Chrome" https://github.com/Jace-Yang/Full-Stack_Data-Analyst/deployments/
 ```

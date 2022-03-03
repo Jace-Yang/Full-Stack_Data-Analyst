@@ -656,7 +656,7 @@ $<span class="math notranslate nohighlight">\(\Omega_{i} \triangleq\left|\operat
 <li><p>有了这个准则之后就可以比较了：sort them in descending order, and we use it as a metric to relatively determine the quantization precision. We then perform quantization-aware fine-tuning based on the selected precision setting.</p></li>
 </ol>
 <p>但文中并没有详细给出这些<span class="math notranslate nohighlight">\(\Omega_{i}\)</span>的具体数值，只在最后给出了他们在用2/3 bit mixed precision 以及 2/4-bit mixed precision的具体方案：</p>
-<center><img src="../../images/DL_QBert_10.png" width="75%"/></center>
+<center><img src="../../images/DL_QBert_10.jpg" width="75%"/></center>
 <ul class="simple">
 <li><p>注意Embedding layer因为作者发现embedding layer is more sensitive to quantization than the encoder layers.</p></li>
 </ul>

@@ -780,7 +780,7 @@ Direct method: max calibrator</p>
 </li>
 </ul>
 <p>整个训练过程里面 数据还是浮点数精度的，所以是伪量化</p>
- <center><img src="../../images/DL_Quantize_5.png" width="40%"/></center>
+ <center><img src="../../images/DL_Quantize_5.png" width="70%"/></center>
 </li>
 </ul>
 </li>
@@ -842,12 +842,16 @@ Direct method: max calibrator</p>
 <li><p>而Second - derivative是一个matrix，大小是 |W|×|W|，二阶导衡量的是curvature（曲率），大的话说明曲线会sharper and shaper</p></li>
 </ul>
 <p>gradient可以用L1或者L2 norm，但是二阶导数的大小该怎么衡量呢？答案是特征值（Eigen values）！</p>
-<ul class="simple">
-<li><p>但这里注意要用matrix-free algorithm！因为weight的维度很高，如果直接求解的话，在矩阵inverse的时候肯定会遇到问题。目前有很多现成的blackbox：</p></li>
-</ul>
+<ul>
+<li><p>但这里注意要用matrix-free algorithm！因为weight的维度很高，如果直接求解的话，在矩阵inverse的时候肯定会遇到问题。目前有很多现成的blackbox：</p>
 <blockquote>
 <div><p>Z. Yao*, A. Gholami*, Q. Lei, K. Keutzer, M. Mahoney, Hessian-based Analysis of Large Batch Training and Robustness to Adversaries, NeurIPS’18, 2018. <br> Z. Yao*, A. Gholami*, K. Keutzer, M. Mahoney, PyHessian: Neural Networks Through the Lens of the Hessian Spotlight at ICML’20 workshop on Beyond First-Order Optimization Methods in Machine Learning, 2020. <br>Code: <a class="reference external" href="https://github.com/amirgholami/PyHessian">https://github.com/amirgholami/PyHessian</a></p>
+<ul class="simple">
+<li><p>核心是用 Gradient back propagation</p></li>
+</ul>
 </div></blockquote>
+</li>
+</ul>
 <p>当我们知道了怎么量化，我们就可以对模型的不同层做不同的量化！这是因为一个size可能不能适应所有的！如果使用了不robust的方法，就会出现坑坑洼洼的平面！</p>
 <center><img src="../../images/DL_Quantize_16.png" width="75%"/></center>
 </div>

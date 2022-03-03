@@ -27,6 +27,7 @@ parts:
         - file: Deep_Learning/NN_compression/Quantize.md
           sections:
           - file: Deep_Learning/NN_compression/QBert.md
+          - file: Deep_Learning/NN_compression/Q-BERT.md
   - caption: 备用的模板
     chapters:
     - file: notebooks

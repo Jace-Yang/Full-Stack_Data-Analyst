@@ -1,0 +1,900 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>优化器 &#8212; Towards a Full-stack DA</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="GPU训练" href="Trained_by_GPU.html" />
+    <link rel="prev" title="DL常见超参及调整策略" href="DL_hyperparameter.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo2.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Towards a Full-stack DA</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   欢迎来到Jace的六边形DA笔记库
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  因果推断
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../Causal_Inference/Basics/README.html">
+   基础
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Causal_Inference/Basics/Stats.html">
+     统计问题
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  深度学习
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="README.html">
+   基础
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="DL_hyperparameter.html">
+     DL常见超参及调整策略
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     优化器
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Trained_by_GPU.html">
+     GPU训练
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../NLP/README.html">
+   NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../NLP/basics.html">
+     基础概念
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../NLP/Self-attention.html">
+     Self-Attention
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../NLP/Transformer.html">
+     Transformer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../NLP/BERT.html">
+     BERT
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../NN_compression/README.html">
+   神经网络压缩
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../NN_compression/KD.html">
+     知识蒸馏
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../NN_compression/Distill_Bert.html">
+       Distill Bert
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../NN_compression/Quantize.html">
+     量化
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../NN_compression/QBert.html">
+       Q-BERT
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  备用的模板
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../notebooks.html">
+   Content with notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference external" href="https://www.linkedin.com/in/jinhang-yang/">
+     LinkedIn
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/Deep_Learning/Basics/Optimizer.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FDeep_Learning/Basics/Optimizer.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Deep_Learning/Basics/Optimizer.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/Jace-Yang/Full-Stack_Data-Analyst/master?urlpath=tree/Deep_Learning/Basics/Optimizer.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   先修知识：牛顿法
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gradient-descent">
+   梯度下降法(Gradient Descent)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gd">
+     标准梯度下降法(GD)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradient-descent-with-momentum">
+     Gradient Descent with Momentum
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nesterov-momentum">
+     Nesterov Momentum
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sgd">
+       1.2 随机梯度下降法(SGD)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#bgd">
+       1.3 小批量梯度下降(BGD)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#q-a">
+       Q/A
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#x02">
+   0x02. 动量优化法
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#momentum">
+     1. momentum
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nag">
+     2. NAG
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   3.自适应学习率优化算法
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adagrad">
+     3.1 AdaGrad算法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rmsprop">
+     <strong>
+      3.2 RMSProp算法
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adam">
+     <strong>
+      3.3 Adam
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adamw-adamweightdecayoptimizer">
+     3.4 AdamW (AdamWeightDecayOptimizer)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     1. 遗传算法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     2. 模拟退火算法
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>优化器</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   先修知识：牛顿法
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gradient-descent">
+   梯度下降法(Gradient Descent)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gd">
+     标准梯度下降法(GD)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradient-descent-with-momentum">
+     Gradient Descent with Momentum
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nesterov-momentum">
+     Nesterov Momentum
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sgd">
+       1.2 随机梯度下降法(SGD)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#bgd">
+       1.3 小批量梯度下降(BGD)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#q-a">
+       Q/A
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#x02">
+   0x02. 动量优化法
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#momentum">
+     1. momentum
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nag">
+     2. NAG
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   3.自适应学习率优化算法
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adagrad">
+     3.1 AdaGrad算法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rmsprop">
+     <strong>
+      3.2 RMSProp算法
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adam">
+     <strong>
+      3.3 Adam
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adamw-adamweightdecayoptimizer">
+     3.4 AdamW (AdamWeightDecayOptimizer)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     1. 遗传算法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     2. 模拟退火算法
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1>优化器<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>先修知识：牛顿法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>应用一：求方程的根</p></li>
+</ul>
+<p><img alt="img" src="https://img-blog.csdnimg.cn/20210125183922803.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTMzMjAwOQ==,size_16,color_FFFFFF,t_70" /></p>
+<ul class="simple">
+<li><p>应用二：最优化</p></li>
+</ul>
+<p><img alt="img" src="https://img-blog.csdnimg.cn/20210426221329818.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTMzMjAwOQ==,size_16,color_FFFFFF,t_70" /></p>
+<p>推广到多元的情况，一阶导变为梯度、二阶导变为海森矩阵：</p>
+<p><img alt="img" src="https://img-blog.csdnimg.cn/20210125145603537.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTMzMjAwOQ==,size_16,color_FFFFFF,t_70" /></p>
+</div>
+<div class="section" id="gradient-descent">
+<h2>梯度下降法(Gradient Descent)<a class="headerlink" href="#gradient-descent" title="Permalink to this headline">¶</a></h2>
+<p>梯度下降法是最基本的一类优化器，目前主要分为三种梯度下降法：标准梯度下降法(GD, Gradient Descent)，随机梯度下降法(SGD, Stochastic Gradient Descent)及批量梯度下降法(BGD, Batch Gradient Descent)。</p>
+<div class="section" id="gd">
+<h3>标准梯度下降法(GD)<a class="headerlink" href="#gd" title="Permalink to this headline">¶</a></h3>
+<p>假设要学习训练的模型参数为 <img alt="\theta" src="https://www.zhihu.com/equation?tex=%5Ctheta" />  ，loss为 <img alt="J(\theta)" src="https://www.zhihu.com/equation?tex=J(%5Ctheta)" />  。则loss关于模型参数的偏导数，即梯度为 <img alt="g_t = \frac{\partial J(\theta)}{\partial \theta}|{\theta = \theta{t-1}}" src="https://www.zhihu.com/equation?tex=g_t%20%3D%20%5Cfrac%7B%5Cpartial%20J(%5Ctheta)%7D%7B%5Cpartial%20%5Ctheta%7D%7C_%7B%5Ctheta%20%3D%20%5Ctheta_%7Bt-1%7D%7D" />  ，学习率为η，则使用梯度下降法更新参数为： <img alt="\Delta \theta = -\eta g_t" src="https://www.zhihu.com/equation?tex=%5CDelta%20%5Ctheta%20%3D%20-%5Ceta%20g_t" /></p>
+<p>若参数是多元( <img alt="\theta_1,\theta_2...\theta_n" src="https://www.zhihu.com/equation?tex=%5Ctheta_1%2C%5Ctheta_2...%5Ctheta_n" /> )的，则梯度为：</p>
+<p><img alt="img" src="https://img-blog.csdnimg.cn/20210217221519422.png" /></p>
+<p>基本策略可以理解为”在有限视距内寻找最快路径下山“，因此每走一步，参考当前位置最陡的方向(即梯度)进而迈出下一步，然而Gradient Descent存在的问题：</p>
+<ul class="simple">
+<li><p>GD convergence is poor due to difference in gradient values along different dimensions</p></li>
+</ul>
+<center><img src="../../images/DL_optimazation_1.png" width="65%"/></center> <br> 我们理想的情况是
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- Move **quickly** in directions with **small but consistent** (pointing in one direction, always positieve  or always negative) gradients. &lt;br&gt;
+  Move **slowly** in directions with **big but inconsistent** (oscillating between –ve and +ve) gradients
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Effective descent direction gets away from the minima if we use finite learning rate</p></li>
+<li><p>Gradient descent might also get trapped at saddle points and/or local minima</p></li>
+<li><p>标准梯度下降法每走一步都要在<strong>整个训练集上</strong>计算调整下一步的方向，下山的速度慢。在应用于大型数据集中，每次迭代都要遍历所有的样本，会使得训练过程及其缓慢。</p></li>
+</ul>
+<p>针对第一个缺点，一个idea是moving averages⇒momentum思想！</p>
+</div>
+<div class="section" id="gradient-descent-with-momentum">
+<h3>Gradient Descent with Momentum<a class="headerlink" href="#gradient-descent-with-momentum" title="Permalink to this headline">¶</a></h3>
+<p>Add momentum to GD updates:
+$<span class="math notranslate nohighlight">\(
+\bar{V} \Leftarrow \beta \bar{V}-\alpha \frac{\partial L}{\partial \bar{W}} ; \quad \bar{W} \Leftarrow \bar{W}+\bar{V}
+\)</span>$</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\beta\)</span>是0的时候表示原始的gradient descent</p></li>
+<li><p>第一个iteration的时候：<span class="math notranslate nohighlight">\(\bar{V}=0\)</span>，所以第一个<span class="math notranslate nohighlight">\(\bar{V}=-\alpha \frac{\partial L}{\partial \bar{W}} \)</span><br>
+后面第二个iteration就会带着<span class="math notranslate nohighlight">\(\beta\)</span>的这个梯度，再结合下一次的梯度来做整体的weight更新</p></li>
+</ul>
+<p>效果：</p>
+<ul class="simple">
+<li><p>可以避开local optimum trap和flat region slow down</p></li>
+</ul>
+<center><img src="../../images/DL_optimazation_2.png" width="50%"/></center> 
+- Learning is accelerated as oscillations are damped and updates progress in the consistent directions of loss decrease
+<center><img src="../../images/DL_optimazation_3.png" width="50%"/></center> 
+- Enables working with large learning rate values and hence faster convergence
+<p>问题：到了true minimum之后也停不下来，会overshoot the target minima，解决这个问题：</p>
+</div>
+<div class="section" id="nesterov-momentum">
+<h3>Nesterov Momentum<a class="headerlink" href="#nesterov-momentum" title="Permalink to this headline">¶</a></h3>
+<p>基本思想：use some lookahead in computing the updates</p>
+<div class="math notranslate nohighlight">
+\[
+\bar{V} \Leftarrow \underbrace{\beta \bar{V}}_{\text {Momentum }}-\alpha \frac{\partial L(\bar{W}+\beta \bar{V})}{\partial \bar{W}} ; \quad \bar{W} \Leftarrow \bar{W}+\bar{V}
+\]</div>
+<ul class="simple">
+<li><p>之前， gradient是在当下计算的，这个改进中gradient is computed in the anticipated future point</p></li>
+</ul>
+<p>效果：Put on the brakes as the marble reaches near bottom of hill</p>
+<div class="section" id="sgd">
+<h4>1.2 随机梯度下降法(SGD)<a class="headerlink" href="#sgd" title="Permalink to this headline">¶</a></h4>
+<p>每次只取<strong>一个样本</strong>计算梯度，并更新权重。这里虽然引入了随机性和噪声，但期望仍然等于正确的梯度下降。</p>
+<ul class="simple">
+<li><p>优点：虽然SGD需要走很多步，但是计算梯度快。</p></li>
+<li><p>缺点：SGD在随机选择梯度的同时会引入噪声，使得权值更新的方向不一定正确。</p></li>
+</ul>
+</div>
+<div class="section" id="bgd">
+<h4>1.3 小批量梯度下降(BGD)<a class="headerlink" href="#bgd" title="Permalink to this headline">¶</a></h4>
+<p>每次批量输入BATCH_SIZE个样本，模型参数的调整更新与全部BATCH_SIZE个输入样本的loss函数之和有关。
+基本策略可以理解为，在下山之前掌握了附近的地势情况，选择总体平均梯度最小的方向下山。批量梯度下降法比标准梯度下降法训练时间短，且每次下降的方向都很正确。</p>
+<p>所有梯度下降方法的缺点都是容易陷入局部最优解：由于是在有限视距内寻找下山的反向，当陷入平坦的洼地，会误以为到达了山地的最低点，从而不会继续往下走。所谓的局部最优解就是<strong>鞍点</strong>。落入鞍点，梯度为0，使得模型参数不再继续更新。</p>
+</div>
+<div class="section" id="q-a">
+<h4>Q/A<a class="headerlink" href="#q-a" title="Permalink to this headline">¶</a></h4>
+<p><strong>Q: 梯度下降法找到的一定是下降最快的方向么？</strong>
+A：梯度下降法并不是下降最快的方向，它只是目标函数在当前的点的切平面（当然高维问题不能叫平面）上下降最快的方向。在实际使用中，牛顿方向（考虑海森矩阵）才一般被认为是下降最快的方向。牛顿法是二阶收敛，梯度下降是一阶收敛，前者牛顿法收敛速度更快。</p>
+<p>但是为什么在一般问题里梯度下降比牛顿类算法更常用呢？因为对于规模比较大的问题，海塞矩阵计算是非常耗时的；同时对于很多对精度需求不那么高的问题，梯度下降的收敛速度已经足够了。
+非线性规划当前的一个难点在于处理非凸问题的全局解，而搜索全局解这个问题一般的梯度下降也无能为力。</p>
+</div>
+</div>
+</div>
+<div class="section" id="x02">
+<h2>0x02. 动量优化法<a class="headerlink" href="#x02" title="Permalink to this headline">¶</a></h2>
+<p>动量优化方法是在梯度下降法的基础上进行的改变，具有<strong>加速梯度下降</strong>的作用。一般有标准动量优化方法Momentum、NAG（Nesterov accelerated gradient）动量优化方法。</p>
+<div class="section" id="momentum">
+<h3>1. momentum<a class="headerlink" href="#momentum" title="Permalink to this headline">¶</a></h3>
+<p>Momentum的“梯度”不仅包含了这一步实际算出来的梯度，还包括了上一次的梯度“惯性”。其实，动量项 <img alt="m_t" src="https://www.zhihu.com/equation?tex=m_t" />  可以看作 <img alt="E[g_t] " src="https://www.zhihu.com/equation?tex=E%5Bg_t%5D%20" />  的移动平均。</p>
+<p><img alt="img" src="https://img-blog.csdnimg.cn/2021012711360045.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTMzMjAwOQ==,size_16,color_FFFFFF,t_70" /></p>
+<ul class="simple">
+<li><p><strong>下降初期</strong>时，使用上一次参数更新，下降方向一致</p></li>
+<li><p>下降中后期时，在局部最小值来回震荡的时候，<img alt="gradient \rightarrow 0" src="https://private.codecogs.com/gif.latex?gradient%20%5Crightarrow%200" />，但是由于具有上一次的动量<img alt="m_{t-1}" src="https://private.codecogs.com/gif.latex?m_%7Bt-1%7D" />,所以能够跳出陷阱</p></li>
+<li><p>在梯度<img alt="g_t" src="https://private.codecogs.com/gif.latex?g_t" />改变方向（震荡）的时候，由于具有上一次的动量，所以会“往回掰”一点，抑制震荡。</p></li>
+</ul>
+<p>总而言之，momentum项能够在原先方向加速SGD，抑制振荡，从而加快收敛。</p>
+<p>由于当前梯度的改变会受到<strong>上一次梯度</strong>改变的影响，类似于小球向下滚动的时候带上了惯性。这样可以加快小球向下滚动的速度。</p>
+<p><img alt="preview" src="https://img-blog.csdnimg.cn/img_convert/7fb767587ea8f71fd478e8f8f7ac01be.png" /></p>
+</div>
+<div class="section" id="nag">
+<h3>2. NAG<a class="headerlink" href="#nag" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>牛顿加速梯度（NAG, Nesterov accelerated gradient）算法，是Momentum动量算法的变种</p></li>
+</ul>
+<p>nesterov项在梯度更新时做一个校正，避免前进太快，同时提高灵敏度。</p>
+<p><img alt="img" src="https://img-blog.csdnimg.cn/20210127113652693.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTMzMjAwOQ==,size_16,color_FFFFFF,t_70" /></p>
+<p>所以，加上nesterov项后，梯度在大的跳跃后，进行计算<strong>对当前梯度进行校正</strong> 。如下图：</p>
+<p><img alt="img" src="https://img-blog.csdnimg.cn/20210127113707743.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTMzMjAwOQ==,size_16,color_FFFFFF,t_70" /></p>
+<p><strong>momentum</strong>首先计算一个梯度(短的蓝色向量)，然后在原先梯度的方向(惯性)进行一个大的跳跃(长的蓝色向量)</p>
+<p><strong>nesterov</strong>项首先在原先梯度的方向进行一个大的跳跃(棕色向量)，计算梯度然后进行<strong>校正</strong>(绿色向量)</p>
+<p>torch中的SGD：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=&lt;</span><span class="n">required</span> <span class="n">parameter</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dampening</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nesterov</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>其中，momentum即为动量项，常取0.9；weight_decay项是L2正则项。</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>3.自适应学习率优化算法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>自适应学习率优化算法针对于机器学习模型的学习率，传统的优化算法要么将学习率设置为常数要么根据训练次数调节学习率。极大忽视了学习率其他变化的可能性。然而，学习率对模型的性能有着显著的影响，因此需要采取一些策略来想办法更新学习率，从而提高训练速度。
+目前的自适应学习率优化算法主要有：AdaGrad算法，RMSProp算法，Adam算法以及AdaDelta算法。</p>
+<div class="section" id="adagrad">
+<h3>3.1 AdaGrad算法<a class="headerlink" href="#adagrad" title="Permalink to this headline">¶</a></h3>
+<p>Adagrad其实是对学习率进行了一个约束。即：
+<img alt="img" src="https://img-blog.csdnimg.cn/2021012711373897.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTMzMjAwOQ==,size_16,color_FFFFFF,t_70" /></p>
+<ul class="simple">
+<li><p>前期 <img alt="\sum g_r^2" src="https://www.zhihu.com/equation?tex=%5Csum%20g_r%5E2" />  较小的时候，learning rate较大，能够放大梯度</p></li>
+<li><p>后期 <img alt="\sum g_r^2" src="https://www.zhihu.com/equation?tex=%5Csum%20g_r%5E2" />  较大的时候，learning rate较小，能够约束梯度</p></li>
+</ul>
+<p>缺点：</p>
+<ul class="simple">
+<li><p>由公式可以看出，仍依赖于人工设置一个全局学习率 <img alt="\eta" src="https://www.zhihu.com/equation?tex=%5Ceta" /></p></li>
+<li><p>一开始分母太小，所以learning rate太大，对梯度的调节太大</p></li>
+<li><p>而中后期，分母上梯度平方的累加将会越来越大，使学习率趋近于0，使得训练提前结束</p></li>
+</ul>
+</div>
+<div class="section" id="rmsprop">
+<h3><strong>3.2 RMSProp算法</strong><a class="headerlink" href="#rmsprop" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>RMSProp算法修改了AdaGrad的梯度<strong>积累</strong>为指数加权的移动<strong>平均，</strong> 避免了学习率越来越低的的问题。</p></li>
+<li><p>RMSProp算法在经验上已经被证明是一种有效且实用的深度神经网络优化算法。目前它是深度学习从业者经常采用的优化方法之一。</p></li>
+</ul>
+<p><img alt="img" src="https://img-blog.csdnimg.cn/20210127113756534.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTMzMjAwOQ==,size_16,color_FFFFFF,t_70" /></p>
+</div>
+<div class="section" id="adam">
+<h3><strong>3.3 Adam</strong><a class="headerlink" href="#adam" title="Permalink to this headline">¶</a></h3>
+<p>Adam(Adaptive Moment Estimation)本质上是<strong>带momentum的RMSprop</strong>，它利用梯度的一阶矩估计和二阶矩估计动态调整每个参数的学习率。Adam的优点主要在于经过偏置校正后，每一次迭代学习率都有个确定范围。</p>
+<p><img alt="img" src="https://img-blog.csdnimg.cn/2021012711385648.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTMzMjAwOQ==,size_16,color_FFFFFF,t_70" /></p>
+<p>为什么说Adam是”带momentum的RMSprop”呢? 我们把参数更新的公式拆解成这样就容易看清了：</p>
+<p>​                                                                 <img alt="\Delta \theta_t = -\frac{\eta}{\sqrt{\hat{n_t}+\epsilon}} \cdot \hat{m_t}" src="https://www.zhihu.com/equation?tex=%5CDelta%20%5Ctheta_t%20%3D%20-%5Cfrac%7B%5Ceta%7D%7B%5Csqrt%7B%5Chat%7Bn_t%7D%2B%5Cepsilon%7D%7D%20%5Ccdot%20%5Chat%7Bm_t%7D" /></p>
+<p>其中，左边这一项就是自适应调整学习率的项，分母中的 <img alt="\hat{n_t}" src="https://www.zhihu.com/equation?tex=%5Chat%7Bn_t%7D" />  就对应RMSprop中的 <img alt="E[g_t^2]" src="https://www.zhihu.com/equation?tex=E%5Bg_t%5E2%5D" />  . 右边是所谓”动量项”，就是 <img alt="E[g_t]" src="https://www.zhihu.com/equation?tex=E%5Bg_t%5D" />  的移动平均。</p>
+<p>Adam通常被认为对超参数的选择相当鲁棒，尽管学习率有时需要从建议的默认修改。</p>
+<p>可以看出，直接对梯度的矩估计对内存没有额外的要求，而且可以根据梯度进行动态调整。</p>
+<p>pytorch中Adam的接口:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">betas</span><span class="o">=</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">amsgrad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>其中，betas是梯度的一阶、二阶矩估计的参数；eps就是加在分母上的小epsilon；weight_decay是L2正则化参数。</p>
+</div>
+<div class="section" id="adamw-adamweightdecayoptimizer">
+<h3>3.4 AdamW (AdamWeightDecayOptimizer)<a class="headerlink" href="#adamw-adamweightdecayoptimizer" title="Permalink to this headline">¶</a></h3>
+<p>BERT中的优化器用的就是AdamW。 AdamW是在<strong>Adam+L2正则化</strong>的基础上进行改进的算法。</p>
+<p>2014年被提出的Adam优化器的收敛性被证明是错误的，之前大部分机器学习框架中对于Adam的权重衰减的实现也都是错误的。关注其收敛性的论文也获得了ICLR 2017的Best Paper，在2017年的论文《Fixing Weight Decay Regularization in Adam》中提出了一种新的方法用于修复Adam的权重衰减错误，命名为AdamW。实际上，L2正则化和权重衰减在大部分情况下并不等价，<strong>只在SGD优化的情况下是等价的</strong>。而大多数框架中对于Adam+L2正则使用的是权重衰减的方式，两者不能混为一谈。</p>
+<p>Adam（L2正则）和AdamW（权重衰减）的区别如下图：</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/19036657-526f2e6d75337b2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/689/format/webp" /></p>
+<p>可见，Adam优化是在损失函数中直接加入L2正则项 – 即参数的二范数<span class="math notranslate nohighlight">\(||\theta||_2^2\)</span>,那么求梯度的时候就会加上正则项求导的结果，那么一些本身较大的权重对应的梯度也会比较大。由于Adam在计算时每次减去的项为：</p>
+<p><img alt="\Delta \theta_t = -\frac{\eta}{\sqrt{\hat{n_t}+\epsilon}} \cdot \hat{m_t}" src="https://www.zhihu.com/equation?tex=%5CDelta%20%5Ctheta_t%20%3D%20-%5Cfrac%7B%5Ceta%7D%7B%5Csqrt%7B%5Chat%7Bn_t%7D%2B%5Cepsilon%7D%7D%20%5Ccdot%20%5Chat%7Bm_t%7D" /></p>
+<p>分母的<span class="math notranslate nohighlight">\(\hat{n_t}\)</span>就是梯度平方的累积，那么反而会导致<span class="math notranslate nohighlight">\(\Delta\theta_t\)</span>偏小。但是按理说，越大的权重应该惩罚越大啊，怎么梯度反而越小了呢！</p>
+<p>所以，在AdamW中计算梯度不加L2正则项，而把正则项梯度直接加在<span class="math notranslate nohighlight">\(\Delta\theta_t\)</span>中，这样越大的权重惩罚越大。这就叫权重衰减。</p>
+<p>AdamW的代码如下，注意好好读一下注释：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>      <span class="c1"># m = beta1*m + (1-beta1)*dx，一阶梯度的移动平均</span>
+      <span class="n">next_m</span> <span class="o">=</span> <span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_1</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="o">+</span> <span class="n">tf</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_1</span><span class="p">,</span> <span class="n">grad</span><span class="p">))</span>
+      <span class="c1"># v = beta2*v + (1-beta2)*(dx**2)，二阶梯度的移动平均</span>
+      <span class="n">next_v</span> <span class="o">=</span> <span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_2</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="o">+</span> <span class="n">tf</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_2</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">grad</span><span class="p">)))</span>
+      <span class="c1"># m / (np.sqrt(v) + eps)</span>
+      <span class="n">update</span> <span class="o">=</span> <span class="n">next_m</span> <span class="o">/</span> <span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">next_v</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span><span class="p">)</span>
+      <span class="c1"># Just adding the square of the weights to the loss function is *not*</span>
+      <span class="c1"># the correct way of using L2 regularization/weight decay with Adam,</span>
+      <span class="c1"># since that will interact with the m and v parameters in strange ways.</span>
+      <span class="c1">#</span>
+      <span class="c1"># Instead we want to decay the weights in a manner that doesn&#39;t interact</span>
+      <span class="c1"># with the m/v parameters. This is equivalent to adding the square</span>
+      <span class="c1"># of the weights to the loss with plain (non-momentum) SGD.</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_use_weight_decay</span><span class="p">(</span><span class="n">param_name</span><span class="p">):</span>  <span class="c1">##AdamW的做法</span>
+        <span class="n">update</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_decay_rate</span> <span class="o">*</span> <span class="n">param</span> <span class="c1">##直接把参数权重加在$\Delta\theta$中</span>
+      <span class="n">update_with_lr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">update</span>
+      <span class="c1"># x += - learning_rate * m / (np.sqrt(v) + eps)</span>
+      <span class="n">next_param</span> <span class="o">=</span> <span class="n">param</span> <span class="o">-</span> <span class="n">update_with_lr</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>鞍点：</p>
+<p><img alt="这里写图片描述" src="https://img-blog.csdn.net/20180426113728916" /></p>
+<ul class="simple">
+<li><p>三个自适应学习率优化器没有进入鞍点，其中，AdaDelta下降速度最快，Adagrad和RMSprop则齐头并进。</p></li>
+<li><p>两个动量优化器Momentum和NAG以及SGD都顺势进入了鞍点。但两个动量优化器在鞍点抖动了一会，就<strong>逃离了鞍点</strong>并迅速地下降。</p></li>
+<li><p>很遗憾，SGD进入了鞍点，却始终停留在了鞍点，没有再继续下降。</p></li>
+</ul>
+<hr class="docutils" />
+<p>这里再补充两个经典的搜索算法：遗传算法和模拟退火算法。</p>
+</div>
+<div class="section" id="id4">
+<h3>1. 遗传算法<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>“物竞天择、适者生存“，遗传算法可用在最优化求解问题中。遗传算法的三个重要操作：选择、交叉、变异。下面用一个例子来解释遗传算法。</p>
+<p>要求函数<span class="math notranslate nohighlight">\(f(x) = x^2\)</span> 在范围[0,31]的最大值。</p>
+<ul class="simple">
+<li><p>编码：采用二进制形式编码.例如在旅行商问题中，也可以用一个矩阵来表示一个可能解。把矩阵展开得到01二进制串。</p></li>
+<li><p>适应函数：直接使用函数f(x)作为适应函数。</p></li>
+<li><p>假设群体的规模N＝4，交叉概率 <span class="math notranslate nohighlight">\(p_c＝100％\)</span>，变异概率<span class="math notranslate nohighlight">\(p_m＝1％\)</span></p></li>
+<li><p>设随机生成的初始群体为：01101，11000，01000，10011</p></li>
+</ul>
+<p><img alt="img" src="https://pic1.zhimg.com/80/v2-4376a43820e7f370617b1c775874342d_1440w.png" /></p>
+<p>适应值在每代的种群中是会趋于不断提升的，说明渐渐向着最优解（其实是局部最优）靠拢。</p>
+</div>
+<div class="section" id="id5">
+<h3>2. 模拟退火算法<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>来源：<a class="reference external" href="https://zhuanlan.zhihu.com/p/33184423">https://zhuanlan.zhihu.com/p/33184423</a></p>
+<p>首先我们限定一个区间，比如 <img alt="[公式]" src="https://www.zhihu.com/equation?tex=%5B-2%2C2%5D" /> ，然后在这个区间里，随机选择一个点， <img alt="[公式]" src="https://www.zhihu.com/equation?tex=x+%3D+4%28rand+-+0.5%29" /> ，以及它对应的函数的数值 <img alt="[公式]" src="https://www.zhihu.com/equation?tex=s+%3D+f%28x%29" /> ，然后以这个点作为起点。</p>
+<p>接下来产生一个随机扰动，扰动的大小可以自己设计一些参数来调节。 <img alt="[公式]" src="https://www.zhihu.com/equation?tex=x_%7Bnew%7D+%3D+x+%2B+k%28rand+-+0.5%29" /> ，并计算出该点对应的函数值 <img alt="[公式]" src="https://www.zhihu.com/equation?tex=s_%7Bnew%7D+%3D+f%28x_%7Bnew%7D%29" /> 。</p>
+<p>对两个数值求差值，就可以判断新的解是否更接近最优解。 <img alt="[公式]" src="https://www.zhihu.com/equation?tex=%5CDelta+E+%3D+s_%7Bnew%7D+-+s" /></p>
+<p>如果dE小于0，则说明新的接更加接近我们想要的解，即接受该解。如果dE &gt; 0, 也需要以概率 <img alt="[公式]" src="https://www.zhihu.com/equation?tex=p+%3De%5E%7B-+%5Cfrac%7B%5CDelta+E%7D%7BkT%7D%7D" />（k为常数，T为当前温度）接受该解。这是因为对于多极值函数，希望以一定概率跳出局部极小。</p>
+<p>随着温度的降低（退火），p的值也逐渐降低，于是接受更差的解的概率也就越小，退火过程就趋于稳定。</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Deep_Learning/Basics"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="DL_hyperparameter.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">DL常见超参及调整策略</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Trained_by_GPU.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">GPU训练</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jace Yang<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

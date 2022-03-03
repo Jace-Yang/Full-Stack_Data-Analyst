@@ -1,18 +1,21 @@
 # 量化
 
+Uses low bit precision for parameter storage and enables low bit hardware operations to speed up inference
+
 ## 背景
+
 
 - Nowadays, the latency and throughput of *inference* is critical.
 
 - The complexity of models is increasing exponentially, such as BERT.
 
-通常，我们可以把FP32 -> FP16
 
 ### Why need quantization
 
+
 - Weights and activations are float numbers in a small range
 
-- Unlike FP32 -> FP16, it cannot be directly cast from FP32/FP16 to INT8. 因为模型权重都是小范围里面的浮点数，INT8的范围比较小，最小的精度间隔也很大，所以直接转换会有很大的精度损失
+- 通常，我们可以把FP32 -> FP16 但是Unlike FP32 -> FP16, it cannot be directly cast from FP32/FP16 to INT8. 因为模型权重都是小范围里面的浮点数，INT8的范围比较小，最小的精度间隔也很大，所以直接转换会有很大的精度损失
 
     |  | Dynamic range | Min positive value |
     | :---: | :---: | :---: |
@@ -39,6 +42,14 @@
 - Quantization object: convert from high precision to low precision with **minimal information loss**.
 
     <center><img src="../../images/DL_Quantize_1.png" width="75%"/></center>
+
+    <center><img src="../../images/DL_NN_compress_4.png" width="35%"/></center>
+
+### 核心目标
+
+- 难点：The generalization performance of the quantized model can significantly degrade
+
+- 目标：Minimizing performance degradation while maintaining hardware efficiency
 
 ## 量化核心概念
 
@@ -166,19 +177,20 @@ BERT的效果
         <center><img src="../../images/DL_Quantize_5.png" width="40%"/></center>
 
 
-## 训练过程
+### 训练过程
 
 PTQ和QAT类似，就是QAT多了一个finetune的过程调整权重
     
 <center><img src="../../images/DL_Quantize_6.png" width="40%"/></center>
 
 - PTQ会用finetuned好的权重，因为这样才能得到最合适的scale
-- QAT来说机器会训练后续的权重，所以可以选用预训练的模型进行量化，在下游任务的时候大多数不会改变很大
+- QAT来说机器会训练后续的权重，所以可以选用预训练的模型进行量化！具体操作是加载了pretrained之后对他进行一个finetune
+    - 在下游任务的时候大多数情况量化不会增大很多的误差
 最后的模型就可以用于推断啦
 
-## 推断过程
+### 推断过程
 
-### 以GE MM/Conv为例
+#### 以GE MM/Conv为例
 
 - 训练的时候FakeQuant
 
@@ -197,12 +209,35 @@ PTQ和QAT类似，就是QAT多了一个finetune的过程调整权重
 
     <center><img src="../../images/DL_Quantize_9.png" width="40%"/></center>
 
-### 多个为例
+#### 多个为例
 
 <center><img src="../../images/DL_Quantize_10.png" width="50%"/></center>
 
 - int8 输入 int8输出的话，对memory access的量就会大大减少！
 
+
+## 怎么确定量化多少bit呢？
+
+在伯克利的[QBERT演讲](https://www.youtube.com/watch?v=aX4Tm1s01wY)里面Amir提到了，因为对参数的sensitivity不同，要对flat的loss landscape用更低的bit，sharp的loss landscape用更高的
+
+<center><img src="../../images/DL_Quantize_14.png" width="100%"/></center>
+
+然而问题来了——怎么quantify the sharpness of the loss landscape！
+
+<center><img src="../../images/DL_Quantize_15.png" width="75%"/></center>
+
+- 我们知道 Gradient是一个跟# of parameters同样大小的实数vector
+- 而Second - derivative是一个matrix，大小是 |W|×|W|，二阶导衡量的是curvature（曲率），大的话说明曲线会sharper and shaper
+
+gradient可以用L1或者L2 norm，但是二阶导数的大小该怎么衡量呢？答案是特征值（Eigen values）！
+
+- 但这里注意要用matrix-free algorithm！因为weight的维度很高，如果直接求解的话，在矩阵inverse的时候肯定会遇到问题。目前有很多现成的blackbox：
+
+> Z. Yao*, A. Gholami*, Q. Lei, K. Keutzer, M. Mahoney, Hessian-based Analysis of Large Batch Training and Robustness to Adversaries, NeurIPS’18, 2018. <br> Z. Yao*, A. Gholami*, K. Keutzer, M. Mahoney, PyHessian: Neural Networks Through the Lens of the Hessian Spotlight at ICML’20 workshop on Beyond First-Order Optimization Methods in Machine Learning, 2020. <br>Code: https://github.com/amirgholami/PyHessian
+
+
+当我们知道了怎么量化，我们就可以对模型的不同层做不同的量化！这是因为一个size可能不能适应所有的！如果使用了不robust的方法，就会出现坑坑洼洼的平面！
+<center><img src="../../images/DL_Quantize_16.png" width="75%"/></center>
 
 ## BERT中的应用
 
@@ -217,6 +252,10 @@ PTQ和QAT类似，就是QAT多了一个finetune的过程调整权重
 - FasterTransformer：multi-head一起做，然后FC里面全部也加了！
 
 <center><img src="../../images/DL_Quantize_13.png" width="90%"/></center>
+
+
+
+
 
 
 ## 总结

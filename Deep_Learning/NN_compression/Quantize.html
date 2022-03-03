@@ -57,7 +57,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Content with notebooks" href="../../notebooks.html" />
+    <link rel="next" title="Q-BERT" href="QBert.html" />
     <link rel="prev" title="Distill Bert" href="Distill_Bert.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
@@ -218,10 +218,22 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
-   <li class="toctree-l2 current active">
+   <li class="toctree-l2 current active has-children">
     <a class="current reference internal" href="#">
      量化
     </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="QBert.html">
+       Q-BERT
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -236,8 +248,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../../notebooks.html">
    Content with notebooks
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -353,10 +365,15 @@ const thebe_selector_output = ".output, .cell_output"
      What is quantization
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     核心目标
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
+  <a class="reference internal nav-link" href="#id4">
    量化核心概念
   </a>
   <ul class="nav section-nav flex-column">
@@ -366,14 +383,14 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
+    <a class="reference internal nav-link" href="#id5">
      量化策略
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
+  <a class="reference internal nav-link" href="#id6">
    量化方法
   </a>
   <ul class="nav section-nav flex-column">
@@ -394,29 +411,34 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
-   训练过程
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
-   推断过程
-  </a>
-  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#ge-mm-conv">
-     以GE MM/Conv为例
+    <a class="reference internal nav-link" href="#id7">
+     训练过程
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     多个为例
+     推断过程
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#ge-mm-conv">
+       以GE MM/Conv为例
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       多个为例
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bit">
+   怎么确定量化多少bit呢？
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#bert">
@@ -424,7 +446,7 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id9">
+  <a class="reference internal nav-link" href="#id10">
    总结
   </a>
  </li>
@@ -463,10 +485,15 @@ const thebe_selector_output = ".output, .cell_output"
      What is quantization
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     核心目标
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
+  <a class="reference internal nav-link" href="#id4">
    量化核心概念
   </a>
   <ul class="nav section-nav flex-column">
@@ -476,14 +503,14 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
+    <a class="reference internal nav-link" href="#id5">
      量化策略
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
+  <a class="reference internal nav-link" href="#id6">
    量化方法
   </a>
   <ul class="nav section-nav flex-column">
@@ -504,29 +531,34 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
-   训练过程
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
-   推断过程
-  </a>
-  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#ge-mm-conv">
-     以GE MM/Conv为例
+    <a class="reference internal nav-link" href="#id7">
+     训练过程
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
-     多个为例
+     推断过程
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#ge-mm-conv">
+       以GE MM/Conv为例
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       多个为例
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bit">
+   怎么确定量化多少bit呢？
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#bert">
@@ -534,7 +566,7 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id9">
+  <a class="reference internal nav-link" href="#id10">
    总结
   </a>
  </li>
@@ -549,18 +581,18 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
 <h1>量化<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Uses low bit precision for parameter storage and enables low bit hardware operations to speed up inference</p>
 <div class="section" id="id2">
 <h2>背景<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Nowadays, the latency and throughput of <em>inference</em> is critical.</p></li>
 <li><p>The complexity of models is increasing exponentially, such as BERT.</p></li>
 </ul>
-<p>通常，我们可以把FP32 -&gt; FP16</p>
 <div class="section" id="why-need-quantization">
 <h3>Why need quantization<a class="headerlink" href="#why-need-quantization" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p>Weights and activations are float numbers in a small range</p></li>
-<li><p>Unlike FP32 -&gt; FP16, it cannot be directly cast from FP32/FP16 to INT8. 因为模型权重都是小范围里面的浮点数，INT8的范围比较小，最小的精度间隔也很大，所以直接转换会有很大的精度损失</p>
+<li><p>通常，我们可以把FP32 -&gt; FP16 但是Unlike FP32 -&gt; FP16, it cannot be directly cast from FP32/FP16 to INT8. 因为模型权重都是小范围里面的浮点数，INT8的范围比较小，最小的精度间隔也很大，所以直接转换会有很大的精度损失</p>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="text-align:center head"><p></p></th>
@@ -604,12 +636,20 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li><p>Quantization object: convert from high precision to low precision with <strong>minimal information loss</strong>.</p>
   <center><img src="../../images/DL_Quantize_1.png" width="75%"/></center>
+  <center><img src="../../images/DL_NN_compress_4.png" width="35%"/></center>
 </li>
 </ul>
 </div>
-</div>
 <div class="section" id="id3">
-<h2>量化核心概念<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h3>核心目标<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>难点：The generalization performance of the quantized model can significantly degrade</p></li>
+<li><p>目标：Minimizing performance degradation while maintaining hardware efficiency</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>量化核心概念<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>Generally, quantization is implemented by linear transformation. 因为非线性的话会导致间隔发生变化</p>
 <div class="section" id="symmetric-vs-asymmetric">
 <h3>Symmetric vs. Asymmetric<a class="headerlink" href="#symmetric-vs-asymmetric" title="Permalink to this headline">¶</a></h3>
@@ -636,8 +676,8 @@ $<span class="math notranslate nohighlight">\(
 \)</span>$</p></li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h3>量化策略<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>量化策略<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Per-tensor quantization: all values in a tensor share a scale value 整个tensor用一个scale</p></li>
 <li><p>Per-channel quantization: values in a channel share a scale value, different channels may have different scales 整个channel用一个scale（channel在非卷积网络里面的概念是weight某个维度的某个切片 是沿着输出维度做的，比如FC就是一个神经元一个scale）</p>
@@ -648,8 +688,8 @@ $<span class="math notranslate nohighlight">\(
 </ul>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>量化方法<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>量化方法<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="scaleptqqat">
 <h3>Scale值的确定——PTQ与QAT<a class="headerlink" href="#scaleptqqat" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -747,21 +787,24 @@ Direct method: max calibrator</p>
 </ul>
 </div>
 </div>
-</div>
-<div class="section" id="id6">
-<h2>训练过程<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3>训练过程<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>PTQ和QAT类似，就是QAT多了一个finetune的过程调整权重</p>
 <center><img src="../../images/DL_Quantize_6.png" width="40%"/></center>
 <ul class="simple">
 <li><p>PTQ会用finetuned好的权重，因为这样才能得到最合适的scale</p></li>
-<li><p>QAT来说机器会训练后续的权重，所以可以选用预训练的模型进行量化，在下游任务的时候大多数不会改变很大
+<li><p>QAT来说机器会训练后续的权重，所以可以选用预训练的模型进行量化！具体操作是加载了pretrained之后对他进行一个finetune</p>
+<ul>
+<li><p>在下游任务的时候大多数情况量化不会增大很多的误差
 最后的模型就可以用于推断啦</p></li>
 </ul>
+</li>
+</ul>
 </div>
-<div class="section" id="id7">
-<h2>推断过程<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h3>推断过程<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="ge-mm-conv">
-<h3>以GE MM/Conv为例<a class="headerlink" href="#ge-mm-conv" title="Permalink to this headline">¶</a></h3>
+<h4>以GE MM/Conv为例<a class="headerlink" href="#ge-mm-conv" title="Permalink to this headline">¶</a></h4>
 <ul>
 <li><p>训练的时候FakeQuant</p>
 <ul class="simple">
@@ -779,13 +822,34 @@ Direct method: max calibrator</p>
 </li>
 </ul>
 </div>
-<div class="section" id="id8">
-<h3>多个为例<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h4>多个为例<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <center><img src="../../images/DL_Quantize_10.png" width="50%"/></center>
 <ul class="simple">
 <li><p>int8 输入 int8输出的话，对memory access的量就会大大减少！</p></li>
 </ul>
 </div>
+</div>
+</div>
+<div class="section" id="bit">
+<h2>怎么确定量化多少bit呢？<a class="headerlink" href="#bit" title="Permalink to this headline">¶</a></h2>
+<p>在伯克利的<a class="reference external" href="https://www.youtube.com/watch?v=aX4Tm1s01wY">QBERT演讲</a>里面Amir提到了，因为对参数的sensitivity不同，要对flat的loss landscape用更低的bit，sharp的loss landscape用更高的</p>
+<center><img src="../../images/DL_Quantize_14.png" width="100%"/></center>
+<p>然而问题来了——怎么quantify the sharpness of the loss landscape！</p>
+<center><img src="../../images/DL_Quantize_15.png" width="75%"/></center>
+<ul class="simple">
+<li><p>我们知道 Gradient是一个跟# of parameters同样大小的实数vector</p></li>
+<li><p>而Second - derivative是一个matrix，大小是 |W|×|W|，二阶导衡量的是curvature（曲率），大的话说明曲线会sharper and shaper</p></li>
+</ul>
+<p>gradient可以用L1或者L2 norm，但是二阶导数的大小该怎么衡量呢？答案是特征值（Eigen values）！</p>
+<ul class="simple">
+<li><p>但这里注意要用matrix-free algorithm！因为weight的维度很高，如果直接求解的话，在矩阵inverse的时候肯定会遇到问题。目前有很多现成的blackbox：</p></li>
+</ul>
+<blockquote>
+<div><p>Z. Yao*, A. Gholami*, Q. Lei, K. Keutzer, M. Mahoney, Hessian-based Analysis of Large Batch Training and Robustness to Adversaries, NeurIPS’18, 2018. <br> Z. Yao*, A. Gholami*, K. Keutzer, M. Mahoney, PyHessian: Neural Networks Through the Lens of the Hessian Spotlight at ICML’20 workshop on Beyond First-Order Optimization Methods in Machine Learning, 2020. <br>Code: <a class="reference external" href="https://github.com/amirgholami/PyHessian">https://github.com/amirgholami/PyHessian</a></p>
+</div></blockquote>
+<p>当我们知道了怎么量化，我们就可以对模型的不同层做不同的量化！这是因为一个size可能不能适应所有的！如果使用了不robust的方法，就会出现坑坑洼洼的平面！</p>
+<center><img src="../../images/DL_Quantize_16.png" width="75%"/></center>
 </div>
 <div class="section" id="bert">
 <h2>BERT中的应用<a class="headerlink" href="#bert" title="Permalink to this headline">¶</a></h2>
@@ -802,8 +866,8 @@ Direct method: max calibrator</p>
 </ul>
 <center><img src="../../images/DL_Quantize_13.png" width="90%"/></center>
 </div>
-<div class="section" id="id9">
-<h2>总结<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2>总结<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <p>To reduce the time related to memory</p>
 <ul class="simple">
 <li><p>We need scale values for all activations after layer fusions! (i.e. all inputs of all kernels)</p></li>
@@ -814,6 +878,8 @@ Direct method: max calibrator</p>
 </ul>
 </li>
 </ul>
+</div>
+<div class="toctree-wrapper compound">
 </div>
 </div>
 
@@ -849,10 +915,10 @@ Direct method: max calibrator</p>
             <p class="prev-next-title">Distill Bert</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../../notebooks.html" title="next page">
+    <a class='right-next' id="next-link" href="QBert.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Content with notebooks</p>
+        <p class="prev-next-title">Q-BERT</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

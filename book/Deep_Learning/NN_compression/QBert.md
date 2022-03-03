@@ -167,7 +167,7 @@ QBERT发现，assigning bits based only on the average top eigenvalues is infeas
 
 但文中并没有详细给出这些$\Omega_{i}$的具体数值，只在最后给出了他们在用2/3 bit mixed precision 以及 2/4-bit mixed precision的具体方案：
 
-<center><img src="../../images/DL_QBert_10.png" width="75%"/></center>
+<center><img src="../../images/DL_QBert_10.jpg" width="75%"/></center>
 
 - 注意Embedding layer因为作者发现embedding layer is more sensitive to quantization than the encoder layers.
 

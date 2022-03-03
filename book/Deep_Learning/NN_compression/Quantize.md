@@ -174,7 +174,7 @@ BERT的效果
 
         整个训练过程里面 数据还是浮点数精度的，所以是伪量化
 
-        <center><img src="../../images/DL_Quantize_5.png" width="40%"/></center>
+        <center><img src="../../images/DL_Quantize_5.png" width="70%"/></center>
 
 
 ### 训练过程
@@ -233,7 +233,8 @@ gradient可以用L1或者L2 norm，但是二阶导数的大小该怎么衡量呢
 
 - 但这里注意要用matrix-free algorithm！因为weight的维度很高，如果直接求解的话，在矩阵inverse的时候肯定会遇到问题。目前有很多现成的blackbox：
 
-> Z. Yao*, A. Gholami*, Q. Lei, K. Keutzer, M. Mahoney, Hessian-based Analysis of Large Batch Training and Robustness to Adversaries, NeurIPS’18, 2018. <br> Z. Yao*, A. Gholami*, K. Keutzer, M. Mahoney, PyHessian: Neural Networks Through the Lens of the Hessian Spotlight at ICML’20 workshop on Beyond First-Order Optimization Methods in Machine Learning, 2020. <br>Code: https://github.com/amirgholami/PyHessian
+    > Z. Yao*, A. Gholami*, Q. Lei, K. Keutzer, M. Mahoney, Hessian-based Analysis of Large Batch Training and Robustness to Adversaries, NeurIPS’18, 2018. <br> Z. Yao*, A. Gholami*, K. Keutzer, M. Mahoney, PyHessian: Neural Networks Through the Lens of the Hessian Spotlight at ICML’20 workshop on Beyond First-Order Optimization Methods in Machine Learning, 2020. <br>Code: https://github.com/amirgholami/PyHessian
+    > - 核心是用 Gradient back propagation
 
 
 当我们知道了怎么量化，我们就可以对模型的不同层做不同的量化！这是因为一个size可能不能适应所有的！如果使用了不robust的方法，就会出现坑坑洼洼的平面！
@@ -265,3 +266,5 @@ To reduce the time related to memory
 - For some layers, even if their inputs are quantized, it is necessary to be calculated in higher precision.
     - Such as: gelu, softmax, layernorm （layernorm需要在高精度模式下计算）
     - We only want INT8 input/output（减少内存）, "dequantize" is needed in these kernels
+
+    

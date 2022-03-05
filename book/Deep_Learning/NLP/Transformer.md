@@ -95,16 +95,20 @@ Decoder整体做的事情是一个一个地输出，也就是auto- regressive（
 
 - 解决一步错，步步错的话：可以看scheduled sampling，给模型一些错误的输入
 
-和Encoder的区别在于三个：
+和Encoder的区别在于4个：
 
 <center><img src="../../images/DL_Transformer_5.png" width="70%"/></center>
 
-- `Masked Self-attention`: 不能看前面
+1. `Masked Self-attention`: 不能看前面
 
     <center><img src="../../images/DL_Transformer_6.png" width="60%"/></center>
     <center><img src="../../images/DL_Transformer_7.png" width="60%"/></center>
 
     - 原因：现在decoder是一个一个输出，才看得到下一个的
+
+2. 中间加入了一个Cross attention：接下来仔细讲
+
+3. 在结果的地方接了一个Softmax来转换矩阵！
 
 #### Encoder-Decoder
 - `Cross attention`:
@@ -247,6 +251,9 @@ $$\begin{aligned} P E_{(p o s, 2 i)} &=\sin \left(p o s / 10000^{2 i / d_{\mathr
 - **step 3**：对每个分数除以 $\sqrt{d}$ （d是embedding维度），之后做softmax进行归一化。
 
     ![img](https://pic3.zhimg.com/v2-9146baeb7e334246f4fd880bd270158e_b.png)
+
+    注意！这里是跟Self- attention不同的地方，除这个d的原因是：
+    > Transformer在对比dot product和additive（element wise相加）的时候，发现后者的效果更好！We suspect that for large values of $d_{k}$, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients. To counteract this effect, we scale the dot products by $\frac{1}{\sqrt{d_{k}}}$. （$d_{k}$是embedding的维度）。
 
 - **step 4**：把每个$Value$向量和softmax得到的权重值进行相乘，进行加权求和，得到的结果即是一个词语的self-attention embedding值。这个embedding值已经是融合了句子中其他token的了。
 

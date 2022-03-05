@@ -71,13 +71,26 @@ seq2seq model `Encoder`要做的事情,就是**给一排向量，输出另外一
     核心还是self-attention
     <center><img src="../../images/DL_Transformer_2.png" width="70%"/></center>
 
-    - 注意这里做的是Layer Normalization（For a sample, across each feature！）
+    1. 注意: 这里做的是Layer Normalization（For a sample, across each feature！）
         <center><img src="../../images/DL_Transformer_15.png" width="50%"/></center>
 
-    整体（跟Bert一样）：
+    2. 注意：Transformer的Multi-head内部是把原先的一句$(n个词, 每个词d_{\text {model }}=512维embedding)$的这么个array拆成8个head（而不是同样大小的head做8次：
+
+    $$ \operatorname{MultiHead}(Q, K, V)= \text{Concat} (\operatorname{head}_{1}, \ldots \operatorname{head}_{\mathrm{h}}) W^{O} $$
+    where $$head_{\mathrm{i}}=\operatorname{Attention}\left(Q W_{i}^{Q}, K W_{i}^{K}, V W_{i}^{V}\right)$$
+
+    $$\operatorname{Attention}(Q, K, V)=\operatorname{softmax}\left(\frac{Q K^{T}}{\sqrt{d_{k}}}\right) V$$
+
+    - the projections are parameter matrices $W_{i}^{Q} \in \mathbb{R}^{d_{\text {model }} \times d_{k}}, W_{i}^{K} \in \mathbb{R}^{d_{\text {model }} \times d_{k}}, W_{i}^{V} \in \mathbb{R}^{d_{\text {model }} \times d_{v}}$ and $W^{O} \in \mathbb{R}^{h d_{v} \times d_{\text {model }}}$.
+    
+        In this work we employ $h=8$ parallel attention layers, or heads. For each of these we use $d_{k}=d_{v}=d_{\text {model }} / h=64$. Due to the reduced dimension of each head, the total computational cost is similar to that of single-head attention with full dimensionality.
+
+        也就是说每次headi的$W_{i}^{Q}、W_{i}^{K}、W_{i}^{V}$是分别把一个$(n个词, 每个词d_{\text {model }}=512维embedding)$的句子 给映射到$(n个词, d_{k}=\frac{d_{\text {model }}}{h}=\frac{512}{8}=32维)的array$，最后再concat出来的$\text{Concat} (\operatorname{head}_{1}, \ldots \operatorname{head}_{\mathrm{h}})$才是$(n个词, d_{k} \times h=d_{\text {model}})$维度的array，所以最后$W_O$才会是跟前面不一样的$d_{\text {model }} \times d_{\text {model }}$维度，$W_O$出来的东西就跟原先embeddings的一样了！
+
+
+
+整体：
     <center><img src="../../images/DL_Transformer_3.png" width="70%"/></center>
-
-
 
 注意：**原始论文的设计 不代表它是最好的,最optimal的设计**
 

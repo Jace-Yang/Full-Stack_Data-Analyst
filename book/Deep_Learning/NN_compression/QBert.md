@@ -15,11 +15,7 @@
 
     - 研究者调查了BERT量化中的瓶颈，即不同因素如何影响NLP性能和模型压缩率之间的权衡，这些因素包括量化机制，以及嵌入、自注意力和全连接层等模块。
 
-## 背景
 
-Ultra low precision quantization can lead to significant accuracy degradation. Mixed precision quantization and multi-stage quantization have been proposed to solve/alleviate this problem.
-
-- Mixed precision quantization的问题：指数化的搜索空间，比如我们可以对一个12层的BERT做2、4、或者8bit的三种量化，那么就一共有$3^{12} \approx 5.3 \times 10^{5}$种不同的量化方法！
 
 ## 核心方法
 
@@ -91,6 +87,10 @@ $$
 ### Mixed precision quantization
 
 #### Motivation
+
+Ultra low precision quantization can lead to significant accuracy degradation. Mixed precision quantization and multi-stage quantization have been proposed to solve/alleviate this problem.
+
+- Mixed precision quantization的问题：指数化的搜索空间，比如我们可以对一个12层的BERT做2、4、或者8bit的三种量化，那么就一共有$3^{12} \approx 5.3 \times 10^{5}$种不同的量化方法！
 
 Different encoder layers are attending to different structures, and it is expected that they exhibit different sensitivity. Thus, assigning the same number of bits to all the layers is sub-optimal. However, a brute force approach is not feasible for deep networks, as the search space for mixed-precision is exponential in the number of layers!
 
@@ -191,8 +191,70 @@ QBERT发现，assigning bits based only on the average top eigenvalues is infeas
 
 ### Group-wise Quantization 组量化
 
-待更新ing😭
 
+#### Why we need to quantize by group?
+
+在介绍这部分之前，原论文将attention中进行了一个reparametrization
+
+- 主要区别点：
+    - Transformer中的self-attention中，h个head计算完输出h个$n \times \frac{d_{embedding}}{h}$的concat起来变成$d_{embedding} \times d_{embedding}$
+
+        再乘一个$d_{embedding} \times d_{embedding}$的$W_O$
+    - QBERT中：每个head中n维向量的每个单词计算完$\frac{d_{embedding}}{h} \times 1$的attention output后，直接用一个$d_{embedding} \times \frac{d_{embedding}}{h}$的$W_O$左乘attention output得到这个单词j在head i上的Attention: $Att_i(x, x(j))$
+
+        左乘一个缩小版的$W_O$的过程，相当于把原先1-head的时候$d_{embedding}$个数相加得到最后输出，变成了只有$\frac{d_{embedding}}{h}$个数相加，所以最后的输出我们需要把8个head得到的结果element-wise相加，示意图： 
+
+        <center><img src="../../images/DL_QBERT_11.png" width="75%"/></center>
+
+- 那么现在这个公式应该就会亲切许多啦：
+
+    对于输入向量$x=(x(1), \ldots, x(n))^{T} \in \mathbb{R}^{n个单词 \times d(768)个embedding维度}$的每个单词$x(j)$, 一个attention的输出：
+
+    $$ \operatorname{Att}(x, x(j)) = W_{o} \sum_{i = 1}^{n} \operatorname{softmax}(\frac{x(j)^{T} W_{q}^{T} W_{k} x(i)}{\sqrt{d}}) W_{v} x(i)$$
+
+    > $\text {BERT}_{\text{BASE}}$ 中：embedding 维度 d = 768, head的数量$N_{h}$=12
+
+    - $V^{i}=W_{v}  · x(i) $ 的维度 ：$ (\frac{d}{N_{h}}, d) \times (d, 1)$=$ (\frac{d}{N_{h}} ,1)$
+    - $K^{i}=W_{k}  · x(i) $ 的维度 ：$ (\frac{d}{N_{h}}, d) \times (d, 1)$=$ (\frac{d}{N_{h}} ,1)$
+    - ${Q^{j}}^{T} =x(j)^{T}·{W_{q}}^{T} $ 的维度 ：$  (1, d) \times (d,\frac{d}{ N_{h}}) $=$ (1, \frac{d}{N_{h}} )$
+    - j在i上的scaled Attention score 权重 $\operatorname{softmax}(\frac{x(j)^{T} W_{q}^{T} W_{k} x(i)}{\sqrt{d}})$的维度：$ (1, \frac{d}{N_{h}} ) \times (\frac{d}{N_{h}} ,1) $=一个数字
+    - 所以最后的加权平均输出是跟$K^{i}$维度相同的$ (\frac{d}{N_{h}} ,1)$
+    - 再经过一个“不完全的multihead 输出加总矩阵”$W_{o} (d, \frac{d}{N_{h}})$ 的左乘，得到的$W_{o} \times$ attention score weight sum of $K^{i}$的维度就是 $ (d, \frac{d}{N_{h}}) \times (\frac{d}{N_{h}} ,1) = (d, 1)$的输出了
+
+    接着我们再把12个head的结果给加起来：
+
+    $$\sum_{i=1}^{N_{h}} \operatorname{Att}_{i}(x, x(j))$$
+
+    就得到输出了！
+
+相当于12层Encoder中，每一层的multihead-self attention的计算过程有4个matrix × 12个head ×每个head $\frac{768}{12}=3072$个神经元（每个矩阵做个事情可以理解为一个neuron），一共有2M个parameters，如果直接用一样的range去做quantize的话就会严重degrade accuracy！
+
+#### How to
+
+为了解决这个问题，Bert提出了 group-wise quantization for attention-based models
+
+- 一个head一组分成12组——Treat the individual matrix W with respect to each head in one dense matrix of MHSA as a group so there will be 12 groups:
+
+    - 每个head组中，再bucket sequential output neurons together as sub-groups, e.g., each 6 output neurons as one sub-group，这样总共的sub-group数量是：
+        
+        12个head × $\frac{每个head中每个矩阵有\frac{768 维 embedding}{12个head} = 64列\text{乘}W_o\text{前的attention output}}{6\text{个output neuron一组}}$= 128个sub-groups
+
+    - Each sub-group can have its own quantization range.
+
+- value matrix $W_v$的quantization过程（concatenate $N_{h}$ value matrix $W_{v}$ to be a 3-d tensor)：
+    
+    <center><img src="../../images/DL_QBERT_12.png" width="75%"/></center>
+
+    - `Layer-wise quantization`: entire $3-d$ tensor will be quantized into the same range of discrete numbers
+    - `Group-wise without sub-group`: A special case of group-wise quantization is that we treat each dense matrix as a group, and every matrix can have its own quantization range. 
+    - `General case of group-wise`: partition each dense matrix with respect to output neuron, and we bucket every continuous $\frac{d}{2 N_{h}}$ output neurons as a group. The effect of finer group-wise quantization is further investigated in Sec. 4.2.
+    
+
+
+## 结果
+
+- Baseline：BERT 
+- Baseline of BERT quantization - Direct quantization (DirectQ), i.e., quantization without mixed-precision and group-wise quantization as a baseline
 
 ## 参考资料
 

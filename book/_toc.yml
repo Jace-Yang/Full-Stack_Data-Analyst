@@ -1,6 +1,11 @@
 format: jb-book
 root: intro
 parts:
+  - caption: 数据ETL流程
+    chapters:
+      - file: Data_ETL/Data_cleaning/README.md
+        sections:
+        - file: Data_ETL/Data_cleaning/Regex.ipynb
   - caption: 因果推断
     chapters:
       - file: Causal_Inference/Basics/README.md

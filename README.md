@@ -39,7 +39,7 @@ rm -r _build
 
 cd ..
 git add .
-git commit -m "修改深度学习模块——NLP章节——Transformer——增加对/√d_k的解释📒"
+git commit -m "多处微调📒"
 git push origin main
 open -a "Google Chrome" https://github.com/Jace-Yang/Full-Stack_Data-Analyst/deployments/
 ```

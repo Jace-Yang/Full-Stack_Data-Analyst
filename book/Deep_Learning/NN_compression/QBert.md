@@ -73,7 +73,7 @@ $$
     > A straight-through estimator is exactly what it sounds like. It estimates the gradients of a function. Specifically it ignores the derivative of the threshold function and passes on the incoming gradient as if the function was an identity function.<center><img src="../../images/DL_QBERT_2.png" width="45%"/></center>
 
 
-    那么Intuition很简单，我们把刚刚对一个层的$w$变成$[w_{min}, w_{max}]$之间的integer的这个过程记为$w arrow \hat{w}$，那么对这个不可导的forward layer，我们只需要把它原先到处不可导的导数$\frac{\partial \hat{w}_{L}}{\partial w_{L}}$给直接设成1，它就不影响chain rule上的其他back probagation了！
+    那么Intuition很简单，我们把刚刚对一个层的$w$变成$[w_{min}, w_{max}]$之间的integer的这个过程记为$w \rightarrow \hat{w}$，那么对这个不可导的forward layer，我们只需要把它原先到处不可导的导数$\frac{\partial \hat{w}_{L}}{\partial w_{L}}$给直接设成1，它就不影响chain rule上的其他back probagation了！
     
     但唯一要注意的细节是，反传回来的梯度是有可能在我们之前设定的$[w_{min}, w_{max}]$范围之外的，对于这部分的情况我们之间不更新参数，所以导数直接设成0！
     

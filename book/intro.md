@@ -1,6 +1,10 @@
 # 欢迎来到Jace的六边形DA笔记库
 
-哈喽，欢迎来到我的笔记库！我是一名哥大DS的学生，现在在努力成为一只能飞天遁地的全栈DA！围绕这个目标，我给未来一年的自己提出了各种不切实际的要求——
+哈喽，欢迎来到我的笔记库！我是一名哥大DS的学生，现在在努力成为一只能飞天遁地的全栈DA！
+
+<img src="https://cdn.mathpix.com/snip/images/xNWgOsmBVBmEF-_XOMDOj9YBO4QD4uqSFGyLYWJnsow.original.fullsize.png" width="50%"/>
+
+围绕这个目标，我给未来一年的自己提出了各种天马行空的要求——
 - `DA基本功样样点满`：sql闭着眼写➕看板好看到哭➕python/R对各种dataset都能EDA和ML妥妥拿捏➕分析一针见血挖insight直接掘地三尺
 - `因果这个DA加分项直接加爆表`：这个要成为新的专长！！abtest告诉你significance我能告诉你casuality！版本功能迭代拍板有我在不愁！！
 - `上能DL`：对dl抱有敬畏之心，让搞学术的大牛来弄核心任务和优化！！但我可以结合业务先prototype各种nlp baseline solution让业务同学看看效果，如果真的能work再交付给AI lab去结合目前的新paper做各种improve

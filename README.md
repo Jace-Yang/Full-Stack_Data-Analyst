@@ -34,12 +34,13 @@ cd book
 rm -r _build
 jupyter-book build --all ./
 cp -R images _build/html/images
+open -a "Google Chrome" _build/html/index.html
 ghp-import -n -p -f _build/html
 rm -r _build
 
 cd ..
 git add .
-git commit -m "多处微调📒"
+git commit -m "新增数据清洗章节📒"
 git push origin main
 open -a "Google Chrome" https://github.com/Jace-Yang/Full-Stack_Data-Analyst/deployments/
 ```

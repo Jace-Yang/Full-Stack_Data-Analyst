@@ -6,6 +6,7 @@ parts:
       - file: Data_ETL/Data_cleaning/README.md
         sections:
         - file: Data_ETL/Data_cleaning/Regex.ipynb
+        - file: Data_ETL/Data_cleaning/pandas.ipynb
   - caption: 因果推断
     chapters:
       - file: Causal_Inference/Basics/README.md

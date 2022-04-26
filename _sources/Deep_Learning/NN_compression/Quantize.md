@@ -181,7 +181,7 @@ BERT的效果
 
 PTQ和QAT类似，就是QAT多了一个finetune的过程调整权重
     
-<center><img src="../../images/DL_Quantize_6.png" width="40%"/></center>
+<center><img src="../../images/DL_Quantize_6.png" width="76%"/></center>
 
 - PTQ会用finetuned好的权重，因为这样才能得到最合适的scale
 - QAT来说机器会训练后续的权重，所以可以选用预训练的模型进行量化！具体操作是加载了pretrained之后对他进行一个finetune

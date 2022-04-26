@@ -104,6 +104,35 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
+  数据ETL流程
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../Data_ETL/Data_cleaning/README.html">
+   数据清洗
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Data_ETL/Data_cleaning/Regex.html">
+     正则表达式
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Data_ETL/Data_cleaning/pandas.html">
+     Pandas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
   因果推断
  </span>
 </p>
@@ -112,8 +141,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../../Causal_Inference/Basics/README.html">
    基础
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -136,8 +165,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../Basics/README.html">
    基础
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -163,8 +192,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../NLP/README.html">
    NLP
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -195,8 +224,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="README.html">
    神经网络压缩
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -205,8 +234,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="KD.html">
      知识蒸馏
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-    <label for="toctree-checkbox-5">
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -222,8 +251,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="Quantize.html">
      量化
     </a>
-    <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-    <label for="toctree-checkbox-6">
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -248,8 +277,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../../notebooks.html">
    Content with notebooks
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -352,16 +381,11 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
-   背景
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
    核心方法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
+    <a class="reference internal nav-link" href="#id2">
      量化
     </a>
    </li>
@@ -396,8 +420,25 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal nav-link" href="#group-wise-quantization">
      Group-wise Quantization 组量化
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#why-we-need-to-quantize-by-group">
+       Why we need to quantize by group?
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#how-to">
+       How to
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   结果
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
@@ -426,16 +467,11 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
-   背景
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
    核心方法
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
+    <a class="reference internal nav-link" href="#id2">
      量化
     </a>
    </li>
@@ -470,8 +506,25 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal nav-link" href="#group-wise-quantization">
      Group-wise Quantization 组量化
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#why-we-need-to-quantize-by-group">
+       Why we need to quantize by group?
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#how-to">
+       How to
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   结果
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
@@ -505,14 +558,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 <div class="section" id="id1">
-<h2>背景<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>Ultra low precision quantization can lead to significant accuracy degradation. Mixed precision quantization and multi-stage quantization have been proposed to solve/alleviate this problem.</p>
-<ul class="simple">
-<li><p>Mixed precision quantization的问题：指数化的搜索空间，比如我们可以对一个12层的BERT做2、4、或者8bit的三种量化，那么就一共有<span class="math notranslate nohighlight">\(3^{12} \approx 5.3 \times 10^{5}\)</span>种不同的量化方法！</p></li>
-</ul>
-</div>
-<div class="section" id="id2">
-<h2>核心方法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>核心方法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>对于一个fine-tuned的BERT：损失函数是</p>
 <div class="math notranslate nohighlight">
 \[
@@ -530,8 +576,8 @@ L(\theta)=\sum_{(x_{i}, y_{i})} \operatorname{CE}(\operatorname{softmax}(W_{c}(W
 </ul>
 </li>
 </ul>
-<div class="section" id="id3">
-<h3>量化<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h3>量化<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>如果把一个NN中的activation或者权重real value <span class="math notranslate nohighlight">\(z\)</span>用quantization operator <span class="math notranslate nohighlight">\(Q\)</span>来量化的话，那么对每一个在 <span class="math notranslate nohighlight">\((t_{j}, t_{j+1}]\)</span> (<span class="math notranslate nohighlight">\(j=0, \ldots, 2^{k}-1\)</span>，k是这一层的quantization precision)这个区间的<span class="math notranslate nohighlight">\(z\)</span>来说，都会映射到一个固定的数<span class="math notranslate nohighlight">\(q_j\)</span>，也就是：
 $<span class="math notranslate nohighlight">\(
 Q(z)=q_{j}, \quad \text { for } z \in(t_{j}, t_{j+1}]
@@ -573,7 +619,7 @@ Q(z)=q_{j}, \quad \text { for } z \in(t_{j}, t_{j+1}]
 <blockquote>
 <div><p>A straight-through estimator is exactly what it sounds like. It estimates the gradients of a function. Specifically it ignores the derivative of the threshold function and passes on the incoming gradient as if the function was an identity function.<center><img src="../../images/DL_QBERT_2.png" width="45%"/></center></p>
 </div></blockquote>
-<p>那么Intuition很简单，我们把刚刚对一个层的<span class="math notranslate nohighlight">\(w\)</span>变成<span class="math notranslate nohighlight">\([w_{min}, w_{max}]\)</span>之间的integer的这个过程记为<span class="math notranslate nohighlight">\(w arrow \hat{w}\)</span>，那么对这个不可导的forward layer，我们只需要把它原先到处不可导的导数<span class="math notranslate nohighlight">\(\frac{\partial \hat{w}_{L}}{\partial w_{L}}\)</span>给直接设成1，它就不影响chain rule上的其他back probagation了！</p>
+<p>那么Intuition很简单，我们把刚刚对一个层的<span class="math notranslate nohighlight">\(w\)</span>变成<span class="math notranslate nohighlight">\([w_{min}, w_{max}]\)</span>之间的integer的这个过程记为<span class="math notranslate nohighlight">\(w \rightarrow \hat{w}\)</span>，那么对这个不可导的forward layer，我们只需要把它原先到处不可导的导数<span class="math notranslate nohighlight">\(\frac{\partial \hat{w}_{L}}{\partial w_{L}}\)</span>给直接设成1，它就不影响chain rule上的其他back probagation了！</p>
 <p>但唯一要注意的细节是，反传回来的梯度是有可能在我们之前设定的<span class="math notranslate nohighlight">\([w_{min}, w_{max}]\)</span>范围之外的，对于这部分的情况我们之间不更新参数，所以导数直接设成0！</p>
 <p>整理效果来看，由于<span class="math notranslate nohighlight">\(\frac{\partial \hat{\boldsymbol{w}}_{L}}{\partial \boldsymbol{w}_{L}} \approx 1\)</span>，让<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial \hat{w}} \approx \frac{\partial \mathcal{L}}{\partial w}\)</span> 是没什么问题的！</p>
 </li>
@@ -585,6 +631,10 @@ Q(z)=q_{j}, \quad \text { for } z \in(t_{j}, t_{j+1}]
 <h3>Mixed precision quantization<a class="headerlink" href="#mixed-precision-quantization" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="motivation">
 <h4>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h4>
+<p>Ultra low precision quantization can lead to significant accuracy degradation. Mixed precision quantization and multi-stage quantization have been proposed to solve/alleviate this problem.</p>
+<ul class="simple">
+<li><p>Mixed precision quantization的问题：指数化的搜索空间，比如我们可以对一个12层的BERT做2、4、或者8bit的三种量化，那么就一共有<span class="math notranslate nohighlight">\(3^{12} \approx 5.3 \times 10^{5}\)</span>种不同的量化方法！</p></li>
+</ul>
 <p>Different encoder layers are attending to different structures, and it is expected that they exhibit different sensitivity. Thus, assigning the same number of bits to all the layers is sub-optimal. However, a brute force approach is not feasible for deep networks, as the search space for mixed-precision is exponential in the number of layers!</p>
 <p>比如从下面这张图展示了4个不同的fine-tuned之后的BERT层的Loss Landscape</p>
 <center><img src="../../images/DL_QBERT_4.png" width="75%"/></center>
@@ -680,8 +730,74 @@ $<span class="math notranslate nohighlight">\(\Omega_{i} \triangleq\left|\operat
 </div>
 <div class="section" id="group-wise-quantization">
 <h3>Group-wise Quantization 组量化<a class="headerlink" href="#group-wise-quantization" title="Permalink to this headline">¶</a></h3>
-<p>待更新ing😭</p>
+<div class="section" id="why-we-need-to-quantize-by-group">
+<h4>Why we need to quantize by group?<a class="headerlink" href="#why-we-need-to-quantize-by-group" title="Permalink to this headline">¶</a></h4>
+<p>在介绍这部分之前，原论文将attention中进行了一个reparametrization</p>
+<ul>
+<li><p>主要区别点：</p>
+<ul>
+<li><p>Transformer中的self-attention中，h个head计算完输出h个<span class="math notranslate nohighlight">\(n \times \frac{d_{embedding}}{h}\)</span>的concat起来变成<span class="math notranslate nohighlight">\(d_{embedding} \times d_{embedding}\)</span></p>
+<p>再乘一个<span class="math notranslate nohighlight">\(d_{embedding} \times d_{embedding}\)</span>的<span class="math notranslate nohighlight">\(W_O\)</span></p>
+</li>
+<li><p>QBERT中：每个head中n维向量的每个单词计算完<span class="math notranslate nohighlight">\(\frac{d_{embedding}}{h} \times 1\)</span>的attention output后，直接用一个<span class="math notranslate nohighlight">\(d_{embedding} \times \frac{d_{embedding}}{h}\)</span>的<span class="math notranslate nohighlight">\(W_O\)</span>左乘attention output得到这个单词j在head i上的Attention: <span class="math notranslate nohighlight">\(Att_i(x, x(j))\)</span></p>
+<p>左乘一个缩小版的<span class="math notranslate nohighlight">\(W_O\)</span>的过程，相当于把原先1-head的时候<span class="math notranslate nohighlight">\(d_{embedding}\)</span>个数相加得到最后输出，变成了只有<span class="math notranslate nohighlight">\(\frac{d_{embedding}}{h}\)</span>个数相加，所以最后的输出我们需要把8个head得到的结果element-wise相加，示意图：</p>
+  <center><img src="../../images/DL_QBERT_11.png" width="75%"/></center>
+</li>
+</ul>
+</li>
+<li><p>那么现在这个公式应该就会亲切许多啦：</p>
+<p>对于输入向量<span class="math notranslate nohighlight">\(x=(x(1), \ldots, x(n))^{T} \in \mathbb{R}^{n个单词 \times d(768)个embedding维度}\)</span>的每个单词<span class="math notranslate nohighlight">\(x(j)\)</span>, 一个attention的输出：</p>
+<div class="math notranslate nohighlight">
+\[ \operatorname{Att}(x, x(j)) = W_{o} \sum_{i = 1}^{n} \operatorname{softmax}(\frac{x(j)^{T} W_{q}^{T} W_{k} x(i)}{\sqrt{d}}) W_{v} x(i)\]</div>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(\text {BERT}_{\text{BASE}}\)</span> 中：embedding 维度 d = 768, head的数量<span class="math notranslate nohighlight">\(N_{h}\)</span>=12</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(V^{i}=W_{v}  · x(i) \)</span> 的维度 ：<span class="math notranslate nohighlight">\( (\frac{d}{N_{h}}, d) \times (d, 1)\)</span>=<span class="math notranslate nohighlight">\( (\frac{d}{N_{h}} ,1)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(K^{i}=W_{k}  · x(i) \)</span> 的维度 ：<span class="math notranslate nohighlight">\( (\frac{d}{N_{h}}, d) \times (d, 1)\)</span>=<span class="math notranslate nohighlight">\( (\frac{d}{N_{h}} ,1)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\({Q^{j}}^{T} =x(j)^{T}·{W_{q}}^{T} \)</span> 的维度 ：<span class="math notranslate nohighlight">\(  (1, d) \times (d,\frac{d}{ N_{h}}) \)</span>=<span class="math notranslate nohighlight">\( (1, \frac{d}{N_{h}} )\)</span></p></li>
+<li><p>j在i上的scaled Attention score 权重 <span class="math notranslate nohighlight">\(\operatorname{softmax}(\frac{x(j)^{T} W_{q}^{T} W_{k} x(i)}{\sqrt{d}})\)</span>的维度：<span class="math notranslate nohighlight">\( (1, \frac{d}{N_{h}} ) \times (\frac{d}{N_{h}} ,1) \)</span>=一个数字</p></li>
+<li><p>所以最后的加权平均输出是跟<span class="math notranslate nohighlight">\(K^{i}\)</span>维度相同的<span class="math notranslate nohighlight">\( (\frac{d}{N_{h}} ,1)\)</span></p></li>
+<li><p>再经过一个“不完全的multihead 输出加总矩阵”<span class="math notranslate nohighlight">\(W_{o} (d, \frac{d}{N_{h}})\)</span> 的左乘，得到的<span class="math notranslate nohighlight">\(W_{o} \times\)</span> attention score weight sum of <span class="math notranslate nohighlight">\(K^{i}\)</span>的维度就是 <span class="math notranslate nohighlight">\( (d, \frac{d}{N_{h}}) \times (\frac{d}{N_{h}} ,1) = (d, 1)\)</span>的输出了</p></li>
+</ul>
+<p>接着我们再把12个head的结果给加起来：</p>
+<div class="math notranslate nohighlight">
+\[\sum_{i=1}^{N_{h}} \operatorname{Att}_{i}(x, x(j))\]</div>
+<p>就得到输出了！</p>
+</li>
+</ul>
+<p>相当于12层Encoder中，每一层的multihead-self attention的计算过程有4个matrix × 12个head ×每个head <span class="math notranslate nohighlight">\(\frac{768}{12}=3072\)</span>个神经元（每个矩阵做个事情可以理解为一个neuron），一共有2M个parameters，如果直接用一样的range去做quantize的话就会严重degrade accuracy！</p>
 </div>
+<div class="section" id="how-to">
+<h4>How to<a class="headerlink" href="#how-to" title="Permalink to this headline">¶</a></h4>
+<p>为了解决这个问题，Bert提出了 group-wise quantization for attention-based models</p>
+<ul>
+<li><p>一个head一组分成12组——Treat the individual matrix W with respect to each head in one dense matrix of MHSA as a group so there will be 12 groups:</p>
+<ul>
+<li><p>每个head组中，再bucket sequential output neurons together as sub-groups, e.g., each 6 output neurons as one sub-group，这样总共的sub-group数量是：</p>
+<p>12个head × <span class="math notranslate nohighlight">\(\frac{每个head中每个矩阵有\frac{768 维 embedding}{12个head} = 64列\text{乘}W_o\text{前的attention output}}{6\text{个output neuron一组}}\)</span>= 128个sub-groups</p>
+</li>
+<li><p>Each sub-group can have its own quantization range.</p></li>
+</ul>
+</li>
+<li><p>value matrix <span class="math notranslate nohighlight">\(W_v\)</span>的quantization过程（concatenate <span class="math notranslate nohighlight">\(N_{h}\)</span> value matrix <span class="math notranslate nohighlight">\(W_{v}\)</span> to be a 3-d tensor)：</p>
+  <center><img src="../../images/DL_QBERT_12.png" width="75%"/></center>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Layer-wise</span> <span class="pre">quantization</span></code>: entire <span class="math notranslate nohighlight">\(3-d\)</span> tensor will be quantized into the same range of discrete numbers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Group-wise</span> <span class="pre">without</span> <span class="pre">sub-group</span></code>: A special case of group-wise quantization is that we treat each dense matrix as a group, and every matrix can have its own quantization range.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">General</span> <span class="pre">case</span> <span class="pre">of</span> <span class="pre">group-wise</span></code>: partition each dense matrix with respect to output neuron, and we bucket every continuous <span class="math notranslate nohighlight">\(\frac{d}{2 N_{h}}\)</span> output neurons as a group. The effect of finer group-wise quantization is further investigated in Sec. 4.2.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>结果<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Baseline：BERT</p></li>
+<li><p>Baseline of BERT quantization - Direct quantization (DirectQ), i.e., quantization without mixed-precision and group-wise quantization as a baseline</p></li>
+</ul>
 </div>
 <div class="section" id="id4">
 <h2>参考资料<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>

@@ -104,6 +104,35 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
+  数据ETL流程
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../Data_ETL/Data_cleaning/README.html">
+   数据清洗
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Data_ETL/Data_cleaning/Regex.html">
+     正则表达式
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Data_ETL/Data_cleaning/pandas.html">
+     Pandas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
   因果推断
  </span>
 </p>
@@ -112,8 +141,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../../Causal_Inference/Basics/README.html">
    基础
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -136,8 +165,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../Basics/README.html">
    基础
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -163,8 +192,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="README.html">
    NLP
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -195,8 +224,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../NN_compression/README.html">
    神经网络压缩
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -205,8 +234,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="../NN_compression/KD.html">
      知识蒸馏
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-    <label for="toctree-checkbox-5">
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -222,8 +251,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="../NN_compression/Quantize.html">
      量化
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-    <label for="toctree-checkbox-6">
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -248,8 +277,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../../notebooks.html">
    Content with notebooks
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -727,15 +756,27 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>Transformer中的Block：</p>
 <p>核心还是self-attention</p>
   <center><img src="../../images/DL_Transformer_2.png" width="70%"/></center>
+<ol>
+<li><p>注意: 这里做的是Layer Normalization（For a sample, across each feature！）</p>
+ <center><img src="../../images/DL_Transformer_15.png" width="50%"/></center>
+</li>
+<li><p>注意：Transformer的Multi-head内部是把原先的一句<span class="math notranslate nohighlight">\((n个词, 每个词d_{\text {model }}=512维embedding)\)</span>的这么个array拆成8个head（而不是同样大小的head做8次：</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[ \operatorname{MultiHead}(Q, K, V)= \text{Concat} (\operatorname{head}_{1}, \ldots \operatorname{head}_{\mathrm{h}}) W^{O} \]</div>
+<p>where $<span class="math notranslate nohighlight">\(head_{\mathrm{i}}=\operatorname{Attention}\left(Q W_{i}^{Q}, K W_{i}^{K}, V W_{i}^{V}\right)\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[\operatorname{Attention}(Q, K, V)=\operatorname{softmax}\left(\frac{Q K^{T}}{\sqrt{d_{k}}}\right) V\]</div>
 <ul>
-<li><p>注意这里做的是Layer Normalization（For a sample, across each feature！）</p>
-  <center><img src="../../images/DL_Transformer_15.png" width="50%"/></center>
+<li><p>the projections are parameter matrices <span class="math notranslate nohighlight">\(W_{i}^{Q} \in \mathbb{R}^{d_{\text {model }} \times d_{k}}, W_{i}^{K} \in \mathbb{R}^{d_{\text {model }} \times d_{k}}, W_{i}^{V} \in \mathbb{R}^{d_{\text {model }} \times d_{v}}\)</span> and <span class="math notranslate nohighlight">\(W^{O} \in \mathbb{R}^{h d_{v} \times d_{\text {model }}}\)</span>.</p>
+<p>In this work we employ <span class="math notranslate nohighlight">\(h=8\)</span> parallel attention layers, or heads. For each of these we use <span class="math notranslate nohighlight">\(d_{k}=d_{v}=d_{\text {model }} / h=64\)</span>. Due to the reduced dimension of each head, the total computational cost is similar to that of single-head attention with full dimensionality.</p>
+<p>也就是说每次headi的<span class="math notranslate nohighlight">\(W_{i}^{Q}、W_{i}^{K}、W_{i}^{V}\)</span>是分别把一个<span class="math notranslate nohighlight">\((n个词, 每个词d_{\text {model }}=512维embedding)\)</span>的句子 给映射到<span class="math notranslate nohighlight">\((n个词, d_{k}=\frac{d_{\text {model }}}{h}=\frac{512}{8}=32维)的array\)</span>，最后再concat出来的<span class="math notranslate nohighlight">\(\text{Concat} (\operatorname{head}_{1}, \ldots \operatorname{head}_{\mathrm{h}})\)</span>才是<span class="math notranslate nohighlight">\((n个词, d_{k} \times h=d_{\text {model}})\)</span>维度的array，所以最后<span class="math notranslate nohighlight">\(W_O\)</span>才会是跟前面不一样的<span class="math notranslate nohighlight">\(d_{\text {model }} \times d_{\text {model }}\)</span>维度，<span class="math notranslate nohighlight">\(W_O\)</span>出来的东西就跟原先embeddings的一样了！</p>
 </li>
 </ul>
-<p>整体（跟Bert一样）：</p>
-  <center><img src="../../images/DL_Transformer_3.png" width="70%"/></center>
 </li>
 </ul>
+<p>整体：
+<center><img src="../../images/DL_Transformer_3.png" width="70%"/></center></p>
 <p>注意：<strong>原始论文的设计 不代表它是最好的,最optimal的设计</strong></p>
 <ul class="simple">
 <li><p>有一篇文章叫,<a class="reference external" href="https://arxiv.org/abs/2002.04745">on layer normalization in the transformer architecture</a>，它问的问题就是 為什麼,layer normalization是放在那个地方呢,為什麼我们是先做,residual再做layer normalization,能不能够把layer normalization,放到每一个block的input,也就是说 你做residual以后,再做layer normalization,再加进去 你可以看到说左边这个图,是原始的transformer,右边这个图是稍微把block,更换一下顺序以后的transformer,更换一下顺序以后 结果是会比较好的,这就代表说,原始的transformer 的架构,并不是一个最optimal的设计,你永远可以思考看看,有没有更好的设计方式</p></li>
@@ -750,17 +791,19 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>里面会有特殊的开始的符号 和 断开的符号，让decoder可以输出“END”的概率，如果最高的话就会停下来！比如OUTPUT：<code class="docutils literal notranslate"><span class="pre">机</span> <span class="pre">器</span> <span class="pre">学</span> <span class="pre">习</span> <span class="pre">END</span></code></p></li>
 <li><p>解决一步错，步步错的话：可以看scheduled sampling，给模型一些错误的输入</p></li>
 </ul>
-<p>和Encoder的区别在于三个：</p>
+<p>和Encoder的区别在于4个：</p>
 <center><img src="../../images/DL_Transformer_5.png" width="70%"/></center>
-<ul>
+<ol>
 <li><p><code class="docutils literal notranslate"><span class="pre">Masked</span> <span class="pre">Self-attention</span></code>: 不能看前面</p>
-  <center><img src="../../images/DL_Transformer_6.png" width="60%"/></center>
-  <center><img src="../../images/DL_Transformer_7.png" width="60%"/></center>
+ <center><img src="../../images/DL_Transformer_6.png" width="60%"/></center>
+ <center><img src="../../images/DL_Transformer_7.png" width="60%"/></center>
 <ul class="simple">
 <li><p>原因：现在decoder是一个一个输出，才看得到下一个的</p></li>
 </ul>
 </li>
-</ul>
+<li><p>中间加入了一个Cross attention：接下来仔细讲</p></li>
+<li><p>在结果的地方接了一个Softmax来转换矩阵！</p></li>
+</ol>
 </div>
 <div class="section" id="encoder-decoder">
 <h4>Encoder-Decoder<a class="headerlink" href="#encoder-decoder" title="Permalink to this headline">¶</a></h4>
@@ -890,6 +933,10 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li><p><strong>step 3</strong>：对每个分数除以 <span class="math notranslate nohighlight">\(\sqrt{d}\)</span> （d是embedding维度），之后做softmax进行归一化。</p>
 <p><img alt="img" src="https://pic3.zhimg.com/v2-9146baeb7e334246f4fd880bd270158e_b.png" /></p>
+<p>注意！这里是跟Self- attention不同的地方，除这个d的原因是：</p>
+<blockquote>
+<div><p>Transformer在对比dot product和additive（element wise相加）的时候，发现后者的效果更好！We suspect that for large values of <span class="math notranslate nohighlight">\(d_{k}\)</span>, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients. To counteract this effect, we scale the dot products by <span class="math notranslate nohighlight">\(\frac{1}{\sqrt{d_{k}}}\)</span>. （<span class="math notranslate nohighlight">\(d_{k}\)</span>是embedding的维度）。</p>
+</div></blockquote>
 </li>
 <li><p><strong>step 4</strong>：把每个<span class="math notranslate nohighlight">\(Value\)</span>向量和softmax得到的权重值进行相乘，进行加权求和，得到的结果即是一个词语的self-attention embedding值。这个embedding值已经是融合了句子中其他token的了。</p>
 <p><img alt="img" src="https://pic1.zhimg.com/v2-958a90545951330591468e064fb0a0b0_b.png" /></p>

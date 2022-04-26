@@ -104,6 +104,35 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
+  数据ETL流程
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../Data_ETL/Data_cleaning/README.html">
+   数据清洗
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Data_ETL/Data_cleaning/Regex.html">
+     正则表达式
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Data_ETL/Data_cleaning/pandas.html">
+     Pandas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
   因果推断
  </span>
 </p>
@@ -112,8 +141,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../../Causal_Inference/Basics/README.html">
    基础
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -136,8 +165,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../Basics/README.html">
    基础
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -163,8 +192,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="README.html">
    NLP
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -195,8 +224,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../NN_compression/README.html">
    神经网络压缩
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -205,8 +234,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="../NN_compression/KD.html">
      知识蒸馏
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-    <label for="toctree-checkbox-5">
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -222,8 +251,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="../NN_compression/Quantize.html">
      量化
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-    <label for="toctree-checkbox-6">
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -248,8 +277,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../../notebooks.html">
    Content with notebooks
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -773,7 +802,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>Step2：从attention score中进一步抽取资讯：用attention score来weighted sum 四个value</p>
   <center><img src="../../images/DL_selfattention_3.png" width="80%"/></center>
 <ul class="simple">
-<li><p>如果说某个向量它得到的分数越高，比如：<br><span class="math notranslate nohighlight">\(a^1\)</span>跟<span class="math notranslate nohighlight">\(a^2\)</span>的关联性很强⇒<span class="math notranslate nohighlight">\(α'_{1, 2}\)</span>就会很大得到的值<br>⇒在Weighted Sum中<span class="math notranslate nohighlight">\(α'_{1, 2}\)</span>dominate⇒得到的<span class="math notranslate nohighlight">\(b^1\)</span>的值会比较接近<span class="math notranslate nohighlight">\(v^2\)</span></p></li>
+<li><p>如果说某个向量它得到的分数越高，比如：</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(a^1\)</span>跟<span class="math notranslate nohighlight">\(a^2\)</span>的关联性很强⇒<span class="math notranslate nohighlight">\(α'_{1, 2}\)</span>就会很大得到的值<br>⇒在Weighted Sum中<span class="math notranslate nohighlight">\(α'_{1, 2}\)</span>dominate⇒得到的<span class="math notranslate nohighlight">\(b^1\)</span>的值会比较接近<span class="math notranslate nohighlight">\(v^2\)</span></p></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -786,6 +819,9 @@ const thebe_selector_output = ".output, .cell_output"
 <p>整体过程：I乘W得到QKV、K乘Q得到Attention Matrix、V乘Attention Matrix得到O，也就是</p>
 <div class="math notranslate nohighlight">
 \[Z=\operatorname{softmax}\left(\frac{Q \cdot K^{T}}{\sqrt{\text { Dimension of vector } Q, K \text { or } V}}\right) \cdot V\]</div>
+<blockquote>
+<div><p>这里的 <span class="math notranslate nohighlight">\(\sqrt{\text { Dimension of vector } Q, K \text { or } V}\)</span> 是Transformer增加的一个对dot-product的scaling</p>
+</div></blockquote>
 <center><img src="../../images/DL_selfattention_9.png" width="80%"/></center>
 <ul>
 <li><ul class="simple">

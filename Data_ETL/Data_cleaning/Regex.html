@@ -399,6 +399,40 @@ const thebe_selector_output = ".output, .cell_output"
    基础
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python">
+   Python
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#re">
+     re模块
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   案例
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     清除某个模式内部
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#xxx">
+     直到xxx
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#substring">
+     各种Substring
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
             </nav>
@@ -424,6 +458,40 @@ const thebe_selector_output = ".output, .cell_output"
    基础
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python">
+   Python
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#re">
+     re模块
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   案例
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     清除某个模式内部
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#xxx">
+     直到xxx
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#substring">
+     各种Substring
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
                         </nav>
@@ -440,7 +508,13 @@ const thebe_selector_output = ".output, .cell_output"
 </div></blockquote>
 <div class="section" id="id2">
 <h2>基础<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<img src="https://img-blog.csdnimg.cn/1e7357fa41394b02a8789f0cbbbe2035.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5biD6KGj5bCP5byg,size_20,color_FFFFFF,t_70,g_se,x_16"><div class="cell docutils container">
+<img src="https://img-blog.csdnimg.cn/1e7357fa41394b02a8789f0cbbbe2035.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5biD6KGj5bCP5byg,size_20,color_FFFFFF,t_70,g_se,x_16"><ul class="simple">
+<li><p><strong>Lookahead</strong> 比如(?=foo): Asserts that what immediately <em>follows</em> the current position in the string is foo</p></li>
+<li><p><strong>Lookbehind</strong> 比如(?&lt;=foo): Asserts that what immediately <em>precedes</em> the current position in the string is foo</p></li>
+<li><p><strong>Negative Lookahead</strong> 比如(?!foo): Asserts that what immediately <em>follows</em> the current position in the string is not foo</p></li>
+<li><p><strong>Negative Lookbehind</strong>: 比如(?&lt;!foo): Asserts that what immediately <em>precedes</em> the current position in the string is not foo</p></li>
+</ul>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
 </pre></div>
@@ -472,6 +546,152 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;fox&#39;
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="re">
+<h3>re模块<a class="headerlink" href="#re" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">re.match()</span></code>: searches only from the beginning of the string and return match object if found. But if a match of substring is found somewhere in the middle of the string, it returns none</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">re.search()</span></code>: search the regular expression pattern and return the first occurrence.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">re.findall()</span></code>: search for “all” occurrences that match a given pattern</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>案例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3>清除某个模式内部<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p><strong>提取括号内的字符</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;[(W)40(indo)25(ws )20(XP)111(, )20(with )20(the )20(fragment )20(en&#39;</span>
+<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\(([^()]+)\)&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;W&#39;, &#39;indo&#39;, &#39;ws &#39;, &#39;XP&#39;, &#39;, &#39;, &#39;with &#39;, &#39;the &#39;, &#39;fragment &#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>内层：<code class="docutils literal notranslate"><span class="pre">[^()]+</span></code> 表示：除了括号以外的任意字符出现1或无限次</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\(</span></code>: 表示literally(</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(</span></code> <code class="docutils literal notranslate"><span class="pre">)</span></code>: 表示识别的模式</p></li>
+</ul>
+<p><strong>提取在&#64;和:之间的内容</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;\ RT @username: Tweet text</span>
+<span class="s1">            RT @abcde: Tweet text</span>
+<span class="s1">            RT @vwxyz: Tweet text</span>
+<span class="s1">            &#39;&#39;&#39;</span>
+<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;@([^:]+)&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;username&#39;, &#39;abcde&#39;, &#39;vwxyz&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;</span></code>: 就是&#64;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(</span></code>: start of a capture group</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[^:]+</span></code>: one or more characters that are not :</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">)</span></code>: close of the capture group</p></li>
+</ul>
+</div>
+<div class="section" id="xxx">
+<h3>直到xxx<a class="headerlink" href="#xxx" title="Permalink to this headline">¶</a></h3>
+<p><strong>直到abc停止</strong></p>
+<blockquote>
+<div><p><a class="reference external" href="https://stackoverflow.com/questions/7124778/how-to-match-anything-up-until-this-sequence-of-characters-in-a-regular-expres">https://stackoverflow.com/questions/7124778/how-to-match-anything-up-until-this-sequence-of-characters-in-a-regular-expres</a></p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;qwerty qwerty whatever abc hello abc &quot;</span>
+
+<span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;.+?(?=abc)&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;qwerty qwerty whatever &#39;
+</pre></div>
+</div>
+</div>
+</div>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">.+?</span></code>: the un-greedy version of .+ (one or more of anything).</p>
+<ul>
+<li><p>When we use .+, the engine will basically match everything.</p>
+<p>Then, if there is something else in the regex it will go back in steps trying to match the following part. This is the greedy behavior, meaning as much as possible to satisfy.</p>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(?={contents})</span></code>, a zero width assertion, a look around. This grouped construction matches its contents, but <strong>does not count as characters matched (zero width)</strong>. It only returns if it is a match or not (assertion).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">group(0)</span></code>: can be be explained by comparing it with group(1), group(2), group(3), …, group(n).</p>
+<ul class="simple">
+<li><p>Group(0) locates the whole match expression.</p></li>
+<li><p>Then to determine more matching locations paranthesis are used:</p>
+<ul>
+<li><p>group(1) means the first paranthesis pair locates matching expression 1,group(2) says the second next paranthesis pair locates the match expression 2, and so on</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="substring">
+<h3>各种Substring<a class="headerlink" href="#substring" title="Permalink to this headline">¶</a></h3>
+<p><strong>包含三个词</strong></p>
+<p><a class="reference external" href="https://regex101.com/r/PykHli/1">可视化</a>：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">texts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;I am good! I am so happy!&quot;</span><span class="p">,</span> <span class="s1">&#39;I am good&#39;</span><span class="p">,</span> <span class="s1">&#39;I am happy&#39;</span><span class="p">,</span> <span class="s1">&#39;goods makes customer happy&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^(?=.*happy)(?=.*good)&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+False
+False
+True
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">^</span></code>: Assert start of the string 只是为了让正则anchor于开始，否则会有performance问题 <a class="reference external" href="https://stackoverflow.com/questions/5421952/how-to-match-multiple-words-in-regex">link</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(?=.*happy)</span></code> : 在match到任何东西之前，lookahead看看有没有 「任何字符出现任意次+happy」这个pattern</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(?=.*good)</span></code> : 在match到任何东西之前，lookahead看看有没有 「任何字符出现任意次+good」这个pattern</p></li>
+<li><p>前两个连接起来：必须同时满足！</p></li>
+</ul>
+<p><a class="reference external" href="https://jex.im/regulex/#%21flags=&amp;re=%5E(%3F%3D.*%5Cbhappy%5Cb)(%3F%3D.*%5Cbgood%5Cb)">可视化</a>：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^(?=.*\bhappy\b)(?=.*\bgood\b)&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+False
+False
+False
+</pre></div>
+</div>
 </div>
 </div>
 </div>

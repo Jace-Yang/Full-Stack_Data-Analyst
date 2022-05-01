@@ -398,13 +398,6 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#agg">
    agg
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#aggregation">
-     aggregation的时候顺带修改新生成列的名字
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -430,13 +423,6 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#agg">
    agg
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#aggregation">
-     aggregation的时候顺带修改新生成列的名字
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -459,8 +445,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="agg">
 <h2>agg<a class="headerlink" href="#agg" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="aggregation">
-<h3>aggregation的时候顺带修改新生成列的名字<a class="headerlink" href="#aggregation" title="Permalink to this headline">¶</a></h3>
+<p><strong>aggregation的时候顺带修改新生成列的名字:</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;kind&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">],</span>
@@ -523,12 +508,18 @@ const thebe_selector_output = ".output, .cell_output"
 </table>
 </div></div></div>
 </div>
+<p><strong>aggregation的时候考虑多个列，并且改名:</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;kind&#39;</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">min_height</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">),</span> 
-                                       <span class="n">max_weight</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">),</span>
-                                       <span class="n">mean_weight</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">),</span>
-                                       <span class="n">quantile_25</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+ 
+<span class="c1"># data is loaded in a DataFrame</span>
+<span class="n">cancer_data</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cancer_data</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cancer_data</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">cancer_data</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;worst texture&#39;</span><span class="p">,</span> <span class="s1">&#39;worst area&#39;</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">]]</span>
+<span class="n">df1</span>
 </pre></div>
 </div>
 </div>
@@ -551,35 +542,545 @@ const thebe_selector_output = ".output, .cell_output"
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>kind</th>
-      <th>min_height</th>
-      <th>max_weight</th>
-      <th>mean_weight</th>
-      <th>quantile_25</th>
+      <th>worst texture</th>
+      <th>worst area</th>
+      <th>target</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>cat</td>
-      <td>9.1</td>
-      <td>9.9</td>
-      <td>8.90</td>
-      <td>8.400</td>
+      <td>17.33</td>
+      <td>2019.0</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>dog</td>
-      <td>6.0</td>
-      <td>198.0</td>
-      <td>102.75</td>
-      <td>55.125</td>
+      <td>23.41</td>
+      <td>1956.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>25.53</td>
+      <td>1709.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>26.50</td>
+      <td>567.7</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>16.67</td>
+      <td>1575.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>564</th>
+      <td>26.40</td>
+      <td>2027.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>565</th>
+      <td>38.25</td>
+      <td>1731.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>566</th>
+      <td>34.12</td>
+      <td>1124.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>567</th>
+      <td>39.42</td>
+      <td>1821.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>568</th>
+      <td>30.37</td>
+      <td>268.6</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>569 rows × 3 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">meanofTargets</span><span class="p">(</span><span class="n">group1</span><span class="p">):</span>
+   
+    <span class="n">wt</span> <span class="o">=</span> <span class="n">group1</span><span class="p">[</span><span class="s1">&#39;worst texture&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="n">wa</span> <span class="o">=</span> <span class="n">group1</span><span class="p">[</span><span class="s1">&#39;worst area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="n">group1</span><span class="p">[</span><span class="s1">&#39;Mean worst texture&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wt</span>
+    <span class="n">group1</span><span class="p">[</span><span class="s1">&#39;Mean worst area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wa</span>
+    <span class="k">return</span> <span class="n">group1</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">meanofTargets</span><span class="p">)</span>
+<span class="n">df2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>worst texture</th>
+      <th>worst area</th>
+      <th>target</th>
+      <th>Mean worst texture</th>
+      <th>Mean worst area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17.33</td>
+      <td>2019.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>23.41</td>
+      <td>1956.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>25.53</td>
+      <td>1709.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>26.50</td>
+      <td>567.7</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>16.67</td>
+      <td>1575.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>564</th>
+      <td>26.40</td>
+      <td>2027.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>565</th>
+      <td>38.25</td>
+      <td>1731.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>566</th>
+      <td>34.12</td>
+      <td>1124.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>567</th>
+      <td>39.42</td>
+      <td>1821.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>568</th>
+      <td>30.37</td>
+      <td>268.6</td>
+      <td>1</td>
+      <td>23.515070</td>
+      <td>558.899440</td>
+    </tr>
+  </tbody>
+</table>
+<p>569 rows × 5 columns</p>
+</div></div></div>
+</div>
+<p><strong>类比dplyr和SQL的聚合</strong></p>
+<p>pandas实现GROUP BY环境下的SUM() / SUM()并且能对输出命名的过程是比较复杂的，举一个小例子：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layer_drop_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s1">&#39;data/pandas_example_layer_drop_time.pickle&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_speedup</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">df_output</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;task&#39;</span><span class="p">,</span> <span class="s1">&#39;n_layer_drop&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">df_output</span><span class="p">[</span><span class="s1">&#39;speedup&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inference_latency&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inference_latency_baseline&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">df_output</span>
+<span class="n">layer_drop_time</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>task</th>
+      <th>experiments</th>
+      <th>strategy</th>
+      <th>n_layer_drop</th>
+      <th>layer_drop</th>
+      <th>Num examples</th>
+      <th>inference_time</th>
+      <th>train_time</th>
+      <th>n_epoch</th>
+      <th>train_time_per_epoch</th>
+      <th>...</th>
+      <th>inference_throughput</th>
+      <th>train_time_per_epoch_baseline</th>
+      <th>inference_latency_baseline</th>
+      <th>inference_throughput_baseline</th>
+      <th>diff_train_time_per_epoch</th>
+      <th>percentage_diff_train_time_per_epoch</th>
+      <th>diff_inference_latency</th>
+      <th>percentage_diff_inference_latency</th>
+      <th>diff_inference_throughput</th>
+      <th>percentage_diff_inference_throughput</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>cola</td>
+      <td>Remove Layers</td>
+      <td>Bottom Drop</td>
+      <td>2</td>
+      <td>0,1</td>
+      <td>1043.0</td>
+      <td>9.267023</td>
+      <td>326.441859</td>
+      <td>3</td>
+      <td>108.813953</td>
+      <td>...</td>
+      <td>112.549625</td>
+      <td>138.738982</td>
+      <td>0.008906</td>
+      <td>112.284841</td>
+      <td>-29.925029</td>
+      <td>-0.275011</td>
+      <td>-0.000021</td>
+      <td>-0.002358</td>
+      <td>0.264784</td>
+      <td>0.002353</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>cola</td>
+      <td>Remove Layers</td>
+      <td>Bottom Drop</td>
+      <td>4</td>
+      <td>0,1,2,3</td>
+      <td>1043.0</td>
+      <td>9.261514</td>
+      <td>262.275043</td>
+      <td>3</td>
+      <td>87.425014</td>
+      <td>...</td>
+      <td>112.616577</td>
+      <td>138.738982</td>
+      <td>0.008906</td>
+      <td>112.284841</td>
+      <td>-51.313968</td>
+      <td>-0.586948</td>
+      <td>-0.000026</td>
+      <td>-0.002954</td>
+      <td>0.331736</td>
+      <td>0.002946</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>cola</td>
+      <td>Remove Layers</td>
+      <td>Bottom Drop</td>
+      <td>6</td>
+      <td>0,1,2,3,4,5</td>
+      <td>1043.0</td>
+      <td>9.268895</td>
+      <td>198.315210</td>
+      <td>3</td>
+      <td>66.105070</td>
+      <td>...</td>
+      <td>112.526899</td>
+      <td>138.738982</td>
+      <td>0.008906</td>
+      <td>112.284841</td>
+      <td>-72.633912</td>
+      <td>-1.098765</td>
+      <td>-0.000019</td>
+      <td>-0.002156</td>
+      <td>0.242058</td>
+      <td>0.002151</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>cola</td>
+      <td>Remove Layers</td>
+      <td>Symmetric Drop</td>
+      <td>2</td>
+      <td>5,6</td>
+      <td>1043.0</td>
+      <td>9.273199</td>
+      <td>326.141196</td>
+      <td>3</td>
+      <td>108.713732</td>
+      <td>...</td>
+      <td>112.474666</td>
+      <td>138.738982</td>
+      <td>0.008906</td>
+      <td>112.284841</td>
+      <td>-30.025250</td>
+      <td>-0.276186</td>
+      <td>-0.000015</td>
+      <td>-0.001691</td>
+      <td>0.189825</td>
+      <td>0.001688</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>cola</td>
+      <td>Remove Layers</td>
+      <td>Symmetric Drop</td>
+      <td>4</td>
+      <td>4,5,6,7</td>
+      <td>1043.0</td>
+      <td>9.271496</td>
+      <td>262.707250</td>
+      <td>3</td>
+      <td>87.569083</td>
+      <td>...</td>
+      <td>112.495329</td>
+      <td>138.738982</td>
+      <td>0.008906</td>
+      <td>112.284841</td>
+      <td>-51.169899</td>
+      <td>-0.584337</td>
+      <td>-0.000017</td>
+      <td>-0.001875</td>
+      <td>0.210488</td>
+      <td>0.001871</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layer_drop_time</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;task&#39;</span><span class="p">,</span> <span class="s1">&#39;n_layer_drop&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_speedup</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>task</th>
+      <th>n_layer_drop</th>
+      <th>speedup</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>cola</td>
+      <td>2</td>
+      <td>0.998095</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>cola</td>
+      <td>4</td>
+      <td>0.997573</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>cola</td>
+      <td>6</td>
+      <td>0.997965</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>mrpc</td>
+      <td>2</td>
+      <td>0.998157</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>mrpc</td>
+      <td>4</td>
+      <td>1.000850</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>mrpc</td>
+      <td>6</td>
+      <td>1.000129</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>rte</td>
+      <td>2</td>
+      <td>0.837115</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>rte</td>
+      <td>4</td>
+      <td>0.721320</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>rte</td>
+      <td>6</td>
+      <td>0.543230</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>sst-2</td>
+      <td>2</td>
+      <td>0.998929</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>sst-2</td>
+      <td>4</td>
+      <td>0.998318</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>sst-2</td>
+      <td>6</td>
+      <td>0.998895</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>sts-b</td>
+      <td>2</td>
+      <td>1.347481</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>sts-b</td>
+      <td>4</td>
+      <td>1.056215</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>sts-b</td>
+      <td>6</td>
+      <td>0.805969</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>wnli</td>
+      <td>2</td>
+      <td>0.819518</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>wnli</td>
+      <td>4</td>
+      <td>0.660700</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>wnli</td>
+      <td>6</td>
+      <td>0.539791</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-</div>
+<ul class="simple">
+<li><p>这个地方apply传入的<code class="docutils literal notranslate"><span class="pre">df</span></code>其实就是shuffle好的每个group，而且包含了group key，</p></li>
+<li><p>我们可以写一个类似reduce的函数，但第一步需要先把group的column给deduplicate了～（不做的话就写成一个复杂版的transform的了）</p></li>
+</ul>
 </div>
 </div>
 

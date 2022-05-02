@@ -40,7 +40,7 @@ rm -r _build
 
 cd ..
 git add .
-git commit -m "新增数据清洗章节📒"
+git commit -m "更新职业规划📒"
 git push origin main
 open -a "Google Chrome" https://github.com/Jace-Yang/Full-Stack_Data-Analyst/deployments/
 ```

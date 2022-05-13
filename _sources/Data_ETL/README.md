@@ -30,7 +30,11 @@ for opage in outer:      # need to read from disk
 
 - Cost: M (for each outer page) + MN (fetch all inner pages for each outer page) 
 
-因此要尽量大表Join小表：Always choose the **smaller** of the two relations as outer relation
+因此要尽量小表Join大表：Always choose the **smaller** of the two relations as outer relation
+> A JOIN B, A 是outer表 B是inner表
+
+- 写在关联左侧的表每有1条重复的关联键时底层就会多1次运算处理
+- 把重复关联键少的表放在join前面做关联可以提高join的效率
 
 
 #### **Indexed Nested Loops Join**

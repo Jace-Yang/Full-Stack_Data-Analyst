@@ -513,7 +513,14 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="simple">
 <li><p>Cost: M (for each outer page) + MN (fetch all inner pages for each outer page)</p></li>
 </ul>
-<p>因此要尽量大表Join小表：Always choose the <strong>smaller</strong> of the two relations as outer relation</p>
+<p>因此要尽量小表Join大表：Always choose the <strong>smaller</strong> of the two relations as outer relation</p>
+<blockquote>
+<div><p>A JOIN B, A 是outer表 B是inner表</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>写在关联左侧的表每有1条重复的关联键时底层就会多1次运算处理</p></li>
+<li><p>把重复关联键少的表放在join前面做关联可以提高join的效率</p></li>
+</ul>
 </div>
 <div class="section" id="indexed-nested-loops-join">
 <h4><strong>Indexed Nested Loops Join</strong><a class="headerlink" href="#indexed-nested-loops-join" title="Permalink to this headline">¶</a></h4>

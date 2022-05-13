@@ -40,7 +40,7 @@ rm -r _build
 
 cd ..
 git add .
-git commit -m "he or she"
+git commit -m "新增数仓📒"
 git push origin main
 open -a "Google Chrome" https://github.com/Jace-Yang/Full-Stack_Data-Analyst/deployments/
 ```

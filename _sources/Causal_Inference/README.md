@@ -72,7 +72,9 @@ Inferring the effect of treatment/policy on some outcome的时候，怎样才能
 方法1: 如果你知道做了某件事的potential outcome就是work，不做就没有，那就可以
 <center><img src="../images/CI_basic_7.png" width="65%"/></center>
 
-- 然而 作为一个个人，如果你吃了药（吃药是factual），那你就不能知道你不吃药（不吃药是counterfactual）的outcome会是什么样了。
+- 问题：It is impossible to observe all potential outcomes for a given individual. —— CI的根本问题！
+
+    作为一个个人，如果你吃了药（吃药是factual），那你就不能知道你不吃药（不吃药是counterfactual）的outcome会是什么样了。
 
 - 如果上升到群体然后平均的话，不是完全相等的！
 
@@ -97,3 +99,49 @@ Inferring the effect of treatment/policy on some outcome的时候，怎样才能
 
 - 然而这个要求我们的分组是相同的，比如穿鞋睡和不穿鞋睡是抛硬币随机的 不管你清醒与否！这样的效果就是清醒和喝酒的人，在穿不穿鞋这件事情上的分布都是一样的。
 
+方法3: observational studies
+
+- 场景：Can’t always randomize treatment，比如given一些数据集
+
+    - 不道德｜Ethical reasons (e.g. unethical to randomize people to smoke for measuring effect on lung cancer)
+    - 不可行｜Infeasibility (e.g. can’t randomize countries into communist/capitalist systems to measure effect on GDP)
+    - 不可能｜Impossibility (e.g. can’t change a living person’s DNA at birth for measuring effect on breast cancer)
+
+- 解决方案：adjust/control for confounders
+
+## Potential Outcomes
+
+
+上面提到的 无法观测what would have been if I也可以理解为一种缺失值处理问题：
+
+$$
+\begin{array}{cccccc}
+\hline i & T & Y & Y(1) & Y(0) & Y(1)-Y(0) \\
+\hline 1 & 0 & 0 & ? & 0 & ? \\
+2 & 1 & 1 & 1 & ? & ? \\
+3 & 1 & 0 & 0 & ? & ? \\
+4 & 0 & 0 & ? & 0 & ? \\
+5 & 0 & 1 & ? & 1 & ? \\
+6 & 1 & 1 & 1 & ? & ? \\
+\hline
+\end{array}
+$$
+- 因为individual只能有Y(treatment给1)或者Y(treatment给0)中的一个
+
+### 解决个体无法观测的方法
+
+#### Average treatment effect(ATE)
+<center><img src="../images/CI_basic_9.png" width="85%"/></center>
+
+- ATE: ${E}[Y(1)-Y(0)]=\mathbb{E}[Y(1)]-\mathbb{E}[Y(0)]$
+- association difference: $\mathbb{E}[Y \mid T=1]-\mathbb{E}[Y \mid T=0]$
+
+而这两个概念是不同的——correlation不是causation：Treatment之后的subgroup可能不是在所有其他变量上comparable的：
+<center><img src="../images/CI_basic_10.png" width="85%"/></center>
+
+
+什么时候可以呢？要保证Ignorability—— 
+
+$$
+(Y(1), Y(0)) \Perp T
+$$

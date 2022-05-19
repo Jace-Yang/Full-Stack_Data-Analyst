@@ -418,6 +418,25 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#potential-outcomes">
+   Potential Outcomes
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     解决个体无法观测的方法
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#average-treatment-effect-ate">
+       Average treatment effect(ATE)
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
 </ul>
 
             </nav>
@@ -457,6 +476,25 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal nav-link" href="#what-does-imply-causation">
      what does imply causation?
     </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#potential-outcomes">
+   Potential Outcomes
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     解决个体无法观测的方法
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#average-treatment-effect-ate">
+       Average treatment effect(ATE)
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -543,7 +581,9 @@ const thebe_selector_output = ".output, .cell_output"
 <p>方法1: 如果你知道做了某件事的potential outcome就是work，不做就没有，那就可以</p>
 <center><img src="../images/CI_basic_7.png" width="65%"/></center>
 <ul>
-<li><p>然而 作为一个个人，如果你吃了药（吃药是factual），那你就不能知道你不吃药（不吃药是counterfactual）的outcome会是什么样了。</p></li>
+<li><p>问题：It is impossible to observe all potential outcomes for a given individual. —— CI的根本问题！</p>
+<p>作为一个个人，如果你吃了药（吃药是factual），那你就不能知道你不吃药（不吃药是counterfactual）的outcome会是什么样了。</p>
+</li>
 <li><p>如果上升到群体然后平均的话，不是完全相等的！</p>
 <p>Individual treatment effect (ITE): <span class="math notranslate nohighlight">\(Y_{i}(1)-Y_{i}(0)\)</span></p>
 <p>Average treatment effect (ATE):
@@ -564,6 +604,55 @@ $<span class="math notranslate nohighlight">\(
 <li><p>如果说你的treatment可以跟condition没关系的话，比如Treatment就是随机抛硬币跟C无关，那么就没有confounding effect（T跟Y不会通过C去影响）</p></li>
 <li><p>然而这个要求我们的分组是相同的，比如穿鞋睡和不穿鞋睡是抛硬币随机的 不管你清醒与否！这样的效果就是清醒和喝酒的人，在穿不穿鞋这件事情上的分布都是一样的。</p></li>
 </ul>
+<p>方法3: observational studies</p>
+<ul class="simple">
+<li><p>场景：Can’t always randomize treatment，比如given一些数据集</p>
+<ul>
+<li><p>不道德｜Ethical reasons (e.g. unethical to randomize people to smoke for measuring effect on lung cancer)</p></li>
+<li><p>不可行｜Infeasibility (e.g. can’t randomize countries into communist/capitalist systems to measure effect on GDP)</p></li>
+<li><p>不可能｜Impossibility (e.g. can’t change a living person’s DNA at birth for measuring effect on breast cancer)</p></li>
+</ul>
+</li>
+<li><p>解决方案：adjust/control for confounders</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="potential-outcomes">
+<h2>Potential Outcomes<a class="headerlink" href="#potential-outcomes" title="Permalink to this headline">¶</a></h2>
+<p>上面提到的 无法观测what would have been if I也可以理解为一种缺失值处理问题：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{cccccc}
+\hline i &amp; T &amp; Y &amp; Y(1) &amp; Y(0) &amp; Y(1)-Y(0) \\
+\hline 1 &amp; 0 &amp; 0 &amp; ? &amp; 0 &amp; ? \\
+2 &amp; 1 &amp; 1 &amp; 1 &amp; ? &amp; ? \\
+3 &amp; 1 &amp; 0 &amp; 0 &amp; ? &amp; ? \\
+4 &amp; 0 &amp; 0 &amp; ? &amp; 0 &amp; ? \\
+5 &amp; 0 &amp; 1 &amp; ? &amp; 1 &amp; ? \\
+6 &amp; 1 &amp; 1 &amp; 1 &amp; ? &amp; ? \\
+\hline
+\end{array}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>因为individual只能有Y(treatment给1)或者Y(treatment给0)中的一个</p></li>
+</ul>
+<div class="section" id="id2">
+<h3>解决个体无法观测的方法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="average-treatment-effect-ate">
+<h4>Average treatment effect(ATE)<a class="headerlink" href="#average-treatment-effect-ate" title="Permalink to this headline">¶</a></h4>
+<center><img src="../images/CI_basic_9.png" width="85%"/></center>
+<ul class="simple">
+<li><p>ATE: <span class="math notranslate nohighlight">\({E}[Y(1)-Y(0)]=\mathbb{E}[Y(1)]-\mathbb{E}[Y(0)]\)</span></p></li>
+<li><p>association difference: <span class="math notranslate nohighlight">\(\mathbb{E}[Y \mid T=1]-\mathbb{E}[Y \mid T=0]\)</span></p></li>
+</ul>
+<p>而这两个概念是不同的——correlation不是causation：Treatment之后的subgroup可能不是在所有其他变量上comparable的：</p>
+<center><img src="../images/CI_basic_10.png" width="85%"/></center>
+<p>什么时候可以呢？要保证Ignorability——</p>
+<div class="math notranslate nohighlight">
+\[
+(Y(1), Y(0)) \Perp T
+\]</div>
+</div>
 </div>
 </div>
 <div class="toctree-wrapper compound">

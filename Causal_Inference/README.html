@@ -57,7 +57,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Potential Outcomes" href="1_Potential_Outcome.html" />
+    <link rel="next" title="AB Testing" href="1_AB_testing.html" />
     <link rel="prev" title="基础" href="../STAT/README.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
@@ -165,8 +165,8 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="1_Potential_Outcome.html">
-     Potential Outcomes
+    <a class="reference internal" href="1_AB_testing.html">
+     AB Testing
     </a>
    </li>
   </ul>
@@ -516,8 +516,9 @@ const thebe_selector_output = ".output, .cell_output"
 <h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="simpson-s-paradox">
 <h3>辛普森悖论 Simpson’s Paradox<a class="headerlink" href="#simpson-s-paradox" title="Permalink to this headline">¶</a></h3>
-<p>总体的规律跟分组的规律不同</p>
-<p>统计层面的核心是：Partial correlation and marginal correlation can be dramatically different</p>
+<p>定义：总体的规律跟分组的规律不同：几组不同的数据中均存在一种 趋势, 但当这些数据组合在一起后, 这种趋势消失或反转。</p>
+<p>产生的原因：数据中存在多个变量。这些变量通常难以识别, 被称为“潜伏变量”。潜伏变量可能是由于采样错误造成的。</p>
+<p>统计层面的核心：Partial correlation and marginal correlation can be dramatically different</p>
 <p>例子：</p>
 <ul>
 <li><p>[例1]: 男性用药多 但恢复率更高，所以让整体有这个correlation，不过by group的correlation不是这样！</p>
@@ -717,10 +718,10 @@ $<span class="math notranslate nohighlight">\(
             <p class="prev-next-title">基础</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="1_Potential_Outcome.html" title="next page">
+    <a class='right-next' id="next-link" href="1_AB_testing.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Potential Outcomes</p>
+        <p class="prev-next-title">AB Testing</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

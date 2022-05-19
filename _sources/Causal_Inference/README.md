@@ -6,9 +6,11 @@
 
 ### 辛普森悖论 Simpson's Paradox
 
-总体的规律跟分组的规律不同
+定义：总体的规律跟分组的规律不同：几组不同的数据中均存在一种 趋势, 但当这些数据组合在一起后, 这种趋势消失或反转。
 
-统计层面的核心是：Partial correlation and marginal correlation can be dramatically different
+产生的原因：数据中存在多个变量。这些变量通常难以识别, 被称为“潜伏变量”。潜伏变量可能是由于采样错误造成的。
+
+统计层面的核心：Partial correlation and marginal correlation can be dramatically different
 
 例子：
 

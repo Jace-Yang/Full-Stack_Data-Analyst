@@ -1,0 +1,833 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AB Testing &#8212; Towards a Full-stack DA</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="基础" href="../Deep_Learning/Basics/README.html" />
+    <link rel="prev" title="基础" href="README.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo2.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Towards a Full-stack DA</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Jace的六边形DA笔记库
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  数据ETL流程
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Data_ETL/README.html">
+   DE基础
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Data_ETL/Data_cleaning/README.html">
+   数据清洗与处理
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Data_ETL/Data_cleaning/Regex.html">
+     正则表达式
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Data_ETL/Data_cleaning/pandas.html">
+     Pandas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  统计分析
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../STAT/README.html">
+   基础
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  因果推断
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="README.html">
+   基础
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     AB Testing
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  深度学习
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Deep_Learning/Basics/README.html">
+   基础
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Deep_Learning/Basics/DL_hyperparameter.html">
+     DL常见超参及调整策略
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Deep_Learning/Basics/Optimizer.html">
+     优化器
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Deep_Learning/Basics/Trained_by_GPU.html">
+     GPU训练
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Deep_Learning/NLP/README.html">
+   NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Deep_Learning/NLP/basics.html">
+     基础概念
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Deep_Learning/NLP/Self-attention.html">
+     Self-Attention
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Deep_Learning/NLP/Transformer.html">
+     Transformer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Deep_Learning/NLP/BERT.html">
+     BERT
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Deep_Learning/NN_compression/README.html">
+   神经网络压缩
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../Deep_Learning/NN_compression/KD.html">
+     知识蒸馏
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../Deep_Learning/NN_compression/Distill_Bert.html">
+       Distill Bert
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../Deep_Learning/NN_compression/Quantize.html">
+     量化
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../Deep_Learning/NN_compression/QBert.html">
+       Q-BERT
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  备用的模板
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../notebooks.html">
+   Content with notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference external" href="https://www.linkedin.com/in/jinhang-yang/">
+     LinkedIn
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/Causal_Inference/1_AB_testing.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FCausal_Inference/1_AB_testing.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Causal_Inference/1_AB_testing.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#abtest">
+   ABTest的设计
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   ABtest背后的理论支撑是什么？
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   如何分组才能更好地避免混淆呢？
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   样本量大小如何？
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   两类错误是什么？
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   埋点&amp;暗中观察
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   注意点
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#novelty-and-primacy-effect">
+     Novelty and Primacy Effect
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interference-between-variants">
+     INTERFERENCE BETWEEN VARIANTS
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     一人多账号
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   结果分析
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multiple-testing-problem">
+     Multiple Testing Problem
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   参考资料
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>AB Testing</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#abtest">
+   ABTest的设计
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   ABtest背后的理论支撑是什么？
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   如何分组才能更好地避免混淆呢？
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   样本量大小如何？
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   两类错误是什么？
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   埋点&amp;暗中观察
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   注意点
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#novelty-and-primacy-effect">
+     Novelty and Primacy Effect
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interference-between-variants">
+     INTERFERENCE BETWEEN VARIANTS
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     一人多账号
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   结果分析
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multiple-testing-problem">
+     Multiple Testing Problem
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   参考资料
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="ab-testing">
+<h1>AB Testing<a class="headerlink" href="#ab-testing" title="Permalink to this headline">¶</a></h1>
+<p>定义：AB testing (controlled experiments) is a type of experiment with two variants, A and B, which are the control and variation in a controlled experiment.</p>
+<ul class="simple">
+<li><p>一般Control是A——existing features，Treatment是B——new features</p></li>
+<li><p>会对部分用户展开</p></li>
+</ul>
+<p>定位：</p>
+<ul class="simple">
+<li><p>纵向：数据分析、用户调研是理解需求的方法，ABtest是验证方案的工具，是互相补充的上下游的关系！</p></li>
+<li><p>横向：用户访谈、问卷调查、焦点组也是evaluate方案的方法，AB实验会给broad quantitive data，上面的会给你deep qualitative data，也可以形成组合拳！</p></li>
+</ul>
+<div class="section" id="abtest">
+<h2>ABTest的设计<a class="headerlink" href="#abtest" title="Permalink to this headline">¶</a></h2>
+<p>ABtest其实就是控制变量法。为了评估测试和验证模型/项目的效果，在app/pc端设计出多个版本，在同一时间维度下，分别用组成相同/相似的群组去随机访问这些版本，记录下群组的用户体验数据和业务数据，最后评估不同方案的效果决定是否上线。</p>
+<ul>
+<li><p>Time——运行多久</p></li>
+<li><p>Size——决定样本量</p>
+<ul class="simple">
+<li><p>Type Il error or power</p></li>
+<li><p>Significance level</p></li>
+<li><p>Minimum detectable effect: smallest different matters in practice</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\text { sample size } \simeq \frac{16 \sigma^{2}}{\delta^{2}}\]</div>
+<ul>
+<li><div class="math notranslate nohighlight">
+\[\delta \text { : difference between treatment and control }\]</div>
+</li>
+</ul>
+</li>
+</ul>
+<p>步骤：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>1. 基于现状和期望，分析并提出假设
+2. 设定指标目标（核心指标）
+3. 设计与开发
+4. 分配流量进行测试
+5. 埋点采集数据
+6. 实验后分析数据
+7. 发布新版本/改进设计方案/调整流量继续测试
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>ABtest背后的理论支撑是什么？<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><strong>中心极限定理</strong>：在样本量足够大的时候，可以认为样本的均值近似服从正态分布。</p>
+<p><strong>假设检验</strong>：假设检验是研究如何根据抽样后获得的样本来检查抽样前所作假设是否合理，<strong>A/B Test 从本质上来说是一个基于统计的假设检验过程</strong>，它首先对实验组和对照组的关系提出了某种假设，然后计算这两组数据的差异和确定该差异是否存在统计上的显著性，最后根据上述结果对假设做出判断。</p>
+<p>假设检验的核心是<strong>证伪</strong>，所以原假设是统计者想要拒绝的假设，无显著差异我们也可以理解为：实验组和对照组的统计差异是由抽样误差引起的（误差服从正态分布）。</p>
+</div>
+<div class="section" id="id2">
+<h2>如何分组才能更好地避免混淆呢？<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>AB实验需要利用控制变量法的原理, 确保A、B两个方案中只有一个不同的变量, 其他变量保持一致，</p>
+<ul class="simple">
+<li><p>必须满足的条件</p>
+<ul>
+<li><p>特征相同 (或相似) 的用户群组</p></li>
+<li><p>同一时间维度</p></li>
+</ul>
+</li>
+<li><p>操作方法：</p>
+<ul>
+<li><p>利用用户的唯一标识的尾号或者其他标识进行分类，如按照尾号的奇数或者偶数将其分为两组。</p></li>
+<li><p>用一个hash函数将用户的唯一标识进行hash取模，分桶。可以将用户均匀地分到若干个桶中，如分到100个或者1000个桶中，这样的好处就是可以进一步将用户打散，提高分组的效果。</p></li>
+</ul>
+</li>
+</ul>
+<p>当然，如果有多个分组并行进行的情况的话，要考虑独占域和分享域问题。（不同域之间的用户相互独立，交集为空）对于共享域，我们要进行分层。但是在分层中，下一层要将上一层的用户打散，确保下一层用户的随机性。</p>
+</div>
+<div class="section" id="id3">
+<h2>样本量大小如何？<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>​	理论上，我们想要样本量越多的越好，因为这样可以避免第二类错误。随着样本量增加，power=1-β也在增大，一般到80%，这里我们可以算出一个最小样本量，但理论上样本量还是越大越好。</p>
+<p>实际上，样本量越少越好，这是因为</p>
+<ol class="simple">
+<li><p>流量有限：小公司就这么点流量，还要精打细算做各种测试，开发各种产品。在保证样本分组不重叠的基础上，产品开发速度会大大降低。</p></li>
+<li><p>试错成本大：如果拿50%的用户做实验，一周以后发现总收入下降了20%，这样一周时间的实验给公司造成了10%的损失，这样损失未免有点大。</p></li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h2>两类错误是什么？<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p><strong>弃真</strong>：实验组和对照组没有显著差异，但我们接受了方案推了全量。减少这种错误的方法就是提高显著性水平，比如 p 值小于 0.05 才算显著，而不是小于 0.1，显著性水平是人为给定的犯一类错误的可以接受的上限（<span class="math notranslate nohighlight">\(p\)</span>值为犯 I 类错误的概率<span class="math notranslate nohighlight">\(\alpha\)</span> ）。</p></li>
+<li><p><strong>存伪</strong>：实验组和对照组有显著差异，但我们没有接受方案。</p>
+<p>II 类错误和<strong>统计功效 (power)</strong> 有关，统计功效可以简单理解为真理能被发现的可能性。统计功效 为:<span class="math notranslate nohighlight">\(1-\beta\)</span> ，而<span class="math notranslate nohighlight">\(\beta\)</span>为犯第二类错误的概率。影响统计功效的因素有很多，主要的有三个：统计量、样本量和 I 类错误的概率<span class="math notranslate nohighlight">\(\alpha\)</span>  。</p>
+</li>
+</ol>
+</div>
+<div class="section" id="id5">
+<h2>埋点&amp;暗中观察<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>​	当我们确定了需要分析的具体指标之后，就需要我们进行埋点设计，把相关的用户行为收集起来，供后续的流程进行数据分析，从而得出实验结论。</p>
+<p>​	对于 ABTest我们需要知道当前用户是处于对照组还是实验组，所以埋点中这些参数必须要有。埋点完了就是收集实验数据了（暗中观察），主要看以下两个方面：</p>
+<ol class="simple">
+<li><p>观察样本量是否符合预期，比如实验组和对照组分流的流量是否均匀，正常情况下，分流的数据不会相差太大，如果相差太大，就要分析哪里出现了问题。</p></li>
+<li><p>观察用户的行为埋点是否埋的正确，很多次实验之后，我们发现埋点埋错了。</p></li>
+</ol>
+</div>
+<div class="section" id="id6">
+<h2>注意点<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="novelty-and-primacy-effect">
+<h3>Novelty and Primacy Effect<a class="headerlink" href="#novelty-and-primacy-effect" title="Permalink to this headline">¶</a></h3>
+<p>在新进行实验版本变更的短期内会有两种效应，但不会一直持续：</p>
+<ul class="simple">
+<li><p>Primacy effect: People are reluctant to change</p></li>
+<li><p>Novelty effect: People welcome the changes and use more</p></li>
+</ul>
+<p>这两个效应会导致不同的initial effect</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sample</span> <span class="n">question</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">Ran</span> <span class="n">an</span> <span class="n">A</span><span class="o">/</span><span class="n">B</span> <span class="n">test</span> <span class="n">on</span> <span class="n">a</span> <span class="n">new</span> <span class="n">feature</span>
+<span class="o">-</span> <span class="n">The</span> <span class="n">test</span> <span class="n">won</span> <span class="ow">and</span> <span class="n">we</span> <span class="n">launched</span> <span class="n">the</span> <span class="n">change</span>
+<span class="o">-</span> <span class="n">After</span> <span class="n">a</span> <span class="n">week</span><span class="p">,</span> <span class="n">the</span> <span class="n">treatment</span> <span class="n">effect</span> <span class="n">quickly</span> <span class="n">declined</span>
+
+<span class="n">Answer</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">Novelty</span> <span class="n">effect</span>
+<span class="o">-</span> <span class="n">Repeat</span> <span class="n">usage</span> <span class="n">declined</span> <span class="n">when</span> <span class="n">effect</span> <span class="n">wears</span> <span class="n">off</span>
+</pre></div>
+</div>
+<p>解决方案：</p>
+<ul class="simple">
+<li><p>Run tests only on first time users: 这样不会被Novelty和Primacy影响</p></li>
+<li><p>如果已经有在跑的实验，想看这些effect的影响的话</p></li>
+</ul>
+</div>
+<div class="section" id="interference-between-variants">
+<h3>INTERFERENCE BETWEEN VARIANTS<a class="headerlink" href="#interference-between-variants" title="Permalink to this headline">¶</a></h3>
+<p>Network effect: 控制组的用户会被实验组的用户影响</p>
+<ul class="simple">
+<li><p>User behaviors are impacted by others</p></li>
+<li><p>The effect can spillover the control group</p></li>
+</ul>
+<p>Two-sided markets: 实验组和控制组会竞争一样的资源</p>
+<ul class="simple">
+<li><p>Eg. Uber, Lyft, Airbnb</p></li>
+<li><p>Resources are shared among control and treatment groups</p></li>
+<li><p>Eg. treatment group attracts more drivers</p></li>
+<li><p>less drivers are available for control group</p></li>
+</ul>
+<p>解决方案</p>
+<p>Sample questions:</p>
+<ul class="simple">
+<li><p>A new feature provides coupons to our riders</p></li>
+<li><p>Goal: increase rides by decreasing price</p></li>
+<li><p>Testing strategy: evaluate the effect of the new feature</p></li>
+</ul>
+<p>防止用户互相影响的方案——Isolate Users</p>
+<ul>
+<li><p>两端用户场景</p>
+<p>Geo-based randomization: Split by geolocations</p>
+<ul class="simple">
+<li><p>Eg. New York vs. San Francisco</p></li>
+<li><p>Big variance since markets are unique</p></li>
+</ul>
+<p>Time-based randomization: Split by day of week</p>
+<ul class="simple">
+<li><p>Assign all users to either treatment or control</p></li>
+<li><p>Only when treatment effect is in short time</p></li>
+<li><p>只有在effect短（比如uber打车）的时候有用，但长时间的（比如是否推荐其他用户）就没用</p></li>
+</ul>
+</li>
+<li><p>Network场景</p>
+<p>Create network clusters:</p>
+<ul class="simple">
+<li><p>People interact mostly within the cluster</p></li>
+<li><p>Assign clusters randomly</p></li>
+</ul>
+<p>Ego-network randomization:</p>
+<ul class="simple">
+<li><p>Originated from LinkedIn</p></li>
+<li><p>An ego network cluster is defined as a portion of a social network formed of a given individual, termed ego, and the other persons with whom she has a social relationship, termed alters</p></li>
+<li><p>One-out network effect: user either has the feature or not</p></li>
+<li><p>It’s simpler and more scalable</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>一人多账号<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>如果一个人有多个账号，分别做不同用途，abtest的时候怎么分组才最合理呢？：我们对这类人的分类是，看的不是他是谁，而是他做了什么。按照我们对行业的分类，行为不同的话就是两类人，和身份证是不是同一个无关。我们要聚合的是有相同行为特征的账户，而不是人。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>结果分析<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="multiple-testing-problem">
+<h3>Multiple Testing Problem<a class="headerlink" href="#multiple-testing-problem" title="Permalink to this headline">¶</a></h3>
+<p>如果有三个组，有一个组p-value &lt;0.05，也不能执行，因为此时</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\operatorname{Pr}(\)</span> no false positive <span class="math notranslate nohighlight">\()=(1-0.05)^{3}=0.95^{3}=0.857\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\operatorname{Pr}(\)</span> at least 1 false positive <span class="math notranslate nohighlight">\()=1-\operatorname{Pr}\)</span> (no false positive) = 0.143</p></li>
+<li><p>Type I error over 14%</p></li>
+</ul>
+<p>解决方案1：Bonferroni  correction</p>
+<ul class="simple">
+<li><p>Significance level / number of tests</p>
+<ul>
+<li><p>比如：Significance level 10 tests <span class="math notranslate nohighlight">\(=0.05 / 10=0.005\)</span></p></li>
+</ul>
+</li>
+<li><p>缺点：太过保守</p></li>
+</ul>
+<p>解决方案2：False Discovery Rate</p>
+<p><span class="math notranslate nohighlight">\(\mathrm{FDR}=E\left[\frac{\text { false positives }}{\text { rejections }}\right]\)</span></p>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>参考资料<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://zhuanlan.zhihu.com/p/165406531">https://zhuanlan.zhihu.com/p/165406531</a></p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Causal_Inference"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="README.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">基础</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../Deep_Learning/Basics/README.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">基础</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jace Yang<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

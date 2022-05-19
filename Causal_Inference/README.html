@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DE基础 &#8212; Towards a Full-stack DA</title>
+    <title>基础 &#8212; Towards a Full-stack DA</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -57,8 +57,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="数据清洗与处理" href="Data_cleaning/README.html" />
-    <link rel="prev" title="Jace的六边形DA笔记库" href="../intro.html" />
+    <link rel="next" title="Potential Outcomes" href="1_Potential_Outcome.html" />
+    <link rel="prev" title="基础" href="../STAT/README.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -107,14 +107,14 @@ const thebe_selector_output = ".output, .cell_output"
   数据ETL流程
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Data_ETL/README.html">
    DE基础
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="Data_cleaning/README.html">
+  <a class="reference internal" href="../Data_ETL/Data_cleaning/README.html">
    数据清洗与处理
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -124,12 +124,12 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="Data_cleaning/Regex.html">
+    <a class="reference internal" href="../Data_ETL/Data_cleaning/Regex.html">
      正则表达式
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Data_cleaning/pandas.html">
+    <a class="reference internal" href="../Data_ETL/Data_cleaning/pandas.html">
      Pandas
     </a>
    </li>
@@ -153,19 +153,19 @@ const thebe_selector_output = ".output, .cell_output"
   因果推断
  </span>
 </p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Causal_Inference/README.html">
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
    基础
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Causal_Inference/1_Potential_Outcome.html">
+    <a class="reference internal" href="1_Potential_Outcome.html">
      Potential Outcomes
     </a>
    </li>
@@ -348,7 +348,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/Data_ETL/README.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/Causal_Inference/README.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -368,10 +368,10 @@ const thebe_selector_output = ".output, .cell_output"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FData_ETL/README.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FCausal_Inference/README.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Data_ETL/README.md"><button
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Causal_Inference/README.md"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -397,37 +397,24 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sql">
-   SQL执行问题
+  <a class="reference internal nav-link" href="#motivation">
+   Motivation
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sql-join">
-     SQL join
+    <a class="reference internal nav-link" href="#simpson-s-paradox">
+     辛普森悖论 Simpson’s Paradox
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#nested-join">
-       <strong>
-        Nested Join
-       </strong>
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#indexed-nested-loops-join">
-       <strong>
-        Indexed Nested Loops Join
-       </strong>
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#hash-join">
-       <strong>
-        Hash Join
-       </strong>
-      </a>
-     </li>
-    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#correlation-does-not-imply-causation">
+     Correlation Does Not Imply Causation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-does-imply-causation">
+     what does imply causation?
+    </a>
    </li>
   </ul>
  </li>
@@ -441,7 +428,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>DE基础</h1>
+                <h1>基础</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -452,37 +439,24 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sql">
-   SQL执行问题
+  <a class="reference internal nav-link" href="#motivation">
+   Motivation
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sql-join">
-     SQL join
+    <a class="reference internal nav-link" href="#simpson-s-paradox">
+     辛普森悖论 Simpson’s Paradox
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#nested-join">
-       <strong>
-        Nested Join
-       </strong>
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#indexed-nested-loops-join">
-       <strong>
-        Indexed Nested Loops Join
-       </strong>
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#hash-join">
-       <strong>
-        Hash Join
-       </strong>
-      </a>
-     </li>
-    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#correlation-does-not-imply-causation">
+     Correlation Does Not Imply Causation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-does-imply-causation">
+     what does imply causation?
+    </a>
    </li>
   </ul>
  </li>
@@ -495,103 +469,104 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="de">
-<h1>DE基础<a class="headerlink" href="#de" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="sql">
-<h2>SQL执行问题<a class="headerlink" href="#sql" title="Permalink to this headline">¶</a></h2>
-<p>假设Outer表M个pages、Inner表N个pages、每个pages有T个tuples</p>
-<div class="section" id="sql-join">
-<h3>SQL join<a class="headerlink" href="#sql-join" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="nested-join">
-<h4><strong>Nested Join</strong><a class="headerlink" href="#nested-join" title="Permalink to this headline">¶</a></h4>
-<p>场景：没有index左右表被join的column的时候使用</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Given Outer的一行：挨个去inner的page的row里面找相等的就吐出来</span>
-<span class="k">def</span> <span class="nf">joinrow</span><span class="p">(</span><span class="n">orow</span><span class="p">,</span> <span class="n">ipage</span><span class="p">):</span> 
-    <span class="k">for</span> <span class="n">irow</span> <span class="ow">in</span> <span class="n">ipage</span><span class="p">:</span> 
-        <span class="k">if</span> <span class="n">orow</span><span class="o">.</span><span class="n">p</span> <span class="o">==</span> <span class="n">irow</span><span class="o">.</span><span class="n">p</span><span class="p">:</span> 
-            <span class="k">yield</span> <span class="p">(</span><span class="n">orow</span><span class="p">,</span> <span class="n">irow</span><span class="p">)</span>
-
-<span class="c1"># Given Outer的page：里面Outer的每一行 挨个去跑上面的算法找到ipage里面的matched的</span>
-<span class="k">def</span> <span class="nf">joinpages</span><span class="p">(</span><span class="n">opage</span><span class="p">,</span> <span class="n">ipage</span><span class="p">):</span> 
-    <span class="k">for</span> <span class="n">orow</span> <span class="ow">in</span> <span class="n">opage</span><span class="p">:</span> <span class="k">for</span> <span class="n">resulttuple</span> <span class="ow">in</span> <span class="n">joinrow</span><span class="p">(</span><span class="n">orow</span><span class="p">,</span> <span class="n">ipage</span><span class="p">):</span> 
-        <span class="k">yield</span> <span class="n">resulttuple</span> 
-        
-
-<span class="k">for</span> <span class="n">opage</span> <span class="ow">in</span> <span class="n">outer</span><span class="p">:</span>      <span class="c1"># need to read from disk</span>
-    <span class="k">for</span> <span class="n">ipage</span> <span class="ow">in</span> <span class="n">inner</span><span class="p">:</span>  <span class="c1"># need to read from disk</span>
-        <span class="n">joinpages</span><span class="p">(</span><span class="n">opage</span><span class="p">,</span><span class="n">ipage</span><span class="p">)</span>
-</pre></div>
-</div>
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1>基础<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>Cost: M (for each outer page) + MN (fetch all inner pages for each outer page)</p></li>
+<li><p>定义：Inferring the effects of any treatment/policy/intervention/etc</p></li>
 </ul>
-<p>因此要尽量小表Join大表：Always choose the <strong>smaller</strong> of the two relations as outer relation</p>
-<blockquote>
-<div><p>A JOIN B, A 是outer表 B是inner表</p>
-</div></blockquote>
-<ul class="simple">
-<li><p>写在关联左侧的表每有1条重复的关联键时底层就会多1次运算处理</p></li>
-<li><p>把重复关联键少的表放在join前面做关联可以提高join的效率</p></li>
-</ul>
-</div>
-<div class="section" id="indexed-nested-loops-join">
-<h4><strong>Indexed Nested Loops Join</strong><a class="headerlink" href="#indexed-nested-loops-join" title="Permalink to this headline">¶</a></h4>
-<p>假设</p>
-<ul class="simple">
-<li><p>outer的predicate有5%的selectivity</p></li>
-<li><p>inner的join attribute p已经被index了,lookup index的cost 是<span class="math notranslate nohighlight">\(C_1\)</span></p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">opage</span> <span class="ow">in</span> <span class="n">outer</span><span class="p">:</span>                     <span class="c1"># read from disk</span>
-    <span class="k">for</span> <span class="n">orow</span> <span class="ow">in</span> <span class="n">opage</span><span class="p">:</span>                  <span class="c1"># in memory</span>
-        <span class="k">for</span> <span class="n">ipage</span> <span class="ow">in</span> <span class="n">index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">orow</span><span class="o">.</span><span class="n">p</span><span class="p">):</span> <span class="c1"># read from disk</span>
-            <span class="n">joinrow</span><span class="p">(</span><span class="n">orow</span><span class="p">,</span> <span class="n">ipage</span><span class="p">)</span>        
-</pre></div>
-</div>
-<p>总共的cost = M + T × M × 0.05 × <span class="math notranslate nohighlight">\(C_1\)</span></p>
-<blockquote>
-<div><p>M (for each outer page) + T * M * 0.05 * C1 (look up index for each outer tuple)</p>
-</div></blockquote>
-<ul class="simple">
-<li><p>第四行局部cost=1个page</p></li>
-<li><p>第三行局部cost= (1个orow返回出C的概率0.05 × lookup C的ipage的cost <span class="math notranslate nohighlight">\(C_1\)</span> ) × 1</p></li>
-<li><p>第二行局部cost= 1 + (0.05 <span class="math notranslate nohighlight">\(C_1\)</span>) × 一个opage的tuple总数T</p></li>
-<li><p>第一行总cost= M × (1 + 0.05 × T × <span class="math notranslate nohighlight">\(C_1\)</span>)</p></li>
-</ul>
-</div>
-<div class="section" id="hash-join">
-<h4><strong>Hash Join</strong><a class="headerlink" href="#hash-join" title="Permalink to this headline">¶</a></h4>
-<p>假设是</p>
-<ul class="simple">
-<li><p>Equality joins：必须是有foreign key constrain的那种join</p></li>
-<li><p>Hash table in memory, assume no overflow pagesà1 lookup to get tuple</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">index</span> <span class="o">=</span> <span class="n">initialize</span> <span class="nb">hash</span> <span class="n">index</span> 
-<span class="k">for</span> <span class="n">ipage</span> <span class="ow">in</span> <span class="n">inner</span><span class="p">:</span> 
-    <span class="k">for</span> <span class="n">irow</span> <span class="ow">in</span> <span class="n">ipage</span><span class="p">:</span> 
-        <span class="n">index</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">irow</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">irow</span><span class="p">)</span> 
-<span class="k">for</span> <span class="n">opage</span> <span class="ow">in</span> <span class="n">outer</span><span class="p">:</span> 
-    <span class="k">for</span> <span class="n">orow</span> <span class="ow">in</span> <span class="n">opage</span><span class="p">:</span> 
-        <span class="k">for</span> <span class="n">irow</span> <span class="ow">in</span> <span class="n">index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">orow</span><span class="o">.</span><span class="n">p</span><span class="p">):</span> 
-            <span class="k">yield</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">irow</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>总cost：N + M + T × M</p>
-<blockquote>
-<div><p>N (build hash index for inner pages) + M (for each outer page) + (T * M) * 1 (look up index for each outer tuple)</p>
-</div></blockquote>
-<ul class="simple">
-<li><p>建index的cost：N个pages</p></li>
-<li><p>outer里面搜joined的cost: M + M × T</p>
+<div class="section" id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="simpson-s-paradox">
+<h3>辛普森悖论 Simpson’s Paradox<a class="headerlink" href="#simpson-s-paradox" title="Permalink to this headline">¶</a></h3>
+<p>总体的规律跟分组的规律不同</p>
+<p>统计层面的核心是：Partial correlation and marginal correlation can be dramatically different</p>
+<p>例子：</p>
 <ul>
-<li><p>第四行：1</p></li>
-<li><p>第三行：平均1个出来的irow × 1</p></li>
-<li><p>第二行：读取1个Opage + 一个opage里面T个tuple × 1</p></li>
-<li><p>第一行：M个 page × (1 + T)</p></li>
+<li><p>[例1]: 男性用药多 但恢复率更高，所以让整体有这个correlation，不过by group的correlation不是这样！</p>
+  <center><img src="../images/CI_simpson_paradox.png" width="60%"/></center>
+</li>
+<li><p>[例2]: 比如说Y是购买概率，X是看直播时长，有可能实际上 男生女生都是看得越久 购买的概率越低，但由于普遍女生看的久，购买概率高，在整体数据上会体现出“观看直播时间越长，购买概率越高”的错误结论！</p></li>
+<li><p>[例3]: 给1500个人Treatment A 550个人B，看致死率，但本身有轻重症之分</p>
+  <center><img src="../images/CI_basic_1.png" width="75%"/></center>
+<p>现象：Subgroup之后结论是B更好、total的时候是A更好</p>
+<p>造成的原因是unequal weighting：重症的人得到了更多的B导致B看起来不好了⇒总体的结论是一个有偏的加权平均</p>
+<ul class="simple">
+<li><p>Treatment A的致死率计算里，轻症的致死率权重大，所以致死率小</p></li>
+<li><p>Treatment B的致死率计算里，重症的致死率权重大，所以致死率大</p></li>
+</ul>
+<p>正确的解释：Either treatment A or treatment B could be the right answer, depending on the causal structure of the data!</p>
+<ul>
+<li><p>情景1: condition is a cause of the treatment</p>
+  <center><img src="../images/CI_basic_2.png" width="40%"/><img src="../images/CI_basic_3.png" width="33.5%"/></center>
+<ul class="simple">
+<li><p>解释：比如医生把B专门用在重症，轻症的给A就可以。</p></li>
+<li><p>选择：这种情况要选B（看sub-group的结论），因为我们B中的高致死率，只是因为他们本身就有很高的致死率被assign了更多的重症！</p></li>
+</ul>
+</li>
+<li><p>情景2: treatment is a cause of the condition</p>
+  <center><img src="../images/CI_basic_4.png" width="35%"/><img src="../images/CI_basic_5.png" width="40%"/></center>
+<ul>
+<li><p>解释：比如如果Treatment B，必须要等很久才能take，所以在等的时候condition会worsen——变成了重症！从而导致了更多的重症被接受了Treatment B</p>
+<p>Treatment A不用等所以马上就轻症了！这就是为什么A的轻症占比更高</p>
+</li>
+<li><p>选择：这种情况要选A（看total的结论），因为Treatment本身是造成worse condition的原因，从而导致了Y。所以我们需要考虑T对C的影响而不能直接看conditional的结论（因为T会让你去不同的C！）</p>
+<p>考虑这个影响的办法就是直接看T对Y的总体效果。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>结论：conclusion取决于causal structure</p>
+</li>
+</ul>
+</div>
+<div class="section" id="correlation-does-not-imply-causation">
+<h3>Correlation Does Not Imply Causation<a class="headerlink" href="#correlation-does-not-imply-causation" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>例子：Cor——穿着鞋睡觉的人更容易头疼｜Cau——喝酒醉倒⇒穿着鞋睡觉、喝酒⇒头痛</p>
+<p>喝酒是common cause</p>
+<ul>
+<li><p>问题1——穿鞋睡的人和不穿鞋睡的人，除了穿鞋这一点之外还有喝酒这个重要的区别，所以不是控制其他变量不变</p></li>
+<li><p>问题2——是喝酒同时导致了穿鞋睡觉和头痛。我们观察到可能主要是一个confounding effect （而不主要是Causal association的direct path）</p>
+   <center><img src="../images/CI_basic_6.png" width="35%"/></center>
+<p>Total Association = mixture of causal and confounding association</p>
+<blockquote>
+<div><p>correlation是一种线性的association，不过也会跟general的混称</p>
+</div></blockquote>
+</li>
 </ul>
 </li>
 </ul>
 </div>
+<div class="section" id="what-does-imply-causation">
+<h3>what does imply causation?<a class="headerlink" href="#what-does-imply-causation" title="Permalink to this headline">¶</a></h3>
+<p>Inferring the effect of treatment/policy on some outcome的时候，怎样才能说明是causal呢？</p>
+<p>方法1: 如果你知道做了某件事的potential outcome就是work，不做就没有，那就可以</p>
+<center><img src="../images/CI_basic_7.png" width="65%"/></center>
+<ul>
+<li><p>然而 作为一个个人，如果你吃了药（吃药是factual），那你就不能知道你不吃药（不吃药是counterfactual）的outcome会是什么样了。</p></li>
+<li><p>如果上升到群体然后平均的话，不是完全相等的！</p>
+<p>Individual treatment effect (ITE): <span class="math notranslate nohighlight">\(Y_{i}(1)-Y_{i}(0)\)</span></p>
+<p>Average treatment effect (ATE):
+$<span class="math notranslate nohighlight">\(
+  \begin{aligned}
+  \mathbb{E}\left[Y_{i}(1)-Y_{i}(0)\right] &amp;=\mathbb{E}[Y(1)]-\mathbb{E}[Y(0)] \\
+  &amp; \neq \mathbb{E}[Y \mid T=1]-\mathbb{E}[Y \mid T=0]
+  \end{aligned}
+  \)</span>$</p>
+<ul class="simple">
+<li><p>第二个不等号左边是causal quantity，右边是measure of correlation，是不想等的因为有confounding effect（T除了直接对Y，还会通过C去影响Y）</p></li>
+</ul>
+</li>
+</ul>
+<p>方法2: Randomized Control Trails （RCTs）</p>
+<center><img src="../images/CI_basic_8.png" width="65%"/></center>
+<ul class="simple">
+<li><p>如果说你的treatment可以跟condition没关系的话，比如Treatment就是随机抛硬币跟C无关，那么就没有confounding effect（T跟Y不会通过C去影响）</p></li>
+<li><p>然而这个要求我们的分组是相同的，比如穿鞋睡和不穿鞋睡是抛硬币随机的 不管你清醒与否！这样的效果就是清醒和喝酒的人，在穿不穿鞋这件事情上的分布都是一样的。</p></li>
+</ul>
 </div>
+</div>
+<div class="toctree-wrapper compound">
 </div>
 </div>
 
@@ -608,7 +583,7 @@ const thebe_selector_output = ".output, .cell_output"
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./Data_ETL"
+            path: "./Causal_Inference"
         },
         predefinedOutput: true
     }
@@ -620,17 +595,17 @@ const thebe_selector_output = ".output, .cell_output"
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../STAT/README.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Jace的六边形DA笔记库</p>
+            <p class="prev-next-title">基础</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="Data_cleaning/README.html" title="next page">
+    <a class='right-next' id="next-link" href="1_Potential_Outcome.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">数据清洗与处理</p>
+        <p class="prev-next-title">Potential Outcomes</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

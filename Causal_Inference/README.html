@@ -647,11 +647,37 @@ $<span class="math notranslate nohighlight">\(
 </ul>
 <p>而这两个概念是不同的——correlation不是causation：Treatment之后的subgroup可能不是在所有其他变量上comparable的：</p>
 <center><img src="../images/CI_basic_10.png" width="85%"/></center>
-<p>什么时候可以呢？要保证Ignorability——</p>
+<p>什么时候可以呢？</p>
+<ul>
+<li><p>Ignorability—— <span class="math notranslate nohighlight">\((Y(1), Y(0)) \perp T\)</span></p>
 <div class="math notranslate nohighlight">
-\[
-(Y(1), Y(0)) \Perp T
-\]</div>
+\[\begin{split}
+    \begin{aligned}
+    \mathbb{E}[Y(1)]-\mathbb{E}[Y(0)] &amp;=\mathbb{E}[Y(1) \mid T=1]-\mathbb{E}[Y(0) \mid T=0] \quad \text { (ignorability) } \\
+    &amp;=\mathbb{E}[Y \mid T=1]-\mathbb{E}[Y \mid T=0]
+    \end{aligned}
+    \end{split}\]</div>
+<ul>
+<li><p>概率图的解释：因为confounding variable跟T无关，所以就没了effect</p>
+  <center><img src="../images/CI_basic_11.png" width="85%"/></center>
+</li>
+</ul>
+</li>
+<li><p>Exchangeability: 两组可以交换但期望不变，是上一个独立条件的另一种解释</p>
+  <center><img src="../images/CI_basic_12.png" width="85%"/></center>
+</li>
+</ul>
+<p>Ignorability和Exchangeability假设在成立的的时候，能给我们identifiability of causal effect</p>
+<ul class="simple">
+<li><p><strong>identifiable</strong>: A causal quantity (e.g. <span class="math notranslate nohighlight">\(\mathbb{E}[Y(t)])\)</span> is identifiable if we can compute it from a purely statistical quantity (e.g. <span class="math notranslate nohighlight">\(\mathbb{E}[Y \mid t]\)</span> )</p></li>
+</ul>
+<p>然而让他们成立，需要RCT来让被测完全随机地执行treatment：</p>
+ <center><img src="../images/CI_basic_13.png" width="75%"/></center>
+<ul>
+<li><p>结果：让最后的组完全comparable</p></li>
+<li><p>概率图：</p>
+  <center><img src="../images/CI_basic_14.png" width="85%"/></center></li>
+</ul>
 </div>
 </div>
 </div>

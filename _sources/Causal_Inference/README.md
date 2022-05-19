@@ -140,8 +140,34 @@ $$
 <center><img src="../images/CI_basic_10.png" width="85%"/></center>
 
 
-什么时候可以呢？要保证Ignorability—— 
+什么时候可以呢？
 
-$$
-(Y(1), Y(0)) \Perp T
-$$
+- Ignorability—— $(Y(1), Y(0)) \perp T$
+
+    $$
+    \begin{aligned}
+    \mathbb{E}[Y(1)]-\mathbb{E}[Y(0)] &=\mathbb{E}[Y(1) \mid T=1]-\mathbb{E}[Y(0) \mid T=0] \quad \text { (ignorability) } \\
+    &=\mathbb{E}[Y \mid T=1]-\mathbb{E}[Y \mid T=0]
+    \end{aligned}
+    $$
+
+    - 概率图的解释：因为confounding variable跟T无关，所以就没了effect
+
+        <center><img src="../images/CI_basic_11.png" width="85%"/></center>
+
+- Exchangeability: 两组可以交换但期望不变，是上一个独立条件的另一种解释
+
+    <center><img src="../images/CI_basic_12.png" width="85%"/></center>
+
+Ignorability和Exchangeability假设在成立的的时候，能给我们identifiability of causal effect
+- **identifiable**: A causal quantity (e.g. $\mathbb{E}[Y(t)])$ is identifiable if we can compute it from a purely statistical quantity (e.g. $\mathbb{E}[Y \mid t]$ )
+
+然而让他们成立，需要RCT来让被测完全随机地执行treatment：
+
+ <center><img src="../images/CI_basic_13.png" width="75%"/></center>
+
+- 结果：让最后的组完全comparable
+
+- 概率图：
+
+    <center><img src="../images/CI_basic_14.png" width="85%"/></center>

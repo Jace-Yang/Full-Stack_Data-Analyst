@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Motivation &#8212; Towards a Full-stack DA</title>
+    <title>基础 &#8212; Towards a Full-stack DA</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -156,7 +156,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Motivation
+   基础
   </a>
  </li>
  <li class="toctree-l1">
@@ -365,54 +365,141 @@ const thebe_selector_output = ".output, .cell_output"
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#motivation">
    Motivation
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simpson-s-paradox">
+     辛普森悖论 Simpson’s Paradox
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#correlation-does-not-imply-causation">
+     Correlation Does Not Imply Causation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-does-imply-causation">
+     what does imply causation?
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#potential-outcomes">
    Potential Outcomes
   </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-flow-of-association-and-causationgraphs">
-   The Flow of Association and CausationGraphs
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayesian-networks">
-     Bayesian Networks
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#average-treatment-effect-ate">
+     Average treatment effect(ATE)
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional-exchangeability">
+     Conditional exchangeability假设
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#positivity">
+     Positivity假设
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#overlap">
+       Overlap
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#positivity-unconfoundedness-tradeoff">
+       Positivity-Unconfoundedness Tradeoff
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#extrapolation">
+       Extrapolation
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#no-interference">
+     No Interference假设
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#consistency">
+     Consistency假设
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     总结
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-flow-of-association-and-causation-graphs">
+   The Flow of Association and Causation Graphs
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#causal-graphs">
      Causal Graphs
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#graphs-graphical-building-blocks">
-     Graphs Graphical Building Blocks
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#two-node-graphs-and-graphical-building-blocks">
+     Two-Node Graphs and Graphical Building Blocks
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#chains-and-forks">
-     Chains and Forks
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#colliders-and-their-descen-dants">
-     Colliders and their Descen-dants
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#d-separation">
      d-separation
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#association-sation">
-     Association  sation
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#flow-of-association-and-causation">
+     Flow of Association and Causation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#causal-models">
+   Causal Models
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-do-operator">
+     The
+     <span class="math notranslate nohighlight">
+      \(do\)
+     </span>
+     -operator
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#main-assumption-modularity">
+     Main assumption: modularity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#backdoor-adjustment">
+     Backdoor adjustment
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#structural-causal-models">
+     Structural causal models
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-complete-example-with-estimation">
+     A complete example with estimation
     </a>
    </li>
   </ul>
@@ -427,7 +514,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Motivation</h1>
+                <h1>基础</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -437,54 +524,141 @@ const thebe_selector_output = ".output, .cell_output"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#motivation">
    Motivation
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simpson-s-paradox">
+     辛普森悖论 Simpson’s Paradox
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#correlation-does-not-imply-causation">
+     Correlation Does Not Imply Causation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-does-imply-causation">
+     what does imply causation?
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#potential-outcomes">
    Potential Outcomes
   </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-flow-of-association-and-causationgraphs">
-   The Flow of Association and CausationGraphs
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayesian-networks">
-     Bayesian Networks
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#average-treatment-effect-ate">
+     Average treatment effect(ATE)
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional-exchangeability">
+     Conditional exchangeability假设
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#positivity">
+     Positivity假设
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#overlap">
+       Overlap
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#positivity-unconfoundedness-tradeoff">
+       Positivity-Unconfoundedness Tradeoff
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#extrapolation">
+       Extrapolation
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#no-interference">
+     No Interference假设
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#consistency">
+     Consistency假设
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     总结
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-flow-of-association-and-causation-graphs">
+   The Flow of Association and Causation Graphs
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#causal-graphs">
      Causal Graphs
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#graphs-graphical-building-blocks">
-     Graphs Graphical Building Blocks
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#two-node-graphs-and-graphical-building-blocks">
+     Two-Node Graphs and Graphical Building Blocks
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#chains-and-forks">
-     Chains and Forks
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#colliders-and-their-descen-dants">
-     Colliders and their Descen-dants
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#d-separation">
      d-separation
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#association-sation">
-     Association  sation
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#flow-of-association-and-causation">
+     Flow of Association and Causation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#causal-models">
+   Causal Models
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-do-operator">
+     The
+     <span class="math notranslate nohighlight">
+      \(do\)
+     </span>
+     -operator
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#main-assumption-modularity">
+     Main assumption: modularity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#backdoor-adjustment">
+     Backdoor adjustment
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#structural-causal-models">
+     Structural causal models
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-complete-example-with-estimation">
+     A complete example with estimation
     </a>
    </li>
   </ul>
@@ -498,166 +672,195 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <ul class="simple">
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1>基础<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
 <li><p>定义：Inferring the effects of any treatment/policy/intervention/etc</p></li>
 </ul>
 <div class="section" id="motivation">
-<h1>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h1>
-<p>辛普森悖论 Simpson’s Paradox</p>
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="simpson-s-paradox">
+<h3>辛普森悖论 Simpson’s Paradox<a class="headerlink" href="#simpson-s-paradox" title="Permalink to this headline">¶</a></h3>
 <p>定义：总体的规律跟分组的规律不同：几组不同的数据中均存在一种 趋势, 但当这些数据组合在一起后, 这种趋势消失或反转。</p>
 <p>产生的原因：数据中存在多个变量。这些变量通常难以识别, 被称为“潜伏变量”。潜伏变量可能是由于采样错误造成的。</p>
-<p>统计层面的核心：Partial correlation marginal correlationdramatically different</p>
+<p>统计层面的核心：Partial correlation and marginal correlation can be dramatically different</p>
 <p>例子：</p>
-<ul class="simple">
-<li><p>[例1]: 男性用药多 但恢复率更高，所以让整体有这个correlation，不过by group的correlation不是这样！</p></li>
-</ul>
-<center>/images/CI_simpson_paradox.png" width="60%"/></center>
-<ul class="simple">
+<ul>
+<li><p>[例1]: 男性用药多 但恢复率更高，所以让整体有这个correlation，不过by group的correlation不是这样！</p>
+  <center><img src="../images/CI_simpson_paradox.png" width="60%"/></center>
+</li>
 <li><p>[例2]: 比如说Y是购买概率，X是看直播时长，有可能实际上 男生女生都是看得越久 购买的概率越低，但由于普遍女生看的久，购买概率高，在整体数据上会体现出“观看直播时间越长，购买概率越高”的错误结论！</p></li>
-<li><p>[例3]: 给1500个人Treatment A 550个人B，看致死率，但本身有轻重症之分</p></li>
-</ul>
-<center>/images/CI_basic_1.png" width="75%"/></center>
+<li><p>[例3]: 给1500个人Treatment A 550个人B，看致死率，但本身有轻重症之分</p>
+  <center><img src="../images/CI_basic_1.png" width="75%"/></center>
 <p>现象：Subgroup之后结论是B更好、total的时候是A更好</p>
 <p>造成的原因是unequal weighting：重症的人得到了更多的B导致B看起来不好了⇒总体的结论是一个有偏的加权平均</p>
 <ul class="simple">
 <li><p>Treatment A的致死率计算里，轻症的致死率权重大，所以致死率小</p></li>
 <li><p>Treatment B的致死率计算里，重症的致死率权重大，所以致死率大</p></li>
 </ul>
-<p>正确的解释：Either treatment Atreatment B could be right answer, dependingcausal structure!</p>
-<ul class="simple">
-<li><p>情景1: conditiona cause of the treatment</p></li>
-</ul>
-<center>/images/CI_basic_2.png" width="40%"/><img src="../images/CI_basic_3. width="</center>
+<p>正确的解释：Either treatment A or treatment B could be the right answer, depending on the causal structure of the data!</p>
+<ul>
+<li><p>情景1: condition is a cause of the treatment</p>
+  <center><img src="../images/CI_basic_2.png" width="40%"/><img src="../images/CI_basic_3.png" width="33.5%"/></center>
 <ul class="simple">
 <li><p>解释：比如医生把B专门用在重症，轻症的给A就可以。</p></li>
 <li><p>选择：这种情况要选B（看sub-group的结论），因为我们B中的高致死率，只是因为他们本身就有很高的致死率被assign了更多的重症！</p></li>
-<li><p>情景2: treatmenta cause of the condition</p></li>
 </ul>
-<center>/images/CI_basic_4.png" width="35%"/><img src="../images/CI_basic_5. width="center>
-<ul class="simple">
-<li><p>解释：比如如果Treatment B，必须要等很久才能take，所以在等的时候condition会worsen——变成了重症！从而导致了更多的重症被接受了Treatment B</p></li>
-</ul>
+</li>
+<li><p>情景2: treatment is a cause of the condition</p>
+  <center><img src="../images/CI_basic_4.png" width="35%"/><img src="../images/CI_basic_5.png" width="40%"/></center>
+<ul>
+<li><p>解释：比如如果Treatment B，必须要等很久才能take，所以在等的时候condition会worsen——变成了重症！从而导致了更多的重症被接受了Treatment B</p>
 <p>Treatment A不用等所以马上就轻症了！这就是为什么A的轻症占比更高</p>
-<ul class="simple">
-<li><p>选择：这种情况要选A（看total的结论），因为Treatment本身是造成worse condition的原因，从而导致了Y。所以我们需要考虑T对C的影响而不能直接看conditional的结论（因为T会让你去不同的C！）</p></li>
-</ul>
+</li>
+<li><p>选择：这种情况要选A（看total的结论），因为Treatment本身是造成worse condition的原因，从而导致了Y。所以我们需要考虑T对C的影响而不能直接看conditional的结论（因为T会让你去不同的C！）</p>
 <p>考虑这个影响的办法就是直接看T对Y的总体效果。</p>
+</li>
+</ul>
+</li>
+</ul>
 <p>结论：conclusion取决于causal structure</p>
-<p>Correlation  Imply Causation</p>
-<ul class="simple">
-<li><p>例子：Cor——穿着鞋睡觉的人更容易头疼｜Cau——喝酒醉倒⇒穿着鞋睡觉、喝酒⇒头痛</p></li>
+</li>
 </ul>
+</div>
+<div class="section" id="correlation-does-not-imply-causation">
+<h3>Correlation Does Not Imply Causation<a class="headerlink" href="#correlation-does-not-imply-causation" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>例子：Cor——穿着鞋睡觉的人更容易头疼｜Cau——喝酒醉倒⇒穿着鞋睡觉、喝酒⇒头痛</p>
 <p>喝酒是common cause</p>
-<ul class="simple">
+<ul>
 <li><p>问题1——穿鞋睡的人和不穿鞋睡的人，除了穿鞋这一点之外还有喝酒这个重要的区别，所以不是控制其他变量不变</p></li>
-<li><p>问题2——是喝酒同时导致了穿鞋睡觉和头痛。我们观察到可能主要是一个confounding effect （而不主要是Causal association的direct path）</p></li>
-</ul>
- <center><img src="../images/CI_basic_6. width="center>
+<li><p>问题2——是喝酒同时导致了穿鞋睡觉和头痛。我们观察到可能主要是一个confounding effect （而不主要是Causal association的direct path）</p>
+   <center><img src="../images/CI_basic_6.png" width="35%"/></center>
 <p>Total Association = mixture of causal and confounding association</p>
 <blockquote>
 <div><p>correlation是一种线性的association，不过也会跟general的混称</p>
 </div></blockquote>
-<p>does imply causation?</p>
-<p>Inferring the effecttreatment/policy outcome的时候，怎样才能说明是causal呢？</p>
-<p>如果你知道做了某件事的potential outcome就是work，不做就没有，那就可以</p>
-<center>/images/CI_basic_7.png" width="65%"/></center>
-<ul class="simple">
-<li><p>问题：It is impossible to observe potential outcomes a given individual. —— CI的根本问题！</p></li>
+</li>
 </ul>
+</li>
+</ul>
+</div>
+<div class="section" id="what-does-imply-causation">
+<h3>what does imply causation?<a class="headerlink" href="#what-does-imply-causation" title="Permalink to this headline">¶</a></h3>
+<p>Inferring the effect of treatment/policy on some outcome的时候，怎样才能说明是causal呢？</p>
+<p>方法1: 如果你知道做了某件事的potential outcome就是work，不做就没有，那就可以</p>
+<center><img src="../images/CI_basic_7.png" width="65%"/></center>
+<ul>
+<li><p>问题：It is impossible to observe all potential outcomes for a given individual. —— CI的根本问题！</p>
 <p>作为一个个人，如果你吃了药（吃药是factual），那你就不能知道你不吃药（不吃药是counterfactual）的outcome会是什么样了。</p>
-<ul class="simple">
-<li><p>如果上升到群体然后平均的话，不是完全相等的！</p></li>
-</ul>
-<p>Individual treatment effect )$</p>
+</li>
+<li><p>如果上升到群体然后平均的话，不是完全相等的！</p>
+<p>Individual treatment effect (ITE): <span class="math notranslate nohighlight">\(Y_{i}(1)-Y_{i}(0)\)</span></p>
 <p>Average treatment effect (ATE):
 $<span class="math notranslate nohighlight">\(
-\begin{aligned}
-\mathbb{E}\left[)\right]mathbb{E\mathbb{ \\
-&amp; \neq \mathbb{E]-\mathbb{E}
-{aligned}
-\)</span>$</p>
+  \begin{aligned}
+  \mathbb{E}\left[Y_{i}(1)-Y_{i}(0)\right] &amp;=\mathbb{E}[Y(1)]-\mathbb{E}[Y(0)] \\
+  &amp; \neq \mathbb{E}[Y \mid T=1]-\mathbb{E}[Y \mid T=0]
+  \end{aligned}
+  \)</span>$</p>
 <ul class="simple">
 <li><p>第二个不等号左边是causal quantity，右边是measure of correlation，是不想等的因为有confounding effect（T除了直接对Y，还会通过C去影响Y）</p></li>
 </ul>
-<p>Randomized Control Trails （RCTs）</p>
-<center>/images/CI_basic_8.png" width="65%"/></center>
+</li>
+</ul>
+<p>方法2: Randomized Control Trails （RCTs）</p>
+<center><img src="../images/CI_basic_8.png" width="65%"/></center>
 <ul class="simple">
 <li><p>如果说你的treatment可以跟condition没关系的话，比如Treatment就是随机抛硬币跟C无关，那么就没有confounding effect（T跟Y不会通过C去影响）</p></li>
 <li><p>然而这个要求我们的分组是相同的，比如穿鞋睡和不穿鞋睡是抛硬币随机的 不管你清醒与否！这样的效果就是清醒和喝酒的人，在穿不穿鞋这件事情上的分布都是一样的。</p></li>
 </ul>
-<p>observational studies</p>
+<p>方法3: observational studies</p>
 <ul class="simple">
-<li><p>场景：Can’t always randomize treatment，比如given一些数据集</p></li>
-<li><p>不道德｜Ethical reasons (eunethical to randomize people to smoke for measuring effect on lung cancer)</p></li>
-<li><p>不可行｜Infeasibility . can’t randomize countries  communist/capitalist systems to measure effect on GDP)</p></li>
-<li><p>不可能｜Impossibility . can’t change a living person’sbirth for measuring effect on breast cancer)</p></li>
+<li><p>场景：Can’t always randomize treatment，比如given一些数据集</p>
+<ul>
+<li><p>不道德｜Ethical reasons (e.g. unethical to randomize people to smoke for measuring effect on lung cancer)</p></li>
+<li><p>不可行｜Infeasibility (e.g. can’t randomize countries into communist/capitalist systems to measure effect on GDP)</p></li>
+<li><p>不可能｜Impossibility (e.g. can’t change a living person’s DNA at birth for measuring effect on breast cancer)</p></li>
+</ul>
+</li>
 <li><p>解决方案：adjust/control for confounders</p></li>
 </ul>
 </div>
+</div>
 <div class="section" id="potential-outcomes">
-<h1>Potential Outcomes<a class="headerlink" href="#potential-outcomes" title="Permalink to this headline">¶</a></h1>
+<h2>Potential Outcomes<a class="headerlink" href="#potential-outcomes" title="Permalink to this headline">¶</a></h2>
 <p>上面提到的 无法观测what would have been if I也可以理解为一种缺失值处理问题：</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\begin{split}
+\[\begin{split}
 \begin{array}{cccccc}
-\hline i\
-\hline 1 \\\end{split}\\\hline
-{array}
-\end{aligned}\end{align} \]</div>
+\hline i &amp; T &amp; Y &amp; Y(1) &amp; Y(0) &amp; Y(1)-Y(0) \\
+\hline 1 &amp; 0 &amp; 0 &amp; ? &amp; 0 &amp; ? \\
+2 &amp; 1 &amp; 1 &amp; 1 &amp; ? &amp; ? \\
+3 &amp; 1 &amp; 0 &amp; 0 &amp; ? &amp; ? \\
+4 &amp; 0 &amp; 0 &amp; ? &amp; 0 &amp; ? \\
+5 &amp; 0 &amp; 1 &amp; ? &amp; 1 &amp; ? \\
+6 &amp; 1 &amp; 1 &amp; 1 &amp; ? &amp; ? \\
+\hline
+\end{array}
+\end{split}\]</div>
 <ul class="simple">
 <li><p>因为individual只能有Y(treatment给1)或者Y(treatment给0)中的一个</p></li>
 </ul>
-<p>Average treatment effect)</p>
+<div class="section" id="average-treatment-effect-ate">
+<h3>Average treatment effect(ATE)<a class="headerlink" href="#average-treatment-effect-ate" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>解决个体无法观测的方法</p>
 </div></blockquote>
-<center>/images/CI_basic_9.png" width="85%"/></center>
+<center><img src="../images/CI_basic_9.png" width="85%"/></center>
 <ul class="simple">
-<li><p>ATE: <span class="math notranslate nohighlight">\(mathbb{E\mathbb{\)</span></p></li>
-<li><p>association differencemathbb{E]-\mathbb{E}$</p></li>
+<li><p>ATE: <span class="math notranslate nohighlight">\({E}[Y(1)-Y(0)]=\mathbb{E}[Y(1)]-\mathbb{E}[Y(0)]\)</span></p></li>
+<li><p>association difference: <span class="math notranslate nohighlight">\(\mathbb{E}[Y \mid T=1]-\mathbb{E}[Y \mid T=0]\)</span></p></li>
 </ul>
 <p>而这两个概念是不同的——correlation不是causation：Treatment之后的subgroup可能不是在所有其他变量上comparable的：</p>
-<center>/images/CI_basic_10. width="center>
+<center><img src="../images/CI_basic_10.png" width="85%"/></center>
 <p>什么时候可以呢？</p>
-<ul class="simple">
-<li><p>Ignorability—— T$</p></li>
-</ul>
+<ul>
+<li><p>Ignorability—— <span class="math notranslate nohighlight">\((Y(1), Y(0)) \perp T\)</span></p>
 <div class="math notranslate nohighlight">
-\[
-\begin{aligned}
-\mathbb{-\mathbb\mathbb{]-\mathbb{E}) \mid T\quad \text { (ignorability)\
-&amp;=\mathbb{E}-\mathbbY \mid T=0]
-{aligned}
-\]</div>
-<ul class="simple">
-<li><p>概率图的解释：因为confounding variable跟T无关，也就没有了confounding effect!</p></li>
+\[\begin{split}
+    \begin{aligned}
+    \mathbb{E}[Y(1)]-\mathbb{E}[Y(0)] &amp;=\mathbb{E}[Y(1) \mid T=1]-\mathbb{E}[Y(0) \mid T=0] \quad \text { (ignorability) } \\
+    &amp;=\mathbb{E}[Y \mid T=1]-\mathbb{E}[Y \mid T=0]
+    \end{aligned}
+    \end{split}\]</div>
+<ul>
+<li><p>概率图的解释：因为confounding variable跟T无关，也就没有了confounding effect!</p>
+  <center><img src="../images/CI_basic_11.png" width="85%"/></center>
+</li>
 </ul>
-<center>/images/CI_basic_11. width="center>
-<ul class="simple">
-<li><p>Exchangeability: 两组可以交换但期望不变，是上一个独立条件的另一种解释</p></li>
+</li>
+<li><p>Exchangeability: 两组可以交换但期望不变，是上一个独立条件的另一种解释</p>
+  <center><img src="../images/CI_basic_12.png" width="85%"/></center>
+</li>
 </ul>
-<center>/images/CI_basic_12. width="center>
-<p>Ignorability和Exchangeability假设在成立的的时候，能给我们identifiability of causal effect
-identifiableA causal quantity (e$\mathbbis identifiable if we can compute it from a purely statistical quantity mathbb{E )</p>
+<p>Ignorability和Exchangeability假设在成立的的时候，能给我们identifiability of causal effect</p>
+<ul class="simple">
+<li><p><strong>identifiable</strong>: A causal quantity (e.g. <span class="math notranslate nohighlight">\(\mathbb{E}[Y(t)])\)</span> is identifiable if we can compute it from a purely statistical quantity (e.g. <span class="math notranslate nohighlight">\(\mathbb{E}[Y \mid t]\)</span> )</p></li>
+</ul>
 <p>然而让他们成立，需要RCT来让被测完全随机地执行treatment：</p>
- <center><img src="../images/CI_basic_13" width=/center>
-<ul class="simple">
+ <center><img src="../images/CI_basic_13.png" width="75%"/></center>
+<ul>
 <li><p>结果：让最后的组完全comparable</p></li>
-<li><p>概率图：</p></li>
+<li><p>概率图：</p>
+  <center><img src="../images/CI_basic_14.png" width="85%"/></center>
+</li>
 </ul>
-<center>/images/CI_basic_14. width="center>
-<p>Conditional exchangeability假设</p>
+</div>
+<div class="section" id="conditional-exchangeability">
+<h3>Conditional exchangeability假设<a class="headerlink" href="#conditional-exchangeability" title="Permalink to this headline">¶</a></h3>
 <p>很多时候假设exchangeable不可行，但我们可以control for relevant variables by conditioning</p>
-<p><code class="docutils literal notranslate"><span class="pre">Conditional</span> <span class="pre">exchangeability</span></code> (Unconfoundedness / conditional ignorability):X$</p>
-<center>/images/CI_basic_15. width="center>
-<ul class="simple">
+<p><code class="docutils literal notranslate"><span class="pre">Conditional</span> <span class="pre">exchangeability</span></code> (Unconfoundedness / conditional ignorability): <span class="math notranslate nohighlight">\((Y(1), Y(0)) \perp T \mid X\)</span></p>
+<center><img src="../images/CI_basic_15.png" width="85%"/></center>
+<ul>
 <li><p>含义：在相同的X level中就没有X的confounding了，因为X被控制了而同一个X中的treatment groups是comparable的。从而X确定时 T和Y就没有非causal的confounding effect了</p></li>
-<li><p>存在的问题：这是一个untestable的assumption，因为可能有另一个unobserved的confounder W:</p></li>
+<li><p>存在的问题：这是一个untestable的assumption，因为可能有另一个unobserved的confounder W:</p>
+  <center><img src="../images/CI_basic_16.png" width="85%"/></center>
+</li>
 </ul>
-<center>/images/CI_basic_16. width="center>
-<p><code class="docutils literal notranslate"><span class="pre">Conditional</span></code>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Conditional</span> <span class="pre">ATE</span></code>:</p>
 <div class="math notranslate nohighlight">
-\[\begin{aligned} \mathbb{E}=\mathbb \mid X]-\mathbb \mid X]&amp;=\mathbb{E}) \mid Tmathbb{E=\mathbbY \mid Tmathbb{E \end{aligned}\]</div>
+\[\begin{split}\begin{aligned} \mathbb{E}[Y(1)-Y(0) \mid X] &amp;=\mathbb{E}[Y(1) \mid X]-\mathbb{E}[Y(0) \mid X] \\ &amp;=\mathbb{E}[Y(1) \mid T=1, X]-\mathbb{E}[Y(0) \mid T=0, X] \\ &amp;=\mathbb{E}[Y \mid T=1, X]-\mathbb{E}[Y \mid T=0, X] \end{aligned}\end{split}\]</div>
 <ul class="simple">
 <li><p>第一行：linearity of expectation</p></li>
 <li><p>第二行：conditional exchangeability因为X相同无confounding</p></li>
@@ -665,70 +868,201 @@ identifiableA causal quantity (e$\mathbbis identifiable if we can compute it fro
 </ul>
 <p>从Conditional ATE也可以推到marginal effect:</p>
 <div class="math notranslate nohighlight">
-\[\begin{aligned} \mathbb{E}&amp;=\mathbb{E} \mathbb) \mid Xmathbb{E}[\mathbb{E}\mathbb{ \mid T=aligned}\]</div>
-<p>Positivity假设
-values of covariates X present in the population of interest: $</p>
+\[\begin{split}\begin{aligned} \mathbb{E}[Y(1)-Y(0)] &amp;=\mathbb{E}_{X} \mathbb{E}[Y(1)-Y(0) \mid X] \\ &amp;=\mathbb{E}_{X}[\mathbb{E}[Y \mid T=1, X]-\mathbb{E}[Y \mid T=0, X]] \end{aligned}\end{split}\]</div>
+</div>
+<div class="section" id="positivity">
+<h3>Positivity假设<a class="headerlink" href="#positivity" title="Permalink to this headline">¶</a></h3>
+<p>For all values of covariates X present in the population of interest: <span class="math notranslate nohighlight">\(0&lt;P(T=1 \mid X=x)&lt;1\)</span></p>
 <p>这个保证了上面的式子不会遇到除0的问题，具体可以见课本P12</p>
 <p>Intuition: 如果总体中有一个x都没有接收到treatment，我们不知道他们如果接受treatment的话会怎么样</p>
- <center><img src="../images/CI_basic_17" width=/center>
-<p>Overlap
-另一个解读Positivity的视角：<code class="docutils literal notranslate"><span class="pre">overlap</span></code> \mid T=<span class="math notranslate nohighlight">\( and \)</span>\ \mid T=1)$</p>
-<p>我们希望covariate distribution of the treatment group to overlap with the covariate distributioncontrol group!</p>
-<center>/images/CI_basic_18. width="center>
+ <center><img src="../images/CI_basic_17.png" width="45%"/></center>
+<div class="section" id="overlap">
+<h4>Overlap<a class="headerlink" href="#overlap" title="Permalink to this headline">¶</a></h4>
+<p>另一个解读Positivity的视角：<code class="docutils literal notranslate"><span class="pre">overlap</span></code> of <span class="math notranslate nohighlight">\(P(X \mid T=0) \quad\)</span> and <span class="math notranslate nohighlight">\(\quad P(X \mid T=1)\)</span></p>
+<p>我们希望covariate distribution of the treatment group to overlap with the covariate distribution of the control group!</p>
+<center><img src="../images/CI_basic_18.png" width="45%"/></center>
 <p>所以overlap也叫common support</p>
-<p>Positivity-Unconfoundedness Tradeoff</p>
-<p>这里Positivity和unconfoundedness是一个tradeoff，如果我们增加变量，那么subgroup就会变小，虽然更容易解决confound，但是会让一些group整个T/T的概率增高（比如subgroup的size缩小到只有1）</p>
-<p>Extrapolation</p>
-<p>违反Positivity的后果是影响模型的表现，因为通常causal effect需要根据(t,y)的样本拟合$\mathbb{ \mid t,</p>
-<center>/images/CI_basic_19. width="center>
-<p>在实际操作中获得$\mathbb{E}的方法是用任何一个minimize MSE的model就可以（比如Linear Regression）</p>
-<p>No Interference假设</p>
-<p>My outcome is unaffectedanyone else’s treatment. Rather,outcome is only a function of my treatment.</p>
-<p>\ldots,  \ldots,n}\righti}\right)$$</p>
-<center>/images/CI_basic_20. width="center>
-<p>Consistency假设</p>
-<p>outcome we observe Yactually potential outcome under observed treatment.</p>
-<p>If the treatment then the observed outcome <span class="math notranslate nohighlight">\(Y\)</span> is the potential outcome under treatment  Formally,
-$<span class="math notranslate nohighlight">\(
-\Longrightarrow t)
-\)</span><span class="math notranslate nohighlight">\(
-We could write this equivalentlyfollow:
-\)</span><span class="math notranslate nohighlight">\(
-T)
-\)</span>$</p>
-<center>/images/CI_basic_21. width="center>
-<p>总结</p>
-<p>之前的conditional ATE⇒marginal ATE其实依赖了以上的四个假设</p>
-<center>/images/CI_basic_22. width="center>
-<p>interference: 保证我们只用关注<span class="math notranslate nohighlight">\(\mathbb{]\)</span>来衡量causal effect</p>
+</div>
+<div class="section" id="positivity-unconfoundedness-tradeoff">
+<h4>Positivity-Unconfoundedness Tradeoff<a class="headerlink" href="#positivity-unconfoundedness-tradeoff" title="Permalink to this headline">¶</a></h4>
+<p>这里Positivity和unconfoundedness是一个tradeoff，如果我们增加变量，那么subgroup就会变小，虽然更容易解决confound，但是会让一些group整个T/not T的概率增高（比如subgroup的size缩小到只有1）</p>
+</div>
+<div class="section" id="extrapolation">
+<h4>Extrapolation<a class="headerlink" href="#extrapolation" title="Permalink to this headline">¶</a></h4>
+<p>违反Positivity的后果是影响模型的表现，因为通常causal effect需要根据(t, x, y)的样本拟合<span class="math notranslate nohighlight">\(\mathbb{E}[Y \mid t, x]\)</span></p>
+<center><img src="../images/CI_basic_19.png" width="65%"/></center>
 <ul class="simple">
+<li><p>注意 在实际操作中获得<span class="math notranslate nohighlight">\(\mathbb{E}[Y \mid T=1, x]\)</span>的方法是用任何一个minimize MSE的model就可以（比如Linear Regression）</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="no-interference">
+<h3>No Interference假设<a class="headerlink" href="#no-interference" title="Permalink to this headline">¶</a></h3>
+<p>My outcome is unaffected by anyone else’s treatment. Rather, my outcome is only a function of my own treatment.</p>
+<div class="math notranslate nohighlight">
+\[Y_{i}\left(t_{1}, \ldots, t_{i-1}, t_{i}, t_{i+1}, \ldots, t_{n}\right)=Y_{i}\left(t_{i}\right)\]</div>
+<center><img src="../images/CI_basic_20.png" width="65%"/></center>
+</div>
+<div class="section" id="consistency">
+<h3>Consistency假设<a class="headerlink" href="#consistency" title="Permalink to this headline">¶</a></h3>
+<p>The outcome we observe Y is actually the potential outcome under the observed treatment.</p>
+<p>If the treatment is <span class="math notranslate nohighlight">\(T\)</span>, then the observed outcome <span class="math notranslate nohighlight">\(Y\)</span> is the potential outcome under treatment <span class="math notranslate nohighlight">\(T\)</span>. Formally,
+$<span class="math notranslate nohighlight">\(
+T=t \Longrightarrow Y=Y(t)
+\)</span><span class="math notranslate nohighlight">\(
+We could write this equivalently as follow:
+\)</span><span class="math notranslate nohighlight">\(
+Y=Y(T)
+\)</span>$</p>
+<center><img src="../images/CI_basic_21.png" width="65%"/></center>
+</div>
+<div class="section" id="id2">
+<h3>总结<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>之前的conditional ATE⇒marginal ATE其实依赖了以上的四个假设</p>
+<center><img src="../images/CI_basic_22.png" width="65%"/></center>
+<ul class="simple">
+<li><p>no interference: 保证我们只用关注<span class="math notranslate nohighlight">\(\mathbb{E}[Y(1)-Y(0)]\)</span>来衡量causal effect</p></li>
 <li><p>unconfoundedness: 保证了T能加在X上面</p></li>
 <li><p>positivity：保证了每个X都有T所以能evaluate</p></li>
 <li><p>consistency：保证T了之后的Y就是我们想要的</p></li>
 </ul>
 </div>
-<div class="section" id="the-flow-of-association-and-causationgraphs">
-<h1>The Flow of Association and CausationGraphs<a class="headerlink" href="#the-flow-of-association-and-causationgraphs" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="bayesian-networks">
-<h2>Bayesian Networks<a class="headerlink" href="#bayesian-networks" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="the-flow-of-association-and-causation-graphs">
+<h2>The Flow of Association and Causation Graphs<a class="headerlink" href="#the-flow-of-association-and-causation-graphs" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="causal-graphs">
-<h2>Causal Graphs<a class="headerlink" href="#causal-graphs" title="Permalink to this headline">¶</a></h2>
+<h3>Causal Graphs<a class="headerlink" href="#causal-graphs" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">cause</span></code>: <span class="math notranslate nohighlight">\(A\)</span> variable <span class="math notranslate nohighlight">\(X\)</span> is said to be a cause of a variable <span class="math notranslate nohighlight">\(Y\)</span> if <span class="math notranslate nohighlight">\(Y\)</span> can change in response to changes in <span class="math notranslate nohighlight">\(X\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Strict</span> <span class="pre">Causal</span> <span class="pre">Edges</span> <span class="pre">Assumption</span></code>:  In a directed graph, every parent is a direct cause of all its children.</p></li>
+<li><p>2 main assumptions that we need for our causal graphical models:</p>
+  <center><img src="../images/CI_basic_23.png" width="65%"/></center>
+</li>
+</ul>
 </div>
-<div class="section" id="graphs-graphical-building-blocks">
-<h2>Graphs Graphical Building Blocks<a class="headerlink" href="#graphs-graphical-building-blocks" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="chains-and-forks">
-<h2>Chains and Forks<a class="headerlink" href="#chains-and-forks" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="colliders-and-their-descen-dants">
-<h2>Colliders and their Descen-dants<a class="headerlink" href="#colliders-and-their-descen-dants" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="two-node-graphs-and-graphical-building-blocks">
+<h3>Two-Node Graphs and Graphical Building Blocks<a class="headerlink" href="#two-node-graphs-and-graphical-building-blocks" title="Permalink to this headline">¶</a></h3>
+<p>Building blocks:</p>
+ <center><img src="../images/CI_basic_24.png" width="65%"/></center>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Chains</span></code> / <code class="docutils literal notranslate"><span class="pre">Forks</span></code>: 有common cause 所以X1和X3也是association，只要common cause改变两个会联动改变，所以有association flow</p>
+<ul class="simple">
+<li><p>然而如果conditional on X2的话相当于block了这个path：</p></li>
+</ul>
+   <center><img src="../images/CI_basic_25.png" width="65%"/></center>
+<ul class="simple">
+<li><p>通过Bayes network factorization和Bayes Rule证明可以得到：<span class="math notranslate nohighlight">\(P\left(x_{1}, x_{3} \mid x_{2}\right) =\frac{P\left(x_{1}, x_{2}\right)}{P\left(x_{2}\right)} P\left(x_{3} \mid x_{2}\right)\)</span></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Immorality</span></code>: 两个没connect的parents有一个共同的child</p>
+<p>这个child不允许association flow through it而是直接blcok了，管它叫<code class="docutils literal notranslate"><span class="pre">collider</span></code></p>
+<ul>
+<li><p>这个图中本身<span class="math notranslate nohighlight">\(P\left(x_{1}, x_{3}\right) = P(x_{1})P(x_{3})\)</span></p></li>
+<li><p>但当我们conditional on X2之后就会unblock这个path！</p>
+<p>例子：</p>
+   <center><img src="../images/CI_basic_26.png" width="65%"/></center>
+   <center><img src="../images/CI_basic_27.png" width="85%"/></center>
+<p>这个其实就是selection bias！</p>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="section" id="d-separation">
-<h2>d-separation<a class="headerlink" href="#d-separation" title="Permalink to this headline">¶</a></h2>
+<h3>d-separation<a class="headerlink" href="#d-separation" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Blocked</span> <span class="pre">path</span></code>: A path between nodes <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> is blocked by a (potentially empty) conditioning set <span class="math notranslate nohighlight">\(\mathrm{Z}\)</span> if either of the following is true:</p>
+<ol class="simple">
+<li><p>Along the path, there is a chain <span class="math notranslate nohighlight">\(\cdots \rightarrow W \rightarrow \cdots\)</span> or a fork <span class="math notranslate nohighlight">\(\cdots \leftarrow W \rightarrow \cdots\)</span> where <span class="math notranslate nohighlight">\(W\)</span> is conditioned on <span class="math notranslate nohighlight">\((W \in Z)\)</span>.</p></li>
+<li><p>There is a collider <span class="math notranslate nohighlight">\(W\)</span> on the path that is not conditioned on <span class="math notranslate nohighlight">\((W \notin Z)\)</span> and none of its descendants are conditioned on <span class="math notranslate nohighlight">\((\operatorname{de}(W) \nsubseteq Z Z)\)</span>.</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">Unblocked</span> <span class="pre">path</span></code>: a path that is not blocked</p>
+<p><code class="docutils literal notranslate"><span class="pre">d-seperation</span></code>: Two (sets of) nodes <span class="math notranslate nohighlight">\(\mathrm{X}\)</span> and <span class="math notranslate nohighlight">\(\mathrm{Y}\)</span> are d-separated by a set of nodes <span class="math notranslate nohighlight">\(\mathrm{Z}\)</span> if all of the paths between (any node in) <span class="math notranslate nohighlight">\(X\)</span> and (any node in) <span class="math notranslate nohighlight">\(Y\)</span> are blocked by <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Global</span> <span class="pre">Markov</span> <span class="pre">Assumption</span></code>: Given that <span class="math notranslate nohighlight">\(P\)</span> is Markov with respect to <span class="math notranslate nohighlight">\(G\)</span> (satisfies the local Markov assumption), if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <span class="math notranslate nohighlight">\(d\)</span>-separated in <span class="math notranslate nohighlight">\(G\)</span> conditioned on <span class="math notranslate nohighlight">\(Z\)</span>, then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent in <span class="math notranslate nohighlight">\(P\)</span> conditioned on <span class="math notranslate nohighlight">\(Z\)</span>. We can write this succinctly as follows:
+$<span class="math notranslate nohighlight">\(
+  X \perp_{G} Y\left|Z \Longrightarrow X \perp_{P} Y\right| Z
+  \)</span>$</p>
+<p>会得到conditional indolence</p>
+</li>
+</ul>
+<p>总结：</p>
+<ul class="simple">
+<li><p>association flows along chains and forks, unless a node is conditioned on</p></li>
+<li><p>a collider blocks the flow of association, unless it is conditioned on</p></li>
+</ul>
 </div>
-<div class="section" id="association-sation">
-<h2>Association  sation<a class="headerlink" href="#association-sation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="flow-of-association-and-causation">
+<h3>Flow of Association and Causation<a class="headerlink" href="#flow-of-association-and-causation" title="Permalink to this headline">¶</a></h3>
+<p>d-separation Implies Association is Causation!</p>
+<center><img src="../images/CI_basic_28.png" width="45%"/></center>
+<ul class="simple">
+<li><p>原因：通过这个我们确保non-causal association不会flow，剩下的就只有causation了</p></li>
+<li><p>记得：association is not causation！</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="causal-models">
+<h2>Causal Models<a class="headerlink" href="#causal-models" title="Permalink to this headline">¶</a></h2>
+<p>我们需要Causal Model来将因果被估量，变成统计被估量</p>
+<center><img src="../images/CI_basic_29.png" width="45%"/></center>
+<div class="section" id="the-do-operator">
+<h3>The <span class="math notranslate nohighlight">\(do\)</span>-operator<a class="headerlink" href="#the-do-operator" title="Permalink to this headline">¶</a></h3>
+<p>用<code class="docutils literal notranslate"><span class="pre">do</span></code>来表示intervention:</p>
+<ul class="simple">
+<li><p>Conditioning只是restrict to subset of data, 而intervene是对整体数据问what would be like if XXX</p></li>
+</ul>
+<center><img src="../images/CI_basic_30.png" width="45%"/></center>
+<ul>
+<li><p>ATE从而可以写成：<span class="math notranslate nohighlight">\(\mathbb{E}[Y \mid d o(T=1)]-\mathbb{E}[Y \mid d o(T=0)]\)</span></p></li>
+<li><p>可以观测到的：<span class="math notranslate nohighlight">\(P(Y, T, X)\)</span>、<span class="math notranslate nohighlight">\(P(Y \mid T=t)\)</span></p>
+<ul class="simple">
+<li><p>没有do所以可以直接observe data from them without needing to carry out any experiment</p></li>
+</ul>
+<p>Interventional的：<span class="math notranslate nohighlight">\(P(Y \mid d o(T=t))\)</span>、<span class="math notranslate nohighlight">\(P(Y \mid d o(T=t), X=x)\)</span></p>
+<ul class="simple">
+<li><p>Condition on do的含义：everything in that expression is in the post-intervention world where the intervention do(t) occurs</p></li>
+</ul>
+</li>
+<li><p>Indentification就是要把Interventional的变成observational的 （remove do!)，但是不一直能work</p>
+  <center><img src="../images/CI_basic_31.png" width="45%"/></center>
+</li>
+</ul>
+</div>
+<div class="section" id="main-assumption-modularity">
+<h3>Main assumption: modularity<a class="headerlink" href="#main-assumption-modularity" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Causal</span> <span class="pre">Mechanism</span></code>:  causal mechanism that generates <span class="math notranslate nohighlight">\(X_{i}\)</span> is all of <span class="math notranslate nohighlight">\(X_{i}\)</span> ‘s parents and their edges that go into <span class="math notranslate nohighlight">\(X_{i}\)</span></p>
+  <center><img src="../images/CI_basic_32.png" width="45%"/></center>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Modularity</span> <span class="pre">/</span> <span class="pre">Independent</span> <span class="pre">Mechanisms</span> <span class="pre">/</span> <span class="pre">Invariance</span></code>: If we intervene on a set of nodes <span class="math notranslate nohighlight">\(S \subseteq[n]\)</span>(<span class="math notranslate nohighlight">\(\{1,2, \ldots, n\}\)</span>) setting them to constants, then for all <span class="math notranslate nohighlight">\(i\)</span>, we have the following:</p>
+<ol class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(i \notin S\)</span>, then <span class="math notranslate nohighlight">\(P\left(x_{i} \mid \mathrm{pa}_{i}\right)\)</span> remains unchanged.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(i \in S\)</span>, then <span class="math notranslate nohighlight">\(P\left(x_{i} \mid \mathrm{pa}_{i}\right)=1\)</span> if <span class="math notranslate nohighlight">\(x_{i}\)</span> is the value that <span class="math notranslate nohighlight">\(X_{i}\)</span> was set to by the intervention; otherwise</p></li>
+</ol>
+<ul>
+<li><p>Intuition: If we intervene on a node <span class="math notranslate nohighlight">\(\mathrm{X}_{\mathrm{i}}\)</span>, then only the mechanism <span class="math notranslate nohighlight">\(P\left(x_{i} \mid \mathrm{pa}_{i}\right)\)</span> changes. All other mechanisms <span class="math notranslate nohighlight">\(P\left(x_{j} \mid \mathrm{pa}_{j}\right)\)</span> where <span class="math notranslate nohighlight">\(i \neq j\)</span> remain unchanged</p>
+<p>In other words, the causal mechanisms are modular.</p>
+</li>
+</ul>
+</li>
+<li><p>用途：Truncated Factorization</p>
+<p><span class="math notranslate nohighlight">\(
+  P\left(x_{1}, \ldots, x_{n} \mid d o(S=s)\right)=\prod_{i \notin S} P\left(x_{i} \mid \mathrm{pa}_{i}\right)
+  \)</span></p>
+<p>Otherwise, <span class="math notranslate nohighlight">\(P\left(x_{1}, \ldots, x_{n} \mid d o(S=s)\right)=0\)</span></p>
+<p>The latter’s product is only over <span class="math notranslate nohighlight">\(i \notin S\)</span> rather than all <span class="math notranslate nohighlight">\(i\)</span>.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="backdoor-adjustment">
+<h3>Backdoor adjustment<a class="headerlink" href="#backdoor-adjustment" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="structural-causal-models">
+<h3>Structural causal models<a class="headerlink" href="#structural-causal-models" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="a-complete-example-with-estimation">
+<h3>A complete example with estimation<a class="headerlink" href="#a-complete-example-with-estimation" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 </div>
 

@@ -6,6 +6,7 @@
 
 ### 辛普森悖论 Simpson's Paradox
 
+
 定义：总体的规律跟分组的规律不同：几组不同的数据中均存在一种 趋势, 但当这些数据组合在一起后, 这种趋势消失或反转。
 
 产生的原因：数据中存在多个变量。这些变量通常难以识别, 被称为“潜伏变量”。潜伏变量可能是由于采样错误造成的。
@@ -351,6 +352,13 @@ d-separation Implies Association is Causation!
 - 原因：通过这个我们确保non-causal association不会flow，剩下的就只有causation了
 - 记得：association is not causation！
 
+### 总结
+- Causal association flows from 푇 to 푌 along directed paths
+
+- Non-causal association flows along any other paths from $T$ to $Y$ that aren't blocked by either 
+
+    - a non-collider that is conditioned on or 
+    - a collider that isn't conditioned on
 
 ## Causal Models
 
@@ -403,13 +411,68 @@ d-separation Implies Association is Causation!
     Otherwise, $P\left(x_{1}, \ldots, x_{n} \mid d o(S=s)\right)=0$
 
     The latter's product is only over $i \notin S$ rather than all $i$.
+       
+    <center><img src="../images/CI_basic_33.png" width="75%"/></center>
 
 ### Backdoor adjustment
+
+- `Backdoor path`:  nondirected unblocked paths from Tto Y
+
+    - 如果block掉backdoor path的话就可以identify causal quantities 比如$P(Y \mid d o(t))$
+
+    - Intuition：Block掉它之后就可以从observational data中模拟intervene的效果
+
+        <center><img src="../images/CI_basic_34.png" width="95%"/></center>
+
+- `Backdoor criterion`: A set of variables $W$ satisfies the backdoor criterion relative to $T$ and $Y$ if the following are true:
+    1. $W$ blocks all backdoor paths from $T$ to $Y$.
+    2. $W$ does not contain any descendants of $T$.
+
+
+- `Backdoor adjustment`: Given the modularity assumption, that W satisfies the backdoor criterion, and positivity, we can identify the causal effect of $T$ on $Y$:
+
+    $$P(y \mid d o(t))=\sum_{w} P(y \mid t, w) P(w)$$
 
 
 ### Structural causal models
 
+在causal的世界等号是asymmetric的：$B:=f(A, U)$
 
-### A complete example with estimation
+<center><img src="../images/CI_basic_35.png" width="45%"/></center>
 
+`Structural Causal Model (SCM)`: a tuple of the following sets:
+1. A set of endogenous variables $V$
+2. A set of exogenous variables $U$
+3. A set of functions $f$, one to generate each endogenous variable as a function of other variables
+
+- `endogenous variables`: variables that we write structural equations for, variables that have parents in the causal graph
+
+    `exogenous variables`: variables who do not have any parents in the causal graph
+
+    <center><img src="../images/CI_basic_36.png" width="95%"/></center>
+
+- Interventions in SCM: replacing the structural equation for $T$ with $T:=t$
+
+    <center><img src="../images/CI_basic_37.png" width="95%"/></center>
+
+**Rule**: don't adjust post-treatment covariate
+
+
+## Randomized Experiments
+
+- 随机试验Magic的地方在于：No unobserved confounding
+
+### Comparability / covariate balance
+
+实验组和对照组在其他变量上都是comparable被控制了的，只有T不同，所以区别肯定只是T导致的，从而确保了`covariate balance`: distribution of covariates $X$ is the same across treatment groups:
+$$
+P(X \mid T=1) \stackrel{d}{=} P(X \mid T=0)\stackrel{d}{=} P(X)
+$$
+
+- 原因：T和X不相关
+
+
+而我们又可以证明Covariate balance implies association is causation——$P(y \mid d o(t))=P(y \mid t)$：
+
+ <center><img src="../images/CI_basic_38.png" width="75%"/></center>
 

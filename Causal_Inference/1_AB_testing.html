@@ -366,40 +366,108 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   基本概念
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#overview">
+     Overview
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ab">
+     AB实验的理论支撑
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#abtest">
    ABTest的设计
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     发现问题并对核心指标形成假设
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     设计实验方案
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#who">
+       Who
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what">
+       What——选物料
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#where">
+       Where——选渠道
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#when">
+       When——选时机
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#how-large">
+       How large——决定样本量
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     执行实验方案
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     实验观测
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     分析实验结果
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#z">
+       Z检验
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     决策
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   ABtest背后的理论支撑是什么？
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   如何分组才能更好地避免混淆呢？
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   样本量大小如何？
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   两类错误是什么？
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
-   埋点&amp;暗中观察
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
-   注意点
+  <a class="reference internal nav-link" href="#id8">
+   AB实验常见错误
   </a>
   <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     用户抽样不科学
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     实验层选择错误
+    </a>
+   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#novelty-and-primacy-effect">
      Novelty and Primacy Effect
@@ -411,26 +479,63 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
-     一人多账号
+    <a class="reference internal nav-link" href="#id11">
+     外部环境带来偶然因素
     </a>
    </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id8">
-   结果分析
-  </a>
-  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     统计显著!=实际显著
+    </a>
+   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#multiple-testing-problem">
      Multiple Testing Problem
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-peaking">
+     Data Peaking
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     单侧检验
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id9">
+  <a class="reference internal nav-link" href="#aa">
+   AA实验
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     起因
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     更好的方式：AA波动比率
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id16">
+   补充
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trick">
+     应用Trick
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id17">
    参考资料
   </a>
  </li>
@@ -455,40 +560,108 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   基本概念
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#overview">
+     Overview
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ab">
+     AB实验的理论支撑
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#abtest">
    ABTest的设计
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     发现问题并对核心指标形成假设
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     设计实验方案
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#who">
+       Who
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what">
+       What——选物料
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#where">
+       Where——选渠道
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#when">
+       When——选时机
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#how-large">
+       How large——决定样本量
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     执行实验方案
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     实验观测
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     分析实验结果
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#z">
+       Z检验
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     决策
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   ABtest背后的理论支撑是什么？
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   如何分组才能更好地避免混淆呢？
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   样本量大小如何？
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   两类错误是什么？
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
-   埋点&amp;暗中观察
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
-   注意点
+  <a class="reference internal nav-link" href="#id8">
+   AB实验常见错误
   </a>
   <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     用户抽样不科学
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     实验层选择错误
+    </a>
+   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#novelty-and-primacy-effect">
      Novelty and Primacy Effect
@@ -500,26 +673,63 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
-     一人多账号
+    <a class="reference internal nav-link" href="#id11">
+     外部环境带来偶然因素
     </a>
    </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id8">
-   结果分析
-  </a>
-  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     统计显著!=实际显著
+    </a>
+   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#multiple-testing-problem">
      Multiple Testing Problem
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-peaking">
+     Data Peaking
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     单侧检验
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id9">
+  <a class="reference internal nav-link" href="#aa">
+   AA实验
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     起因
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     更好的方式：AA波动比率
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id16">
+   补充
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trick">
+     应用Trick
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id17">
    参考资料
   </a>
  </li>
@@ -534,55 +744,110 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="ab-testing">
 <h1>AB Testing<a class="headerlink" href="#ab-testing" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>基本概念<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
 <p>定义：AB testing (controlled experiments) is a type of experiment with two variants, A and B, which are the control and variation in a controlled experiment.</p>
 <ul class="simple">
+<li><p>关键点：实验是为验证某种理论或假设而添加<em>人为干预</em>的过程</p></li>
 <li><p>一般Control是A——existing features，Treatment是B——new features</p></li>
 <li><p>会对部分用户展开</p></li>
 </ul>
-<p>定位：</p>
-<ul class="simple">
+<p>定位：A/B实验系统是一套高效的”超参”探索机制，而不单单是度量工具</p>
+<ul>
 <li><p>纵向：数据分析、用户调研是理解需求的方法，ABtest是验证方案的工具，是互相补充的上下游的关系！</p></li>
 <li><p>横向：用户访谈、问卷调查、焦点组也是evaluate方案的方法，AB实验会给broad quantitive data，上面的会给你deep qualitative data，也可以形成组合拳！</p></li>
+<li><p>同类：AB实验是实验设计方案中最简单的一种。采用了完全随机实验 让实验组和对照组同质化</p>
+   <center><img src="../images/CI_abtest_3.png" width="75%"/></center>
+<p>除了AB之外，还有很多别的——比如面对不满足SUTVA 有溢出效应、网络效应之后，需要switchback</p>
+</li>
+<li><p>问：AB测试成本很高，每个调整都需要AB测试么？</p>
+<blockquote>
+<div><p>面试官问到每一个关于我们现在想要上线一个小改动，或者说要上线一个小调整，你会如何去验证这个调整的收益？你都用AB测试去进行回答的话，他可能会反问，AB测试是需要成本的，你不觉得每一次我们如果都需要通过一个AB测试去验证的话，成本过高吗？</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>不一定，比如——如果只是验证一个小按钮或者一个小改动，我们可以在界面上去设置一个开关，用户可以通过开关的形式自行决定我采用哪一种方式。那么我们最后就可以通过这个开关的相关指标去判断用户对于哪一种形式又有更大的倾向性。</p></li>
+<li><p>或者有的时候我们可以去做一些用户调研，比如说通过访谈或者说是设计问卷的形式，去收集一些用户的反馈。或者他们关于这些小变动的体验，所以并不是绝对的。</p></li>
 </ul>
+</li>
+</ul>
+<p>场景：</p>
+<ul class="simple">
+<li><p>产品迭代：比如界面优化、功能增加、流程增加，这些 都可以使用 <span class="math notranslate nohighlight">\(A B\)</span> 实验测试产品改版是否成功</p></li>
+<li><p>策略优化：无论是运营策略还是算法策略，都可以通过AB实验的方式验证策略是否达到预期目标</p></li>
+</ul>
+<p>通过AB，我们可以把产品的决策权交给用户，比如租车公司租金和押金放在一个页面⇒（1）操作步骤减少 增强使用意愿；（2）支付金额增加，提高了用户决策的压力和对用车成本的焦虑</p>
+<ul class="simple">
+<li><p>问：什么时候不能用AB实验</p>
+<ul>
+<li><p>影响用户体验的实验：比如对用户价格歧视会被媒体方法</p></li>
+</ul>
+</li>
+</ul>
+<p>应用：</p>
+<ul>
+<li><p>字节会同时运行1万+个A/B实验！</p>
+<blockquote>
+<div><p>来源：2021 DataFun数据产品峰会</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>今日头条时长任务数值实践</p></li>
+</ul>
+  <center><img src="../images/CI_abtest_1.png" width="75%"/></center>
+</li>
+<li><p>腾讯看点：</p>
+<ul class="simple">
+<li><p>增长侧：调整的PUSH策略是否可以带来DAU的增长?</p></li>
+<li><p>推荐侧：小视频新的推荐算法是否可以带来更高的feeds点击率?</p></li>
+<li><p>产品侧：是否新的功能栏方案会造成很大的大盘PV下跌?</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="ab">
+<h3>AB实验的理论支撑<a class="headerlink" href="#ab" title="Permalink to this headline">¶</a></h3>
+<p>A/B Test 从本质上来说是一个<strong>对控制变量实验结果的假设检验</strong></p>
+<ul class="simple">
+<li><p>随机化：AB实验把Treatment 到 Effect之间的所有confounder通过随机化实现了控制变量，只剩下Treatment作为唯一因素</p></li>
+<li><p>假设检验：假设检验是研究如何根据抽样后获得的样本来检查抽样前所作假设是否合理，它首先对实验组和对照组的关系提出了某种假设，然后计算这两组数据的差异和确定该差异是否存在统计上的显著性，最后根据上述结果对假设做出判断。</p>
+<ul>
+<li><p><strong>中心极限定理</strong>：在样本量足够大的时候，可以认为样本的均值近似服从正态分布。</p></li>
+<li><p>假设检验的理论核心是<strong>证伪</strong>，原假设是统计者想要拒绝的假设。拒绝的方式是我们看原假设成立的时候，H0（两组样本数据一样）是否是一个小概率事件</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="abtest">
 <h2>ABTest的设计<a class="headerlink" href="#abtest" title="Permalink to this headline">¶</a></h2>
 <p>ABtest其实就是控制变量法。为了评估测试和验证模型/项目的效果，在app/pc端设计出多个版本，在同一时间维度下，分别用组成相同/相似的群组去随机访问这些版本，记录下群组的用户体验数据和业务数据，最后评估不同方案的效果决定是否上线。</p>
-<ul>
-<li><p>Time——运行多久</p></li>
-<li><p>Size——决定样本量</p>
-<ul class="simple">
-<li><p>Type Il error or power</p></li>
-<li><p>Significance level</p></li>
-<li><p>Minimum detectable effect: smallest different matters in practice</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[\text { sample size } \simeq \frac{16 \sigma^{2}}{\delta^{2}}\]</div>
-<ul>
-<li><div class="math notranslate nohighlight">
-\[\delta \text { : difference between treatment and control }\]</div>
-</li>
-</ul>
-</li>
-</ul>
-<p>步骤：</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>1. 基于现状和期望，分析并提出假设
-2. 设定指标目标（核心指标）
-3. 设计与开发
-4. 分配流量进行测试
-5. 埋点采集数据
-6. 实验后分析数据
-7. 发布新版本/改进设计方案/调整流量继续测试
-</pre></div>
-</div>
-</div>
-<div class="section" id="id1">
-<h2>ABtest背后的理论支撑是什么？<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><strong>中心极限定理</strong>：在样本量足够大的时候，可以认为样本的均值近似服从正态分布。</p>
-<p><strong>假设检验</strong>：假设检验是研究如何根据抽样后获得的样本来检查抽样前所作假设是否合理，<strong>A/B Test 从本质上来说是一个基于统计的假设检验过程</strong>，它首先对实验组和对照组的关系提出了某种假设，然后计算这两组数据的差异和确定该差异是否存在统计上的显著性，最后根据上述结果对假设做出判断。</p>
-<p>假设检验的核心是<strong>证伪</strong>，所以原假设是统计者想要拒绝的假设，无显著差异我们也可以理解为：实验组和对照组的统计差异是由抽样误差引起的（误差服从正态分布）。</p>
-</div>
 <div class="section" id="id2">
-<h2>如何分组才能更好地避免混淆呢？<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h3>发现问题并对核心指标形成假设<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>基于现状和期望，分析并提出假设</p></li>
+<li><p>设定指标目标（核心指标）根据假设找到目标指标 &amp; 其他重要的数据指标</p>
+<ul>
+<li><p>例子: 将购买页面主色调从蓝色改为红色能够将用户购买率提升3%，那么关注指标:</p>
+<ul>
+<li><p>用户购买率必定是我们的关注的指标 <span class="math notranslate nohighlight">\(\rightarrow\)</span> “目标指标”</p></li>
+<li><p>还应该关注一些产品常关注的重要数据指标 <span class="math notranslate nohighlight">\(\rightarrow\)</span> 观祭新策略会否对其他重要指标产生负面影响。</p></li>
+</ul>
+</li>
+<li><p>Guardrail Metric：</p>
+<ul>
+<li><p>Organization guardrail metric: 比如page loading latency，新功能可能好但打开慢 会影响整个app；比如改付款界面UI对用户的下单单价不应该有影响！</p></li>
+<li><p>Trustworthy-related metrics: 比如检查randomization！要用T-test或者卡方检验来看是否A B组其他特征一致</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>设计实验方案<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="who">
+<h4>Who<a class="headerlink" href="#who" title="Permalink to this headline">¶</a></h4>
 <p>AB实验需要利用控制变量法的原理, 确保A、B两个方案中只有一个不同的变量, 其他变量保持一致，</p>
 <ul class="simple">
 <li><p>必须满足的条件</p>
@@ -599,42 +864,315 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 <p>当然，如果有多个分组并行进行的情况的话，要考虑独占域和分享域问题。（不同域之间的用户相互独立，交集为空）对于共享域，我们要进行分层。但是在分层中，下一层要将上一层的用户打散，确保下一层用户的随机性。</p>
+<p>如果是双边市场的话，可以用户、平台、生产者三方进行实验</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;center&gt;&lt;img src=&quot;../images/CI_abtest_4.png&quot; width=&quot;75%&quot;/&gt;&lt;/center&gt;
+</pre></div>
 </div>
-<div class="section" id="id3">
-<h2>样本量大小如何？<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>​	理论上，我们想要样本量越多的越好，因为这样可以避免第二类错误。随着样本量增加，power=1-β也在增大，一般到80%，这里我们可以算出一个最小样本量，但理论上样本量还是越大越好。</p>
-<p>实际上，样本量越少越好，这是因为</p>
+<ul>
+<li><p>推荐实验</p>
+  <center><img src="../images/CI_abtest_5.png" width="75%"/></center>
+</li>
+<li><p>人群实验
+对人群的选择人：行为圈选、标签圈选、属性圈选</p>
+<ul>
+<li><p>分流：用户分流是指按照地域、性别、年龄等把用户均匀地分为几个组，1个用户只能出现在1个组中。</p>
+<ul class="simple">
+<li><p>例子：只看“安卓用户”、只看“北京地区用户”等等，很多时候实验会在一个城市进行，因为不同城市之间的用户差异会很大（特别是美团滴滴之类的）</p></li>
+<li><p>问题：实际情况中，往往会同时上线多个实验，拿广告来说，有针对样式形态的实验，有针对广告位置策略的实验，有针对预估模型的实验。如果只是按照这种分流模式来，在每组实验放量10%的情况下，整体的流量只能同时开展10个实验。这个实验的效率是非常低的。为了解决这个问题，提出了用户分层、流量复用的方法。</p></li>
+</ul>
+</li>
+<li><p>分层：同一份流量可以分布在多个实验层，也就是说同一批用户可以出现在不同的实验层，前提是各个实验层之间无业务关联，保证这一批用户都均匀地分布到所有的实验层里，达到用户“正交”的效果就可以。所谓的正交分层，其实可以理解为互不影响的流量分层，从而实验流量复用的效果。</p></li>
+<li><p>分流分层模型：在此模型中增加组、层，并且可以互相嵌套。这要与实际的业务相匹配，拆分过多的结构可能会把简单的业务复杂化，拆分过少的结构又可能不满足实际业务。</p>
+  <center><img src="../images/CI_abtest_7.png" width="75%"/></center>
+</li>
+</ul>
+</li>
+<li><p>B端实验</p>
+<ul class="simple">
+<li><p>内容池</p>
+<ul>
+<li><p>业务策略：低质过滤、热点运营、内容引入、内容使用天数</p></li>
+<li><p>模型更新:tag模型更新、清晰度调整、封面图调整、评分体系更新</p></li>
+</ul>
+</li>
+<li><p>内容创作者</p>
+<ul>
+<li><p>业务策略:账号过滤、账号提权、账号引入、分润策略</p></li>
+<li><p>模型更新:评级模型更新、黑产打击模型更新</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="what">
+<h4>What——选物料<a class="headerlink" href="#what" title="Permalink to this headline">¶</a></h4>
+<p>明确改动点——话术模板/h5/图片素材，保证是单一因素！</p>
+</div>
+<div class="section" id="where">
+<h4>Where——选渠道<a class="headerlink" href="#where" title="Permalink to this headline">¶</a></h4>
+<p>短信/外呼/邮件PUSH/站内信</p>
+<p>实验层定义</p>
+<ul class="simple">
+<li><p>为了让多个实验能够<strong>并行不相互王扰 &amp; 获得足够的流量</strong>而研发的流量分层技术</p></li>
+<li><p>为了消不同层上的多个实验之间的影响, 一层上同一个用户只会命中一个实验, 一个实验每个组的用户都会随机打散后均匀地进入到不同层另一个实验的各组中</p>
+<ul>
+<li><p>把总体流量复制无数遍 <span class="math notranslate nohighlight">\(\rightarrow\)</span> 形成无数个流量层 <span class="math notranslate nohighlight">\(\rightarrow\)</span> 让总体流量被无数次复用 <span class="math notranslate nohighlight">\(\rightarrow\)</span> 提高实验效率</p></li>
+<li><p>各层的流量正交 <span class="math notranslate nohighlight">\(=\)</span> 选择正确的流量层可以保证各实验的结果不会受到其他层实验的干扰</p></li>
+</ul>
+</li>
+</ul>
+<p>选择实验层的原则</p>
+<ul class="simple">
+<li><p>假如实验之间有相关性，那么实验必须置于同一层</p></li>
+<li><p>假如实验之间没有相关性，那么实验可以置于不同层</p></li>
+</ul>
+</div>
+<div class="section" id="when">
+<h4>When——选时机<a class="headerlink" href="#when" title="Permalink to this headline">¶</a></h4>
+<p>立即触发/定时触达/例行触达/事件触发</p>
+<p>注意：实验时长要与产品的 “数据特征周期”一致</p>
+<ul class="simple">
+<li><p>例子: 直播类app产品, 用户在周一到周五的活跃度较低, 在周末活跃度较高, 以一个自然周为周期, 不断循环。那么该产品实验的时长应设置为一周</p></li>
+</ul>
+</div>
+<div class="section" id="how-large">
+<h4>How large——决定样本量<a class="headerlink" href="#how-large" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p>最小样本量计算公式</p>
+<div class="math notranslate nohighlight">
+\[  
+    \mathrm{N}=\frac{(\sigma_{1}^{2}+\sigma_{2}^{2}) (Z_{1-\frac{\alpha}{2}}+Z_{1-\beta})^{2} }{\delta^{2}} \approx \frac{2 \sigma^{2} \cdot(1.96+0.84)^{2}}{\delta^{2}} \approx \frac{16 * \sigma^{2}}{\delta^{2}}
+    \]</div>
+<ul>
+<li><p>公式解释</p>
+<ul>
+<li><p>样本标准差<span class="math notranslate nohighlight">\(\sigma\)</span>衡量的是整体样本数据的波动性，可从样本中计算得到</p>
+<ul>
+<li><p>观测指标为绝对值类指标时:
+$<span class="math notranslate nohighlight">\(
+  \sigma^{2}=\frac{ \sum_{1}^{n}(x_{i}-\bar{x})^{2}}{n-1}
+  \)</span>$</p>
+<p><span class="math notranslate nohighlight">\(\mathrm{n}\)</span> 为样本数量, <span class="math notranslate nohighlight">\(\mathrm{x}\)</span> 为样本均值</p>
+</li>
+<li><p>观测指标为比率类指标时:
+$<span class="math notranslate nohighlight">\(
+  \sigma^{2}=P_{A}(1-P_{A})+P_{B}(1-P_{B})
+  \)</span><span class="math notranslate nohighlight">\(
+  \)</span>P_{A}<span class="math notranslate nohighlight">\(和\)</span>P_{B}$为观测数据，比如希望点击率从20%提升到25%，那么PA=20%，PB=25%，δ=5%。</p></li>
+</ul>
+</li>
+<li><p>组间预期差值<span class="math notranslate nohighlight">\(\delta\)</span>代表预期实验组和对照组两组数据的差，比如说期望点击率从20%提升到25%，那么δ就是5%。</p></li>
+<li><p>α：犯第一类拒真错误的概率</p>
+<ul class="simple">
+<li><p>1-α := 置信水平</p></li>
+<li><p>一般情况取0.05</p></li>
+</ul>
+</li>
+<li><p>β，犯第二类取伪的概率</p>
+<ul class="simple">
+<li><p>1-β := 统计功效</p></li>
+<li><p>一般情况取0.2</p></li>
+</ul>
+</li>
+<li><p>约等号：在置信水平: <span class="math notranslate nohighlight">\(\alpha=0.05 ， Z_{1-\frac{\alpha}{2}}=1.96\)</span>和统计功效: <span class="math notranslate nohighlight">\(\beta=0.2, Z_{1-\beta}=0.84\)</span>时的rule of thumb</p>
+<ul class="simple">
+<li><p>这里其实体现了一种AB实验的保守理念：</p>
+<ul>
+<li><p>低α：宁肯砍掉多个好的产品——尽量避免拒绝真的H0</p></li>
+<li><p>高β：也不应该让1个不好的产品上线——可以适当接受假的H0（改进实际有用但没采取）</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>公式原理：CLT</p>
+<p>Test <span class="math notranslate nohighlight">\(\mu_{c}\)</span> is the same as <span class="math notranslate nohighlight">\(\mu_{t}\)</span>： <span class="math notranslate nohighlight">\(H_{0}: \mu_{c}=\mu_{t}\)</span> v.s. <span class="math notranslate nohighlight">\(H_{1}: \mu_{c} \neq \mu_{t}\)</span></p>
+<div class="math notranslate nohighlight">
+\[\bar{x} \backsim N(\mu_{c}-\mu_{t}, \frac{2 \sigma^{2}}{n})\]</div>
+<div class="math notranslate nohighlight">
+\[\rightarrow Z=\frac{\bar{x}-(\mu_{c}-\mu_{t})}{\sqrt{2} \sigma / \sqrt{n}} \backsim N(0,1)\]</div>
+<p>When accept <span class="math notranslate nohighlight">\(\mathrm{H}_{0}\)</span>, significance level is <span class="math notranslate nohighlight">\(\alpha\)</span>:
+$<span class="math notranslate nohighlight">\(
+  \begin{aligned}
+  &amp;\beta=P(|\frac{\bar{x}}{\sqrt{2} \sigma / \sqrt{n}}| \leq Z_{\alpha / 2})=P(-Z_{\alpha / 2} \leq \frac{\bar{x}}{\sqrt{2} \sigma / \sqrt{n}} \leq Z_{\alpha / 2}) \\
+  &amp;=P(-Z_{\alpha / 2}-\frac{\mu_{c}-\mu_{t}}{\sqrt{2} \sigma / \sqrt{n}} \leq \frac{\bar{x}-(\mu_{c}-\mu_{t})}{\sqrt{2} \sigma / \sqrt{n}} \leq Z_{\alpha / 2}-\frac{\mu_{c}-\mu_{t}}{\sqrt{2} \sigma / \sqrt{n}}) \\
+  &amp;=\Phi(Z_{\alpha / 2}-\frac{\mu_{c}-\mu_{t}}{\sqrt{2} \sigma / \sqrt{n}})-\Phi(-Z_{\alpha / 2}-\frac{\mu_{c}-\mu_{t}}{\sqrt{2} \sigma / \sqrt{n}})
+  \end{aligned}
+  \)</span>$</p>
+<p>Without loss of generality, assume <span class="math notranslate nohighlight">\(\mu_{c}&gt;\mu_{t}\)</span>
+$$
+\begin{aligned}
+\beta=\Phi(Z_{\alpha / 2}-\frac{\mu_{c}-\mu_{t}}{\sqrt{2} \sigma / \sqrt{n}})-\Phi (-Z_{\alpha / 2}-\frac{\mu_{c}-\mu_{t}}{\sqrt{2} \sigma / \sqrt{n}}) \</p>
+<p>\end{aligned}
+$$</p>
+<ul class="simple">
+<li><p>其中第二项 <span class="math notranslate nohighlight">\(&lt;\Phi(-Z_{\alpha / 2}) \approx 0\)</span> 所以可以忽略</p></li>
+<li><p>与此同时<span class="math notranslate nohighlight">\( \beta=\Phi(-Z_{\beta})\)</span></p></li>
+</ul>
+<p>所以根据<span class="math notranslate nohighlight">\(-Z_{\beta}=Z_{\alpha / 2}-\frac{\mu_{c}-\mu_{t}}{\sqrt{2} \sigma / \sqrt{n}}\)</span>可以得到:
+$<span class="math notranslate nohighlight">\(n \approx \frac{2\left(Z_{\alpha / 2}+Z_{\beta}\right)^{2} \sigma^{2}}{\left(\mu_{c}-\mu_{t}\right)^{2}}\)</span>$</p>
+</li>
+<li><p>以上公式是计算出单个实验组所需的样本量，若有多个实验组，乘以实验组的个数就可以得到最终的样本量。</p></li>
+<li><p>样本量可以是一段时间里累积的样本量，比如需要10000个样本，每天可以产生1000个，那运行10天可以的！</p></li>
+</ul>
+</li>
+<li><p>例子：</p>
+<ul>
+<li><p>对于绝对值指标：</p>
+<ul>
+<li><p>某商品详情页平均停留时长的标准差是20秒，优化了商品详情页后，预估至少有5秒的绝对提升，AB测试每个组需要的最少样本量：</p>
+<p>σ=20，δ=5</p>
+<p>每个组所需的最少样本量 = <span class="math notranslate nohighlight">\(8*20*20*2/5*5=256\)</span></p>
+</li>
+</ul>
+</li>
+<li><p>比率类指标：</p>
+<ul>
+<li><p>某商品详情页点击率20%，优化了该功能后，预期点击率提升到25%，AB测试每个组需要的最少样本量：</p>
+<p>对照组PA：20%，实验组PB：25%</p>
+<p>每个组所需的最少样本量 = <span class="math notranslate nohighlight">\(8 * (0.2 *（1-0.2）+0.25*（1-0.25））/ （0.25- 0.2）^2=1030\)</span></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>在线计算工具：<a class="reference external" href="https://www.evanmiller.org/ab-testing/">Evans awesome AB Tools</a></p>
+<p>以上的例子：</p>
+  <center><img src="../images/CI_abtest_6.png" width="65%"/></center>
+</li>
+<li><p>补充：为什么计算的是最小样本量？</p>
+<p>理论上样本量还是越大越好。实际上，样本量越少越好，这是因为</p>
 <ol class="simple">
 <li><p>流量有限：小公司就这么点流量，还要精打细算做各种测试，开发各种产品。在保证样本分组不重叠的基础上，产品开发速度会大大降低。</p></li>
 <li><p>试错成本大：如果拿50%的用户做实验，一周以后发现总收入下降了20%，这样一周时间的实验给公司造成了10%的损失，这样损失未免有点大。</p></li>
 </ol>
+<p>所以，也可以应用一个流量大小Trick——<code class="docutils literal notranslate"><span class="pre">RAMP-UP</span> <span class="pre">PLAN</span></code> or <code class="docutils literal notranslate"><span class="pre">灰度测试</span></code>：初始阶段,先分配较少的流量（如1%）进入实验，初始实验如果一切正常, 进一步加大流量，初始实验如果出现异常, 随时可以终止实验</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="section" id="id4">
-<h2>两类错误是什么？<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<ol>
-<li><p><strong>弃真</strong>：实验组和对照组没有显著差异，但我们接受了方案推了全量。减少这种错误的方法就是提高显著性水平，比如 p 值小于 0.05 才算显著，而不是小于 0.1，显著性水平是人为给定的犯一类错误的可以接受的上限（<span class="math notranslate nohighlight">\(p\)</span>值为犯 I 类错误的概率<span class="math notranslate nohighlight">\(\alpha\)</span> ）。</p></li>
-<li><p><strong>存伪</strong>：实验组和对照组有显著差异，但我们没有接受方案。</p>
-<p>II 类错误和<strong>统计功效 (power)</strong> 有关，统计功效可以简单理解为真理能被发现的可能性。统计功效 为:<span class="math notranslate nohighlight">\(1-\beta\)</span> ，而<span class="math notranslate nohighlight">\(\beta\)</span>为犯第二类错误的概率。影响统计功效的因素有很多，主要的有三个：统计量、样本量和 I 类错误的概率<span class="math notranslate nohighlight">\(\alpha\)</span>  。</p>
+<h3>执行实验方案<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>设计与开发：</p>
+<ul>
+<li><p>创建变体：对网站原有版本的元素进行所需的更改。可能是更改按钮的颜色，交换页面上元素的顺序，隐藏导航元素或完全自定义的内容。</p></li>
+</ul>
 </li>
-</ol>
+</ul>
+<p>​	 - 埋点设计：把相关的用户行为收集起来，供后续的流程进行数据分析，从而得出实验结论。</p>
+<ul>
+<li><p>分配流量分割进行测试</p>
+<p>这里要注意辛普森悖论！要严格执行之前设计的分流分层方案让样本均匀随机。</p>
+</li>
+<li><p>埋点采集数据</p></li>
+</ul>
 </div>
 <div class="section" id="id5">
-<h2>埋点&amp;暗中观察<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p>​	当我们确定了需要分析的具体指标之后，就需要我们进行埋点设计，把相关的用户行为收集起来，供后续的流程进行数据分析，从而得出实验结论。</p>
-<p>​	对于 ABTest我们需要知道当前用户是处于对照组还是实验组，所以埋点中这些参数必须要有。埋点完了就是收集实验数据了（暗中观察），主要看以下两个方面：</p>
+<h3>实验观测<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>上线策略，观测实验确保正常，看实验是否按照预期进行，主要看以下两个方面：</p>
 <ol class="simple">
 <li><p>观察样本量是否符合预期，比如实验组和对照组分流的流量是否均匀，正常情况下，分流的数据不会相差太大，如果相差太大，就要分析哪里出现了问题。</p></li>
 <li><p>观察用户的行为埋点是否埋的正确，很多次实验之后，我们发现埋点埋错了。</p></li>
 </ol>
 </div>
 <div class="section" id="id6">
-<h2>注意点<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h3>分析实验结果<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>实验后分析数据：观察数据的涨跌是否显著，一般样本大（样本容量大于30）都是用Z检验，小的话才T，具体的选择合理的检验方式的方法：</p>
+<center><img src="../images/CI_abtest_8.png" width="55%"/></center>
+<ul class="simple">
+<li><p>e.g 绿色线：不知道总体方差and比值的时候用</p></li>
+</ul>
+<div class="section" id="z">
+<h4>Z检验<a class="headerlink" href="#z" title="Permalink to this headline">¶</a></h4>
+<p><span class="math notranslate nohighlight">\(\mathrm{H_0}: \mu 1=\mu 2\)</span></p>
+<p>计算Z统计量（对于绝对值/比率型指标，方差的计算方式有差异）</p>
+<ul>
+<li><p>绝对值指标:
+$<span class="math notranslate nohighlight">\(
+  Z=\frac{\bar{X}_{A}-\bar{X}_{B}}{\sqrt{\frac{\sigma_{A}^{2}}{N_{A}}+\frac{\sigma_{B}^{2}}{N_{B}}}}
+  \)</span>$</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\bar{X}_{A} 、 \bar{X}_{B}\)</span>：<span class="math notranslate nohighlight">\(A 、 B\)</span> 组样本的均值</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_{A}^{2}\)</span>、<span class="math notranslate nohighlight">\(\sigma_{A}^{2}\)</span>：<span class="math notranslate nohighlight">\(A 、 B\)</span> 组样本的方差</p></li>
+<li><p><span class="math notranslate nohighlight">\(N_{A}\)</span>、<span class="math notranslate nohighlight">\(N_{B}\)</span>：<span class="math notranslate nohighlight">\(A 、 B\)</span> 组样本的数量</p></li>
+</ul>
+</li>
+<li><p>比率指标：</p>
+<div class="math notranslate nohighlight">
+\[
+    Z=\frac{P_{A}-P_{B}}{\sqrt{\frac{P_{A}(1-P_{A})}{N_{A}}+\frac{P_{B}(1-P_{B})}{N_{B}}}}
+    \]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(P_{A}、P_{B}\)</span>：<span class="math notranslate nohighlight">\(A 、 B\)</span> 组样本的比率</p></li>
+<li><p><span class="math notranslate nohighlight">\(N_{A}\)</span>、<span class="math notranslate nohighlight">\(N_{B}\)</span>：<span class="math notranslate nohighlight">\(A 、 B\)</span> 组样本的数量</p></li>
+</ul>
+</li>
+</ul>
+<p>假设检验的话跟理论Z比，也可以直接得到p值</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>决策<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>根据检验结果，判断发布新版本/改进设计方案/调整流量继续测试</p>
+<p>Q：如果你发现你在AB测试当中所选取的指标在<strong>统计上来说都是不显著的</strong>，你该怎么去判断这个实验的收益？</p>
+<ul class="simple">
+<li><p>一般来说无显著差异我们可以理解为：实验组和对照组的统计差异是由抽样误差引起的（不拒绝H0 认为误差服从正态分布）。</p></li>
+<li><p>但进一步验证的话，我们可以将这个指标去拆分成每一天去观察。如果指标的变化曲线每一天实验组都高于对照组，即使他在统计上来说是不显著的，我们也认为在这样一个观测周期内，实验组的关键指标表现是优于对照组，并得出优化上线结论。</p></li>
+</ul>
+<p>Q：如果你在AB测试中发现<strong>实验组核心指标明显优于对照组，那这个优化就一定能够上线吗？</strong></p>
+<ul>
+<li><p>不一定。举个例子，比如说有的时候我们想要提升产品的视觉展现效果。但是这种优化可能是以<em>用户等待内容展现的时间</em>作为代价来进行提升的。所以一个方面的优化可能会导致另一个方面的劣化。在做这个优化的时候，可能会对其他部门产生一些负向的影响，进而导致公司收入的下降。</p>
+<p>所以，我们在进行AB测试的时候，必须要综合评估所有方面的一些指标变动，同时对于收益和损失来做一个评估，才能确认这个优化可以最终上线。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>AB实验常见错误<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p><strong>弃真</strong>：实验组和对照组没有显著差异，但我们接受了方案推了全量。减少这种错误的方法就是提高显著性水平，比如 p 值小于 0.05 才算显著，而不是小于 0.1，显著性水平是人为给定的犯一类错误的可以接受的上限（<span class="math notranslate nohighlight">\(p\)</span>值为犯 I 类错误的概率<span class="math notranslate nohighlight">\(\alpha\)</span> ）。</p></li>
+<li><p><strong>存伪</strong>：实验组和对照组有显著差异，但我们没有接受方案。</p>
+<p>II 类错误和<strong>统计功效 (power)</strong> 有关，统计功效可以简单理解为真理能被发现的可能性。统计功效 为:<span class="math notranslate nohighlight">\(1-\beta\)</span> ，而<span class="math notranslate nohighlight">\(\beta\)</span>为犯第二类错误的概率。影响统计功效的因素有很多，主要的有三个：统计量、样本量和 I 类错误的概率<span class="math notranslate nohighlight">\(\alpha\)</span>  。</p>
+</li>
+</ol>
+<div class="section" id="id9">
+<h3>用户抽样不科学<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>没有满足随机化</p>
+<ul>
+<li><p>错误例子：</p>
+<ul class="simple">
+<li><p>实验中, 在不同的渠道/应用市场中, 发布不同版本的APP/页面, 并把用户数据进行对比</p></li>
+<li><p>简单地从总体流量中抽取 <span class="math notranslate nohighlight">\(n \%\)</span> 用于实验, 不考虑流量分布, 不做分流处理</p></li>
+</ul>
+</li>
+<li><p>问题——辛普森悖论
+不同应用市场渠道的用户常常带有自己的典型特征, 用户分布具有明显区别。对总流量进行简单粗暴地抽样也有着同样的问题一一分流到实验组和对照组的流量可能存在很大的分布差异。</p>
+<p>AB实验要求我们尽可能地保持实验组和对照组流量分布一致 (与总体流量也需保持分布一致), 否则得出的实验数据并不具有可信性。</p>
+</li>
+</ul>
+<p>实验人群跟上线人群不一致</p>
+<ul class="simple">
+<li><p>比如：对局部城市做实验，但上线全量城市的时候有的城市不work</p></li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h3>实验层选择错误<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>之前提到相关性实验放同一层、不相关实验可以放不同层。
+比如按钮红色or蓝色 VS 按钮圆形or方形是相关的实验，用户将受到 “按钮颜色Red”以及 “按钮形状Round” 两个策略影响，</p>
+<ul class="simple">
+<li><p>分开的话： 我们无法判断究竟 是哪个策略影响了该用户的行为。换句话说, 由于两个实验存在关联, 用户重复被实验命中, 实验结果 实际受到了多个策略的影响。这种情况下, 两个实验的结果便不再可信了</p></li>
+<li><p>解决：要同层同时看2x2四种策略的结果</p></li>
+</ul>
+</div>
 <div class="section" id="novelty-and-primacy-effect">
 <h3>Novelty and Primacy Effect<a class="headerlink" href="#novelty-and-primacy-effect" title="Permalink to this headline">¶</a></h3>
 <p>在新进行实验版本变更的短期内会有两种效应，但不会一直持续：</p>
 <ul class="simple">
 <li><p>Primacy effect: People are reluctant to change</p></li>
-<li><p>Novelty effect: People welcome the changes and use more</p></li>
+<li><p>新奇效应Novelty effect: People welcome the changes and use more——用户因为新鲜感而表现出不可持续的行为</p></li>
 </ul>
 <p>这两个效应会导致不同的initial effect</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sample</span> <span class="n">question</span><span class="p">:</span>
@@ -650,33 +1188,32 @@ const thebe_selector_output = ".output, .cell_output"
 <p>解决方案：</p>
 <ul class="simple">
 <li><p>Run tests only on first time users: 这样不会被Novelty和Primacy影响</p></li>
-<li><p>如果已经有在跑的实验，想看这些effect的影响的话</p></li>
+<li><p>如果已经有在跑的实验，想看这些effect的影响的话，要等实验结果稳健之后再下结论</p></li>
 </ul>
 </div>
 <div class="section" id="interference-between-variants">
 <h3>INTERFERENCE BETWEEN VARIANTS<a class="headerlink" href="#interference-between-variants" title="Permalink to this headline">¶</a></h3>
-<p>Network effect: 控制组的用户会被实验组的用户影响</p>
+<p>SUTVA是Stable unit treatment value assumption，表示randomization units are independent and no interaction between them！但用户之间很可能相互影响</p>
+<p>问题出现的场景</p>
 <ul class="simple">
+<li><p>Network effect: 控制组的用户会被实验组的用户影响</p>
+<ul>
 <li><p>User behaviors are impacted by others</p></li>
 <li><p>The effect can spillover the control group</p></li>
+<li><p>例子：比如我们对司机激励策略 由于司机会群里讨论所以会感觉自己受到不公平的待遇！</p></li>
 </ul>
-<p>Two-sided markets: 实验组和控制组会竞争一样的资源</p>
-<ul class="simple">
-<li><p>Eg. Uber, Lyft, Airbnb</p></li>
-<li><p>Resources are shared among control and treatment groups</p></li>
-<li><p>Eg. treatment group attracts more drivers</p></li>
-<li><p>less drivers are available for control group</p></li>
-</ul>
-<p>解决方案</p>
-<p>Sample questions:</p>
-<ul class="simple">
-<li><p>A new feature provides coupons to our riders</p></li>
-<li><p>Goal: increase rides by decreasing price</p></li>
-<li><p>Testing strategy: evaluate the effect of the new feature</p></li>
-</ul>
-<p>防止用户互相影响的方案——Isolate Users</p>
+</li>
+<li><p>Two-sided markets: 实验组和控制组会竞争一样的资源</p>
 <ul>
-<li><p>两端用户场景</p>
+<li><p>Resources are shared among control and treatment groups！</p></li>
+<li><p>Eg. treatment group attracts more drivers：比如当领券的用户需求增加，会获得更多的司机资源，从而让没领券的对照组可用的司机资源减少了！</p></li>
+<li><p>解决方案：predict where the interference will happen，然后isolate control and treatment units</p></li>
+</ul>
+</li>
+</ul>
+<p>解决方案：防止用户互相影响的方案——Isolate Users</p>
+<ul>
+<li><p>双端市场场景</p>
 <p>Geo-based randomization: Split by geolocations</p>
 <ul class="simple">
 <li><p>Eg. New York vs. San Francisco</p></li>
@@ -705,13 +1242,21 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </div>
-<div class="section" id="id7">
-<h3>一人多账号<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<p>如果一个人有多个账号，分别做不同用途，abtest的时候怎么分组才最合理呢？：我们对这类人的分类是，看的不是他是谁，而是他做了什么。按照我们对行业的分类，行为不同的话就是两类人，和身份证是不是同一个无关。我们要聚合的是有相同行为特征的账户，而不是人。</p>
+<div class="section" id="id11">
+<h3>外部环境带来偶然因素<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>比如打车的时候有下雨，电商有大促，就会带来随机性</p>
 </div>
+<div class="section" id="id12">
+<h3>统计显著!=实际显著<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>问：如果你发现AB测试的结果在统计上来说是显著，但是在实际中却不显著，这是为什么？</p>
+<ul>
+<li><p>解释：统计学上的显著并不意味着实际效果的显著，假设检验只是告诉我们数据差异由随机产生的概率有多大，而实际显著是一个业务对改进商业价值的业务判断</p>
+<p>比如，我们做了一个改动让APP的启动时间的优化了0.001秒，这个数字可能在统计学上对应的P值很小——统计学显著，但是在实际中用户0.01秒的差异是感知不出来的。那么这样一个显著的统计差别，其实是没有商业意义的。</p>
+</li>
+<li><p>原因分析：造成这个结果可能的原因是我们在AB测试当中所选取的样本量过大（比如样本量分母的Minimum detectable effect太小了），导致样本和总体数据量差异很小，这样的话即使我们发现一个细微的差别，它在统计上来说是显著的，但对实际应用来说是不显著的。</p></li>
+<li><p>解决：我们要设定一个合理的Minimum detectable effect，并根据它计算最小样本量</p></li>
+</ul>
 </div>
-<div class="section" id="id8">
-<h2>结果分析<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="multiple-testing-problem">
 <h3>Multiple Testing Problem<a class="headerlink" href="#multiple-testing-problem" title="Permalink to this headline">¶</a></h3>
 <p>如果有三个组，有一个组p-value &lt;0.05，也不能执行，因为此时</p>
@@ -730,12 +1275,100 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>缺点：太过保守</p></li>
 </ul>
 <p>解决方案2：False Discovery Rate</p>
-<p><span class="math notranslate nohighlight">\(\mathrm{FDR}=E\left[\frac{\text { false positives }}{\text { rejections }}\right]\)</span></p>
+<p><span class="math notranslate nohighlight">\(\mathrm{FDR}=E[\frac{\text { false positives }}{\text { rejections }}]\)</span></p>
+</div>
+<div class="section" id="data-peaking">
+<h3>Data Peaking<a class="headerlink" href="#data-peaking" title="Permalink to this headline">¶</a></h3>
+<p>Stop collecting data when the test comes out significant：错误的！我们要计算准确的duration，我们在计算周期的时候考虑了</p>
+<ul class="simple">
+<li><p>statistical power</p></li>
+<li><p>significance level</p></li>
+<li><p>day of week effect</p></li>
+<li><p>seasonality</p></li>
+</ul>
+<p>如果没有完成Pre-determined的duration的话，得到的effect是随机性造成的（过早停止测试可能会让一些异常的数据没有办法发生“均值回归“）！</p>
+<p>此外，我们需要的是一个reproducible，而peak的时候终止很可能是一种无法复现的结果。</p>
+</div>
+<div class="section" id="id13">
+<h3>单侧检验<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>当显著性水平一定时，如要在多个选件中确定入选者，那么单侧检验所需观察到的选件之间的转化率差异更小。这似乎很有吸引力，因为与使用双侧检验相比，单侧检验可以更早地确定入选者。但单侧检验是有代价的！</p>
+<ul class="simple">
+<li><p>例如，在一个单侧检验中，测试B是否比A好必须在开始测试​之前，决定是测试 B 优于 A 还是 A 优于 B。但是，如果是先查看了 A/B 测试的结果并看到 B 优于 A，然后​决定进行一个单侧检验来看这种差异是否具有统计意义，那么就违反了统计测试背后的假设。违反测试的假设意味着您的置信区间不可靠，并且测试的误报率比预期的要高。</p></li>
+</ul>
+<p>您可以将单侧检验看做是一种已经由裁判做出决定、只是对该选件进行试验的测试。在单侧检验中，您已经确定了入选选件，而且只是想证明这一点，而不是向每个体验提供平等的机会来证明自己可以是入选者。单侧检验只应在这种极少发生的情况下使用：您只关注某个策略是否优于其他策略，而不是其他策略优于某个策略。</p>
+<p>避免出现单侧检验问题，我们通常使用始终运用双侧检验的 A/B 测试解决方案！</p>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>参考资料<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://zhuanlan.zhihu.com/p/165406531">https://zhuanlan.zhihu.com/p/165406531</a></p>
+<div class="section" id="aa">
+<h2>AA实验<a class="headerlink" href="#aa" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h3>起因<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>做AB实验的时候，有时尽管我们发现AB两组出现了明显差异，但我们依旧无法确认这种差异是实验条件不同带来的，还是AB两组用户本身的差异带来的。有时候，即便采用特别均匀的哈希打散算法，同时扩大样本量，也依然会出现AB两组用户在空跑期（AB两组用户实验条件一致），差异显著的情况。</p>
+<p>因此，为了规避这个问题。很多企业采用了AA测试（空跑期）方法——正式开启实验之前，先进行一段时间的空跑，对AB两组用户采用同样的实验条件，一段时间后，再看两组之间的差异。</p>
+<ul class="simple">
+<li><p>如果差异显著，数据弃之不用，重新选组。</p></li>
+<li><p>如果差异不显著，记录两组之间的均值差，然后在实验期（AB两组实验条件不同）结束时，用实验期的组间差异，减去空跑期的组间差异，得到一个净增长率。</p></li>
+</ul>
+<p>这种方式的问题是：对绝大多数APP来说，用户留存率不是100%。这意味着今天活跃的用户，明天可能就不来了。因此，今天按照一定规则圈定的用户群，到明天就不是同一拨人了。换句话说，即便空跑期的AA实验发现两组没有差异，等到进行AB实验时，两个实验组里的用户早就不同了。你也没法确定，AB两组用户本身没有差异。</p>
+<p>还有些企业，会直接开三组流量，对照组、实验组、AA对照组。通过对比对照组和AA对照组，来判断实验组的固有差异。但这种方式更加不能确定对照组和实验组之间的固有差异，是更加不靠谱的方式。</p>
+<p>那么，如果AA测试没有用，那我们该如何规避组间固有差异带来的问题呢？</p>
+</div>
+<div class="section" id="id15">
+<h3>更好的方式：AA波动比率<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>既然组间差异一定存在，那我们不妨接受这个前提，并且用统计方式来衡量差异大小，在计算实验效果的时候，把差异考虑在内即可。</p>
+<p>举个例子，假如我们随机抽取2N个用户分为两组（每组N个），做一次实验，并进行指标对比。那么我们可以计算出两组用户在给定α值下，指标差异的置信区间。</p>
+<p>我们可以把置信区间归一化，得到围绕样本均值波动的比率（给定α水平下）。这个波动比率，可以认为是任意两次随机分组，在给定α水平下的指标固有差异。</p>
+<p>接下来，我们可以判断，如果AB实验得出的效果（改进比率），小于波动比率，那很可能只是正常误差，这个实验结论是不靠谱的。相反，如果实验效果大于波动比率，意味着这个实验结论是值得信赖的。</p>
+<p>针对不同的指标、α水平、时间、样本数量（一般选常用AB实验的用户数量，便于参照），我们可以计算出AA波动率的表，通过这种方式，我们就把传统的AA实验，转换为了AA波动。用量化的方式，描述了组间固有差异!</p>
+<p><strong>操作步骤总结</strong></p>
+<ul>
+<li><p>先对各种关键指标，分别做常用用户数量下的AA波动范围图</p>
+  <center><img src="../images/CI_abtest_9.png" width="45%"/></center>
+</li>
+<li><p>配置每个实验的时候，直接进行AB测试，不考虑AA</p></li>
+<li><p>分析数据结果的时候，考虑AB之间的差异，要大于AA差异</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>补充<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="trick">
+<h3>应用Trick<a class="headerlink" href="#trick" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>多次验证的结果更solid</p></li>
+<li><p><strong>A/B测试与用户调研相结合，可更客观合理地判断实验效果</strong>：AB测试只是一个工具而已，是测不出用户需求的，同理心才是重要的基础。</p>
+<p>同理心是地基，想象力是天空，中间是逻辑和工具。</p>
+<blockquote>
+<div><p>来源：字节跳动七周年，张一鸣谈「务实的浪漫」：把想象变成现实:</p>
+</div></blockquote>
+</li>
+<li><p>流量复用</p>
+<p>有时候，多个实验共享同一个对照组。</p>
+  <center><img src="../images/CI_abtest_2.png" width="55%"/></center>
+<p>适用场景 :</p>
+<ol class="simple">
+<li><p>实验粒度生命周期短 (比如请求 )</p></li>
+<li><p>定时更新Hash key</p></li>
+<li><p>引入发车机制，同时开始实验</p></li>
+</ol>
+</li>
+<li><p>一人多账号</p>
+<p>如果一个人有多个账号，分别做不同用途，abtest的时候怎么分组才最合理呢？：我们对这类人的分类是，看的不是他是谁，而是他做了什么。按照我们对行业的分类，行为不同的话就是两类人，和身份证是不是同一个无关。我们要聚合的是有相同行为特征的账户，而不是人。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id17">
+<h2>参考资料<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/375902281">知乎｜【AB测试最全干货】史上最全知识点及常见面试题（上篇）</a></p></li>
+<li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/394172096">知乎｜【AB测试最全干货】史上最全知识点及常见面试题（下篇）</a></p></li>
+<li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/165406531">知乎｜数据分析系列：如何做一次ABtest？</a></p></li>
+<li><p><a class="reference external" href="https://www.zhihu.com/zvideo/1421517134421344256">知乎｜AB Test 高频面试八大问-数据分析面试必刷题</a></p></li>
+<li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/134085246">知乎｜做AA测试，不如看AA波动</a></p></li>
+<li><p><a class="reference external" href="https://www.udacity.com/course/ab-testing--ud257">Udacity｜AB Testing by Google</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/playlist?list=PLY1Fi4XflWSvgsaD9eXng6N5kxcMtcxGK">Youtube｜A/B Testing in Data Science</a></p></li>
+</ul>
 </div>
 </div>
 

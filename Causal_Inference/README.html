@@ -466,6 +466,11 @@ const thebe_selector_output = ".output, .cell_output"
      Flow of Association and Causation
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     总结
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -497,9 +502,16 @@ const thebe_selector_output = ".output, .cell_output"
      Structural causal models
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#randomized-experiments">
+   Randomized Experiments
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-complete-example-with-estimation">
-     A complete example with estimation
+    <a class="reference internal nav-link" href="#comparability-covariate-balance">
+     Comparability / covariate balance
     </a>
    </li>
   </ul>
@@ -625,6 +637,11 @@ const thebe_selector_output = ".output, .cell_output"
      Flow of Association and Causation
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     总结
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -656,9 +673,16 @@ const thebe_selector_output = ".output, .cell_output"
      Structural causal models
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#randomized-experiments">
+   Randomized Experiments
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-complete-example-with-estimation">
-     A complete example with estimation
+    <a class="reference internal nav-link" href="#comparability-covariate-balance">
+     Comparability / covariate balance
     </a>
    </li>
   </ul>
@@ -1000,6 +1024,18 @@ $<span class="math notranslate nohighlight">\(
 <li><p>记得：association is not causation！</p></li>
 </ul>
 </div>
+<div class="section" id="id3">
+<h3>总结<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Causal association flows from 푇 to 푌 along directed paths</p></li>
+<li><p>Non-causal association flows along any other paths from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> that aren’t blocked by either</p>
+<ul>
+<li><p>a non-collider that is conditioned on or</p></li>
+<li><p>a collider that isn’t conditioned on</p></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div class="section" id="causal-models">
 <h2>Causal Models<a class="headerlink" href="#causal-models" title="Permalink to this headline">¶</a></h2>
@@ -1051,17 +1087,71 @@ $<span class="math notranslate nohighlight">\(
   \)</span></p>
 <p>Otherwise, <span class="math notranslate nohighlight">\(P\left(x_{1}, \ldots, x_{n} \mid d o(S=s)\right)=0\)</span></p>
 <p>The latter’s product is only over <span class="math notranslate nohighlight">\(i \notin S\)</span> rather than all <span class="math notranslate nohighlight">\(i\)</span>.</p>
+  <center><img src="../images/CI_basic_33.png" width="75%"/></center>
 </li>
 </ul>
 </div>
 <div class="section" id="backdoor-adjustment">
 <h3>Backdoor adjustment<a class="headerlink" href="#backdoor-adjustment" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Backdoor</span> <span class="pre">path</span></code>:  nondirected unblocked paths from Tto Y</p>
+<ul>
+<li><p>如果block掉backdoor path的话就可以identify causal quantities 比如<span class="math notranslate nohighlight">\(P(Y \mid d o(t))\)</span></p></li>
+<li><p>Intuition：Block掉它之后就可以从observational data中模拟intervene的效果</p>
+  <center><img src="../images/CI_basic_34.png" width="95%"/></center>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Backdoor</span> <span class="pre">criterion</span></code>: A set of variables <span class="math notranslate nohighlight">\(W\)</span> satisfies the backdoor criterion relative to <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> if the following are true:</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(W\)</span> blocks all backdoor paths from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(W\)</span> does not contain any descendants of <span class="math notranslate nohighlight">\(T\)</span>.</p></li>
+</ol>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Backdoor</span> <span class="pre">adjustment</span></code>: Given the modularity assumption, that W satisfies the backdoor criterion, and positivity, we can identify the causal effect of <span class="math notranslate nohighlight">\(T\)</span> on <span class="math notranslate nohighlight">\(Y\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[P(y \mid d o(t))=\sum_{w} P(y \mid t, w) P(w)\]</div>
+</li>
+</ul>
 </div>
 <div class="section" id="structural-causal-models">
 <h3>Structural causal models<a class="headerlink" href="#structural-causal-models" title="Permalink to this headline">¶</a></h3>
+<p>在causal的世界等号是asymmetric的：<span class="math notranslate nohighlight">\(B:=f(A, U)\)</span></p>
+<center><img src="../images/CI_basic_35.png" width="45%"/></center>
+<p><code class="docutils literal notranslate"><span class="pre">Structural</span> <span class="pre">Causal</span> <span class="pre">Model</span> <span class="pre">(SCM)</span></code>: a tuple of the following sets:</p>
+<ol class="simple">
+<li><p>A set of endogenous variables <span class="math notranslate nohighlight">\(V\)</span></p></li>
+<li><p>A set of exogenous variables <span class="math notranslate nohighlight">\(U\)</span></p></li>
+<li><p>A set of functions <span class="math notranslate nohighlight">\(f\)</span>, one to generate each endogenous variable as a function of other variables</p></li>
+</ol>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">endogenous</span> <span class="pre">variables</span></code>: variables that we write structural equations for, variables that have parents in the causal graph</p>
+<p><code class="docutils literal notranslate"><span class="pre">exogenous</span> <span class="pre">variables</span></code>: variables who do not have any parents in the causal graph</p>
+  <center><img src="../images/CI_basic_36.png" width="95%"/></center>
+</li>
+<li><p>Interventions in SCM: replacing the structural equation for <span class="math notranslate nohighlight">\(T\)</span> with <span class="math notranslate nohighlight">\(T:=t\)</span></p>
+  <center><img src="../images/CI_basic_37.png" width="95%"/></center>
+</li>
+</ul>
+<p><strong>Rule</strong>: don’t adjust post-treatment covariate</p>
 </div>
-<div class="section" id="a-complete-example-with-estimation">
-<h3>A complete example with estimation<a class="headerlink" href="#a-complete-example-with-estimation" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="randomized-experiments">
+<h2>Randomized Experiments<a class="headerlink" href="#randomized-experiments" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>随机试验Magic的地方在于：No unobserved confounding</p></li>
+</ul>
+<div class="section" id="comparability-covariate-balance">
+<h3>Comparability / covariate balance<a class="headerlink" href="#comparability-covariate-balance" title="Permalink to this headline">¶</a></h3>
+<p>实验组和对照组在其他变量上都是comparable被控制了的，只有T不同，所以区别肯定只是T导致的，从而确保了<code class="docutils literal notranslate"><span class="pre">covariate</span> <span class="pre">balance</span></code>: distribution of covariates <span class="math notranslate nohighlight">\(X\)</span> is the same across treatment groups:
+$<span class="math notranslate nohighlight">\(
+P(X \mid T=1) \stackrel{d}{=} P(X \mid T=0)\stackrel{d}{=} P(X)
+\)</span>$</p>
+<ul class="simple">
+<li><p>原因：T和X不相关</p></li>
+</ul>
+<p>而我们又可以证明Covariate balance implies association is causation——<span class="math notranslate nohighlight">\(P(y \mid d o(t))=P(y \mid t)\)</span>：</p>
+ <center><img src="../images/CI_basic_38.png" width="75%"/></center>
 </div>
 </div>
 </div>

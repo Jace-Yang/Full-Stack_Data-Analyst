@@ -104,7 +104,7 @@ AB实验需要利用控制变量法的原理, 确保A、B两个方案中只有�
 
 如果是双边市场的话，可以用户、平台、生产者三方进行实验
 
-    <center><img src="../images/CI_abtest_4.png" width="75%"/></center>
+<center><img src="../images/CI_abtest_4.png" width="75%"/></center>
 
 - 推荐实验
 

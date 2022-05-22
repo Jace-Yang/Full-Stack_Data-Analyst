@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AB Testing &#8212; Towards a Full-stack DA</title>
+    <title>AB Test &#8212; Towards a Full-stack DA</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -161,7 +161,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   AB Testing
+   AB Test
   </a>
  </li>
 </ul>
@@ -549,7 +549,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>AB Testing</h1>
+                <h1>AB Test</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -742,8 +742,8 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="ab-testing">
-<h1>AB Testing<a class="headerlink" href="#ab-testing" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="ab-test">
+<h1>AB Test<a class="headerlink" href="#ab-test" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
 <h2>基本概念<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="overview">
@@ -999,12 +999,13 @@ $<span class="math notranslate nohighlight">\(
   &amp;=\Phi(Z_{\alpha / 2}-\frac{\mu_{c}-\mu_{t}}{\sqrt{2} \sigma / \sqrt{n}})-\Phi(-Z_{\alpha / 2}-\frac{\mu_{c}-\mu_{t}}{\sqrt{2} \sigma / \sqrt{n}})
   \end{aligned}
   \)</span>$</p>
-<p>Without loss of generality, assume <span class="math notranslate nohighlight">\(\mu_{c}&gt;\mu_{t}\)</span>
-$$
-\begin{aligned}
-\beta=\Phi(Z_{\alpha / 2}-\frac{\mu_{c}-\mu_{t}}{\sqrt{2} \sigma / \sqrt{n}})-\Phi (-Z_{\alpha / 2}-\frac{\mu_{c}-\mu_{t}}{\sqrt{2} \sigma / \sqrt{n}}) \</p>
-<p>\end{aligned}
-$$</p>
+<p>Without loss of generality, assume <span class="math notranslate nohighlight">\(\mu_{c}&gt;\mu_{t}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+        \begin{aligned}
+        \beta=\Phi(Z_{\alpha / 2}-\frac{\mu_{c}-\mu_{t}}{\sqrt{2} \sigma / \sqrt{n}})-\Phi (-Z_{\alpha / 2}-\frac{\mu_{c}-\mu_{t}}{\sqrt{2} \sigma / \sqrt{n}}) \\
+        \end{aligned}
+        \end{split}\]</div>
 <ul class="simple">
 <li><p>其中第二项 <span class="math notranslate nohighlight">\(&lt;\Phi(-Z_{\alpha / 2}) \approx 0\)</span> 所以可以忽略</p></li>
 <li><p>与此同时<span class="math notranslate nohighlight">\( \beta=\Phi(-Z_{\beta})\)</span></p></li>
@@ -1115,17 +1116,24 @@ $<span class="math notranslate nohighlight">\(
 <div class="section" id="id7">
 <h3>决策<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>根据检验结果，判断发布新版本/改进设计方案/调整流量继续测试</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Q：如果你发现你在AB测试当中所选取的指标在<strong>统计上来说都是不显著的</strong>，你该怎么去判断这个实验的收益？</p>
+<p>A:</p>
 <ul class="simple">
 <li><p>一般来说无显著差异我们可以理解为：实验组和对照组的统计差异是由抽样误差引起的（不拒绝H0 认为误差服从正态分布）。</p></li>
 <li><p>但进一步验证的话，我们可以将这个指标去拆分成每一天去观察。如果指标的变化曲线每一天实验组都高于对照组，即使他在统计上来说是不显著的，我们也认为在这样一个观测周期内，实验组的关键指标表现是优于对照组，并得出优化上线结论。</p></li>
 </ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Q：如果你在AB测试中发现<strong>实验组核心指标明显优于对照组，那这个优化就一定能够上线吗？</strong></p>
-<ul>
-<li><p>不一定。举个例子，比如说有的时候我们想要提升产品的视觉展现效果。但是这种优化可能是以<em>用户等待内容展现的时间</em>作为代价来进行提升的。所以一个方面的优化可能会导致另一个方面的劣化。在做这个优化的时候，可能会对其他部门产生一些负向的影响，进而导致公司收入的下降。</p>
-<p>所以，我们在进行AB测试的时候，必须要综合评估所有方面的一些指标变动，同时对于收益和损失来做一个评估，才能确认这个优化可以最终上线。</p>
-</li>
+<p>A:</p>
+<ul class="simple">
+<li><p>不一定。举个例子，比如说有的时候我们想要提升产品的视觉展现效果。但是这种优化可能是以<em>用户等待内容展现的时间</em>作为代价来进行提升的。所以一个方面的优化可能会导致另一个方面的劣化。在做这个优化的时候，可能会对其他部门产生一些负向的影响，进而导致公司收入的下降。</p></li>
+<li><p>所以，我们在进行AB测试的时候，必须要综合评估所有方面的一些指标变动，同时对于收益和损失来做一个评估，才能确认这个优化可以最终上线。</p></li>
 </ul>
+</div>
 </div>
 </div>
 <div class="section" id="id8">
@@ -1173,15 +1181,10 @@ $<span class="math notranslate nohighlight">\(
 <li><p>新奇效应Novelty effect: People welcome the changes and use more——用户因为新鲜感而表现出不可持续的行为</p></li>
 </ul>
 <p>这两个效应会导致不同的initial effect</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sample</span> <span class="n">question</span><span class="p">:</span>
-<span class="o">-</span> <span class="n">Ran</span> <span class="n">an</span> <span class="n">A</span><span class="o">/</span><span class="n">B</span> <span class="n">test</span> <span class="n">on</span> <span class="n">a</span> <span class="n">new</span> <span class="n">feature</span>
-<span class="o">-</span> <span class="n">The</span> <span class="n">test</span> <span class="n">won</span> <span class="ow">and</span> <span class="n">we</span> <span class="n">launched</span> <span class="n">the</span> <span class="n">change</span>
-<span class="o">-</span> <span class="n">After</span> <span class="n">a</span> <span class="n">week</span><span class="p">,</span> <span class="n">the</span> <span class="n">treatment</span> <span class="n">effect</span> <span class="n">quickly</span> <span class="n">declined</span>
-
-<span class="n">Answer</span><span class="p">:</span>
-<span class="o">-</span> <span class="n">Novelty</span> <span class="n">effect</span>
-<span class="o">-</span> <span class="n">Repeat</span> <span class="n">usage</span> <span class="n">declined</span> <span class="n">when</span> <span class="n">effect</span> <span class="n">wears</span> <span class="n">off</span>
-</pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Q: Ran an A/B test on a new feature, the test won and we launched the change. After a week, the treatment effect quickly declined
+A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 </div>
 <p>解决方案：</p>
 <ul class="simple">

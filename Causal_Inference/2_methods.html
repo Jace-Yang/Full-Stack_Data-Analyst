@@ -1,0 +1,1805 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>因果推理方法 &#8212; Towards a Full-stack DA</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="基础" href="../DL/Basics/README.html" />
+    <link rel="prev" title="AB Test" href="1_AB_testing.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo2.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Towards a Full-stack DA</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Jace六边形DA笔记库
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  数据ETL流程
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Data_ETL/README.html">
+   DE基础
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Data_ETL/Data_cleaning/README.html">
+   数据清洗与处理
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Data_ETL/Data_cleaning/Regex.html">
+     正则表达式
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Data_ETL/Data_cleaning/pandas.html">
+     Pandas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  统计分析
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../STAT/README.html">
+   基础
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  因果推断
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="README.html">
+   基础
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_AB_testing.html">
+   AB Test
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   因果推理方法
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  深度学习
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../DL/Basics/README.html">
+   基础
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/Basics/DL_hyperparameter.html">
+     DL常见超参及调整策略
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/Basics/Optimizer.html">
+     优化器
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/Basics/Trained_by_GPU.html">
+     GPU训练
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../DL/NLP/README.html">
+   NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/basics.html">
+     基础概念
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/Self-attention.html">
+     Self-Attention
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/Transformer.html">
+     Transformer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/BERT.html">
+     BERT
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../DL/NN_compression/README.html">
+   神经网络压缩
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../DL/NN_compression/KD.html">
+     知识蒸馏
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../DL/NN_compression/Distill_Bert.html">
+       Distill Bert
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../DL/NN_compression/Quantize.html">
+     量化
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../DL/NN_compression/QBert.html">
+       Q-BERT
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/Causal_Inference/2_methods.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FCausal_Inference/2_methods.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Causal_Inference/2_methods.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#propensity-score">
+   Propensity Score
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     确定研究问题
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     倾向性评分计算
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     倾向性得分匹配
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       匹配策略
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       匹配结构
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#positivity">
+     positivity检查
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     平衡性检查
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     因果效应推断
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       直接推断
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#ipw">
+       逆概率加权处理方法IPW
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     敏感度分析
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#double-machine-learning-dml">
+   双重机器学习 (Double Machine Learning, DML)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#double-robust-dr">
+   双稳健模型 (Double Robust, DR)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     基础
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     估计方式
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     代码
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#did">
+   DID
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     假设
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#setup">
+       模型setup
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     问题
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id16">
+   树方法
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     因果树
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#honest-tree-double-sampletrees">
+       Honest Tree/Double-SampleTrees
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#propensity-trees">
+       Propensity Trees
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id18">
+       具体实现
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     因果森林
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generalized-random-forest-grf">
+     Generalized Random Forest(GRF)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#causal-forest-dml">
+     Causal Forest DML
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#orthogonal-random-forest-orf">
+       Orthogonal Random Forest(ORF)
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#uplift">
+   Uplift增益模型
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#meta-learning">
+     Meta-Learning方法
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#s-learner">
+       S-Learner
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#t-learner">
+       T-Learner
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#x-learner">
+       X-Learner
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#r-learner">
+       R-Learner
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#uplift-tree">
+     增益决策树Uplift-Tree
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id20">
+       跟决策树的区别：
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     评估
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id22">
+     分发策略
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id23">
+       贪心分配
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id24">
+       整数规划
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id25">
+   合成控制法
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id26">
+   工具变量
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#causal-graph-learning">
+   Causal Graph Learning
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id27">
+     假设
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id28">
+     算法
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>因果推理方法</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#propensity-score">
+   Propensity Score
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     确定研究问题
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     倾向性评分计算
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     倾向性得分匹配
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       匹配策略
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       匹配结构
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#positivity">
+     positivity检查
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     平衡性检查
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     因果效应推断
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       直接推断
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#ipw">
+       逆概率加权处理方法IPW
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     敏感度分析
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#double-machine-learning-dml">
+   双重机器学习 (Double Machine Learning, DML)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#double-robust-dr">
+   双稳健模型 (Double Robust, DR)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     基础
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     估计方式
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     代码
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#did">
+   DID
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     假设
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#setup">
+       模型setup
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     问题
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id16">
+   树方法
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     因果树
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#honest-tree-double-sampletrees">
+       Honest Tree/Double-SampleTrees
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#propensity-trees">
+       Propensity Trees
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id18">
+       具体实现
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id19">
+     因果森林
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generalized-random-forest-grf">
+     Generalized Random Forest(GRF)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#causal-forest-dml">
+     Causal Forest DML
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#orthogonal-random-forest-orf">
+       Orthogonal Random Forest(ORF)
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#uplift">
+   Uplift增益模型
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#meta-learning">
+     Meta-Learning方法
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#s-learner">
+       S-Learner
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#t-learner">
+       T-Learner
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#x-learner">
+       X-Learner
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#r-learner">
+       R-Learner
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#uplift-tree">
+     增益决策树Uplift-Tree
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id20">
+       跟决策树的区别：
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     评估
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id22">
+     分发策略
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id23">
+       贪心分配
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id24">
+       整数规划
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id25">
+   合成控制法
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id26">
+   工具变量
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#causal-graph-learning">
+   Causal Graph Learning
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id27">
+     假设
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id28">
+     算法
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1>因果推理方法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>总览</p>
+<ul>
+<li><p>评估ATE常用方法：</p>
+<ul class="simple">
+<li><p>Regression adjustment</p></li>
+<li><p>倾向性得分</p>
+<ul>
+<li><p>PS matching</p></li>
+<li><p>IPTW</p></li>
+</ul>
+</li>
+<li><p>工具变量</p>
+<ul>
+<li><p>2SLS</p></li>
+<li><p>deepIV</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>评估CATE常用方法：</p>
+<ul>
+<li><p>uplift modeling</p>
+<p>间接评估</p>
+<ul class="simple">
+<li><p>meta learner</p>
+<ul>
+<li><p>S / T / X / R learner</p></li>
+</ul>
+</li>
+</ul>
+<p>直接评估</p>
+<ul class="simple">
+<li><p>tree based</p>
+<ul>
+<li><p>uplift tree / propensity tree / BART / upliftRF</p></li>
+</ul>
+</li>
+<li><p>deeplearning</p>
+<ul>
+<li><p>BNN / TARNet / Perfect Match / CEVAE / DCN-PD / DragonNet</p></li>
+</ul>
+</li>
+<li><p>transformed outcome tree</p></li>
+</ul>
+</li>
+<li><p>tree based</p>
+<ul class="simple">
+<li><p>Causal tree</p></li>
+<li><p>Causal RF（Causal tree+RF）</p></li>
+<li><p>Generalized RF（Causal RF tree+异质性最大分裂等）</p>
+<ul>
+<li><p>CausalForestDML (Generalized RF+Global DMB)</p></li>
+<li><p>Orthonal RF (Generalized RF+局部Neyman正交)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Continuous Treatment Effect</p>
+<ul class="simple">
+<li><p>双重差分</p></li>
+<li><p>generative model</p></li>
+<li><p>entropy balancing</p></li>
+</ul>
+</li>
+<li><p>Time-varing Treatment Effect</p>
+<ul class="simple">
+<li><p>Well-defined regression</p></li>
+<li><p>Deep Learning</p></li>
+</ul>
+</li>
+</ul>
+<p>AB跟因果推断的关系</p>
+<ul class="simple">
+<li><p>解决同一个问题</p></li>
+<li><p>AB更准，因为用户看不到新功能 理论上来讲不相互影响的概率更高，因果推断是依赖各种假设</p></li>
+</ul>
+<div class="section" id="propensity-score">
+<h2>Propensity Score<a class="headerlink" href="#propensity-score" title="Permalink to this headline">¶</a></h2>
+<p>调整每个unit的权重，使得treatment组合和对照组的分布一致，解决选择偏差的问题，提高两组用户的可比性。</p>
+<ul class="simple">
+<li><p>例子：由于用户是否受到广告曝光, 还会由其他的混淆变量影响 (性别、年龄、产品搜索活跃度…) 因此引入倾向性评分。</p></li>
+</ul>
+<div class="section" id="id2">
+<h3>确定研究问题<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>X、T、y都是谁</p>
+<ul class="simple">
+<li><p>X：</p>
+<ul>
+<li><p>用户静态画像（年龄、性别、城市等级）</p></li>
+<li><p>用户动态行为：</p>
+<ul>
+<li><p>过去X天使用时长</p></li>
+<li><p>消费量等</p></li>
+<li><p>用户关注的人</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>T</p>
+<ul>
+<li><p>业务条件 比如是否领券、是否签到等</p></li>
+</ul>
+</li>
+<li><p>Y</p>
+<ul>
+<li><p>核心变量：如GMV、未来7日内日均使用时长</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>倾向性评分计算<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>倾向性评分Propensity Score： 用于评估实验组和对照组的用户最终是否收到广告曝光的可能性大小。</p>
+<p>实现倾向性评分的方式有很多, 这里以逻辑回归为例。
+我们以**是否接受实验*作为应变量, 自变量则为混淆因子, 建立逻辑回归关系。</p>
+<p><span class="math notranslate nohighlight">\(\mathbf{e}=\mathrm{P}(\)</span> Treatement&lt;是否广告曝光&gt;|搜索活跃度、性别年龄…)</p>
+<ul class="simple">
+<li><p>各样本点的倾向性得分即为逻辑回归模型获得的概率值ei。</p></li>
+</ul>
+<p>也可以套用其他更复杂的模型，如LR + LightGBM、NN等模型估算倾向性得分。</p>
+</div>
+<div class="section" id="id4">
+<h3>倾向性得分匹配<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h4>匹配策略<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>最基本款的 Matching 是 Exact Matching。假设我们感兴趣的因果效应是 ATT：</p>
+<ul class="simple">
+<li><p>对于每一个 T=1的用户，我们从 T=0的分组里找一个 pre-treatment变量 X一模一样的用户把他们配成对，找不到就放弃。</p></li>
+<li><p>配对过程结束后，一部分或者全部 T=1的用户找到了平行世界的自己，我们直接比较两组用户观察结果YY的差异就可以得到结论。</p></li>
+</ul>
+<p>Exact Matching 的一个直观变种是 Distance Matching，科学有效地进行 Matching，一个经典的做法是 Propensity Score Matching</p>
+<p>若一个接受广告曝光的用户和无曝光的用户获得相似的倾向性评分, 则说明我们保持了混淆变量的影响力基本一致, 而唯一影响产品呢关键词搜索的变量则是广告曝光本身。</p>
+<p>这样就可以假装我们做了一个 A/B Test 了</p>
+<p>匹配对照组用户用的方法：</p>
+<ul class="simple">
+<li><p>greedy search</p></li>
+<li><p>KNN: 进行1对K有放回或无放回匹配</p></li>
+<li><p>分桶法：先对实验组分桶，然后对每一个实验组进行遍历，找到ps分桶值相同的对照组作为新对照组集合中的元素。</p></li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h4>匹配结构<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>可以使用得分差异上限（caliper）：当我们匹配用户的时候，我们要求每一对用户的得分差异不超过指定的 caliper，“强扭的瓜不甜”。</p>
+<p>而对匹配的部分实验组用户是会舍弃discard的！</p>
+</div>
+</div>
+<div class="section" id="positivity">
+<h3>positivity检查<a class="headerlink" href="#positivity" title="Permalink to this headline">¶</a></h3>
+<p>要看T=0和T=1的propensity score是否有比较多的overlap，如果很少、propensity score都是离群的，则要检查positivity的假设是否被违反了</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>例：有一些特征的群体 比如15岁以下 就是一定会T=1（比如领券），而T=0没有施加的概率</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>If a treated has a propensity score of, say, 0.9 and the maximum propensity score of the untreated is 0.7, we won’t have any untreated to compare to the individual with the 0.9 propensity score.</p></li>
+<li><p>This lack of balancing can generate some bias, because we will have to extrapolate the treatment effect to unknown regions.</p></li>
+<li><p>Not only that, entities with very high or very low propensity scores have a very high weight, which increases variance. As a general rule of thumb, you are in trouble if any weight is higher than 20 (which happens with an untreated with propensity score of 0.95 or a treated with a propensity score of 0.05).</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>平衡性检查<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>我们需要检查最后挑选出的“对照组”在各类混淆变量的分布是否与实验组近似！
+衡量配平效果:</p>
+<ul>
+<li><p>整体——看Control和Treatment两个组中的倾向性得分分布——匹配之前 vs 匹配之后</p></li>
+<li><p>特征——看Standarized Mean Difference(SMD)=组间均值柴油 / 合并标准差，来判断匹配后 样本pair是否足够相似</p>
+<p>也可以比较匹配前后</p>
+<ul class="simple">
+<li><p>SMD <span class="math notranslate nohighlight">\(&lt;0.1\)</span> 说明该特征组间协变量差异较小</p></li>
+<li><p>SMD &gt; 0.1但特征较为稀疏且业务意义不大的，可以适当放宽</p>
+<ul>
+<li><p>重要特征超过0.1则需要重新处理</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">smd</span> <span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">treatment</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">feature</span><span class="p">[</span><span class="n">treatment</span> <span class="o">=</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">feature</span><span class="p">[</span><span class="n">treatment</span> <span class="o">==</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">mean</span> <span class="p">()</span> <span class="o">-</span><span class="n">c</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">var</span><span class="p">()</span> <span class="o">+</span> <span class="n">c</span><span class="o">.</span><span class="n">var</span><span class="p">()))</span>
+</pre></div>
+</div>
+</li>
+<li><p>看特征在匹配前后的 QQ-Plot。</p>
+<p>QQ图(Quantile-Quantile plot)是以实验组和对照组的特征匹配分位数后作为横坐标和纵坐标画图。散点越接近对角线说明两组数据越接近。左边All为匹配前的QQ plot，右边Matched为匹配后的QQ图，可以看到匹配前后，散点更加接近对角线，说明数据的分布明显接近。</p>
+  <center><img src="../images/CI_method_6.png" width="75%"/></center>
+</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h3>因果效应推断<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h4>直接推断<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p>匹配后，从匹配后的两组用户中得到因果效应，推断实验组的平均干预效应 ATT (Average Treatment Effect on the Treated)，可以直接比较匹配后的实验组和对照组，也可拟合一个由干预和用户特征预测观察结果的线形模型，看看干预T的系数是多少。</p>
+<p>ATE的话：</p>
+<p><span class="math notranslate nohighlight">\(A \widehat{T} E=E\left[Y_{1}\right]-E\left[\hat{Y}_{0}\right]=\frac{1}{n} \sum_{i=1}^{n}\left[\frac{T_{i} \cdot Y_{i}}{e\left(X_{i}\right)}-\frac{\left(1-T_{i}\right) \cdot Y_{i}}{1-e\left(X_{i}\right)}\right]\)</span></p>
+</div>
+<div class="section" id="ipw">
+<h4>逆概率加权处理方法IPW<a class="headerlink" href="#ipw" title="Permalink to this headline">¶</a></h4>
+<p>为了消除样本点中的选择倾向，可以将样本点对应的Y值用PSM分值归一化，称为Inverse Probability of Treątment Weighting(IPW)。
+加权的方式如下：其中<span class="math notranslate nohighlight">\(P(x)\)</span>代表<span class="math notranslate nohighlight">\(x\)</span>算出的倾向得分, Z代表该样本是否接收干预。
+$<span class="math notranslate nohighlight">\(
+w=Z / P(x)+(1-Z) /(1-P(x))
+\)</span>$</p>
+<ul class="simple">
+<li><p>其实就是1/那个outcome的propensity</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+E[Y|X,T=1]−E[Y|X,T=0] = E\bigg[\dfrac{Y}{P(x)}|X,T=1\bigg]P(x) - E\bigg[\dfrac{Y}{(1-P(x))}|X,T=0\bigg](1-P(x))
+\]</div>
+<ul>
+<li><p>跟之前的直接相减比，现在是赋予了权重，这个权重不是被treat的比例，而是probability of receiving treatment，所以管它叫inverse！</p></li>
+<li><p>重新跟样本中的用户加权，给不合理分组用户高的权重，让它在不合适的组中的声音变大，从而实验组和实验组中呈现等概率</p>
+  <center><img src="../images/CI_method_10.png" width="65%"/></center>
+<blockquote>
+<div><p>一个 倾向分就是x越大越高的例子⬆</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>T=1组倾向分低的提高权重: If someone has a low probability of treatment, that individual looks like the untreated. However, that same individual was treated. This must be interesting. We have a treated that looks like the untreated, so we will <strong>give that entity a high weight.</strong></p></li>
+<li><p>T=0组倾向分高的提高权重</p></li>
+</ul>
+</li>
+<li><p>IPTW方法的优点是可以不损失样本量</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>敏感度分析<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>分析混淆变量的选择等主观的一些分析是否会得到一致的分析结论，敏感性分析主要的目标是衡量当混淆变量（特征）不满足非混淆假设（unconfoundedness ）时，分析结论是不是稳健的。简单的做法是去掉一个或者多个混淆变量重复上面的过程：</p>
+<p>尝试若干refutation方法进行敏感性分析 判断模型是否robust and 结果可靠</p>
+<ul class="simple">
+<li><p>Placebo [替换treatment为独立随机变量]： 理论接近O</p></li>
+<li><p>Random Cause[增加独立随机变量]：理论无影响</p></li>
+<li><p>Subset Data [使用部分数据]：理论无影响</p></li>
+<li><p>Random Replace [随机替换自变量]：理论无影响</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="double-machine-learning-dml">
+<h2>双重机器学习 (Double Machine Learning, DML)<a class="headerlink" href="#double-machine-learning-dml" title="Permalink to this headline">¶</a></h2>
+<p>Double Machine Learning (DML):  同时产生指标和treatment的估计，并利用估计量与观测值之间的残差拟合CATE的估计量。产生指标和treatment的估计的过程中可以利用任意Machine Learning的方法，由此称为Double Machine Learning (DML)。</p>
+<p>假设:</p>
+<ul class="simple">
+<li><p>CIA假设：所有的混淆变量都可以被观测</p></li>
+</ul>
+<p>方法核心：通过减去拟合的W实现了de-confounder</p>
+<ul>
+<li><p>第一步是建两个非参的模型（W表示一个高维的控制变量）:</p>
+<ol class="simple">
+<li><p>Fit a model to predict <span class="math notranslate nohighlight">\(Y\)</span> from <span class="math notranslate nohighlight">\(W\)</span> to get the predicted <span class="math notranslate nohighlight">\(\hat{Y}\)</span>——拟合<span class="math notranslate nohighlight">\(q(X, W)= E[Y|X, W]\)</span></p></li>
+<li><p>Fit a model to predict <span class="math notranslate nohighlight">\(T\)</span> from <span class="math notranslate nohighlight">\(W\)</span> to get the to get the predicted <span class="math notranslate nohighlight">\(\hat{T}\)</span>——拟合<span class="math notranslate nohighlight">\(f(X, W)= E[T|X, W]\)</span></p></li>
+</ol>
+</li>
+<li><p>第二步计算Y和T的估计残差, “partial out” <span class="math notranslate nohighlight">\(W\)</span> by looking at <span class="math notranslate nohighlight">\(Y-\hat{Y}\)</span> and <span class="math notranslate nohighlight">\(T-\hat{T}\)</span></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\tilde{Y}=Y-\hat{Y}=Y-q(X, W)\)</span></p>
+<p><span class="math notranslate nohighlight">\(\tilde{T}=T-\hat{T}=T-f(X, W)\)</span></p>
+</li>
+</ul>
+</li>
+<li><p>第三把两个残差回归
+<span class="math notranslate nohighlight">\(\tilde{Y}=\theta(X) \cdot \tilde{T}+\epsilon\)</span></p>
+<ul class="simple">
+<li><p>结果：deconfounded the effect of treatment on the outcome with this partialling out，最后得到的就是causal effect estimates</p></li>
+<li><p>cross-fitting: 这个过程的具体操作为了保证无偏估计并克服过拟合，可以将训练集分成 <span class="math notranslate nohighlight">\(K\)</span> 份, 每一份都是“一份训练残差, 其余估计 <span class="math notranslate nohighlight">\(\theta(X)^{\text {”, }}\)</span> 最后取 <span class="math notranslate nohighlight">\(K\)</span> 份的平均 <span class="math notranslate nohighlight">\(\theta(X)\)</span> 作为最终 <span class="math notranslate nohighlight">\(\theta(X)\)</span> 。</p></li>
+</ul>
+</li>
+</ul>
+<p>DML特点:</p>
+<ol>
+<li><p>适合个体特征/控制变量维度高的场景;</p>
+<ul class="simple">
+<li><p>多维Treatment(W)案例：福利发放的干预策略=金额+时间间隔共同组成，比如每隔T秒发放金额为M的红包</p></li>
+</ul>
+</li>
+<li><p>框架服从Heyman正交，理论上是无偏估计;</p></li>
+<li><p>参数以 <span class="math notranslate nohighlight">\(\sqrt{N}\)</span> 速率收敛，简单高效，实用性强;</p></li>
+<li><p>无法捕捉到复杂的非线性 <span class="math notranslate nohighlight">\(\theta(X)^{\prime}\)</span> 。</p>
+<ul>
+<li><p>还是上面红包的例子，如果直接训练DML，相当于我们假设T和M之间是独立的，模型学不到两者的互补信息，比如有的用户喜欢间隔短一点但金额可以少一点的高频刺激，有的用户则相反。</p></li>
+<li><p>解决：</p>
+<ul>
+<li><p>连续变量——借助交叉升维得到多项式扩展（类似于FM的思路）：把<span class="math notranslate nohighlight">\(\{T_{1}, T_{2}\}\)</span>变成</p>
+<div class="math notranslate nohighlight">
+\[
+            \left\{T_{1}, T_{2}, T_{1} \cdot T_{2}, T_{1}^{2}, T_{2}^{2}, T_{1}^{2} \cdot T_{2}^{2}\right\} \in \mathbb{R}^{6}
+            \]</div>
+</li>
+<li><p>categorical——one-hot之后再用propensity score多分类预测</p></li>
+<li><p>多 T假设为相互独立, 最后建立回归模型拟合 <span class="math notranslate nohighlight">\(E(\mathrm{T|X})\)</span></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>案例：</p>
+<ul>
+<li><p>快手直播</p>
+  <center><img src="../images/CI_method_8.png" width="45%"/></center>
+<ul class="simple">
+<li><p>D：直播推荐多样性｜Y：用户活跃度｜X：用户画像（自身+看播表现）</p></li>
+<li><p>想看D对Y的影响(Y)的影响，但D和Y都被非常高维的X confound了</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="double-robust-dr">
+<h2>双稳健模型 (Double Robust, DR)<a class="headerlink" href="#double-robust-dr" title="Permalink to this headline">¶</a></h2>
+<p>(Double Robust, DR):  DML方法在针对categorical的treatment时的优化版本。此方法实际上利用了Inverse Propensity Score和Direct Method，以此修正前者产生的过大方差和后者导致的有偏估计。因此对两方法同时robust，故称Doubly Robust (DR)。</p>
+<p>好处：</p>
+<ul class="simple">
+<li><p>IPW需要样本权重主要围绕倾向的分为核心，倾向得分一旦预测不准，会导致上面的估计方法出现很大的偏差。双重稳健估计（doubly robust estimation）是这对这一问题提出的更为稳健的方法，该模型结合了针对结局的回归模型和针对处理的倾向性评分模型，从而得到一个具有双重稳健性的效应估计量，即——<strong>只要回归模型和倾向性评分模型中有一个正确（consistent），就能保证估计量的一致性和无偏。</strong></p></li>
+<li><p>熟练的会比</p></li>
+</ul>
+<div class="section" id="id11">
+<h3>基础<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>这个方法需要根据已有数据，再学习一个预测的模型，反事实评估某个个体在干预变量变化后，结果变量的期望值。 只要倾向指数的估计模型和反事实预测模型中有一个是对的，计算出的平均因果效应就是无偏的； 但如果两个模型估计都是错误的，那产生的误差可能会非常大。</p>
+<p>DR与DML类似，也有多个建模的中间步骤，</p>
+<ul class="simple">
+<li><p>相同点： 第一阶段也是使用ML模型估计倾向性得分和目标变量Y；第二阶段进行因果效应评估。</p></li>
+<li><p>不同点： 在于第一阶段估计目标变量Y时，同时使用X和Treatment作为特征。</p></li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h3>估计方式<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\hat{ATE} = \frac{1}{N}\sum \bigg( \dfrac{T_i(Y_i - \hat{\mu_1}(X_i))}{\hat{P}(X_i)} + \hat{\mu_1}(X_i) \bigg) - \frac{1}{N}\sum \bigg( \dfrac{(1-T_i)(Y_i - \hat{\mu_0}(X_i))}{1-\hat{P}(X_i)} + \hat{\mu_0}(X_i) \bigg)
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\hat{P}(x)\)</span>: 对有<span class="math notranslate nohighlight">\(x\)</span>这组数据被分到T=1的倾向性评分的估计(比如 用logisticssuan)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{\mu_1}(x)\)</span>: 对<span class="math notranslate nohighlight">\(E[Y|X, T=1]\)</span>的估计(比如，对T=1的直接Y和X线性回归然后取intercept）
+<span class="math notranslate nohighlight">\(\hat{\mu_0}(x)\)</span>: 对<span class="math notranslate nohighlight">\(E[Y|X, T=0]\)</span>的估计</p></li>
+</ul>
+<p>公式解读：</p>
+<ul class="simple">
+<li><p>first part of the doubly robust estimator estimates <span class="math notranslate nohighlight">\(E[Y_1]\)</span></p></li>
+<li><p>second part estimates <span class="math notranslate nohighlight">\(E[Y_0]\)</span>.</p></li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h3>代码<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/microsoft/EconML/blob/main/notebooks/Doubly%20Robust%20Learner%20and%20Interpretability.ipynb">https://github.com/microsoft/EconML/blob/main/notebooks/Doubly Robust Learner and Interpretability.ipynb</a></p>
+</div>
+</div>
+<div class="section" id="did">
+<h2>DID<a class="headerlink" href="#did" title="Permalink to this headline">¶</a></h2>
+<p>通过寻找两个表现差异基 本稳定一致的群体, 对其 中一组先不干预后干预, 观察组间差异值的前右变 化</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p></p></th>
+<th class="text-align:left head"><p>干预前</p></th>
+<th class="text-align:left head"><p>干预后</p></th>
+<th class="text-align:left head"><p>差异</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>干预组</p></td>
+<td class="text-align:left"><p>A1</p></td>
+<td class="text-align:left"><p>A2</p></td>
+<td class="text-align:left"><p>A2-A1</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>对照组</p></td>
+<td class="text-align:left"><p>B1</p></td>
+<td class="text-align:left"><p>B2</p></td>
+<td class="text-align:left"><p>B2-B1</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>实验前: 实验组与对照组满足平行趋势假设</p></li>
+<li><p>实验：在实验组中先不干预后干预, 观察试验组对照组的差异在实验前后的变化</p></li>
+<li><p>实验后计算收益: Gain=(A2-A1)-(B2-B1)</p></li>
+</ul>
+<div class="section" id="id14">
+<h3>假设<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>干预发生前的 Treatment和control两组符合平行趋势：对结果有干扰的效应随着时间不会变化</p>
+<div class="section" id="setup">
+<h4>模型setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h4>
+<p>是否有t的01变量+前后两个时间段的面板数据+不可观测的个体固定效应：</p>
+<div class="math notranslate nohighlight">
+\[Y_{i t}=a_{i}+\lambda_{\mathrm{t}}+D_{i t} \beta+\varepsilon_{i t}\]</div>
+<ul class="simple">
+<li><p>这里的<span class="math notranslate nohighlight">\(a\)</span>只跟<span class="math notranslate nohighlight">\(i\)</span>有关而跟<span class="math notranslate nohighlight">\(t\)</span>无关！</p></li>
+</ul>
+<p>可以借助差分来消除固定效应，从而得到
+$<span class="math notranslate nohighlight">\(\beta=\left(\bar{Y}_{\text {post }}^{\text {treat }}-\bar{Y}_{\text {pre }}^{\text {treat }}\right)-\left(\bar{Y}_{\text {post }}^{\text {control }}-\bar{Y}_{\text {pre }}^{\text {control }}\right)\)</span>$</p>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>问题<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>并不适用于所有实验,也就是要求t0到t1之间，两群人的活跃时长变化趋势是一样的</p>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>树方法<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p>异质性（Heterogeneity）：</p>
+<ul class="simple">
+<li><p>遗传学：一种遗传性状可以由多个不同的遗传物质改变所引起。</p></li>
+<li><p>一个变量X对另一个变量Y的影响可能因个体而异</p></li>
+<li><p>因果推断：由于存在未被观测到的异质性，即使在所有可以被观测到的方面都相同的人们仍然会做出不同的决策、获得不同的收入 、选择不同的投资组合缺。</p></li>
+</ul>
+<div class="section" id="id17">
+<h3>因果树<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>目的：了解策略对于不同用户的异质性影响，最后每群人可以得到一个Estimated的treatment effect，从而可以圈选出敏感用户群体并研究他们的特征；</p>
+<p>例子：比如研究改版后哪些用户群体用快手的时间更长了（如果一平均可能没多少！），从而可以针对性对敏感用户进行改版实验！</p>
+<ul>
+<li><center><img src="../images/CI_method_9.png" width="75%"/></center>
+</li>
+</ul>
+<div class="section" id="honest-tree-double-sampletrees">
+<h4>Honest Tree/Double-SampleTrees<a class="headerlink" href="#honest-tree-double-sampletrees" title="Permalink to this headline">¶</a></h4>
+<p>将训练样本分成两份</p>
+<ul class="simple">
+<li><p>训练集<span class="math notranslate nohighlight">\(\mathbf{S}^{t r}\)</span>：一份用来先训练普通 CART 树(特征为 <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>, 输出为 <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> )，把相似的个体放到一个叶节点</p></li>
+<li><p>估计集<span class="math notranslate nohighlight">\(\mathbf{S}^{est}\)</span>：另一份根据训练好的 CART 树直接评估 CATE, 评估式为
+$<span class="math notranslate nohighlight">\(
+      \hat{\tau}(x)=\frac{1}{\left|\left\{i: T_{i}=1, X_{i} \in L\right\}\right|} \sum_{\left\{i: T_{i}=1, X_{i} \in L\right\}} Y_{i}-\frac{1}{\left|\left\{i: T_{i}=0, X_{i} \in L\right\}\right|} \sum_{\left\{i: T_{i}=0, X_{i} \in L\right\}} Y_{i}
+      \)</span>$</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(L\)</span> 表示树的叶子节点。</p></li>
+</ul>
+</li>
+</ul>
+<p>具体算法：</p>
+<ul class="simple">
+<li><p>在每一个叶子结点上：对每一个特征排序：在各种分裂方式中找到</p></li>
+<li><p>在估计集中估计各个节点的因果效应和方差</p></li>
+</ul>
+<p>跟决策树的区别</p>
+<ul class="simple">
+<li><p>focus on estimating conditional average treatment effects rather than predicting outcomes. （原因是我们现在没有ITE）</p></li>
+<li><p>separation between constructing the partition and estimating effects within leaves of the partition, using separate samples for the two tasks, in what we refer to as honest estimation</p></li>
+</ul>
+</div>
+<div class="section" id="propensity-trees">
+<h4>Propensity Trees<a class="headerlink" href="#propensity-trees" title="Permalink to this headline">¶</a></h4>
+<p>直接训练普通 CART 树(特征为 <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>, 输出为 <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> ), 然后套用上式评估CATE。</p>
+<p>目标：从协变量中，找到一个最优分裂节点，最大化子节点间处理效应差异。</p>
+<p>因果树：使得每个组中都有实验组个体与对照组个体，因此每个分组都构成了一个人为构造的实验，可以直接计算出处理效应。</p>
+<ul class="simple">
+<li><p>在构造因果树的时候要保证组内的个体要尽可能相似，而不同组之间的处理效应的差异要尽可能大。最终，组内平均处理效应就是该组个体的处理效应的预测值。</p></li>
+<li><p>经典决策树和因果决策树的区别在于前者为结果变量，后者为处理效应（ATE或者CATE）。</p></li>
+</ul>
+<p>首先使用决策树进行分组，进而对于每一个叶子内部，将处理组平均减去对照组平均，就得到了处理效应。</p>
+</div>
+<div class="section" id="id18">
+<h4>具体实现<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>causalML的uplift tree和econml的causal tree/forest都能用于寻找对处理敏感的局部人群，但算法不同（都是基于决策树，但树的分裂规则不同）</p></li>
+<li><p>causalML的uplifttreeclassifier系列默认y是binary outcome，把evaluationFunction参数设为’CTS’即可用来处理continuous的y。也有causaltree</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id19">
+<h3>因果森林<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>Causal Trees + 随机森林 = Causal Random Forest</p>
+<ul class="simple">
+<li><p>使用森林的原因：因果推断无ground truth对比，衡量树模型的效果是很困难的事情。通常我们会担心overfitting、stability的问题，用forest比用单棵树能获得更好的稳定性。</p></li>
+</ul>
+</div>
+<div class="section" id="generalized-random-forest-grf">
+<h3>Generalized Random Forest(GRF)<a class="headerlink" href="#generalized-random-forest-grf" title="Permalink to this headline">¶</a></h3>
+<p>广义随机森林可以看作是对随机森林进行了推广：原来随机森林只能估计观测目标值 <span class="math notranslate nohighlight">\(Y\)</span>, 现在广 义随机森林可以估计任何感兴趣的指标 <span class="math notranslate nohighlight">\(\theta(\cdot)\)</span> 。</p>
+<ul>
+<li><p>异质性最大化分裂准则:</p>
+<p>给定样本 <span class="math notranslate nohighlight">\(J, P\)</span> 表示父节点, <span class="math notranslate nohighlight">\(C_{1}\)</span> 和 <span class="math notranslate nohighlight">\(C_{2}\)</span> 表示两个子节点, <span class="math notranslate nohighlight">\(N\)</span> 表示样本数, 异质性最大化准则为
+$<span class="math notranslate nohighlight">\(
+  \Delta\left(C_{1}, C_{2}\right):=\frac{n_{C_{1}} \cdot n_{C_{2}}}{n_{P}^{2}}\left(\hat{\theta}_{C_{1}}(\mathcal{J}) - \hat{\theta}_{C_{2}}(\mathcal{J})\right)^{2}
+  \)</span>$</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\frac{n_{C_{1}} \cdot n_{C_{2}}}{n_{P}^{2}}\)</span>: 哟昂来确保两个子节点的样本尽量均衡</p></li>
+<li><p>后者：MSE最小化目标函数来估计</p></li>
+</ul>
+</li>
+</ul>
+<p>确保两个子节点样本尽量均衡 由MSE最小化目标函数估计</p>
+</div>
+<div class="section" id="causal-forest-dml">
+<h3>Causal Forest DML<a class="headerlink" href="#causal-forest-dml" title="Permalink to this headline">¶</a></h3>
+<p>先对训练数据做DML双阶段估计先拟合 <span class="math notranslate nohighlight">\(E[Y \mid X], E[W \mid X]\)</span>, 得到残差</p>
+<p>再将残差项给到CF训练, 从而融合两者的优势。</p>
+<p>EconML已实现</p>
+<div class="section" id="orthogonal-random-forest-orf">
+<h4>Orthogonal Random Forest(ORF)<a class="headerlink" href="#orthogonal-random-forest-orf" title="Permalink to this headline">¶</a></h4>
+<p>可以看做GRF的正交化版本：</p>
+<ul class="simple">
+<li><p>继承了GRF的所有优点。</p></li>
+<li><p>将DML的思想融入了每一次节点分裂当中：每一次分裂都会有双阶段估计，可以学习到非常复杂的非线性θ(X)</p></li>
+</ul>
+<p>ORF特点:</p>
+<ol class="simple">
+<li><p>可以学习更复杂的非线性 <span class="math notranslate nohighlight">\(\theta(X)\)</span>;</p></li>
+<li><p>局部正交进一步保证了分裂的因果性;</p></li>
+<li><p>支持连续干预, 并对离散干预加入DR评估。</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="uplift">
+<h2>Uplift增益模型<a class="headerlink" href="#uplift" title="Permalink to this headline">¶</a></h2>
+<p>传统预测模型会预测<span class="math notranslate nohighlight">\(P(Y=1 \mid T=1)\)</span>(有激励下用户正向反馈的概率)，而Uplift评估T对Y=1的概率的增益，也就是<span class="math notranslate nohighlight">\(P(Y=1 \mid X, \boldsymbol{T})\)</span> - <span class="math notranslate nohighlight">\(P(Y=1 \mid X)\)</span></p>
+<ul class="simple">
+<li><p>因为ITE反事实，所以通常用CATE</p></li>
+</ul>
+<p>uplift模型跟response模型的区别：</p>
+<ul class="simple">
+<li><p>Response Model: <span class="math notranslate nohighlight">\(P(Y=1 \mid X)\)</span>, 用户购买概率</p></li>
+<li><p>Uplift Model: <span class="math notranslate nohighlight">\(P(Y=1 \mid X, T)\)</span>, 因为某种干预后用户购买概率，也就是T产生的的增量效果，它的理论基础就是因果推断。</p></li>
+</ul>
+<p>意义：营销场景中我们都希望每次的投入能达到最大的转化，即把活动福利用在真正需要的用户身上，即找到对于活动敏感的人群进行干预/激励。我们按照是否给干预和是否能带来正向反馈对人群进行分类：</p>
+<center><img src="../images/CI_method_1.png" width="75%"/></center>
+<center><img src="../images/CI_method_5.png" width="75%"/></center>
+<ul class="simple">
+<li><p>敏感人群：干预/给了激励后（不发券就不购买、发券才会购买的人群），效果向正向转变的人群；</p></li>
+<li><p>自然转化人群：即使不给激励（无论是否发券，都会购买），也是正向效果的人群；</p></li>
+<li><p>不敏感人群：给不给激励都不起效果的人群；</p></li>
+<li><p>反作用人群：对营销活动比较反感，不发券的时候会有购买行为，但发券后不购买，可能是干预反感人群。</p></li>
+</ul>
+<p>如果用单纯的单ML/DL模型按照预估的购买率来发券的话，其实不是最优的因为可能里面有自然转化人群，我们其实发到敏感人群上作用才比较大！</p>
+<div class="section" id="meta-learning">
+<h3>Meta-Learning方法<a class="headerlink" href="#meta-learning" title="Permalink to this headline">¶</a></h3>
+<p>Meta learning是间接估计：不直接对treatment effect进行建模，而是通过对response effect（target）进行建模，用T带来的target变化作为HTE的估计
+了解策略对于不同用户的异质性影响</p>
+<ul class="simple">
+<li><p>优点：可以直接用监督学习的方法直接建模而不需要重新构造模型, 而且实现起来比较快。</p></li>
+<li><p>缺点：因为是间接建模, 它的误差在一些场景下 比较大。</p></li>
+</ul>
+<center><img src="../images/CI_method_7.png" width="75%"/></center>
+<div class="section" id="s-learner">
+<h4>S-Learner<a class="headerlink" href="#s-learner" title="Permalink to this headline">¶</a></h4>
+<p>Single learner把用户是否受干预 (T) 作为特征一起加入到模型构建中:</p>
+<ul class="simple">
+<li><p>模型估计: <span class="math notranslate nohighlight">\(\hat{\mu}=M(Y \sim(X, T))\)</span></p>
+<ul>
+<li><p>输入：对于样本 有自己的X 加上T</p></li>
+<li><p>预测：对实验组用户（T=1）可以预测他们X相同但是T=0下的值，同样对于对照组也可以预测T=1，这样通过反事实</p></li>
+<li><p>对比真实的观测数据就可以得到 对于同样一个x T-1的结果和T=0的结果——CATE</p></li>
+</ul>
+</li>
+<li><p>把 <span class="math notranslate nohighlight">\(\mathrm{T}=1\)</span> 和 <span class="math notranslate nohighlight">\(\mathrm{T}=0\)</span> 分别代入预测, 差分计算增量: <span class="math notranslate nohighlight">\(\hat{\tau}(x)=\hat{\mu}(x, T=1)-\hat{\mu}(x, T=0)\)</span></p></li>
+</ul>
+<p>特点：这种建模方式在训练的时候相比T-learner用了更多的样本数据进行学习, 在面对多类型干预的情况下（如干预金额大小不一样）, 也可以直接进行建模。</p>
+</div>
+<div class="section" id="t-learner">
+<h4>T-Learner<a class="headerlink" href="#t-learner" title="Permalink to this headline">¶</a></h4>
+<p>Two-learner是基于两个样本群体（有干预群体和无干预群体）分别建立响应模型，对预测组的用户，分别使用两个模型进行预测，对预测结果进行差分，这个差分值就是干预的提升量（uplift score）：</p>
+<ul class="simple">
+<li><p>模型1–无干预样本建模:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\hat{\mu_{0}}=M_{1}\left(Y^{0} \sim X^{0}\right)
+\]</div>
+<ul class="simple">
+<li><p>模型2–有干预样本建模：
+$<span class="math notranslate nohighlight">\(
+\hat{\mu_{1}}=M_{2}\left(Y^{1} \sim X^{1}\right)
+\)</span>$</p></li>
+<li><p>预测, 差分计算增量: <span class="math notranslate nohighlight">\(\hat{\tau}(x)=\hat{\mu_{1}}(x)-\hat{\mu_{0}}(x)\)</span></p></li>
+</ul>
+<p>这种建模方式可以快速实现获取到用户因为干预带来的提升量，通过对干预的提升量（uplift score）进行从高到低排序来决定是否对用户进行干预。相比于S learner的优势在于，我们能够引入不同的学习器来针对不同的潜在结果进行评估，从而有可能能得到更好的估计。</p>
+<p>Intuition：用户受干预和不受干预时，目标变量的取值范围很可能是不一样的（数值的分布也不一样）。</p>
+<p>特点：可能bias在两边方向不同，算CATE相减的时候都贡献了bias（S-Learner因为方向一样所以不会有这个问题）</p>
+</div>
+<div class="section" id="x-learner">
+<h4>X-Learner<a class="headerlink" href="#x-learner" title="Permalink to this headline">¶</a></h4>
+<p>四个学习器，解决bias的问题。</p>
+<p>基于T-learner构建的双模型上，预测用户的反事实推断——</p>
+<ul class="simple">
+<li><p>T-learner:</p>
+<ul>
+<li><p>用T=0模型预测T=1群体在T=0时的结果</p></li>
+<li><p>用T=1模型预测T=0群体在T=1时的结果</p></li>
+</ul>
+</li>
+<li><p>计算 delta = T learner结果 - 真实结果得到提升值、</p></li>
+<li><p>把delta提升值作为因变量重新构建双模型</p></li>
+<li><p>最后引入PSM加权得到最后的提升评估结果。</p></li>
+</ul>
+<p>具体过程：</p>
+<center><img src="../images/CI_method_2.png" width="75%"/></center>
+<ul>
+<li><p>Step1: 构建T-learner双模型对outcome建模</p>
+<p>可以是传统的机器学习模型如svm，lr，xgboost等，也可以是神经网络</p>
+<ul class="simple">
+<li><p>模型1——无干预样本建模: <span class="math notranslate nohighlight">\(\hat{\mu_{0}}=M_{1}\left(Y^{0} \sim X^{0}\right)\)</span></p></li>
+<li><p>模型2——有干预样本建模: <span class="math notranslate nohighlight">\(\hat{\mu_{1}}=M_{2}\left(Y^{1} \sim X^{1}\right)\)</span></p></li>
+</ul>
+</li>
+<li><p>Step2: 预测用户的反事实推断，并差分计算提升值也就是pseudo-effects:</p>
+<ul class="simple">
+<li><p>实际无干预用户: <span class="math notranslate nohighlight">\(\hat{D^{0}}=\hat{\mu_{1}}\left(X^{0}\right)-Y^{0}\)</span></p></li>
+<li><p>实际有干预用户: <span class="math notranslate nohighlight">\(\hat{D^{1}}=Y^{1}-\hat{\mu_{0}}\left(X^{1}\right)\)</span></p></li>
+</ul>
+</li>
+<li><p>Step3: 把<strong>提升值</strong>(pseudo-effects)作为模型的新label, 重新建模:</p>
+<ul class="simple">
+<li><p>模型3——无干预样本建模: <span class="math notranslate nohighlight">\(\hat{\tau_{0}}=M_{3}\left(\hat{D^{0}} \sim X^{0}\right)\)</span></p></li>
+<li><p>模型4——有干预样本建模: <span class="math notranslate nohighlight">\(\hat{\tau_{1}}=M_{4}\left(\hat{D^{1}} \sim X^{1}\right)\)</span></p></li>
+</ul>
+</li>
+<li><p>Step4: PSM加权得到最终的uplift: <span class="math notranslate nohighlight">\(\hat{\tau}(x)=p(x) \hat{\tau_{0}}(x)+(1-p(x)) \hat{\tau_{1}}(x)\)</span></p></li>
+</ul>
+<p>注意点</p>
+<ul class="simple">
+<li><p>额外引入propensity score，会引入新的误差</p></li>
+</ul>
+</div>
+<div class="section" id="r-learner">
+<h4>R-Learner<a class="headerlink" href="#r-learner" title="Permalink to this headline">¶</a></h4>
+<p>R Learner 借用正交的概念来消除选择性偏差(之前怎么选择30%和70%的划分方式会影响模型的)</p>
+<ul class="simple">
+<li><p>两段式建模</p>
+<ul>
+<li><p>Cross-validation [一般5-10Tfolders] 得到目标效应的预估 <span class="math notranslate nohighlight">\(\hat{m}(x)\)</span> 和样本倾向分 <span class="math notranslate nohighlight">\(\hat{e}(x)\)</span></p></li>
+<li><p>相比于优化 <span class="math notranslate nohighlight">\(T=1\)</span> 和 <span class="math notranslate nohighlight">\(T=\)</span> 情况的残差，这边提出一个R loss的function:
+$<span class="math notranslate nohighlight">\(
+  \hat{L}_{n}(\tau(x))=\frac{1}{n} \sum_{i=1}^{n}\left(\left(Y_{i}-\hat{m}^{(-i)}\left(X_{i}\right)\right)-\left(W_{i}-\hat{e}^{(-i)}\left(X_{i}\right)\right) \tau\left(X_{i}\right)\right)^{2}
+  \)</span>$</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\widehat{m}^{(-i)}\left(X_{i}\right)\)</span> 是除ith样本外得到的预估值, <span class="math notranslate nohighlight">\(Y_{i}\)</span> 是真实值; <span class="math notranslate nohighlight">\(W_{i}\)</span>:观测数据中的Treatment真实值</p></li>
+<li><p>前面是机器学习常规的二项残差，后面带有一个惩罚项 [类似正则], <span class="math notranslate nohighlight">\(\tau\left(X_{i}\right)=Y\left(W=1 \mid X_{i}\right)-Y(W=\)</span> <span class="math notranslate nohighlight">\(\left.0 \mid X_{i}\right)\)</span> 为样本 <span class="math notranslate nohighlight">\(X_{i}\)</span> 的预估 CATE</p>
+<ul>
+<li><p>会把受干预影响大的ITE预测得更准，牺牲不太敏感的</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>这Loss里面包吕了目标效应与CATE残差，属于间接评估CATE</p>
+<ul>
+<li><p>Meta learner的方法均为间接评估 CATE</p></li>
+<li><p>直接预估目标效应即 <span class="math notranslate nohighlight">\(Y[T=1 \mid X]\)</span> 和 <span class="math notranslate nohighlight">\(Y[T=0 \mid X]\)</span> ，再计算 <span class="math notranslate nohighlight">\(CAT E ; CATE\)</span> 评估误差理论上大于模型误差</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="uplift-tree">
+<h3>增益决策树Uplift-Tree<a class="headerlink" href="#uplift-tree" title="Permalink to this headline">¶</a></h3>
+<p>传统机器学习中，决策树等树方法基于信息增益(information gain)等进行分裂构建树结构，其本质是希望通过特征分裂后下游正负样本的<strong>分布更加悬殊</strong>，即代表<strong>类别纯度变得更高</strong>。这种思想也可以用来给uplift model。</p>
+<div class="section" id="id20">
+<h4>跟决策树的区别：<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p>对于训练过程</p>
+<ul>
+<li><p>决策树模型是通过不断筛选特征进行结点分裂，从而提升结点内样本label的纯度。不同的模型用到了不同的指标作为分裂规则，比如id3用信息增益，cart用基尼指数。这些指标其实都是在衡量分裂后结点内<em>label纯度</em>的变化。</p>
+<p>普通决策树：最大化信息增益
+$<span class="math notranslate nohighlight">\(
+\Delta_{\text {gain }}=-\sum_{i=1}^{J} p_{i} \log _{2} p_{i}-\sum_{i=1}^{J} \operatorname{Pr}(i \mid a) \log _{2} \operatorname{Pr}(i \mid a)
+\)</span>$</p>
+</li>
+<li><p>uplift tree的结点分裂目标不同，是为了最大化节点内treatment组和control组之间label的分布差异，差异越大说明对于有对应特征的群体，干预的因果效应越强。</p></li>
+</ul>
+<p>增益决策树：最大化 <span class="math notranslate nohighlight">\(T=1\)</span> 与 <span class="math notranslate nohighlight">\(T=0\)</span> 的分布差异(散度)<span class="math notranslate nohighlight">\(D\)</span>:
+$<span class="math notranslate nohighlight">\(
+  \Delta_{\text {gain }}=D_{\text {after-split }}\left(P^{T}, P^{C}\right)-D_{\text {before-split }}\left(P^{T}, P^{C}\right)
+  \)</span>$</p>
+<p>常见的分布散度有KL 散度 (Kullback-Leibler divergence)、欧式距离 (Squared Euclidean distance) 和卡方散度(Chi-squared divergence)</p>
+<ul class="simple">
+<li><p>Kullback - Leiblerdivergence : <span class="math notranslate nohighlight">\(K L\left(P^{T}(Y): P^{C}(Y)\right)=\sum_{y} P^{T}(y) \log \frac{P^{T}(y)}{P^{C}(y)}\)</span></p></li>
+<li><p>SquaredEuclideandistance <span class="math notranslate nohighlight">\(: E\left(P^{T}(Y): P^{C}(Y)\right)=\sum_{y}\left(P^{T}(y)-P^{C}(y)\right)^{2}\)</span></p></li>
+<li><p>Chi - squareddivergence <span class="math notranslate nohighlight">\(: \chi^{2}\left(P^{T}(Y): P^{C}(Y)\right)=\sum_{y} \frac{\left(P^{T}(y)-P^{C}(y)\right)^{2}}{P^{C}(y)}\)</span></p></li>
+</ul>
+</li>
+<li><p>对于预测过程</p>
+<ul class="simple">
+<li><p>传统决策树模型的输出，针对分类问题是叶子节点样本最多的分类，对于回归问题是叶子节点的样本均值。</p></li>
+<li><p>uplift tree模型输出是叶子节点中样本的条件平均因果效应，treatment组的样本均值减去control组的样本均值。
+跟随机森林的联系：</p></li>
+</ul>
+</li>
+<li><p>uplift tree模型是基于单棵树构建的方法，类比random forest，对uplift tree同样采用bagging的思想得到的就是causal forest模型[4]。
+、</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id21">
+<h3>评估<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<p>Uplift score</p>
+<p>定性 [偏主观]</p>
+<ul>
+<li><p>deciles graph</p>
+<ul>
+<li><p>单调：预估uplift越大，真实值越大</p></li>
+<li><p>紧密：close to 0]</p></li>
+<li><p>区分度 ：对哪个群体显著有效 能明确找到</p>
+<p>curve方法便于多种Treatment可视化对比;</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>定量</p>
+<ul>
+<li><p>AUUC：AUUC的全称是Area Under the Uplift Curve，和AUC一样也是一个面积，不过是基于Uplift Curve积分的</p>
+  <center><img src="../images/CI_method_3.png" width="75%"/></center>
+<ul class="simple">
+<li><p>uplift最大的k个样本里面，Treatment组中T=1的个数 比control组中T=1的个数的差值</p></li>
+<li><p><span class="math notranslate nohighlight">\(G(i)=\left(\frac{n_{t, y=1}(i)}{n_{t}(i)}-\frac{n_{c, y=1}(i)}{n_{c}(i)}\right)\left(n_{t}(i)+n_{c}(i)\right), \quad i=10 \%, 20 \%, \ldots, 100 \%\)</span></p>
+<ul>
+<li><p>可以看出，AUUC 指标计算方法可以避免实验组和对照组用户数量差别较大导致的指标不可靠问题。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Qini curve：qini curve与uplift curve很近似，横轴代表的意思与uplift相同，纵轴是uplift的累积值</p>
+<ul>
+<li><p>计算步骤：</p>
+<p>(1) 在测试集上，将实验组和对照组分别按照模型预测出的增量由高到底排序，根据用户数量占实验组和对照组用户数量的比例，将实验组和对照组分别划分为十份，分别是 Top10%, 20%, … , 100%。</p>
+<p>(2) 计算Top10%,20%,…,100%的Qini系数，生成Qini曲线数据(Top10%,Q(Top10%)), (…,…), (Top100%, Q(Top100%))</p>
+<div class="math notranslate nohighlight">
+\[Q(i)=\frac{n_{t, y=1}(i)}{N_{t}}-\frac{n_{c, y=1}(i)}{N_{c}}, \quad i=10 \%, 20 \%, \ldots, 100 \%\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N_{t}\)</span> 和 <span class="math notranslate nohighlight">\(N_{c}\)</span> 表示实验组和对照组的总样本量。</p></li>
+<li><p>当 <span class="math notranslate nohighlight">\(\mathrm{i}\)</span> 取 <span class="math notranslate nohighlight">\(10 \%, n_{t, y=1}(i)\)</span> 表示实验组前 <span class="math notranslate nohighlight">\(10 \%\)</span> 用户中下单的用户数量, <span class="math notranslate nohighlight">\(n_{c, y=1}(i)\)</span> 表示对照组前 <span class="math notranslate nohighlight">\(10 \%\)</span> 的用户中下单的用户数量。</p></li>
+</ul>
+</li>
+<li><p>案例：</p>
+  <center><img src="../images/CI_method_4.png" width="75%"/></center>
+<ul class="simple">
+<li><p>Two-model最好：</p>
+<ul>
+<li><p>先把那些愿意受影响的用户或对象（sure things）满足，不断提升uplift到最高点；</p></li>
+<li><p>接着是那些不论我们怎么做都不受影响的那批用户（lost causes和sleeping dogs），他们对uplift的累积几乎无贡献，震荡在一个区间里；</p></li>
+<li><p>最后则是persuadables，他们不给策略依然会对目标有正向影响，从模型的角度而言反而是干扰项，故而会降低uplift至0。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>存在的问题：
+Qini 系数分母是实验组和对照组的总样本量，如果实验组和对照组用户数量差别比较大，结果将变得不可靠。</p></li>
+</ul>
+</li>
+<li><p>Sensitivity Analysis：</p>
+<p>除了可视化的方法也可以看一些数值来进行敏感性分析，看检验因果假设是否成立</p>
+<ul class="simple">
+<li><p>增加与变量独立的新变量：理论上对结果不造成影响；</p></li>
+<li><p>替换treatment变量为随机独立变量：理论上结果应该变为0；</p></li>
+<li><p>替换结果变量为随机独立变量：理论上结果应该变为0；</p></li>
+<li><p>增加一个confounder：理论上结果不应该变化很大；</p></li>
+<li><p>替换评估样本为原population通过Boostrap生成的新样本：理论上结果不造成影响</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id22">
+<h3>分发策略<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id23">
+<h4>贪心分配<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h4>
+<p>滴滴的例子：</p>
+<ul>
+<li><p>按照券值面额从低到高，为每个券类别计算可支配数量</p></li>
+<li><p>对用户池所有用户按照预估出的Uplift值和计算出的可发放数量倒排截断，并将分配完毕的用户从备选用户池中移除。</p>
+<p>这样一个用户如果在各种券类别下uplift都很高时，我们将会优先为他/她配置券值较低的补贴券。这样做法的好处是简洁明了实现简单，在人工干预较强的时候对于运营的可解释性也比较强。缺点当然就是在自由度更高情况下，显然不能达到全局最优。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id24">
+<h4>整数规划<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="section" id="id25">
+<h2>合成控制法<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
+<p>Synthetic control methods (SCM)为一个整体（地区、国家）构造虚拟对照组，比如模拟一个没有施加策略情况下模拟的大盘GMV，来做DID</p>
+<ul class="simple">
+<li><p>场景：当某个treatment施加在某一类群体(地区)上,虽然找不到单一的最佳对照组,但是可以构造一个虚拟的对照组</p></li>
+<li><p>注意点：但是我们的模拟要在策略之前跟真实数据基本吻合</p></li>
+</ul>
+<p>方法：通过在treat前的数据上学习的权重，来拟合一条合成的控制组去模拟实验组用户在没有被treated的情况下的结果</p>
+</div>
+<div class="section" id="id26">
+<h2>工具变量<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h2>
+<p>工具变量法（instrumental variable）是一种经典的、理论比较完备的因果推断方法。工具变量是“一个不属于原解释方程并且与内生解释变量相关的变量”，即一个随机的、与结果相关的变量，其对结果的影响必然是通过干预变量。尽管干预变量对结果变量的影响可能受到混淆因素的影响，但我们可以通过观察工具变量对结果的影响来推断因果效应。在互联网行业的实际应用中似乎比较少见到这种方法，因为工具变量的选取颇有难度，但可以举出一例：TripAdvisor想知道“成为会员能否提升用户活跃”，他们使用了一个实验的数据，该实验随机地把用户分为实验组和控制组，使他们看到两种不同设计的登录页面，实验组的登录页面是鼓励加入会员的。这一随机分组即成为工具变量，因为它对结果（用户活跃）的影响必然是通过成为会员（干预）进行的。尽管用户是否成为会员和活跃度共同受到混淆因素的影响，但实验的随机分组不受，故而可以通过观察随机分组对结果的影响得出因果推断。具体可参见下表中的工具变量法的案例。</p>
+<p>这种方法理论完备、久经考验，在计量经济学领域常用，可以参考。其难点则在于工具变量的选取和定义，可能对收的数据也有要求，如何在观察数据中找到合适的工具变量是有挑战的。</p>
+<p>反事实的因果推断 四个IV条件。(1) 相关性：遗传工具和暴露之间有很强的相关性(2) 独立性：工具和暴露-结果混杂物之间没有关联(3) 排除限制：工具只通过暴露影响结果(4) 单调性假设：增加个体的效应等位基因的数量只能增加暴露水平，而不能减少它</p>
+</div>
+<div class="section" id="causal-graph-learning">
+<h2>Causal Graph Learning<a class="headerlink" href="#causal-graph-learning" title="Permalink to this headline">¶</a></h2>
+<p>Rubin流派的方法通常用于估计变量之间一度相关的影响,因果图可以帮助我们识别影响关心指标的用户行为链路,处理多变量的复杂因果关系，找到有效的过程指标。</p>
+<ul class="simple">
+<li><p>难点：生成因果图的难点在于优化目标函数时,需要遍历所有可能存在的因果图。这是一个典型的NP-hard 问题</p></li>
+</ul>
+<div class="section" id="id27">
+<h3>假设<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>causal markov 该假设意味任何节点的条件分布仅 基于其直接父节点。</p></li>
+<li><p>causal sufficiency 该假设等同于unconfoundness。</p></li>
+<li><p>causal faithfulness 该假设意味基于一些条件概率分 布, 一些节点之间是独立的(因此图可以被切割)。</p></li>
+</ul>
+</div>
+<div class="section" id="id28">
+<h3>算法<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<p>Causal Graph Learning算法大致被分为两类:</p>
+<ul class="simple">
+<li><p>Constraint-based Algorithms (CB Algorithms)：基于条件分布独立检验学习出所有满足faithfulness和causal markov假设的因果图，即检验两个节点之间的条件分布 是否独立。</p></li>
+<li><p>Score-based Algorithms (SB Algorithms)：通过最优化定 义的某种score寻找和数据最匹配的图结构。需要定义 structural equations和score functions。</p>
+<ul>
+<li><p>(Fast) Greedy Equivalent Search (FGES)</p></li>
+<li><p>Min-Max Hill-Climbing (MMHC)</p></li>
+<li><p>Min-Max Parents and Children (MMPC)</p></li>
+<li><p>Causal Generative Neural Network (CGNN)</p></li>
+<li><p>Non-combinatorial Optimization via Trace Exponential and Augmented Lagrangian for Structure learning (NOTEARS)</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Causal_Inference"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="1_AB_testing.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">AB Test</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../DL/Basics/README.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">基础</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jace Yang<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

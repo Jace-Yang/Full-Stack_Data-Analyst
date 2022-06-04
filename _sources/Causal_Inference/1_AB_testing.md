@@ -15,19 +15,15 @@
 - 横向：用户访谈、问卷调查、焦点组也是evaluate方案的方法，AB实验会给broad quantitive data，上面的会给你deep qualitative data，也可以形成组合拳！
 - 同类：AB实验是实验设计方案中最简单的一种。采用了完全随机实验 让实验组和对照组同质化
 
-     <center><img src="../images/CI_abtest_3.png" width="75%"/></center>
+:::{note}
+问：AB测试成本很高，每个调整都需要AB测试么？
+> 面试官问到每一个关于我们现在想要上线一个小改动，或者说要上线一个小调整，你会如何去验证这个调整的收益？你都用AB测试去进行回答的话，他可能会反问，AB测试是需要成本的，你不觉得每一次我们如果都需要通过一个AB测试去验证的话，成本过高吗？
 
-     除了AB之外，还有很多别的——比如面对不满足SUTVA 有溢出效应、网络效应之后，需要switchback
+- 不一定，比如——如果只是验证一个小按钮或者一个小改动，我们可以在界面上去设置一个开关，用户可以通过开关的形式自行决定我采用哪一种方式。那么我们最后就可以通过这个开关的相关指标去判断用户对于哪一种形式又有更大的倾向性。
 
+- 或者有的时候我们可以去做一些用户调研，比如说通过访谈或者说是设计问卷的形式，去收集一些用户的反馈。或者他们关于这些小变动的体验，所以并不是绝对的。
+:::
 
-- 问：AB测试成本很高，每个调整都需要AB测试么？
-
-    > 面试官问到每一个关于我们现在想要上线一个小改动，或者说要上线一个小调整，你会如何去验证这个调整的收益？你都用AB测试去进行回答的话，他可能会反问，AB测试是需要成本的，你不觉得每一次我们如果都需要通过一个AB测试去验证的话，成本过高吗？
-    
-    - 不一定，比如——如果只是验证一个小按钮或者一个小改动，我们可以在界面上去设置一个开关，用户可以通过开关的形式自行决定我采用哪一种方式。那么我们最后就可以通过这个开关的相关指标去判断用户对于哪一种形式又有更大的倾向性。
-    
-    - 或者有的时候我们可以去做一些用户调研，比如说通过访谈或者说是设计问卷的形式，去收集一些用户的反馈。或者他们关于这些小变动的体验，所以并不是绝对的。
-    
 
 场景：
 
@@ -123,7 +119,7 @@ AB实验需要利用控制变量法的原理, 确保A、B两个方案中只有�
 
     - 分流分层模型：在此模型中增加组、层，并且可以互相嵌套。这要与实际的业务相匹配，拆分过多的结构可能会把简单的业务复杂化，拆分过少的结构又可能不满足实际业务。
 
-        <center><img src="../images/CI_abtest_7.png" width="75%"/></center>
+        <center><img src="../images/CI_abtest_7.png" width="45%"/></center>
 
 - B端实验
 
@@ -257,7 +253,66 @@ AB实验需要利用控制变量法的原理, 确保A、B两个方案中只有�
     以上的例子：
 
     <center><img src="../images/CI_abtest_6.png" width="65%"/></center>
+    
+- 代码
+
+    基于[delta method](https://toutiao.io/posts/q660w08/preview)
+        $$\sqrt{n}\left(g\left(Y_{n}\right)-g(\theta)\right) \stackrel{d}{\rightarrow} N\left(0, \sigma^{2} g^{\prime}(\theta)^{2}\right)$$
+    ```python
+    import numpy as np
+    import math
+    from sklearn.linear_model import MultiTaskLasso, Lasso
+    import pandas as pd
+    import scipy.stats
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.preprocessing import MinMaxScaler
+    import numpy as np
+    
+    
+    from  scipy.stats import chi2_contingency
+    def chi_test(x,y,x_target,y_target):
+        #卡方检验 组分分布是否平
+        kf_data = np.array([[x,x_target], [y,y_target]])
+        kf = chi2_contingency(kf_data)
+        print('chi-sq=%.4f, p-value=%.4f, df=%i expected_frep=%s'%kf)
+    
+    chi_test(31188,31188,3461,3423)
+    
+    
+    #deltaMethod 专用于变量y与变量x的商的case
+    def var_dtm(y_mean, x_mean, var_y, var_x, xy_mean):
         
+        #计算协方差
+        def cova(x_mean,y_mean,xy_mean):
+            return xy_mean-x_mean*y_mean
+        covar = cova(x_mean,y_mean,xy_mean)
+        
+        #商的variacne
+        var_ratio = var_y/x_mean**2 + var_x*y_mean**2/x_mean**4 - 2*covar*y_mean/x_mean**3
+        return var_ratio
+    
+    
+    #发布器头图的 曝光数 > 发布数 为例
+    var = var_dtm(y_mean = 0.035214194, x_mean = 2.794877088302219
+                    ,var_y = 0.073726526, var_x = 185.240175
+                        , xy_mean = 0.410843231521)
+    
+    
+    #实际的方差 有可能比二项分布折算方差会大很多
+    print('二项方差：',round(0.012599/(1-0.012599),4))
+    print('实际方差：',round(var,4))
+    
+    def sample_size(mean = 0.01259955,var = 0.0122,lift_rate = 0.025,alpha = 0.05,beta = 0.2):
+        import math
+        
+        lift = lift_rate * mean
+        num = var*(scipy.stats.norm.ppf(1-alpha)+scipy.stats.norm.ppf(1-beta))**2/(lift**2)
+        return math.ceil(num)
+    
+    print('采用二项方差的样本量估计：', sample_size(var = 0.0128))
+    print('采用deltaMethod的样本量估计：',sample_size())
+    ```
 - 补充：为什么计算的是最小样本量？
 
     理论上样本量还是越大越好。实际上，样本量越少越好，这是因为
@@ -379,7 +434,13 @@ A:
 
 在新进行实验版本变更的短期内会有两种效应，但不会一直持续：
 - Primacy effect: People are reluctant to change
+
+    实验的指标可能会表现出正向的增长，到那时当用户好奇心消退之后，又会回到之前一般的水平。 
+    - 举例：当某一天我们打开微信，发现微信的导航栏多了一个图标，我们肯定会非常好奇地去点开它看看是什么功能。打开发现它其实就是原来的朋友圈而已，那第二天第三天可能就慢慢习惯了这个新的东西，回到原先的使用习惯。
+
 - 新奇效应Novelty effect: People welcome the changes and use more——用户因为新鲜感而表现出不可持续的行为
+
+    老用户对改变可能不习惯甚至反感，有一定上手成本，这个时候需要可能会带来短期负面的影响
 
 这两个效应会导致不同的initial effect
 
@@ -393,26 +454,40 @@ A: Novelty effect⇒Repeat usage declined when effect wears off
 
 解决方案：
 
-- Run tests only on first time users: 这样不会被Novelty和Primacy影响
+实践中，面对可能出现的学习效应，有什么应对方法呢：
+
+- 采用入组多天的数据，表征实验组的指标随着时间的变化情况，表征实验指标是否收敛。
+    如果指标有一定的周周期性，实验周期包含周末，观察工作日和周末的不同表现。
+    - 但是在实验中，每天都去计算实验是否显著、比较两组指标大小是没有意义的，还会导致多重检验问题，只有达到最小样本量以及学习效应消退才能分析实验结果。
+
+- Run tests only on first time users: 采用全新用户开展实验，全新用户就没有使用惯性的问题不会被Novelty和Primacy影响。
 
 - 如果已经有在跑的实验，想看这些effect的影响的话，要等实验结果稳健之后再下结论
 
 ### INTERFERENCE BETWEEN VARIANTS
 
-SUTVA是Stable unit treatment value assumption，表示randomization units are independent and no interaction between them！但用户之间很可能相互影响
+SUTVA是Stable unit treatment value assumption，表示randomization units are independent and no interaction between them！但社交属性⇒用户之间很可能相互影响⇒每个用户的行为并非完全独立
+
 
 问题出现的场景
 - Network effect: 控制组的用户会被实验组的用户影响
-    - User behaviors are impacted by others
-    - The effect can spillover the control group
 
-    - 例子：比如我们对司机激励策略 由于司机会群里讨论所以会感觉自己受到不公平的待遇！
+    User behaviors are impacted by others. The effect can spillover the control group
+
+    - 例1：比如我们对司机激励策略 由于司机会群里讨论所以会感觉自己受到不公平的待遇！
+
+    - 例2: 假设好友被分到了实验组，我被分到了对照组。曝光给好友的内容更加的有吸引力，他作出了点赞、评论等互动行为。而产品的社交属性，使我可以看到好友的互动行为，原本不会被曝光给我的内容，我通过好友的互动间接接收到了。也提高了我去互动的概率，提高了活跃程度。这样就发生了实验组想对照组溢出的问题，独立的假设受到了破坏。
 
 - Two-sided markets: 实验组和控制组会竞争一样的资源
 
-    - Resources are shared among control and treatment groups！
-    - Eg. treatment group attracts more drivers：比如当领券的用户需求增加，会获得更多的司机资源，从而让没领券的对照组可用的司机资源减少了！
+    Resources are shared among control and treatment groups！
+    - Eg. treatment group attracts more drivers
+        - 比如当领券的用户需求增加，会获得更多的司机资源，从而让没领券的对照组可用的司机资源减少了！
+        - 如果在一个地理区域中划分实验组对照组，验证一个乘客端的优化。如果实验组的优化带来了需求的提升，那就会有更多的司机接到了来自实验组的订单。短时间内司机的数量是固定的，分配给实验组的司机多了，自然对照组司机就少了。导致实验组结果高估，且破坏了独立假设。
     - 解决方案：predict where the interference will happen，然后isolate control and treatment units
+        - 地理分离: 从地理上区隔用户，这种情况适合打车平台这样能从地理上区隔的，比如北京是实验组，上海是对照组，只要两个城市样本量相近即可。
+        - 用户聚类: 按用户的关联度将用户聚成簇（Cluster），保证簇内用户的关联强，而簇间的关联弱，那么簇与簇之间是近似独立的。
+            - 假如一个用户被划分到对照组，那么大部分与他直接联系的用户也应该被分到对照组中。
         
 
 解决方案：防止用户互相影响的方案——Isolate Users
@@ -440,6 +515,11 @@ SUTVA是Stable unit treatment value assumption，表示randomization units are i
     - One-out network effect: user either has the feature or not
     - It's simpler and more scalable
         
+
+核心要点：
+
+- 系统控制干预，降低对照组用户（没上策略的用户）接触到待评估功能的几率
+
 ### 外部环境带来偶然因素
 
 比如打车的时候有下雨，电商有大促，就会带来随机性
@@ -503,10 +583,22 @@ Stop collecting data when the test comes out significant：错误的！我们要
 
 ## AA实验
 
+### 作用
+AA实验主要有以下几个作用：
+- AA实验能够验证实验所在层的分流均匀和正交性，保证分流同质。
+- 观测指标是否存在指标生产异常，如实验曝光上报异常、异常用户影响等
+评估指标波动范围
+- 防止上一个AB实验释放的流量带来的惯性的影响（carry over）
+
+
 ### 起因
+
 做AB实验的时候，有时尽管我们发现AB两组出现了明显差异，但我们依旧无法确认这种差异是实验条件不同带来的，还是AB两组用户本身的差异带来的。有时候，即便采用特别均匀的哈希打散算法，同时扩大样本量，也依然会出现AB两组用户在空跑期（AB两组用户实验条件一致），差异显著的情况。
 
 因此，为了规避这个问题。很多企业采用了AA测试（空跑期）方法——正式开启实验之前，先进行一段时间的空跑，对AB两组用户采用同样的实验条件，一段时间后，再看两组之间的差异。
+
+<center><img src="../images/CI_abtest_10.png" width="75%"/></center>
+
 - 如果差异显著，数据弃之不用，重新选组。
 - 如果差异不显著，记录两组之间的均值差，然后在实验期（AB两组实验条件不同）结束时，用实验期的组间差异，减去空跑期的组间差异，得到一个净增长率。
 
@@ -515,6 +607,7 @@ Stop collecting data when the test comes out significant：错误的！我们要
 还有些企业，会直接开三组流量，对照组、实验组、AA对照组。通过对比对照组和AA对照组，来判断实验组的固有差异。但这种方式更加不能确定对照组和实验组之间的固有差异，是更加不靠谱的方式。
 
 那么，如果AA测试没有用，那我们该如何规避组间固有差异带来的问题呢？
+
 
 ### 更好的方式：AA波动比率
 
@@ -537,11 +630,7 @@ Stop collecting data when the test comes out significant：错误的！我们要
 - 分析数据结果的时候，考虑AB之间的差异，要大于AA差异
 
 
-
-## 补充
-
-### 应用Trick
-
+## AB test的应用Trick
 - 多次验证的结果更solid
 
 - **A/B测试与用户调研相结合，可更客观合理地判断实验效果**：AB测试只是一个工具而已，是测不出用户需求的，同理心才是重要的基础。
@@ -564,6 +653,70 @@ Stop collecting data when the test comes out significant：错误的！我们要
 
     如果一个人有多个账号，分别做不同用途，abtest的时候怎么分组才最合理呢？：我们对这类人的分类是，看的不是他是谁，而是他做了什么。按照我们对行业的分类，行为不同的话就是两类人，和身份证是不是同一个无关。我们要聚合的是有相同行为特征的账户，而不是人。
 
+## AB test的局限性
+
+- 用户角度：一部分用户无法使用某类功能而另一类用户则可以，可能会引发舆情问题；
+- 开发角度：同时维护多套代码也有一定成本。这就导致我们无法直接使用AB实验
+- 成本高：需要足量随机流量使结果具备统计意义，会耗费流量；需要持续一段时间以收集数据，耗费时间；当可做A/B Test的选择太多时，往往难以全部尝试。
+- 不可行：比如探究社交压力对用户发表朋友圈的意愿有什么影响，不可能在用户朋友圈伪造或隐藏点赞和评论。
+
+在这种情况下，有时候我们可以使用用户细分：
+- 我们首先细分、细分再细分用户，接着对每一个细分后的用户群进行分析，以期望得到更加靠谱的结果。
+
+    - 比如信息流推荐中可以将用户按照他们的历史活跃程度进行细拆，看看那些强相关的指标是否依然保持强相关。
+
+    然而，细分用户这种做法其实是治标不治本的：
+    - 如果细分得不够细，我们依然无法得到可靠的结论；
+    - 如果细分得太细，细分后的用户可能寥寥无几导致结果不具备统计意义。
+
+在无法满足AB实验的条件下，可以使用手边已有的历史数据进行推断和决策就变得很重要，这个时候可以用因果推断或者称为观察性研究来解决！
+
+## 其他实验思路
+### 双边实验
+
+在双边市场里让实验组和对照组都分AB，同时检测两端的效果。
+举例：快手中是否在主播直播页面上加一个跳转的功能
+<center><img src="../images/CI_abtest_1.png" width="45%"/></center>
+
+- 检测组间转移溢出和干扰
+    - 消费端向主播端溢出：挂件可能导致实验组的观众在实验组 vs. 控制组的主播之间转移直播消费
+    - 主播端向消费端溢出：实验组主播可能更加卖力直播，同时影响both实验组和控制组观众
+- 帮助归因：比如解释主播端分析看到实验组的主播比控制组的主播有更高的观流时长和
+点赞次数,：
+    - 猜想：挂件导致实验组的主播提高了推流的质量, 因为他们发现有一些观众会跳离自己的直播间，于是做出了更多的努力来 “挽留”观众
+    
+        验证方法：可以看N1 vs N3（这样对比可以排除主播对用户的溢出 因为用户是控制组的都看不到挂件），检查是否有N1的消费/互动 > N3的消费/互动
+    - 猜想：观众觉得挂件让他们能够跳到运营活动的直播间去，挺有意思的，所以也会多来有挂件的主播直播间。
+        验证方法：这里N1和N3应该一样
+
+#### 缺陷
+
+双边实验只能描述比较简单的组间溢出场景，不能解决network inference的情形 (个体和个体之间存在干扰)
+- 举例：直播PK的暴击时刻功能（最后的时候打赏积分翻倍）
+    - PK实验存在双边/多边溢出效应（主播和主播 and 观众和观众），造成对照组没有办法真实反映在没有实验情况下的大盘流水，从而导致实验组比对照组的效果无法折算到大盘实验推全后的收益
+    - 在PK场景下，双边实验也会造成明显的用户感受不一致：控制组用户与 实验组用户在同一场pk体验相互干扰
+    - 实验需要根据pk_id随机下发, 无法直接在用户维度(uid)下发进行随机分流
+
+### 时间片轮转实验
+时间片轮转实验是一种处理个体之间相互干扰的实验方法，在一定的实验对象上进行实验组策略和对照组策略上的反复切换。
+- 适用场景为：
+    - 个体和个体之间存在干扰
+    - 无法按个体分流的策略类实验
+    - 实验样本有限, 个体间差异较大, 想研究单个个体的处理效应 (比如奶牛产奶的实验, 生物、椥学实验)
+- 设计核心
+    - 一次实验时间片的粒度 (granularity)：1分钟换一次/3分钟换一次
+    - 实验总周期的选择：一天or一周？
+    - 在实验总周期中选择时间节点随机决定之后一段时间是否实验策略生效
+    - Tradeoff——实验粒度 (granularity) 越粗糙, 时间上的干扰造成的bias越小, 但是与此同时实验不够随机, Variance越大, 影响实验数据的statistical inference power。
+
+#### 核心假设
+- 我们所关注的指标的potential outcomes的绝对值有一个上界 $B$, 且我们在分析中不需要 知道这个 $B$ 到底是什么。
+- 用户无法预测下个时间片到底是实验组，所以时间片的决策不受对末来的预期的影响。
+- 如果时间片之间存在时间上的干扰, 这个干扰的影响是固定且有限的, 最多持续m期
+
+#### 缺点
+- 实验周期长
+- 无法观察HTE
 
 ## 参考资料
 - [知乎｜【AB测试最全干货】史上最全知识点及常见面试题（上篇）](https://zhuanlan.zhihu.com/p/375902281)
@@ -573,3 +726,4 @@ Stop collecting data when the test comes out significant：错误的！我们要
 - [知乎｜做AA测试，不如看AA波动](https://zhuanlan.zhihu.com/p/134085246)
 - [Udacity｜AB Testing by Google](https://www.udacity.com/course/ab-testing--ud257)
 - [Youtube｜A/B Testing in Data Science](https://www.youtube.com/playlist?list=PLY1Fi4XflWSvgsaD9eXng6N5kxcMtcxGK)
+- [DataFun｜快手直播场景相关的因果推断与实验设计](https://appukvkryx45804.pc.xiaoe-tech.com/detail/v_60e71278e4b0151fc94e3d00/3)

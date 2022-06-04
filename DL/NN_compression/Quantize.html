@@ -1,0 +1,970 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>量化 &#8212; Towards a Full-stack DA</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Q-BERT" href="QBert.html" />
+    <link rel="prev" title="Distill Bert" href="Distill_Bert.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo2.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Towards a Full-stack DA</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Jace六边形DA笔记库
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  数据ETL流程
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Data_ETL/README.html">
+   DE基础
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../Data_ETL/Data_cleaning/README.html">
+   数据清洗与处理
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Data_ETL/Data_cleaning/Regex.html">
+     正则表达式
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Data_ETL/Data_cleaning/pandas.html">
+     Pandas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  统计分析
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../STAT/README.html">
+   基础
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  因果推断
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Causal_Inference/README.html">
+   基础
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Causal_Inference/1_AB_testing.html">
+   AB Test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Causal_Inference/2_methods.html">
+   因果推理方法
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  深度学习
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../Basics/README.html">
+   基础
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Basics/DL_hyperparameter.html">
+     DL常见超参及调整策略
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Basics/Optimizer.html">
+     优化器
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Basics/Trained_by_GPU.html">
+     GPU训练
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../NLP/README.html">
+   NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../NLP/basics.html">
+     基础概念
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../NLP/Self-attention.html">
+     Self-Attention
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../NLP/Transformer.html">
+     Transformer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../NLP/BERT.html">
+     BERT
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="README.html">
+   神经网络压缩
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="KD.html">
+     知识蒸馏
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="Distill_Bert.html">
+       Distill Bert
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="current reference internal" href="#">
+     量化
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="QBert.html">
+       Q-BERT
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/DL/NN_compression/Quantize.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FDL/NN_compression/Quantize.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/DL/NN_compression/Quantize.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   背景
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#why-need-quantization">
+     Why need quantization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-is-quantization">
+     What is quantization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     核心目标
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   量化核心概念
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#symmetric-vs-asymmetric">
+     Symmetric vs. Asymmetric
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     量化策略
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   量化方法
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scaleptqqat">
+     Scale值的确定——PTQ与QAT
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#calibration-methods-for-ptq">
+       Calibration methods For PTQ
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#quantization-aware-training-qat">
+       Quantization-Aware Training (QAT)
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     训练过程
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     推断过程
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#ge-mm-conv">
+       以GE MM/Conv为例
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       多个为例
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bit">
+   怎么确定量化多少bit呢？
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bert">
+   BERT中的应用
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   总结
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>量化</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   背景
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#why-need-quantization">
+     Why need quantization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-is-quantization">
+     What is quantization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     核心目标
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   量化核心概念
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#symmetric-vs-asymmetric">
+     Symmetric vs. Asymmetric
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     量化策略
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   量化方法
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scaleptqqat">
+     Scale值的确定——PTQ与QAT
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#calibration-methods-for-ptq">
+       Calibration methods For PTQ
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#quantization-aware-training-qat">
+       Quantization-Aware Training (QAT)
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     训练过程
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     推断过程
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#ge-mm-conv">
+       以GE MM/Conv为例
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       多个为例
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bit">
+   怎么确定量化多少bit呢？
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bert">
+   BERT中的应用
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   总结
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1>量化<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Uses low bit precision for parameter storage and enables low bit hardware operations to speed up inference</p>
+<div class="section" id="id2">
+<h2>背景<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Nowadays, the latency and throughput of <em>inference</em> is critical.</p></li>
+<li><p>The complexity of models is increasing exponentially, such as BERT.</p></li>
+</ul>
+<div class="section" id="why-need-quantization">
+<h3>Why need quantization<a class="headerlink" href="#why-need-quantization" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>Weights and activations are float numbers in a small range</p></li>
+<li><p>通常，我们可以把FP32 -&gt; FP16 但是Unlike FP32 -&gt; FP16, it cannot be directly cast from FP32/FP16 to INT8. 因为模型权重都是小范围里面的浮点数，INT8的范围比较小，最小的精度间隔也很大，所以直接转换会有很大的精度损失</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p></p></th>
+<th class="text-align:center head"><p>Dynamic range</p></th>
+<th class="text-align:center head"><p>Min positive value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>FP32</p></td>
+<td class="text-align:center"><p>-3.4*<span class="math notranslate nohighlight">\(10^{38}\)</span>-3.4*<span class="math notranslate nohighlight">\(10^{38}\)</span></p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(1.4*10^{-45}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>FP16</p></td>
+<td class="text-align:center"><p>-65504 ~ 65504</p></td>
+<td class="text-align:center"><p><span class="math notranslate nohighlight">\(5.96*10^{-8}\)</span></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>INT8</p></td>
+<td class="text-align:center"><p>-128 ~ 127</p></td>
+<td class="text-align:center"><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+<div class="section" id="what-is-quantization">
+<h3>What is quantization<a class="headerlink" href="#what-is-quantization" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Quantize</span> <span class="pre">量化</span></code>: map the FLOAT values to discrete INT values using linear/non-linear scaling techniques.</p>
+<p>Quantized integer number <span class="math notranslate nohighlight">\( \boldsymbol{Q}=\operatorname{clip}(\operatorname{round}(\frac{\boldsymbol{R}}{\boldsymbol{s}})+\boldsymbol{z})\)</span></p>
+<ul class="simple">
+<li><p>R: high precision float number——浮点数</p></li>
+<li><p>s: scale——把浮点数映射到整数的范围里</p></li>
+<li><p>z: zero point——整体的偏移量</p></li>
+<li><p>round: Round to integer</p></li>
+<li><p>clip: clip to integer’s representative range</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Dequantize</span> <span class="pre">反量化</span></code>: recover FLOAT values from INT values.</p>
+<p><span class="math notranslate nohighlight">\(R=s(Q-z)\)</span></p>
+</li>
+<li><p>Quantization object: convert from high precision to low precision with <strong>minimal information loss</strong>.</p>
+  <center><img src="../../images/DL_Quantize_1.png" width="75%"/></center>
+  <center><img src="../../images/DL_NN_compress_4.png" width="35%"/></center>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>核心目标<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>难点：The generalization performance of the quantized model can significantly degrade</p></li>
+<li><p>目标：Minimizing performance degradation while maintaining hardware efficiency</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>量化核心概念<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>Generally, quantization is implemented by linear transformation. 因为非线性的话会导致间隔发生变化</p>
+<div class="section" id="symmetric-vs-asymmetric">
+<h3>Symmetric vs. Asymmetric<a class="headerlink" href="#symmetric-vs-asymmetric" title="Permalink to this headline">¶</a></h3>
+<p>定义</p>
+<ul>
+<li><p>Symmetric (scaled): <span class="math notranslate nohighlight">\(\boldsymbol{z}=0\)</span>, 从而 Quantized integer number <span class="math notranslate nohighlight">\( \boldsymbol{Q}=\operatorname{clip}(\operatorname{round}(\frac{\boldsymbol{R}}{\boldsymbol{s}}))\)</span>, <span class="math notranslate nohighlight">\(R=s(Q)\)</span></p>
+<p><span class="math notranslate nohighlight">\([-\alpha, \alpha] \Leftrightarrow [-127,127]\)</span> —— maps 0.0f in float to 0 in integer 大部分神经网络的权重都是对称的比如ReLU softmax等！</p>
+  <center><img src="../../images/DL_Quantize_2.png" width="45%"/></center>
+</li>
+<li><p>Asymmetric (affine): <span class="math notranslate nohighlight">\(\boldsymbol{z} \neq 0\)</span>, 从而 Quantized integer number <span class="math notranslate nohighlight">\( \boldsymbol{Q}=\operatorname{clip}(\operatorname{round}(\frac{\boldsymbol{R}}{\boldsymbol{s}})+\boldsymbol{z})\)</span>, <span class="math notranslate nohighlight">\(R=s(Q-\boldsymbol{z})\)</span></p>
+<p><span class="math notranslate nohighlight">\([-\beta, \alpha] \Leftrightarrow [-128,127]\)</span> —— maps 0.0f in float to z in integer 这样如果原始都是50～100，那对称的时候就会浪费很多范围！</p>
+  <center><img src="../../images/DL_Quantize_3.png" width="45%"/></center>
+</li>
+</ul>
+<p>对称量化更容易实现！Symmetric quantization is faster and easier to implement, and it usually not much accuracy difference. Genrally, symmetric quantization is preferred.</p>
+<ul class="simple">
+<li><p>Multiply with symmetric quantization:
+$<span class="math notranslate nohighlight">\(
+\boldsymbol{R}_{1} \boldsymbol{R}_{2}=s_{1} Q_{1} s_{2} Q_{2}=s_{1} s_{2} Q_{1} Q_{2}
+\)</span>$</p></li>
+<li><p>Multiply with asymmetric quantization:
+$<span class="math notranslate nohighlight">\(
+\boldsymbol{R}_{1} \boldsymbol{R}_{2}=s_{1}\left(\boldsymbol{Q}_{1}-\mathrm{z}_{1}\right) s_{2}\left(\boldsymbol{Q}_{2}-\mathrm{z}_{2}\right)=s_{1} s_{2} \boldsymbol{Q}_{1} Q_{2}-s_{1} s_{2} \mathrm{z}_{2} Q_{1}-s_{1} s_{2} z_{1} Q_{2}+s_{1} s_{2} z_{1} z_{2}
+\)</span>$</p></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3>量化策略<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Per-tensor quantization: all values in a tensor share a scale value 整个tensor用一个scale</p></li>
+<li><p>Per-channel quantization: values in a channel share a scale value, different channels may have different scales 整个channel用一个scale（channel在非卷积网络里面的概念是weight某个维度的某个切片 是沿着输出维度做的，比如FC就是一个神经元一个scale）</p>
+<ul>
+<li><p>原因：在同一层中 不同维度切片的权重的最大值很可能差异很大！同一个scale会让最大值小的切片信息损失很大，per-channel可以提高精度～</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>量化方法<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="scaleptqqat">
+<h3>Scale值的确定——PTQ与QAT<a class="headerlink" href="#scaleptqqat" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Post Training Quantization (PTQ)</p>
+<ul>
+<li><p>The process is called calibration. 用校准数据在模型上做前向传播</p></li>
+<li><p>Collect statistics of weights/activations through calibration data. 根据这些信息来确定scale</p></li>
+<li><p>对数据要求小 更快 但是精度差</p></li>
+</ul>
+</li>
+<li><p>Quantization-Aware Training (QAT)</p>
+<ul>
+<li><p>Collect or learn the scale values during training process.</p></li>
+<li><p>Weights can be adjusted to adapt to quantization. 让模型适应量化的过程</p></li>
+<li><p>速度慢，对数据要求打 但是精度高</p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="calibration-methods-for-ptq">
+<h4>Calibration methods For PTQ<a class="headerlink" href="#calibration-methods-for-ptq" title="Permalink to this headline">¶</a></h4>
+<p>Collect some statistics and determine the scale values through some calibration data during forward pass.
+Direct method: max calibrator</p>
+<ul class="simple">
+<li><p>Collect absolute max values</p></li>
+<li><p>scale <span class="math notranslate nohighlight">\(=\max / 127.0 \mathrm{f}\)</span> 只需要收集绝对值的最大值，除以127就行</p>
+<ul>
+<li><p>Max calibrator works well on weights, but sometimes poorly on activations!</p></li>
+</ul>
+</li>
+</ul>
+<p>三种校准方法</p>
+<ul>
+<li><p>Percentile calibrator</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span>percentile_calibrate(input tensor, percentile){
+    collect histogram of input tensor;
+    choose threshold value to keep percentile\% of values; # 比如99.99%当最大值从而去除离群值
+    calculate scale value from threshold;
+    return scale;}
+</pre></div>
+</div>
+</li>
+<li><p>MSE calibrator</p>
+<p>让量化前后的<span class="math notranslate nohighlight">\(\text { Mean square error= } \frac{1}{n} \sum_{i=1}^{n}\left(Y_{i}-\widehat{Y}_{i}\right)^{2}\)</span>最小化</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">mse_calibrate</span><span class="p">(</span><span class="n">input</span> <span class="n">tensor</span><span class="p">){</span>
+    <span class="n">Collect</span> <span class="n">histogram</span> <span class="n">of</span> <span class="n">input_tensor</span><span class="p">;</span>
+    <span class="k">for</span> <span class="n">different</span> <span class="n">threshold</span> <span class="n">value</span> <span class="p">{</span>
+    <span class="n">calculate</span> <span class="n">MSE</span> <span class="n">between</span> <span class="n">input_tensor</span> <span class="n">before</span> <span class="n">and</span> <span class="n">after</span> <span class="n">quantization</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">choose</span> <span class="n">threshold</span> <span class="n">that</span> <span class="n">minimize</span> <span class="n">MSE</span><span class="p">;</span>
+    <span class="n">calculate</span> <span class="n">scale</span> <span class="n">value</span> <span class="n">from</span> <span class="n">threshold</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">scale</span><span class="p">;}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Entropy calibrator</p>
+<p>让量化前后数据的概率分布差别最小，这里是用KL散度来衡量—— <span class="math notranslate nohighlight">\(\text { KL-divergence between two distributions } P \text { and Q: } \sum P \log \frac{P}{Q}\)</span></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">entropy_calibrate</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">){</span>
+    <span class="n">Collect</span> <span class="n">histogram</span> <span class="n">of</span> <span class="n">input_tensor</span><span class="p">;</span>
+    <span class="k">for</span> <span class="n">different</span> <span class="n">threshold</span> <span class="n">value</span> <span class="p">{</span>
+    <span class="n">calculate</span> <span class="n">KL_divergence</span> <span class="n">between</span> <span class="n">input_tensor</span> <span class="n">before</span> <span class="n">and</span> <span class="n">after</span> <span class="n">quantization</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">choose</span> <span class="n">threshold</span> <span class="n">that</span> <span class="n">minimize</span> <span class="n">KL_divergence</span><span class="p">;</span>
+    <span class="n">calculate</span> <span class="n">scale</span> <span class="n">value</span> <span class="n">from</span> <span class="n">threshold</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">scale</span><span class="p">;}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>BERT的效果</p>
+<center><img src="../../images/DL_Quantize_4.png" width="60%"/></center>
+- 不同的方法产生的阈值不同，阈值小的话 精度比较高！阈值大的话，范围比较广～
+</div>
+<div class="section" id="quantization-aware-training-qat">
+<h4>Quantization-Aware Training (QAT)<a class="headerlink" href="#quantization-aware-training-qat" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p>Collect statistics during training and get threshold and scale.</p></li>
+<li><p>Learn thresholds as parameters (such as PACT). 把阈值当一个参数，反向传播的时候调整阈值以及模型里的权重</p></li>
+<li><p>Do calibration and the threshold is fixed during training. 先确定阈值和scale值，然后训练的过程里面只需要调整模型权重让他们适应这些scale值</p>
+<ul>
+<li><p>实现方式：Insert fake_quant_node into model graph</p>
+<ul class="simple">
+<li><p>Forward pass：quantize to INT8 and dequantize to FLOAT in the node to simulate quantization这样输入数值的精度间隔就会调整，相当于模拟了整个量化的过程</p></li>
+<li><p>Backward pass：straight through estimation (STE)：把阈值范围之内的梯度传播回去，之外的截取掉置为0</p>
+<ul>
+<li><p>Gradients of values in the threshold ranges backward pass directly</p></li>
+<li><p>Gradients of values outside the threshold ranges will be clipped to 0</p></li>
+</ul>
+</li>
+</ul>
+<p>整个训练过程里面 数据还是浮点数精度的，所以是伪量化</p>
+ <center><img src="../../images/DL_Quantize_5.png" width="70%"/></center>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>训练过程<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>PTQ和QAT类似，就是QAT多了一个finetune的过程调整权重</p>
+<center><img src="../../images/DL_Quantize_6.png" width="76%"/></center>
+<ul class="simple">
+<li><p>PTQ会用finetuned好的权重，因为这样才能得到最合适的scale</p></li>
+<li><p>QAT来说机器会训练后续的权重，所以可以选用预训练的模型进行量化！具体操作是加载了pretrained之后对他进行一个finetune</p>
+<ul>
+<li><p>在下游任务的时候大多数情况量化不会增大很多的误差
+最后的模型就可以用于推断啦</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h3>推断过程<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="ge-mm-conv">
+<h4>以GE MM/Conv为例<a class="headerlink" href="#ge-mm-conv" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p>训练的时候FakeQuant</p>
+<ul class="simple">
+<li><p>Collect min/max values or histogram statistics</p></li>
+<li><p>Calculate threshold values</p></li>
+<li><p>Use the threshold values to do fake quantization</p></li>
+<li><p>STE backward</p></li>
+</ul>
+  <center><img src="../../images/DL_Quantize_7.png" width="40%"/></center>
+</li>
+<li><p>推断的时候：伪量化节点拆开，然后把这个反量化的节点下移（因为是线性操作 乘法加法交换结合律 保证是等价的！！）</p>
+  <center><img src="../../images/DL_Quantize_8.png" width="40%"/></center>
+<p>进一步，我们还可以直接对权重先做好量化，减少卷积层中的计算量</p>
+  <center><img src="../../images/DL_Quantize_9.png" width="40%"/></center>
+</li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h4>多个为例<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<center><img src="../../images/DL_Quantize_10.png" width="50%"/></center>
+<ul class="simple">
+<li><p>int8 输入 int8输出的话，对memory access的量就会大大减少！</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="bit">
+<h2>怎么确定量化多少bit呢？<a class="headerlink" href="#bit" title="Permalink to this headline">¶</a></h2>
+<p>在伯克利的<a class="reference external" href="https://www.youtube.com/watch?v=aX4Tm1s01wY">QBERT演讲</a>里面Amir提到了，因为对参数的sensitivity不同，要对flat的loss landscape用更低的bit，sharp的loss landscape用更高的</p>
+<center><img src="../../images/DL_Quantize_14.png" width="100%"/></center>
+<p>然而问题来了——怎么quantify the sharpness of the loss landscape！</p>
+<center><img src="../../images/DL_Quantize_15.png" width="75%"/></center>
+<ul class="simple">
+<li><p>我们知道 Gradient是一个跟# of parameters同样大小的实数vector</p></li>
+<li><p>而Second - derivative是一个matrix，大小是 |W|×|W|，二阶导衡量的是curvature（曲率），大的话说明曲线会sharper and shaper</p></li>
+</ul>
+<p>gradient可以用L1或者L2 norm，但是二阶导数的大小该怎么衡量呢？答案是特征值（Eigen values）！</p>
+<ul>
+<li><p>但这里注意要用matrix-free algorithm！因为weight的维度很高，如果直接求解的话，在矩阵inverse的时候肯定会遇到问题。目前有很多现成的blackbox：</p>
+<blockquote>
+<div><p>Z. Yao*, A. Gholami*, Q. Lei, K. Keutzer, M. Mahoney, Hessian-based Analysis of Large Batch Training and Robustness to Adversaries, NeurIPS’18, 2018. <br> Z. Yao*, A. Gholami*, K. Keutzer, M. Mahoney, PyHessian: Neural Networks Through the Lens of the Hessian Spotlight at ICML’20 workshop on Beyond First-Order Optimization Methods in Machine Learning, 2020. <br>Code: <a class="reference external" href="https://github.com/amirgholami/PyHessian">https://github.com/amirgholami/PyHessian</a></p>
+<ul class="simple">
+<li><p>核心是用 Gradient back propagation</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>当我们知道了怎么量化，我们就可以对模型的不同层做不同的量化！这是因为一个size可能不能适应所有的！如果使用了不robust的方法，就会出现坑坑洼洼的平面！</p>
+<center><img src="../../images/DL_Quantize_16.png" width="75%"/></center>
+</div>
+<div class="section" id="bert">
+<h2>BERT中的应用<a class="headerlink" href="#bert" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>FasterTransformer and demoBERT of TensorRT</p></li>
+</ul>
+<center><img src="../../images/DL_Quantize_12.png" width="90%"/></center>
+<ul class="simple">
+<li><p>demoBERT pattern 2 of TensorRT：residual connection的地方加了</p></li>
+</ul>
+<center><img src="../../images/DL_Quantize_11.png" width="90%"/></center>
+<ul class="simple">
+<li><p>FasterTransformer：multi-head一起做，然后FC里面全部也加了！</p></li>
+</ul>
+<center><img src="../../images/DL_Quantize_13.png" width="90%"/></center>
+</div>
+<div class="section" id="id10">
+<h2>总结<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>To reduce the time related to memory</p>
+<ul class="simple">
+<li><p>We need scale values for all activations after layer fusions! (i.e. all inputs of all kernels)</p></li>
+<li><p>For some layers, even if their inputs are quantized, it is necessary to be calculated in higher precision.</p>
+<ul>
+<li><p>Such as: gelu, softmax, layernorm （layernorm需要在高精度模式下计算）</p></li>
+<li><p>We only want INT8 input/output（减少内存）, “dequantize” is needed in these kernels</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./DL/NN_compression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="Distill_Bert.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Distill Bert</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="QBert.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Q-BERT</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jace Yang<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

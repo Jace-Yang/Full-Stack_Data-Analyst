@@ -164,6 +164,11 @@ const thebe_selector_output = ".output, .cell_output"
    AB Test
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_methods.html">
+   因果推理方法
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -172,7 +177,7 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Deep_Learning/Basics/README.html">
+  <a class="reference internal" href="../DL/Basics/README.html">
    基础
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -182,24 +187,24 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/Basics/DL_hyperparameter.html">
+    <a class="reference internal" href="../DL/Basics/DL_hyperparameter.html">
      DL常见超参及调整策略
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/Basics/Optimizer.html">
+    <a class="reference internal" href="../DL/Basics/Optimizer.html">
      优化器
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/Basics/Trained_by_GPU.html">
+    <a class="reference internal" href="../DL/Basics/Trained_by_GPU.html">
      GPU训练
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Deep_Learning/NLP/README.html">
+  <a class="reference internal" href="../DL/NLP/README.html">
    NLP
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -209,29 +214,29 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/NLP/basics.html">
+    <a class="reference internal" href="../DL/NLP/basics.html">
      基础概念
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/NLP/Self-attention.html">
+    <a class="reference internal" href="../DL/NLP/Self-attention.html">
      Self-Attention
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/NLP/Transformer.html">
+    <a class="reference internal" href="../DL/NLP/Transformer.html">
      Transformer
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/NLP/BERT.html">
+    <a class="reference internal" href="../DL/NLP/BERT.html">
      BERT
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Deep_Learning/NN_compression/README.html">
+  <a class="reference internal" href="../DL/NN_compression/README.html">
    神经网络压缩
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
@@ -241,7 +246,7 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../Deep_Learning/NN_compression/KD.html">
+    <a class="reference internal" href="../DL/NN_compression/KD.html">
      知识蒸馏
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
@@ -251,14 +256,14 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../Deep_Learning/NN_compression/Distill_Bert.html">
+      <a class="reference internal" href="../DL/NN_compression/Distill_Bert.html">
        Distill Bert
       </a>
      </li>
     </ul>
    </li>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../Deep_Learning/NN_compression/Quantize.html">
+    <a class="reference internal" href="../DL/NN_compression/Quantize.html">
      量化
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
@@ -268,7 +273,7 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../Deep_Learning/NN_compression/QBert.html">
+      <a class="reference internal" href="../DL/NN_compression/QBert.html">
        Q-BERT
       </a>
      </li>
@@ -385,65 +390,89 @@ const thebe_selector_output = ".output, .cell_output"
      what does imply causation?
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     因果推断的业务场景：
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#potential-outcomes">
-   Potential Outcomes
+  <a class="reference internal nav-link" href="#potential-outcomes-rubin">
+   Potential Outcomes (Rubin)框架
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#average-treatment-effect-ate">
-     Average treatment effect(ATE)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#conditional-exchangeability">
-     Conditional exchangeability假设
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#positivity">
-     Positivity假设
+    <a class="reference internal nav-link" href="#effect">
+     各种Effect
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#overlap">
-       Overlap
+      <a class="reference internal nav-link" href="#average-treatment-effect-ate">
+       Average treatment effect(ATE)
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id3">
+         实际案例
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#average-treatment-effect-on-treated">
+       Average treatment effect on treated
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#positivity-unconfoundedness-tradeoff">
-       Positivity-Unconfoundedness Tradeoff
+      <a class="reference internal nav-link" href="#conditional-average-treatment-effect-cate">
+       Conditional average treatment effect (CATE):
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#extrapolation">
-       Extrapolation
+      <a class="reference internal nav-link" href="#heterogeneous-treatment-effects">
+       Heterogeneous Treatment Effects
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#no-interference">
-     No Interference假设
+    <a class="reference internal nav-link" href="#id4">
+     假设
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#conditional-exchangeability">
+       Conditional exchangeability假设
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#stable-unit-treatment-value-assumption-sutva">
+       Stable Unit Treatment Value Assumption(SUTVA)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#positivity">
+       Positivity假设
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#consistency">
+       Consistency假设
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#consistency">
-     Consistency假设
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
+    <a class="reference internal nav-link" href="#id5">
      总结
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-flow-of-association-and-causation-graphs">
-   The Flow of Association and Causation Graphs
+  <a class="reference internal nav-link" href="#pearl-flow-of-association-and-causation-graphs">
+   Pearl - flow of Association and Causation Graphs
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -467,7 +496,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
+    <a class="reference internal nav-link" href="#id6">
      总结
     </a>
    </li>
@@ -502,19 +531,87 @@ const thebe_selector_output = ".output, .cell_output"
      Structural causal models
     </a>
    </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#randomized-experiments">
-   Randomized Experiments
-  </a>
-  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#comparability-covariate-balance">
-     Comparability / covariate balance
+    <a class="reference internal nav-link" href="#id7">
+     因果图的例子
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#identification">
+   identification
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#randomized-experiments">
+     Randomized Experiments
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#frontdoor-adjustment">
+     Frontdoor adjustment
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pearls-do-calculus">
+     Pearl’s do-calculus
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#rules-of-d-o-calculus">
+       Rules of
+       <span class="math notranslate nohighlight">
+        \(d o\)
+       </span>
+       -calculus
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional-outcome-modeling-com">
+     Conditional Outcome Modeling (COM)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#propensity-scores">
+     Propensity Scores
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id8">
+       操作步骤
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       应用案例
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inverse-probability-weighting-ipw">
+     Inverse Probability Weighting (IPW)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   反事实
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#causal-discovery">
+   Causal Discovery
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   总结
+  </a>
  </li>
 </ul>
 
@@ -556,65 +653,89 @@ const thebe_selector_output = ".output, .cell_output"
      what does imply causation?
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     因果推断的业务场景：
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#potential-outcomes">
-   Potential Outcomes
+  <a class="reference internal nav-link" href="#potential-outcomes-rubin">
+   Potential Outcomes (Rubin)框架
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#average-treatment-effect-ate">
-     Average treatment effect(ATE)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#conditional-exchangeability">
-     Conditional exchangeability假设
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#positivity">
-     Positivity假设
+    <a class="reference internal nav-link" href="#effect">
+     各种Effect
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#overlap">
-       Overlap
+      <a class="reference internal nav-link" href="#average-treatment-effect-ate">
+       Average treatment effect(ATE)
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id3">
+         实际案例
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#average-treatment-effect-on-treated">
+       Average treatment effect on treated
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#positivity-unconfoundedness-tradeoff">
-       Positivity-Unconfoundedness Tradeoff
+      <a class="reference internal nav-link" href="#conditional-average-treatment-effect-cate">
+       Conditional average treatment effect (CATE):
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#extrapolation">
-       Extrapolation
+      <a class="reference internal nav-link" href="#heterogeneous-treatment-effects">
+       Heterogeneous Treatment Effects
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#no-interference">
-     No Interference假设
+    <a class="reference internal nav-link" href="#id4">
+     假设
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#conditional-exchangeability">
+       Conditional exchangeability假设
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#stable-unit-treatment-value-assumption-sutva">
+       Stable Unit Treatment Value Assumption(SUTVA)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#positivity">
+       Positivity假设
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#consistency">
+       Consistency假设
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#consistency">
-     Consistency假设
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
+    <a class="reference internal nav-link" href="#id5">
      总结
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-flow-of-association-and-causation-graphs">
-   The Flow of Association and Causation Graphs
+  <a class="reference internal nav-link" href="#pearl-flow-of-association-and-causation-graphs">
+   Pearl - flow of Association and Causation Graphs
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -638,7 +759,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
+    <a class="reference internal nav-link" href="#id6">
      总结
     </a>
    </li>
@@ -673,19 +794,87 @@ const thebe_selector_output = ".output, .cell_output"
      Structural causal models
     </a>
    </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#randomized-experiments">
-   Randomized Experiments
-  </a>
-  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#comparability-covariate-balance">
-     Comparability / covariate balance
+    <a class="reference internal nav-link" href="#id7">
+     因果图的例子
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#identification">
+   identification
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#randomized-experiments">
+     Randomized Experiments
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#frontdoor-adjustment">
+     Frontdoor adjustment
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pearls-do-calculus">
+     Pearl’s do-calculus
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#rules-of-d-o-calculus">
+       Rules of
+       <span class="math notranslate nohighlight">
+        \(d o\)
+       </span>
+       -calculus
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional-outcome-modeling-com">
+     Conditional Outcome Modeling (COM)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#propensity-scores">
+     Propensity Scores
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id8">
+       操作步骤
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       应用案例
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inverse-probability-weighting-ipw">
+     Inverse Probability Weighting (IPW)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   反事实
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#causal-discovery">
+   Causal Discovery
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   总结
+  </a>
  </li>
 </ul>
 
@@ -698,16 +887,45 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
 <h1>基础<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>定义：Inferring the effects of any treatment/policy/intervention/etc</p>
+<p>因果阶梯：</p>
+<ol class="simple">
+<li><p>Association <span class="math notranslate nohighlight">\(P(y \mid x)\)</span></p>
 <ul class="simple">
-<li><p>定义：Inferring the effects of any treatment/policy/intervention/etc</p></li>
+<li><p>How seeing Y change my belief in Y?</p></li>
+</ul>
+</li>
+<li><p>Intervention <span class="math notranslate nohighlight">\(P(y \mid d o(x), z)\)</span></p>
+<ul class="simple">
+<li><p>What if I do Y</p></li>
+</ul>
+</li>
+<li><p>Counterfactuals <span class="math notranslate nohighlight">\(P\left(y_{x} \mid x^{\prime}, y^{\prime}\right)\)</span></p>
+<ul class="simple">
+<li><p>What if I had acted differently?</p></li>
+</ul>
+</li>
+</ol>
+<p>核心：</p>
+<ul class="simple">
+<li><p>在给定的假设和模型框架下:</p>
+<ul>
+<li><p>将因果关系从关联中分割(identification)</p></li>
+<li><p>计算因果关系的大小 (estimation)</p></li>
+</ul>
+</li>
 </ul>
 <div class="section" id="motivation">
 <h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="simpson-s-paradox">
 <h3>辛普森悖论 Simpson’s Paradox<a class="headerlink" href="#simpson-s-paradox" title="Permalink to this headline">¶</a></h3>
 <p>定义：总体的规律跟分组的规律不同：几组不同的数据中均存在一种 趋势, 但当这些数据组合在一起后, 这种趋势消失或反转。</p>
-<p>产生的原因：数据中存在多个变量。这些变量通常难以识别, 被称为“潜伏变量”。潜伏变量可能是由于采样错误造成的。</p>
+<ul class="simple">
+<li><p>简单说就是总体看好但分层看不好</p></li>
+</ul>
+<p>产生的原因：人群分布在混淆变量上不一致，导致相关关系完全可以被扭曲（confounding bias）</p>
 <p>统计层面的核心：Partial correlation and marginal correlation can be dramatically different</p>
+<p>解决的方式：取决于因果图 forks的话就要分层，collider的话就不要分层</p>
 <p>例子：</p>
 <ul>
 <li><p>[例1]: 男性用药多 但恢复率更高，所以让整体有这个correlation，不过by group的correlation不是这样！</p>
@@ -745,10 +963,24 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p>结论：conclusion取决于causal structure</p>
 </li>
+<li><p>例4: 游戏胜率</p>
+  <center><img src="../images/CI_basic_39.png" width="35%"/></center>
+<p>看似胜率提升了，但其实每种比赛的胜率都下降了，只是最近本身胜率就高的匹配和大乱斗打的多了一点</p>
+</li>
+<li><p>例5: 风控场景</p>
+<p>分析发现小额贷款比大型贷款更容易违约，直觉可能认为银行应停止发放小额贷款。</p>
+<p>而真实情况可能是小企业失败率更高，也更可能申请小额贷款，因果关系</p>
+<ul class="simple">
+<li><p>是：企业规模小（X2）-&gt;违约(Y)</p></li>
+<li><p>而并非：贷款规模小（X1）—&gt;违约（Y）</p></li>
+</ul>
+<p>因此决策应受企业规模的影响，而非贷款规模。</p>
+</li>
 </ul>
 </div>
 <div class="section" id="correlation-does-not-imply-causation">
 <h3>Correlation Does Not Imply Causation<a class="headerlink" href="#correlation-does-not-imply-causation" title="Permalink to this headline">¶</a></h3>
+<p>关联性本身是不可解释的（因为两者可能不存在物理意义上的关系）、同时关联性本身也是不稳定的，可能是selection bias（比如在大多数图片中，狗都在草地上，错误狗和草地的强相关就认不出沙滩上的狗了）。因此平时DA做的维度下钻虽然解释性高但是很可能是不科学的！</p>
 <ul>
 <li><p>例子：Cor——穿着鞋睡觉的人更容易头疼｜Cau——喝酒醉倒⇒穿着鞋睡觉、喝酒⇒头痛</p>
 <p>喝酒是common cause</p>
@@ -763,12 +995,19 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </li>
+<li><p>例子：nested problem</p>
+<p>比如搜索影响社交、社交影响内容消费、内容消费影响搜索</p>
+<p>比如点赞影响流量、流量影响GMV、GMV影响流量、流量又影响点赞</p>
+</li>
+<li><p>例子：spillover</p>
+<p>斗鱼直播影响虎牙</p>
+</li>
 </ul>
 </div>
 <div class="section" id="what-does-imply-causation">
 <h3>what does imply causation?<a class="headerlink" href="#what-does-imply-causation" title="Permalink to this headline">¶</a></h3>
 <p>Inferring the effect of treatment/policy on some outcome的时候，怎样才能说明是causal呢？</p>
-<p>方法1: 如果你知道做了某件事的potential outcome就是work，不做就没有，那就可以</p>
+<p>方法1是控制实验: 如果你知道做了某件事的potential outcome就是work，不做就没有，那就可以</p>
 <center><img src="../images/CI_basic_7.png" width="65%"/></center>
 <ul>
 <li><p>问题：It is impossible to observe all potential outcomes for a given individual. —— CI的根本问题！</p>
@@ -784,17 +1023,18 @@ $<span class="math notranslate nohighlight">\(
   \end{aligned}
   \)</span>$</p>
 <ul class="simple">
-<li><p>第二个不等号左边是causal quantity，右边是measure of correlation，是不想等的因为有confounding effect（T除了直接对Y，还会通过C去影响Y）</p></li>
+<li><p>第二个不等号左边是causal quantity，右边是measure of correlation 是一个associational quantity</p></li>
+<li><p>两者不想等的因为有confounding effect（T除了直接对Y，还会通过C去影响Y）</p></li>
 </ul>
 </li>
 </ul>
-<p>方法2: Randomized Control Trails （RCTs）</p>
+<p>方法2是随机试验: Randomized Control Trails （RCTs）</p>
 <center><img src="../images/CI_basic_8.png" width="65%"/></center>
 <ul class="simple">
 <li><p>如果说你的treatment可以跟condition没关系的话，比如Treatment就是随机抛硬币跟C无关，那么就没有confounding effect（T跟Y不会通过C去影响）</p></li>
 <li><p>然而这个要求我们的分组是相同的，比如穿鞋睡和不穿鞋睡是抛硬币随机的 不管你清醒与否！这样的效果就是清醒和喝酒的人，在穿不穿鞋这件事情上的分布都是一样的。</p></li>
 </ul>
-<p>方法3: observational studies</p>
+<p>方法3因果推断: 从历史数据进行observational studies</p>
 <ul class="simple">
 <li><p>场景：Can’t always randomize treatment，比如given一些数据集</p>
 <ul>
@@ -806,9 +1046,52 @@ $<span class="math notranslate nohighlight">\(
 <li><p>解决方案：adjust/control for confounders</p></li>
 </ul>
 </div>
+<div class="section" id="id2">
+<h3>因果推断的业务场景：<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>如果给圈选的某些用户推送这些内容，他们会更愿意来消费吗?</p></li>
+<li><p>是否给社区活跃用户提供更多的内容，能进一步提升他们在社区消费?——这里需要解答的因果关系是是否用户越活跃、越喜欢探索，就会⇒消费？</p>
+<ul>
+<li><p>比如：可能本来用户就是喜欢app⇒喜欢消费+喜欢在社区留言，不能简单把消费归因到内容给业务出结论。</p></li>
+</ul>
+</li>
+<li><p>快手直播</p>
+<ul>
+<li><p>用户激励的设计：什么样的补贴策略能够培养新的直播观众?</p></li>
+<li><p>评估推荐策略：给优质主播增加曝光, 是否能够促进用户 的长期直播观看和打赏 ?</p></li>
+<li><p>产品功能迭代：在直播PK中进行产品功能的改进, 是否能 够带动整体直播打赏的提升?</p></li>
+<li><p>预估产品和方向的长期价值：改变产品框架, 是否能够增进用户的直播 消费习惯与平台整体长期收入的提升？</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>因果推断有两个基本的框架，侧重点不同
+Pearl的Structural Causal Model - 结构因果模型</p>
+<ul class="simple">
+<li><p>特点：利于因果图的方式展现、推导变量之间的关系</p></li>
+<li><p>缺点：变量数量多、关系复杂的时候，构建SCM的成本很高</p>
+<ul>
+<li><p>比如年龄、收入、还有用app的习惯等等</p></li>
+</ul>
+</li>
+<li><p>优点：SCM可以更好描述变量关系、结果的置信度跟高</p></li>
+</ul>
+<p>Rubin的Potential Outcome Framework - 潜在结果模型</p>
+<ul class="simple">
+<li><p>特点：因果关系被淡化，关汢变量因果效应的评估</p></li>
+<li><p>缺点：没有系统论证变量是否存在因果关系</p></li>
+<li><p>优点：变量复杂、数据庞大的时候，效应评估变得可行——POF降低变量带来的分析复杂
+度，用准确率换取计算可行性</p></li>
+</ul>
 </div>
-<div class="section" id="potential-outcomes">
-<h2>Potential Outcomes<a class="headerlink" href="#potential-outcomes" title="Permalink to this headline">¶</a></h2>
+</div>
+<hr class="docutils" />
+<div class="section" id="potential-outcomes-rubin">
+<h2>Potential Outcomes (Rubin)框架<a class="headerlink" href="#potential-outcomes-rubin" title="Permalink to this headline">¶</a></h2>
+<p>Rubin的Framework强调使用counter factual来寻找合适的对照组，潜在结果等于是创造了一个平行世界，又或者称为反事实事件。</p>
+<blockquote>
+<div><p>因果有两个派系：<br> 以Donald Rubin为代表的Potential Outcome（PO ）——在经济学和社会科学中有大量的应用实例 <br>以Judea Pearl为代表的Structural Causal Model(SCM) , 以DAG表示因果关系——深受计算机学者喜爱</p>
+</div></blockquote>
 <p>上面提到的 无法观测what would have been if I也可以理解为一种缺失值处理问题：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -826,8 +1109,16 @@ $<span class="math notranslate nohighlight">\(
 <ul class="simple">
 <li><p>因为individual只能有Y(treatment给1)或者Y(treatment给0)中的一个</p></li>
 </ul>
+<p>Rubin框架中常见的方法</p>
+<ul class="simple">
+<li><p>Matching</p></li>
+<li><p>DID</p></li>
+<li><p>合成控制</p></li>
+</ul>
+<div class="section" id="effect">
+<h3>各种Effect<a class="headerlink" href="#effect" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="average-treatment-effect-ate">
-<h3>Average treatment effect(ATE)<a class="headerlink" href="#average-treatment-effect-ate" title="Permalink to this headline">¶</a></h3>
+<h4>Average treatment effect(ATE)<a class="headerlink" href="#average-treatment-effect-ate" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><p>解决个体无法观测的方法</p>
 </div></blockquote>
@@ -841,6 +1132,7 @@ $<span class="math notranslate nohighlight">\(
 <p>什么时候可以呢？</p>
 <ul>
 <li><p>Ignorability—— <span class="math notranslate nohighlight">\((Y(1), Y(0)) \perp T\)</span></p>
+<p>在用户特征，外界因素等条件一定的前提下，用户被干预与否是独立于他/她的潜在结果</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
     \begin{aligned}
@@ -870,10 +1162,57 @@ $<span class="math notranslate nohighlight">\(
   <center><img src="../images/CI_basic_14.png" width="85%"/></center>
 </li>
 </ul>
+<div class="section" id="id3">
+<h5>实际案例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h5>
+<p>阿里妈妈广告触达问题</p>
+<blockquote>
+<div><p>来源: DataFunCon 2021</p>
+</div></blockquote>
+<center><img src="../images/CI_basic_40.png" width="85%"/></center>
 </div>
+</div>
+<div class="section" id="average-treatment-effect-on-treated">
+<h4>Average treatment effect on treated<a class="headerlink" href="#average-treatment-effect-on-treated" title="Permalink to this headline">¶</a></h4>
+<p>比如我们有NBA广告投放后体育产品的消费量，被投放的群体中男：女=4:1</p>
+<ul class="simple">
+<li><p>如果我们希望知道如果对全体用户（男：女调权为1:1） 广告的转化率提升 那就是ATE</p></li>
+<li><p>如果希望知道对T=1用户（男：女=4:1）广告转化率，那就是ATT</p></li>
+</ul>
+</div>
+<div class="section" id="conditional-average-treatment-effect-cate">
+<h4>Conditional average treatment effect (CATE):<a class="headerlink" href="#conditional-average-treatment-effect-cate" title="Permalink to this headline">¶</a></h4>
+<p><span class="math notranslate nohighlight">\(\tau(x) \triangleq \mathbb{E}\left[Y_{i}(1)-Y_{i}(0) \mid X=x\right]\)</span></p>
+<p>在不同条件下treatment所产生的条件平均效果，又被称作异质性的因果效应(Heterogeneous Treatment Effect, HTE)</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(A T E=E\left(\tau_{i}\right)=\frac{1}{n} \sum_{i=1}^{n}\left(y_{i}^{1}-y_{i}^{0}\right)\)</span> 评估的是整体、是对样本的总量; 而CATE <span class="math notranslate nohighlight">\(=E\left(\tau_{i} \mid x\right)=\frac{1}{n_{x}} \sum_{i=1}^{n_{x}}\left(y_{x, i}^{1}-y_{x, i}^{0}\right)\)</span> 是对一个子集<span class="math notranslate nohighlight">\(n_{x}\)</span> 相当是根据x圈选了一部分的用户。</p></li>
+<li><p>CATE业务中更常用:</p>
+<ul>
+<li><p>就好比AB实验看结果，如果全局变量不显著，我们会考虑下钻看一下哪些用户群体的变量是显著的，因为我们更多的希望回答上线一个新功能对某一部分群体是否有明显的帮助</p>
+<ul>
+<li><p>比如判断时长任务对”每周观看视频超过30分钟”的用户的影响</p></li>
+</ul>
+</li>
+<li><p>关心CATE通常是因为希望区分出对处理敏感的群体和不敏感的群体，从而对前者进行处理、避免对后者进行处理，从而节约资源、避免打扰</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="heterogeneous-treatment-effects">
+<h4>Heterogeneous Treatment Effects<a class="headerlink" href="#heterogeneous-treatment-effects" title="Permalink to this headline">¶</a></h4>
+<p>给全app用户发了优惠券⇒下单GMV均值提升，不代表每个用户都需要发优惠券（存在人群异致性）</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>假设<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="conditional-exchangeability">
-<h3>Conditional exchangeability假设<a class="headerlink" href="#conditional-exchangeability" title="Permalink to this headline">¶</a></h3>
-<p>很多时候假设exchangeable不可行，但我们可以control for relevant variables by conditioning</p>
+<h4>Conditional exchangeability假设<a class="headerlink" href="#conditional-exchangeability" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><div class="discussion"><p>Exchangeability和ignorability是一个事情的两面。</p><ul><li>一个说实验组对照组交换（把treatment给对照组而实验组作为对照），那么他们的结果是相同的；</li><li>一个说对于其中观测到的缺失的反事实数据，我们可以直接忽略缺失，只计算有数据的部分。</li></ul></div>
+</div></blockquote>
+<p>很多时候假设exchangeable不可行，但我们可以control for relevant variables by conditioning:</p>
+<p>在给定的条件下 treatment与潜在结果相独立，即
+- 具有相同的条件变量X的两个个体，无论在哪种干预下，其潜在结果均应相同
+- 具有相同的条件变量X的两个个体，他们的干预分配机制都相同</p>
 <p><code class="docutils literal notranslate"><span class="pre">Conditional</span> <span class="pre">exchangeability</span></code> (Unconfoundedness / conditional ignorability): <span class="math notranslate nohighlight">\((Y(1), Y(0)) \perp T \mid X\)</span></p>
 <center><img src="../images/CI_basic_15.png" width="85%"/></center>
 <ul>
@@ -894,42 +1233,55 @@ $<span class="math notranslate nohighlight">\(
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned} \mathbb{E}[Y(1)-Y(0)] &amp;=\mathbb{E}_{X} \mathbb{E}[Y(1)-Y(0) \mid X] \\ &amp;=\mathbb{E}_{X}[\mathbb{E}[Y \mid T=1, X]-\mathbb{E}[Y \mid T=0, X]] \end{aligned}\end{split}\]</div>
 </div>
-<div class="section" id="positivity">
-<h3>Positivity假设<a class="headerlink" href="#positivity" title="Permalink to this headline">¶</a></h3>
-<p>For all values of covariates X present in the population of interest: <span class="math notranslate nohighlight">\(0&lt;P(T=1 \mid X=x)&lt;1\)</span></p>
-<p>这个保证了上面的式子不会遇到除0的问题，具体可以见课本P12</p>
-<p>Intuition: 如果总体中有一个x都没有接收到treatment，我们不知道他们如果接受treatment的话会怎么样</p>
- <center><img src="../images/CI_basic_17.png" width="45%"/></center>
-<div class="section" id="overlap">
-<h4>Overlap<a class="headerlink" href="#overlap" title="Permalink to this headline">¶</a></h4>
-<p>另一个解读Positivity的视角：<code class="docutils literal notranslate"><span class="pre">overlap</span></code> of <span class="math notranslate nohighlight">\(P(X \mid T=0) \quad\)</span> and <span class="math notranslate nohighlight">\(\quad P(X \mid T=1)\)</span></p>
-<p>我们希望covariate distribution of the treatment group to overlap with the covariate distribution of the control group!</p>
-<center><img src="../images/CI_basic_18.png" width="45%"/></center>
-<p>所以overlap也叫common support</p>
-</div>
-<div class="section" id="positivity-unconfoundedness-tradeoff">
-<h4>Positivity-Unconfoundedness Tradeoff<a class="headerlink" href="#positivity-unconfoundedness-tradeoff" title="Permalink to this headline">¶</a></h4>
-<p>这里Positivity和unconfoundedness是一个tradeoff，如果我们增加变量，那么subgroup就会变小，虽然更容易解决confound，但是会让一些group整个T/not T的概率增高（比如subgroup的size缩小到只有1）</p>
-</div>
-<div class="section" id="extrapolation">
-<h4>Extrapolation<a class="headerlink" href="#extrapolation" title="Permalink to this headline">¶</a></h4>
-<p>违反Positivity的后果是影响模型的表现，因为通常causal effect需要根据(t, x, y)的样本拟合<span class="math notranslate nohighlight">\(\mathbb{E}[Y \mid t, x]\)</span></p>
-<center><img src="../images/CI_basic_19.png" width="65%"/></center>
-<ul class="simple">
-<li><p>注意 在实际操作中获得<span class="math notranslate nohighlight">\(\mathbb{E}[Y \mid T=1, x]\)</span>的方法是用任何一个minimize MSE的model就可以（比如Linear Regression）</p></li>
-</ul>
-</div>
-</div>
-<div class="section" id="no-interference">
-<h3>No Interference假设<a class="headerlink" href="#no-interference" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="stable-unit-treatment-value-assumption-sutva">
+<h4>Stable Unit Treatment Value Assumption(SUTVA)<a class="headerlink" href="#stable-unit-treatment-value-assumption-sutva" title="Permalink to this headline">¶</a></h4>
+<p>样本之间具有独立性，个体只受到单一干预（treatment），个体的潜在结果只与自身有关。</p>
+<ul>
+<li><p>无干扰</p>
+<ul>
+<li><p>对象间互相不会干扰No Interference:</p>
 <p>My outcome is unaffected by anyone else’s treatment. Rather, my outcome is only a function of my own treatment.</p>
 <div class="math notranslate nohighlight">
 \[Y_{i}\left(t_{1}, \ldots, t_{i-1}, t_{i}, t_{i+1}, \ldots, t_{n}\right)=Y_{i}\left(t_{i}\right)\]</div>
-<center><img src="../images/CI_basic_20.png" width="65%"/></center>
+  <center><img src="../images/CI_basic_20.png" width="65%"/></center>
+</li>
+<li><p>某一个对象被干预, 不会影响其它对象的目标结果</p></li>
+</ul>
+</li>
+<li><p>只有一种干预措施</p></li>
+</ul>
+</div>
+<div class="section" id="positivity">
+<h4>Positivity假设<a class="headerlink" href="#positivity" title="Permalink to this headline">¶</a></h4>
+<p>每个个体都可能命中任意一种干预For all values of covariates X present in the population of interest: <span class="math notranslate nohighlight">\(0&lt;P(T=1 \mid X=x)&lt;1\)</span></p>
+<p>这个保证了上面的式子不会遇到除0的问题，具体可以见课本P12</p>
+<p>Intuition: 如果总体中有一个x都没有接收到treatment，我们不知道他们如果接受treatment的话会怎么样. Population中的样本用户都有一定的几率会被干预（不会被遗忘）!</p>
+ <center><img src="../images/CI_basic_17.png" width="45%"/></center>
+<ul>
+<li><p>Overlap
+另一个解读Positivity的视角：<code class="docutils literal notranslate"><span class="pre">overlap</span></code> of <span class="math notranslate nohighlight">\(P(X \mid T=0) \quad\)</span> and <span class="math notranslate nohighlight">\(\quad P(X \mid T=1)\)</span></p>
+<p>我们希望covariate distribution of the treatment group to overlap with the covariate distribution of the control group!</p>
+  <center><img src="../images/CI_basic_18.png" width="45%"/></center>
+<p>所以overlap也叫common support</p>
+</li>
+<li><p>Positivity-Unconfoundedness Tradeoff</p>
+<p>这里Positivity和unconfoundedness是一个tradeoff，如果我们增加变量，那么subgroup就会变小，虽然更容易解决confound，但是会让一些group整个T/not T的概率增高（比如subgroup的size缩小到只有1）</p>
+</li>
+<li><p>Extrapolation</p>
+<p>违反Positivity的后果是影响模型的表现，因为通常causal effect需要根据(t, x, y)的样本拟合<span class="math notranslate nohighlight">\(\mathbb{E}[Y \mid t, x]\)</span></p>
+  <center><img src="../images/CI_basic_19.png" width="65%"/></center>
+<ul class="simple">
+<li><p>注意 在实际操作中获得<span class="math notranslate nohighlight">\(\mathbb{E}[Y \mid T=1, x]\)</span>的方法是用任何一个minimize MSE的model就可以（比如Linear Regression）</p></li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="section" id="consistency">
-<h3>Consistency假设<a class="headerlink" href="#consistency" title="Permalink to this headline">¶</a></h3>
-<p>The outcome we observe Y is actually the potential outcome under the observed treatment.</p>
+<h4>Consistency假设<a class="headerlink" href="#consistency" title="Permalink to this headline">¶</a></h4>
+<p>某一个对象的潜在结果等于其观测结果——The outcome we observe Y is actually the potential outcome under the observed treatment.</p>
+<ul class="simple">
+<li><p>因为ATE评估的时候我们看不到反事实！</p></li>
+</ul>
 <p>If the treatment is <span class="math notranslate nohighlight">\(T\)</span>, then the observed outcome <span class="math notranslate nohighlight">\(Y\)</span> is the potential outcome under treatment <span class="math notranslate nohighlight">\(T\)</span>. Formally,
 $<span class="math notranslate nohighlight">\(
 T=t \Longrightarrow Y=Y(t)
@@ -940,8 +1292,9 @@ Y=Y(T)
 \)</span>$</p>
 <center><img src="../images/CI_basic_21.png" width="65%"/></center>
 </div>
-<div class="section" id="id2">
-<h3>总结<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id5">
+<h3>总结<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>之前的conditional ATE⇒marginal ATE其实依赖了以上的四个假设</p>
 <center><img src="../images/CI_basic_22.png" width="65%"/></center>
 <ul class="simple">
@@ -952,8 +1305,13 @@ Y=Y(T)
 </ul>
 </div>
 </div>
-<div class="section" id="the-flow-of-association-and-causation-graphs">
-<h2>The Flow of Association and Causation Graphs<a class="headerlink" href="#the-flow-of-association-and-causation-graphs" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pearl-flow-of-association-and-causation-graphs">
+<h2>Pearl - flow of Association and Causation Graphs<a class="headerlink" href="#pearl-flow-of-association-and-causation-graphs" title="Permalink to this headline">¶</a></h2>
+<p>Pearl的Framework强调的是对DAG的使用，模型由有向图和观测数据构成</p>
+<ul class="simple">
+<li><p>开发了do-算子来推测政策干预后的新的分布，可以计算更复杂的关系图中的因果</p></li>
+<li><p>Pearl的重点在identification（Rubin在estimation和inference），两者互补</p></li>
+</ul>
 <div class="section" id="causal-graphs">
 <h3>Causal Graphs<a class="headerlink" href="#causal-graphs" title="Permalink to this headline">¶</a></h3>
 <ul>
@@ -976,6 +1334,16 @@ Y=Y(T)
    <center><img src="../images/CI_basic_25.png" width="65%"/></center>
 <ul class="simple">
 <li><p>通过Bayes network factorization和Bayes Rule证明可以得到：<span class="math notranslate nohighlight">\(P\left(x_{1}, x_{3} \mid x_{2}\right) =\frac{P\left(x_{1}, x_{2}\right)}{P\left(x_{2}\right)} P\left(x_{3} \mid x_{2}\right)\)</span></p></li>
+<li><p>Forks例子：</p>
+<ul>
+<li><p>游戏内容消费⇒游戏登陆时长❌：因为可能X2是对游戏的兴趣</p></li>
+</ul>
+</li>
+<li><p>Colider例子：</p>
+<ul>
+<li><p>用户看视频的量 跟 收入水平没关系，但是可能 用户对游戏内容的消费会带来游戏内的活跃、高的收入水平也会带来游戏内的活跃，所以对一个固定的游戏活跃程度（比如20～25级），消费量 和 收入水平 的相关关系就会被打通 形成一个虚假的关联</p></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Immorality</span></code>: 两个没connect的parents有一个共同的child</p>
@@ -994,6 +1362,7 @@ Y=Y(T)
 </div>
 <div class="section" id="d-separation">
 <h3>d-separation<a class="headerlink" href="#d-separation" title="Permalink to this headline">¶</a></h3>
+<p>d- separation的作用是用于确定T和Y之间相互独立的话，需要控制哪些变量。比如如果<span class="math notranslate nohighlight">\(Z\)</span> 阻断了 <span class="math notranslate nohighlight">\(T\)</span> 到 <span class="math notranslate nohighlight">\(Y\)</span> 的所有路径，那么 称 <span class="math notranslate nohighlight">\(Z \mathrm{~d}\)</span> 分离了<span class="math notranslate nohighlight">\(T\)</span> 和 <span class="math notranslate nohighlight">\(Y\)</span> ，记为 <span class="math notranslate nohighlight">\((T \perp Y \mid Z)_{G}\)</span></p>
 <p><code class="docutils literal notranslate"><span class="pre">Blocked</span> <span class="pre">path</span></code>: A path between nodes <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> is blocked by a (potentially empty) conditioning set <span class="math notranslate nohighlight">\(\mathrm{Z}\)</span> if either of the following is true:</p>
 <ol class="simple">
 <li><p>Along the path, there is a chain <span class="math notranslate nohighlight">\(\cdots \rightarrow W \rightarrow \cdots\)</span> or a fork <span class="math notranslate nohighlight">\(\cdots \leftarrow W \rightarrow \cdots\)</span> where <span class="math notranslate nohighlight">\(W\)</span> is conditioned on <span class="math notranslate nohighlight">\((W \in Z)\)</span>.</p></li>
@@ -1024,8 +1393,8 @@ $<span class="math notranslate nohighlight">\(
 <li><p>记得：association is not causation！</p></li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h3>总结<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>总结<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Causal association flows from 푇 to 푌 along directed paths</p></li>
 <li><p>Non-causal association flows along any other paths from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> that aren’t blocked by either</p>
@@ -1044,11 +1413,13 @@ $<span class="math notranslate nohighlight">\(
 <div class="section" id="the-do-operator">
 <h3>The <span class="math notranslate nohighlight">\(do\)</span>-operator<a class="headerlink" href="#the-do-operator" title="Permalink to this headline">¶</a></h3>
 <p>用<code class="docutils literal notranslate"><span class="pre">do</span></code>来表示intervention:</p>
-<ul class="simple">
-<li><p>Conditioning只是restrict to subset of data, 而intervene是对整体数据问what would be like if XXX</p></li>
-</ul>
-<center><img src="../images/CI_basic_30.png" width="45%"/></center>
 <ul>
+<li><p>Conditioning只是restrict to subset of data, 而intervene是对整体数据问what would be like if XXX</p>
+  <center><img src="../images/CI_basic_30.png" width="45%"/></center>
+<ul class="simple">
+<li><p>do(T=1)是把本来有偏的分布调回了原始所有数据的分布（通过前门、后门准则和do-calculus三种方法）</p></li>
+</ul>
+</li>
 <li><p>ATE从而可以写成：<span class="math notranslate nohighlight">\(\mathbb{E}[Y \mid d o(T=1)]-\mathbb{E}[Y \mid d o(T=0)]\)</span></p></li>
 <li><p>可以观测到的：<span class="math notranslate nohighlight">\(P(Y, T, X)\)</span>、<span class="math notranslate nohighlight">\(P(Y \mid T=t)\)</span></p>
 <ul class="simple">
@@ -1093,6 +1464,7 @@ $<span class="math notranslate nohighlight">\(
 </div>
 <div class="section" id="backdoor-adjustment">
 <h3>Backdoor adjustment<a class="headerlink" href="#backdoor-adjustment" title="Permalink to this headline">¶</a></h3>
+<p>Condition相当于把所有的X展开，然后乘它的概率做权重累加就相当于切开了！</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">Backdoor</span> <span class="pre">path</span></code>:  nondirected unblocked paths from Tto Y</p>
 <ul>
@@ -1107,6 +1479,9 @@ $<span class="math notranslate nohighlight">\(
 <li><p><span class="math notranslate nohighlight">\(W\)</span> blocks all backdoor paths from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(W\)</span> does not contain any descendants of <span class="math notranslate nohighlight">\(T\)</span>.</p></li>
 </ol>
+<blockquote>
+<div><p>因果关系识别的两种准则——后门准则(backdoor criterion)、前门准则(frontdoor criterion)</p>
+</div></blockquote>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Backdoor</span> <span class="pre">adjustment</span></code>: Given the modularity assumption, that W satisfies the backdoor criterion, and positivity, we can identify the causal effect of <span class="math notranslate nohighlight">\(T\)</span> on <span class="math notranslate nohighlight">\(Y\)</span>:</p>
 <div class="math notranslate nohighlight">
@@ -1135,14 +1510,105 @@ $<span class="math notranslate nohighlight">\(
 </ul>
 <p><strong>Rule</strong>: don’t adjust post-treatment covariate</p>
 </div>
+<div class="section" id="id7">
+<h3>因果图的例子<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>视频场景</p>
+  <center><img src="../images/CI_basic_43.png" width="75%"/></center>
+  <center><img src="../images/CI_basic_44.png" width="75%"/></center>
+<ul class="simple">
+<li><p>为排除策略等common cause带来的confounding bias，要通过后门调整阻断由视频质量到单视频播放时长的路径——conditioning on 视频物理特征、视频内容、用户画像这三个因素</p></li>
+</ul>
+  <center><img src="../images/CI_basic_45.png" width="75%"/></center>
+<ul class="simple">
+<li><p>推荐侧上游：</p>
+<ul>
+<li><p>竞争</p>
+<ul>
+<li><p>运营策略：我们会参考、学习竞品的成功经验，并适当调整运营策略</p></li>
+<li><p>供给分布：竞品会分走市场份额</p></li>
+</ul>
+</li>
+<li><p>运营策略</p>
+<ul>
+<li><p>话题质量：平台可能会通过举办节日活动，激励用户发布视频时带话题，如”#520美味告白“；还会引入优质CP、签约大V，增加内容供给，从而增加话题聚合页下总播放量和点赞数</p></li>
+<li><p>供给分布：平台的拉新、运营策略会影响内容供给，进而 - 内容分类</p></li>
+</ul>
+</li>
+<li><p>内容分类</p>
+<ul>
+<li><p>话题质量：不同分类的知名度、受欢迎程度天然有区别（如美妆类&gt;天文类），从而导致相关话题质量不同（如#彩妆教程#&gt;#冥王星#）</p></li>
+<li><p>视频物理时长：有些分类的内容会更详实，从而影响类别下视频的物理时长（如知识类&gt;萌宠类）</p></li>
+<li><p>召回分布：推荐召回时，系统从海量内容池中快速找出一小部分用户感兴趣的物品，以下两种匹配方式都需要用到内容分类标签
+无个性化因素的召回路：比如热门商品或者热门文章或者历史点击率高的物料的召回
+有个性化因素的召回路：比如用户兴趣标签召回</p></li>
+</ul>
+</li>
+<li><p>话题质量</p>
+<ul>
+<li><p>召回分布：无个性化因素召回中，倾向于召回热门内容（即高质量话题下的内容）</p></li>
+</ul>
+</li>
+<li><p>用户画像</p>
+<ul>
+<li><p>召回分布：有个性化因素的召回路中，用户兴趣画像会影响召回结果</p></li>
+<li><p>精排分布：尽量精准地对召回物品进行个性化排序，用户兴趣画像会影响精排结果</p></li>
+<li><p>重排分布：主要用于改进用户体验，处理如去已读、去重、打散、多样性保证、固定类型物品插入等，用户历史行为（如浏览历史）会通过影响“去已读”影响重排结果</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>推荐侧中游：</p>
+<ul>
+<li><p>因果关系即推荐流程，即召回 - 粗排 - 精排 - 重排</p></li>
+</ul>
+</li>
+<li><p>推荐侧下游：</p>
+<ul>
+<li><p>重排分布：即最终展示给用户的内容分布，包含以下特征</p>
+<ul>
+<li><p>曝光分布</p></li>
+<li><p>视频质量</p></li>
+<li><p>视频物理时长</p></li>
+</ul>
+</li>
+<li><p>用户画像、重排分布共同 - 重排兴趣匹配度</p></li>
+<li><p>重排兴趣匹配度</p>
+<ul>
+<li><p>单视频播放时长：用户若对推荐结果感兴趣，则该条视频的消费时长会更长</p></li>
+</ul>
+</li>
+<li><p>曝光分布</p>
+<ul>
+<li><p>单视频播放时长：对于推荐结果中排序在前的视频，用户更有耐心和好奇心看久一点</p></li>
+</ul>
+</li>
+<li><p>视频质量</p>
+<ul>
+<li><p>单视频播放时长：单视频的评转赞情况可能影响用户对视频内容的期望值，如面对一个爆款视频，用户倾向于相信“口碑”、好奇这个视频为什么受欢迎而看完</p></li>
+</ul>
+</li>
+<li><p>视频物理时长</p>
+<ul>
+<li><p>单视频播放时长：本身时长短的视频天然限制了用户可消费的时长</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
+</div>
+<div class="section" id="identification">
+<h2>identification<a class="headerlink" href="#identification" title="Permalink to this headline">¶</a></h2>
+<p>把没办法估计的causal quantity变成可以得到的</p>
 <div class="section" id="randomized-experiments">
-<h2>Randomized Experiments<a class="headerlink" href="#randomized-experiments" title="Permalink to this headline">¶</a></h2>
+<h3>Randomized Experiments<a class="headerlink" href="#randomized-experiments" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>随机试验Magic的地方在于：No unobserved confounding</p></li>
+<li><p>Comparability / covariate balance</p></li>
 </ul>
-<div class="section" id="comparability-covariate-balance">
-<h3>Comparability / covariate balance<a class="headerlink" href="#comparability-covariate-balance" title="Permalink to this headline">¶</a></h3>
 <p>实验组和对照组在其他变量上都是comparable被控制了的，只有T不同，所以区别肯定只是T导致的，从而确保了<code class="docutils literal notranslate"><span class="pre">covariate</span> <span class="pre">balance</span></code>: distribution of covariates <span class="math notranslate nohighlight">\(X\)</span> is the same across treatment groups:
 $<span class="math notranslate nohighlight">\(
 P(X \mid T=1) \stackrel{d}{=} P(X \mid T=0)\stackrel{d}{=} P(X)
@@ -1153,6 +1619,156 @@ P(X \mid T=1) \stackrel{d}{=} P(X \mid T=0)\stackrel{d}{=} P(X)
 <p>而我们又可以证明Covariate balance implies association is causation——<span class="math notranslate nohighlight">\(P(y \mid d o(t))=P(y \mid t)\)</span>：</p>
  <center><img src="../images/CI_basic_38.png" width="75%"/></center>
 </div>
+<div class="section" id="frontdoor-adjustment">
+<h3>Frontdoor adjustment<a class="headerlink" href="#frontdoor-adjustment" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Backdoor是block backdoor path从而得到identification</p>
+</div></blockquote>
+<p>场景：有的时候混杂因子是unobserved的，无法block掉backdoor path</p>
+ <center><img src="../images/CI_basic_41.png" width="75%"/></center>
+<ul class="simple">
+<li><p>例子：吸烟的基因不可获得所以不能后门调整</p></li>
+</ul>
+<p>解决方案：找到T到Y之间的一个M，把T到Y变成T到M+M到Y</p>
+<p>还是上面的例子：</p>
+<ul class="simple">
+<li><p>首先, <span class="math notranslate nohighlight">\(X\)</span> 对 <span class="math notranslate nohighlight">\(Z\)</span> 的因果效应是直接可以通过数据得到的:
+$<span class="math notranslate nohighlight">\(
+  P(Z=z \mid d o(X=x))=P(Z=z \mid X=x)
+  \)</span>$</p></li>
+<li><p>接下来, <span class="math notranslate nohighlight">\(Z\)</span> 对 <span class="math notranslate nohighlight">\(Y\)</span> 的因果效应, 两者存在一个共因 <span class="math notranslate nohighlight">\(U\)</span>, 因此存在混杂, 可以用后门路径调整, 但由于 <span class="math notranslate nohighlight">\(U\)</span> 是末观测的变量, 所以我们对 <span class="math notranslate nohighlight">\(X\)</span> 进行调整, 即以 <span class="math notranslate nohighlight">\(X\)</span> 为条件, 来阻断 <span class="math notranslate nohighlight">\(Z \leftarrow X \leftarrow U \rightarrow Y\)</span>:
+$<span class="math notranslate nohighlight">\(
+  P(Y=y \mid d o(Z=z))=\sum_{x} P(Y=y \mid Z=z, X=x) P(X=x)
+  \)</span>$</p></li>
+</ul>
+<p>总结：前门调整和后门调整神奇的地方就在于，我们在消除了do运算的情况下进行了干预, 也就是说我们仅仅使用观测数据，仅仅使用已知的分布，就能够估计变量之间的因果效应。</p>
+</div>
+<div class="section" id="pearls-do-calculus">
+<h3>Pearl’s do-calculus<a class="headerlink" href="#pearls-do-calculus" title="Permalink to this headline">¶</a></h3>
+<p>作用：allow us to identify any causal quantity that is identifiable</p>
+<p>identify causal estimands when the associated causal graph satisfies neither the backdoor criterion nor the frontdoor criterion</p>
+<div class="section" id="rules-of-d-o-calculus">
+<h4>Rules of <span class="math notranslate nohighlight">\(d o\)</span>-calculus<a class="headerlink" href="#rules-of-d-o-calculus" title="Permalink to this headline">¶</a></h4>
+<p>Theorem 6.2 (Rules of do-calculus) Given a causal graph <span class="math notranslate nohighlight">\(G\)</span>, an associated
+distribution <span class="math notranslate nohighlight">\(P\)</span>, and disjoint sets of variables <span class="math notranslate nohighlight">\(Y, T, Z\)</span>, and <span class="math notranslate nohighlight">\(W\)</span>, the following rules hold.</p>
+<ul>
+<li><p>Rule 1: 什么时候可以从条件中删除Z
+$<span class="math notranslate nohighlight">\(
+  P(y \mid d o(t), z, w)=P(y \mid d o(t), w) \quad \text { if } Y \perp_{G_{\bar{T}}} Z \mid T, W
+  \)</span>$</p>
+<ul>
+<li><p>原理是Generalization of d-separation to interventional distributions</p>
+<p>正常的d-seperation <span class="math notranslate nohighlight">\(P(y \mid z, w)=P(y \mid w) \quad\)</span> if <span class="math notranslate nohighlight">\(Y \perp_{G} Z \mid W\)</span> 外加上do T</p>
+</li>
+</ul>
+</li>
+<li><p>Rule 2:
+$<span class="math notranslate nohighlight">\(
+  P(y \mid d o(t), d o(z), w)=P(y \mid d o(t), z, w) \quad \text { if } Y \perp_{G_{\bar{T}, \underline{z}}} Z \mid T, W
+  \)</span>$</p>
+<ul>
+<li><p>原理是Generalization of backdoor adjustment to interventional distributions</p>
+<p>正常的backdoor criterion <span class="math notranslate nohighlight">\(P(y \mid d o(z), w)=P(y \mid z, w) \quad\)</span> if <span class="math notranslate nohighlight">\(Y \perp_{G_{\underline{z}}} Z \mid W\)</span> 加上do T</p>
+<blockquote>
+<div><p>Association is causation if the outcome Y and the treatment T are d-separated by some set of variables that are conditioned on W</p>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p>Rule 3:
+$<span class="math notranslate nohighlight">\(
+  P(y \mid d o(t), d o(z), w)=P(y \mid d o(t), w) \quad \text { if } Y \perp_{G_{\bar{T}, \bar{Z}(W)}} Z \mid T, W
+  \)</span><span class="math notranslate nohighlight">\(
+  where \)</span>Z(W)<span class="math notranslate nohighlight">\( denotes the set of nodes of \)</span>Z<span class="math notranslate nohighlight">\( that aren't ancestors of any node of \)</span>W<span class="math notranslate nohighlight">\( in \)</span>G_{\bar{T}}$.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="conditional-outcome-modeling-com">
+<h3>Conditional Outcome Modeling (COM)<a class="headerlink" href="#conditional-outcome-modeling-com" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="propensity-scores">
+<h3>Propensity Scores<a class="headerlink" href="#propensity-scores" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>是一种调节confounder的方法，不是模拟随机试验！！！</p>
+</div></blockquote>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Propensity</span> <span class="pre">Scores</span></code><span class="math notranslate nohighlight">\(P(T=1 \mid W=w)\)</span>: the propensity for (probability of) receiving treatment given that W is w</p>
+<blockquote>
+<div><p>propensity score是probability</p>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Propensity</span> <span class="pre">Score</span> <span class="pre">Theorem</span></code>: Given positivity, unconfoundedness given <span class="math notranslate nohighlight">\(W\)</span> implies unconfoundedness given the propensity score e <span class="math notranslate nohighlight">\((W)\)</span>. Equivalently,
+$<span class="math notranslate nohighlight">\(
+  (Y(1), Y(0)) \perp T|W \Longrightarrow(Y(1), Y(0)) \perp T| e(W)
+  \)</span>$</p>
+<ul class="simple">
+<li><p>Magic的地方：W是sufficient adjustment set是很高维的，但是e(W)只是一个scaler</p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="id8">
+<h4>操作步骤<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<ol>
+<li><p>Calculate the propensity score for each person</p>
+<ul class="simple">
+<li><p>Run一个Logistic regression: 因变量为Binary do(T)、自变量为关心的</p></li>
+<li><p>对每个样本的probability输出就是propensity score</p></li>
+</ul>
+</li>
+<li><p>Decide how you want to use the scores</p>
+<ul>
+<li><p>Matching</p>
+<p>1:1? caliper width? without replacement?</p>
+<p>可以根据T和没T的人群中，有没有被T的概率接近的人 就可以match在一起！</p>
+</li>
+<li><p>Weighting</p>
+<p>IPTW? Trimming?</p>
+</li>
+<li><p>Stratification</p>
+<p>Strata size? Trimming?</p>
+</li>
+</ul>
+</li>
+<li><p>Run your regression model within your propensity score matched population</p>
+<p>You can analyze the outcome in your unmatched population, but in the unmatched population you did not adjust for confounders</p>
+<p>So you also want to analyze the risk within your propensity score matched population (因为同一个match中的propensity score实现了控制confounder！)</p>
+</li>
+</ol>
+</div>
+<div class="section" id="id9">
+<h4>应用案例<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><a class="reference external" href="https://sejdemyr.github.io/r-tutorials/statistics/tutorial8.html">https://sejdemyr.github.io/r-tutorials/statistics/tutorial8.html</a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="inverse-probability-weighting-ipw">
+<h3>Inverse Probability Weighting (IPW)<a class="headerlink" href="#inverse-probability-weighting-ipw" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pseudo-populations</span></code>: 我们可以创建一个伪人群 在这里我们通过re-weighting association⇒causation</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>反事实<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>反事实的三步走方法:</p>
+<ol class="simple">
+<li><p>外展 (Abduction) : 使用证据 <span class="math notranslate nohighlight">\(E=e\)</span> 来确定 <span class="math notranslate nohighlight">\(U\)</span> 的值。</p></li>
+<li><p>干预（Action）：通过用 <span class="math notranslate nohighlight">\(X=x\)</span> 来替换原来模型 <span class="math notranslate nohighlight">\(M\)</span> 中变量 <span class="math notranslate nohighlight">\(X\)</span> 的表达式, 从而修改原模型 <span class="math notranslate nohighlight">\(M\)</span> 为 <span class="math notranslate nohighlight">\(M_{x}\)</span> 。</p></li>
+<li><p>预测 (Prediction) : 使用修改后的模型 <span class="math notranslate nohighlight">\(M_{x}\)</span> 和第一步计算出的 <span class="math notranslate nohighlight">\(U\)</span> 值来计算 <span class="math notranslate nohighlight">\(Y\)</span> 值。</p></li>
+</ol>
+</div>
+<div class="section" id="causal-discovery">
+<h2>Causal Discovery<a class="headerlink" href="#causal-discovery" title="Permalink to this headline">¶</a></h2>
+<p>uplift modeling，difference in differences等方法都集中在如何评估因果的影响，即Causal Effect。但还有一卦是Causal Discovery</p>
+ <center><img src="../images/CI_basic_42.png" width="75%"/></center>[](https://km-pro-1258638997.cos.ap-guangzhou.myqcloud.com/files/attachments_1/908/13908/3a84b0da4472c8b379b91de5458f9166.pptx?q-sign-algorithm%3Dsha1%26q-ak%3DAKIDLVP3QWLuCDxYtCEzUjhOpyqQjlW0C8nB%26q-sign-time%3D1653900147%3B1653902007%26q-key-time%3D1653900147%3B1653902007%26q-header-list%3D%26q-url-param-list%3Dci-process%26q-signature%3Dc36c5cf2096ba767e3fb61921dc092d356639b58%26ci-process%3Ddoc-preview%26page%3D8)
+</div>
+<div class="section" id="id11">
+<h2>总结<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>无论多高深的算法和模型都离不开你对业务的理解，因果推断也是这样，PSM需要找出所有能影响的因子，这个前期最有效的方法就是通过和产品同学去了解。</p></li>
+<li><p>因果推断其实是数据分析流的下游，我们要层层深入的过程，一开始先EDA商业分析对数据有一部分洞察，找到问题，发掘增长点，然后可以通过统计分析量化相关性看我们发现的规律是否显著，最后再通过因果推断去验证归因结论！</p></li>
+</ul>
 </div>
 </div>
 

@@ -160,6 +160,11 @@ const thebe_selector_output = ".output, .cell_output"
    AB Test
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Causal_Inference/2_methods.html">
+   因果推理方法
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -168,7 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Deep_Learning/Basics/README.html">
+  <a class="reference internal" href="../DL/Basics/README.html">
    基础
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -178,24 +183,24 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/Basics/DL_hyperparameter.html">
+    <a class="reference internal" href="../DL/Basics/DL_hyperparameter.html">
      DL常见超参及调整策略
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/Basics/Optimizer.html">
+    <a class="reference internal" href="../DL/Basics/Optimizer.html">
      优化器
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/Basics/Trained_by_GPU.html">
+    <a class="reference internal" href="../DL/Basics/Trained_by_GPU.html">
      GPU训练
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Deep_Learning/NLP/README.html">
+  <a class="reference internal" href="../DL/NLP/README.html">
    NLP
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -205,29 +210,29 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/NLP/basics.html">
+    <a class="reference internal" href="../DL/NLP/basics.html">
      基础概念
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/NLP/Self-attention.html">
+    <a class="reference internal" href="../DL/NLP/Self-attention.html">
      Self-Attention
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/NLP/Transformer.html">
+    <a class="reference internal" href="../DL/NLP/Transformer.html">
      Transformer
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/NLP/BERT.html">
+    <a class="reference internal" href="../DL/NLP/BERT.html">
      BERT
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Deep_Learning/NN_compression/README.html">
+  <a class="reference internal" href="../DL/NN_compression/README.html">
    神经网络压缩
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
@@ -237,7 +242,7 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../Deep_Learning/NN_compression/KD.html">
+    <a class="reference internal" href="../DL/NN_compression/KD.html">
      知识蒸馏
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
@@ -247,14 +252,14 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../Deep_Learning/NN_compression/Distill_Bert.html">
+      <a class="reference internal" href="../DL/NN_compression/Distill_Bert.html">
        Distill Bert
       </a>
      </li>
     </ul>
    </li>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../Deep_Learning/NN_compression/Quantize.html">
+    <a class="reference internal" href="../DL/NN_compression/Quantize.html">
      量化
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
@@ -264,7 +269,7 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../Deep_Learning/NN_compression/QBert.html">
+      <a class="reference internal" href="../DL/NN_compression/QBert.html">
        Q-BERT
       </a>
      </li>
@@ -363,8 +368,27 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   指标下钻
+   分析方法
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     指标下钻
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   指标体系
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     视频
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -388,8 +412,27 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   指标下钻
+   分析方法
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     指标下钻
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   指标体系
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     视频
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -408,9 +451,31 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>规模DAU = DNU × LT + RDAU</p></li>
 </ul>
 <div class="section" id="id2">
-<h2>指标下钻<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>分析方法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>指标下钻<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>可以挖掘出细分的人群</p>
-<center><img src="../images/DA_metric_1.png" width="75%"/></center></div>
+<center><img src="../images/DA_metrics_1.png" width="75%"/></center>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>指标体系<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>视频<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>指标名
+全链路主观打分指标
+篇均播放时长
+篇均播放完成次数
+篇均完播率
+视频平均时长
+包含话题占比
+篇均分享数
+篇均评论数
+篇均点赞数
+篇均评/赞数
+视频平均完播率</p>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">

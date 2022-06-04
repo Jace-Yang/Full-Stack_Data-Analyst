@@ -57,7 +57,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="基础" href="../Deep_Learning/Basics/README.html" />
+    <link rel="next" title="因果推理方法" href="2_methods.html" />
     <link rel="prev" title="基础" href="README.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
@@ -164,6 +164,11 @@ const thebe_selector_output = ".output, .cell_output"
    AB Test
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_methods.html">
+   因果推理方法
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -172,7 +177,7 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Deep_Learning/Basics/README.html">
+  <a class="reference internal" href="../DL/Basics/README.html">
    基础
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -182,24 +187,24 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/Basics/DL_hyperparameter.html">
+    <a class="reference internal" href="../DL/Basics/DL_hyperparameter.html">
      DL常见超参及调整策略
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/Basics/Optimizer.html">
+    <a class="reference internal" href="../DL/Basics/Optimizer.html">
      优化器
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/Basics/Trained_by_GPU.html">
+    <a class="reference internal" href="../DL/Basics/Trained_by_GPU.html">
      GPU训练
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Deep_Learning/NLP/README.html">
+  <a class="reference internal" href="../DL/NLP/README.html">
    NLP
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -209,29 +214,29 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/NLP/basics.html">
+    <a class="reference internal" href="../DL/NLP/basics.html">
      基础概念
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/NLP/Self-attention.html">
+    <a class="reference internal" href="../DL/NLP/Self-attention.html">
      Self-Attention
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/NLP/Transformer.html">
+    <a class="reference internal" href="../DL/NLP/Transformer.html">
      Transformer
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Deep_Learning/NLP/BERT.html">
+    <a class="reference internal" href="../DL/NLP/BERT.html">
      BERT
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Deep_Learning/NN_compression/README.html">
+  <a class="reference internal" href="../DL/NN_compression/README.html">
    神经网络压缩
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
@@ -241,7 +246,7 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../Deep_Learning/NN_compression/KD.html">
+    <a class="reference internal" href="../DL/NN_compression/KD.html">
      知识蒸馏
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
@@ -251,14 +256,14 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../Deep_Learning/NN_compression/Distill_Bert.html">
+      <a class="reference internal" href="../DL/NN_compression/Distill_Bert.html">
        Distill Bert
       </a>
      </li>
     </ul>
    </li>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../Deep_Learning/NN_compression/Quantize.html">
+    <a class="reference internal" href="../DL/NN_compression/Quantize.html">
      量化
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
@@ -268,7 +273,7 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../Deep_Learning/NN_compression/QBert.html">
+      <a class="reference internal" href="../DL/NN_compression/QBert.html">
        Q-BERT
       </a>
      </li>
@@ -512,30 +517,69 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
-     起因
+     作用
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id15">
+     起因
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
      更好的方式：AA波动比率
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id16">
-   补充
+  <a class="reference internal nav-link" href="#ab-testtrick">
+   AB test的应用Trick
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id17">
+   AB test的局限性
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id18">
+   其他实验思路
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#trick">
-     应用Trick
+    <a class="reference internal nav-link" href="#id19">
+     双边实验
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id20">
+       缺陷
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     时间片轮转实验
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id22">
+       核心假设
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id23">
+       缺点
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id17">
+  <a class="reference internal nav-link" href="#id24">
    参考资料
   </a>
  </li>
@@ -706,30 +750,69 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id14">
-     起因
+     作用
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id15">
+     起因
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
      更好的方式：AA波动比率
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id16">
-   补充
+  <a class="reference internal nav-link" href="#ab-testtrick">
+   AB test的应用Trick
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id17">
+   AB test的局限性
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id18">
+   其他实验思路
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#trick">
-     应用Trick
+    <a class="reference internal nav-link" href="#id19">
+     双边实验
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id20">
+       缺陷
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id21">
+     时间片轮转实验
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id22">
+       核心假设
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id23">
+       缺点
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id17">
+  <a class="reference internal nav-link" href="#id24">
    参考资料
   </a>
  </li>
@@ -755,14 +838,14 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>会对部分用户展开</p></li>
 </ul>
 <p>定位：A/B实验系统是一套高效的”超参”探索机制，而不单单是度量工具</p>
-<ul>
+<ul class="simple">
 <li><p>纵向：数据分析、用户调研是理解需求的方法，ABtest是验证方案的工具，是互相补充的上下游的关系！</p></li>
 <li><p>横向：用户访谈、问卷调查、焦点组也是evaluate方案的方法，AB实验会给broad quantitive data，上面的会给你deep qualitative data，也可以形成组合拳！</p></li>
-<li><p>同类：AB实验是实验设计方案中最简单的一种。采用了完全随机实验 让实验组和对照组同质化</p>
-   <center><img src="../images/CI_abtest_3.png" width="75%"/></center>
-<p>除了AB之外，还有很多别的——比如面对不满足SUTVA 有溢出效应、网络效应之后，需要switchback</p>
-</li>
-<li><p>问：AB测试成本很高，每个调整都需要AB测试么？</p>
+<li><p>同类：AB实验是实验设计方案中最简单的一种。采用了完全随机实验 让实验组和对照组同质化</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>问：AB测试成本很高，每个调整都需要AB测试么？</p>
 <blockquote>
 <div><p>面试官问到每一个关于我们现在想要上线一个小改动，或者说要上线一个小调整，你会如何去验证这个调整的收益？你都用AB测试去进行回答的话，他可能会反问，AB测试是需要成本的，你不觉得每一次我们如果都需要通过一个AB测试去验证的话，成本过高吗？</p>
 </div></blockquote>
@@ -770,8 +853,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>不一定，比如——如果只是验证一个小按钮或者一个小改动，我们可以在界面上去设置一个开关，用户可以通过开关的形式自行决定我采用哪一种方式。那么我们最后就可以通过这个开关的相关指标去判断用户对于哪一种形式又有更大的倾向性。</p></li>
 <li><p>或者有的时候我们可以去做一些用户调研，比如说通过访谈或者说是设计问卷的形式，去收集一些用户的反馈。或者他们关于这些小变动的体验，所以并不是绝对的。</p></li>
 </ul>
-</li>
-</ul>
+</div>
 <p>场景：</p>
 <ul class="simple">
 <li><p>产品迭代：比如界面优化、功能增加、流程增加，这些 都可以使用 <span class="math notranslate nohighlight">\(A B\)</span> 实验测试产品改版是否成功</p></li>
@@ -881,7 +963,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li><p>分层：同一份流量可以分布在多个实验层，也就是说同一批用户可以出现在不同的实验层，前提是各个实验层之间无业务关联，保证这一批用户都均匀地分布到所有的实验层里，达到用户“正交”的效果就可以。所谓的正交分层，其实可以理解为互不影响的流量分层，从而实验流量复用的效果。</p></li>
 <li><p>分流分层模型：在此模型中增加组、层，并且可以互相嵌套。这要与实际的业务相匹配，拆分过多的结构可能会把简单的业务复杂化，拆分过少的结构又可能不满足实际业务。</p>
-  <center><img src="../images/CI_abtest_7.png" width="75%"/></center>
+  <center><img src="../images/CI_abtest_7.png" width="45%"/></center>
 </li>
 </ul>
 </li>
@@ -1041,6 +1123,65 @@ $<span class="math notranslate nohighlight">\(n \approx \frac{2\left(Z_{\alpha /
 <p>以上的例子：</p>
   <center><img src="../images/CI_abtest_6.png" width="65%"/></center>
 </li>
+<li><p>代码</p>
+<p>基于<a class="reference external" href="https://toutiao.io/posts/q660w08/preview">delta method</a>
+$<span class="math notranslate nohighlight">\(\sqrt{n}\left(g\left(Y_{n}\right)-g(\theta)\right) \stackrel{d}{\rightarrow} N\left(0, \sigma^{2} g^{\prime}(\theta)^{2}\right)\)</span>$</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">MultiTaskLasso</span><span class="p">,</span> <span class="n">Lasso</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="kn">from</span>  <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">chi2_contingency</span>
+<span class="k">def</span> <span class="nf">chi_test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">x_target</span><span class="p">,</span><span class="n">y_target</span><span class="p">):</span>
+    <span class="c1">#卡方检验 组分分布是否平</span>
+    <span class="n">kf_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">x</span><span class="p">,</span><span class="n">x_target</span><span class="p">],</span> <span class="p">[</span><span class="n">y</span><span class="p">,</span><span class="n">y_target</span><span class="p">]])</span>
+    <span class="n">kf</span> <span class="o">=</span> <span class="n">chi2_contingency</span><span class="p">(</span><span class="n">kf_data</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;chi-sq=</span><span class="si">%.4f</span><span class="s1">, p-value=</span><span class="si">%.4f</span><span class="s1">, df=</span><span class="si">%i</span><span class="s1"> expected_frep=</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">kf</span><span class="p">)</span>
+
+<span class="n">chi_test</span><span class="p">(</span><span class="mi">31188</span><span class="p">,</span><span class="mi">31188</span><span class="p">,</span><span class="mi">3461</span><span class="p">,</span><span class="mi">3423</span><span class="p">)</span>
+
+
+<span class="c1">#deltaMethod 专用于变量y与变量x的商的case</span>
+<span class="k">def</span> <span class="nf">var_dtm</span><span class="p">(</span><span class="n">y_mean</span><span class="p">,</span> <span class="n">x_mean</span><span class="p">,</span> <span class="n">var_y</span><span class="p">,</span> <span class="n">var_x</span><span class="p">,</span> <span class="n">xy_mean</span><span class="p">):</span>
+    
+    <span class="c1">#计算协方差</span>
+    <span class="k">def</span> <span class="nf">cova</span><span class="p">(</span><span class="n">x_mean</span><span class="p">,</span><span class="n">y_mean</span><span class="p">,</span><span class="n">xy_mean</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">xy_mean</span><span class="o">-</span><span class="n">x_mean</span><span class="o">*</span><span class="n">y_mean</span>
+    <span class="n">covar</span> <span class="o">=</span> <span class="n">cova</span><span class="p">(</span><span class="n">x_mean</span><span class="p">,</span><span class="n">y_mean</span><span class="p">,</span><span class="n">xy_mean</span><span class="p">)</span>
+    
+    <span class="c1">#商的variacne</span>
+    <span class="n">var_ratio</span> <span class="o">=</span> <span class="n">var_y</span><span class="o">/</span><span class="n">x_mean</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">var_x</span><span class="o">*</span><span class="n">y_mean</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">x_mean</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">covar</span><span class="o">*</span><span class="n">y_mean</span><span class="o">/</span><span class="n">x_mean</span><span class="o">**</span><span class="mi">3</span>
+    <span class="k">return</span> <span class="n">var_ratio</span>
+
+
+<span class="c1">#发布器头图的 曝光数 &gt; 发布数 为例</span>
+<span class="n">var</span> <span class="o">=</span> <span class="n">var_dtm</span><span class="p">(</span><span class="n">y_mean</span> <span class="o">=</span> <span class="mf">0.035214194</span><span class="p">,</span> <span class="n">x_mean</span> <span class="o">=</span> <span class="mf">2.794877088302219</span>
+                <span class="p">,</span><span class="n">var_y</span> <span class="o">=</span> <span class="mf">0.073726526</span><span class="p">,</span> <span class="n">var_x</span> <span class="o">=</span> <span class="mf">185.240175</span>
+                    <span class="p">,</span> <span class="n">xy_mean</span> <span class="o">=</span> <span class="mf">0.410843231521</span><span class="p">)</span>
+
+
+<span class="c1">#实际的方差 有可能比二项分布折算方差会大很多</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;二项方差：&#39;</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="mf">0.012599</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mf">0.012599</span><span class="p">),</span><span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;实际方差：&#39;</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="n">var</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">sample_size</span><span class="p">(</span><span class="n">mean</span> <span class="o">=</span> <span class="mf">0.01259955</span><span class="p">,</span><span class="n">var</span> <span class="o">=</span> <span class="mf">0.0122</span><span class="p">,</span><span class="n">lift_rate</span> <span class="o">=</span> <span class="mf">0.025</span><span class="p">,</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span><span class="n">beta</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">math</span>
+    
+    <span class="n">lift</span> <span class="o">=</span> <span class="n">lift_rate</span> <span class="o">*</span> <span class="n">mean</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="n">var</span><span class="o">*</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span><span class="o">+</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">beta</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="n">lift</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;采用二项方差的样本量估计：&#39;</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">(</span><span class="n">var</span> <span class="o">=</span> <span class="mf">0.0128</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;采用deltaMethod的样本量估计：&#39;</span><span class="p">,</span><span class="n">sample_size</span><span class="p">())</span>
+</pre></div>
+</div>
+</li>
 <li><p>补充：为什么计算的是最小样本量？</p>
 <p>理论上样本量还是越大越好。实际上，样本量越少越好，这是因为</p>
 <ol class="simple">
@@ -1176,9 +1317,16 @@ $<span class="math notranslate nohighlight">\(
 <div class="section" id="novelty-and-primacy-effect">
 <h3>Novelty and Primacy Effect<a class="headerlink" href="#novelty-and-primacy-effect" title="Permalink to this headline">¶</a></h3>
 <p>在新进行实验版本变更的短期内会有两种效应，但不会一直持续：</p>
+<ul>
+<li><p>Primacy effect: People are reluctant to change</p>
+<p>实验的指标可能会表现出正向的增长，到那时当用户好奇心消退之后，又会回到之前一般的水平。</p>
 <ul class="simple">
-<li><p>Primacy effect: People are reluctant to change</p></li>
-<li><p>新奇效应Novelty effect: People welcome the changes and use more——用户因为新鲜感而表现出不可持续的行为</p></li>
+<li><p>举例：当某一天我们打开微信，发现微信的导航栏多了一个图标，我们肯定会非常好奇地去点开它看看是什么功能。打开发现它其实就是原来的朋友圈而已，那第二天第三天可能就慢慢习惯了这个新的东西，回到原先的使用习惯。</p></li>
+</ul>
+</li>
+<li><p>新奇效应Novelty effect: People welcome the changes and use more——用户因为新鲜感而表现出不可持续的行为</p>
+<p>老用户对改变可能不习惯甚至反感，有一定上手成本，这个时候需要可能会带来短期负面的影响</p>
+</li>
 </ul>
 <p>这两个效应会导致不同的initial effect</p>
 <div class="admonition note">
@@ -1187,28 +1335,49 @@ $<span class="math notranslate nohighlight">\(
 A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 </div>
 <p>解决方案：</p>
+<p>实践中，面对可能出现的学习效应，有什么应对方法呢：</p>
 <ul class="simple">
-<li><p>Run tests only on first time users: 这样不会被Novelty和Primacy影响</p></li>
+<li><p>采用入组多天的数据，表征实验组的指标随着时间的变化情况，表征实验指标是否收敛。
+如果指标有一定的周周期性，实验周期包含周末，观察工作日和周末的不同表现。</p>
+<ul>
+<li><p>但是在实验中，每天都去计算实验是否显著、比较两组指标大小是没有意义的，还会导致多重检验问题，只有达到最小样本量以及学习效应消退才能分析实验结果。</p></li>
+</ul>
+</li>
+<li><p>Run tests only on first time users: 采用全新用户开展实验，全新用户就没有使用惯性的问题不会被Novelty和Primacy影响。</p></li>
 <li><p>如果已经有在跑的实验，想看这些effect的影响的话，要等实验结果稳健之后再下结论</p></li>
 </ul>
 </div>
 <div class="section" id="interference-between-variants">
 <h3>INTERFERENCE BETWEEN VARIANTS<a class="headerlink" href="#interference-between-variants" title="Permalink to this headline">¶</a></h3>
-<p>SUTVA是Stable unit treatment value assumption，表示randomization units are independent and no interaction between them！但用户之间很可能相互影响</p>
+<p>SUTVA是Stable unit treatment value assumption，表示randomization units are independent and no interaction between them！但社交属性⇒用户之间很可能相互影响⇒每个用户的行为并非完全独立</p>
 <p>问题出现的场景</p>
-<ul class="simple">
-<li><p>Network effect: 控制组的用户会被实验组的用户影响</p>
 <ul>
-<li><p>User behaviors are impacted by others</p></li>
-<li><p>The effect can spillover the control group</p></li>
-<li><p>例子：比如我们对司机激励策略 由于司机会群里讨论所以会感觉自己受到不公平的待遇！</p></li>
+<li><p>Network effect: 控制组的用户会被实验组的用户影响</p>
+<p>User behaviors are impacted by others. The effect can spillover the control group</p>
+<ul class="simple">
+<li><p>例1：比如我们对司机激励策略 由于司机会群里讨论所以会感觉自己受到不公平的待遇！</p></li>
+<li><p>例2: 假设好友被分到了实验组，我被分到了对照组。曝光给好友的内容更加的有吸引力，他作出了点赞、评论等互动行为。而产品的社交属性，使我可以看到好友的互动行为，原本不会被曝光给我的内容，我通过好友的互动间接接收到了。也提高了我去互动的概率，提高了活跃程度。这样就发生了实验组想对照组溢出的问题，独立的假设受到了破坏。</p></li>
 </ul>
 </li>
 <li><p>Two-sided markets: 实验组和控制组会竞争一样的资源</p>
+<p>Resources are shared among control and treatment groups！</p>
+<ul class="simple">
+<li><p>Eg. treatment group attracts more drivers</p>
 <ul>
-<li><p>Resources are shared among control and treatment groups！</p></li>
-<li><p>Eg. treatment group attracts more drivers：比如当领券的用户需求增加，会获得更多的司机资源，从而让没领券的对照组可用的司机资源减少了！</p></li>
-<li><p>解决方案：predict where the interference will happen，然后isolate control and treatment units</p></li>
+<li><p>比如当领券的用户需求增加，会获得更多的司机资源，从而让没领券的对照组可用的司机资源减少了！</p></li>
+<li><p>如果在一个地理区域中划分实验组对照组，验证一个乘客端的优化。如果实验组的优化带来了需求的提升，那就会有更多的司机接到了来自实验组的订单。短时间内司机的数量是固定的，分配给实验组的司机多了，自然对照组司机就少了。导致实验组结果高估，且破坏了独立假设。</p></li>
+</ul>
+</li>
+<li><p>解决方案：predict where the interference will happen，然后isolate control and treatment units</p>
+<ul>
+<li><p>地理分离: 从地理上区隔用户，这种情况适合打车平台这样能从地理上区隔的，比如北京是实验组，上海是对照组，只要两个城市样本量相近即可。</p></li>
+<li><p>用户聚类: 按用户的关联度将用户聚成簇（Cluster），保证簇内用户的关联强，而簇间的关联弱，那么簇与簇之间是近似独立的。</p>
+<ul>
+<li><p>假如一个用户被划分到对照组，那么大部分与他直接联系的用户也应该被分到对照组中。</p></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1241,6 +1410,10 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 <li><p>It’s simpler and more scalable</p></li>
 </ul>
 </li>
+</ul>
+<p>核心要点：</p>
+<ul class="simple">
+<li><p>系统控制干预，降低对照组用户（没上策略的用户）接触到待评估功能的几率</p></li>
 </ul>
 </div>
 <div class="section" id="id11">
@@ -1303,9 +1476,20 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 <div class="section" id="aa">
 <h2>AA实验<a class="headerlink" href="#aa" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id14">
-<h3>起因<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<h3>作用<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>AA实验主要有以下几个作用：</p>
+<ul class="simple">
+<li><p>AA实验能够验证实验所在层的分流均匀和正交性，保证分流同质。</p></li>
+<li><p>观测指标是否存在指标生产异常，如实验曝光上报异常、异常用户影响等
+评估指标波动范围</p></li>
+<li><p>防止上一个AB实验释放的流量带来的惯性的影响（carry over）</p></li>
+</ul>
+</div>
+<div class="section" id="id15">
+<h3>起因<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>做AB实验的时候，有时尽管我们发现AB两组出现了明显差异，但我们依旧无法确认这种差异是实验条件不同带来的，还是AB两组用户本身的差异带来的。有时候，即便采用特别均匀的哈希打散算法，同时扩大样本量，也依然会出现AB两组用户在空跑期（AB两组用户实验条件一致），差异显著的情况。</p>
 <p>因此，为了规避这个问题。很多企业采用了AA测试（空跑期）方法——正式开启实验之前，先进行一段时间的空跑，对AB两组用户采用同样的实验条件，一段时间后，再看两组之间的差异。</p>
+<center><img src="../images/CI_abtest_10.png" width="75%"/></center>
 <ul class="simple">
 <li><p>如果差异显著，数据弃之不用，重新选组。</p></li>
 <li><p>如果差异不显著，记录两组之间的均值差，然后在实验期（AB两组实验条件不同）结束时，用实验期的组间差异，减去空跑期的组间差异，得到一个净增长率。</p></li>
@@ -1314,8 +1498,8 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 <p>还有些企业，会直接开三组流量，对照组、实验组、AA对照组。通过对比对照组和AA对照组，来判断实验组的固有差异。但这种方式更加不能确定对照组和实验组之间的固有差异，是更加不靠谱的方式。</p>
 <p>那么，如果AA测试没有用，那我们该如何规避组间固有差异带来的问题呢？</p>
 </div>
-<div class="section" id="id15">
-<h3>更好的方式：AA波动比率<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id16">
+<h3>更好的方式：AA波动比率<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <p>既然组间差异一定存在，那我们不妨接受这个前提，并且用统计方式来衡量差异大小，在计算实验效果的时候，把差异考虑在内即可。</p>
 <p>举个例子，假如我们随机抽取2N个用户分为两组（每组N个），做一次实验，并进行指标对比。那么我们可以计算出两组用户在给定α值下，指标差异的置信区间。</p>
 <p>我们可以把置信区间归一化，得到围绕样本均值波动的比率（给定α水平下）。这个波动比率，可以认为是任意两次随机分组，在给定α水平下的指标固有差异。</p>
@@ -1331,10 +1515,8 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 </ul>
 </div>
 </div>
-<div class="section" id="id16">
-<h2>补充<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="trick">
-<h3>应用Trick<a class="headerlink" href="#trick" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="ab-testtrick">
+<h2>AB test的应用Trick<a class="headerlink" href="#ab-testtrick" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>多次验证的结果更solid</p></li>
 <li><p><strong>A/B测试与用户调研相结合，可更客观合理地判断实验效果</strong>：AB测试只是一个工具而已，是测不出用户需求的，同理心才是重要的基础。</p>
@@ -1358,9 +1540,107 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 </li>
 </ul>
 </div>
-</div>
 <div class="section" id="id17">
-<h2>参考资料<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<h2>AB test的局限性<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>用户角度：一部分用户无法使用某类功能而另一类用户则可以，可能会引发舆情问题；</p></li>
+<li><p>开发角度：同时维护多套代码也有一定成本。这就导致我们无法直接使用AB实验</p></li>
+<li><p>成本高：需要足量随机流量使结果具备统计意义，会耗费流量；需要持续一段时间以收集数据，耗费时间；当可做A/B Test的选择太多时，往往难以全部尝试。</p></li>
+<li><p>不可行：比如探究社交压力对用户发表朋友圈的意愿有什么影响，不可能在用户朋友圈伪造或隐藏点赞和评论。</p></li>
+</ul>
+<p>在这种情况下，有时候我们可以使用用户细分：</p>
+<ul>
+<li><p>我们首先细分、细分再细分用户，接着对每一个细分后的用户群进行分析，以期望得到更加靠谱的结果。</p>
+<ul class="simple">
+<li><p>比如信息流推荐中可以将用户按照他们的历史活跃程度进行细拆，看看那些强相关的指标是否依然保持强相关。</p></li>
+</ul>
+<p>然而，细分用户这种做法其实是治标不治本的：</p>
+<ul class="simple">
+<li><p>如果细分得不够细，我们依然无法得到可靠的结论；</p></li>
+<li><p>如果细分得太细，细分后的用户可能寥寥无几导致结果不具备统计意义。</p></li>
+</ul>
+</li>
+</ul>
+<p>在无法满足AB实验的条件下，可以使用手边已有的历史数据进行推断和决策就变得很重要，这个时候可以用因果推断或者称为观察性研究来解决！</p>
+</div>
+<div class="section" id="id18">
+<h2>其他实验思路<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id19">
+<h3>双边实验<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>在双边市场里让实验组和对照组都分AB，同时检测两端的效果。
+举例：快手中是否在主播直播页面上加一个跳转的功能</p>
+<center><img src="../images/CI_abtest_1.png" width="45%"/></center>
+<ul>
+<li><p>检测组间转移溢出和干扰</p>
+<ul class="simple">
+<li><p>消费端向主播端溢出：挂件可能导致实验组的观众在实验组 vs. 控制组的主播之间转移直播消费</p></li>
+<li><p>主播端向消费端溢出：实验组主播可能更加卖力直播，同时影响both实验组和控制组观众</p></li>
+</ul>
+</li>
+<li><p>帮助归因：比如解释主播端分析看到实验组的主播比控制组的主播有更高的观流时长和
+点赞次数,：</p>
+<ul>
+<li><p>猜想：挂件导致实验组的主播提高了推流的质量, 因为他们发现有一些观众会跳离自己的直播间，于是做出了更多的努力来 “挽留”观众</p>
+<p>验证方法：可以看N1 vs N3（这样对比可以排除主播对用户的溢出 因为用户是控制组的都看不到挂件），检查是否有N1的消费/互动 &gt; N3的消费/互动</p>
+</li>
+<li><p>猜想：观众觉得挂件让他们能够跳到运营活动的直播间去，挺有意思的，所以也会多来有挂件的主播直播间。
+验证方法：这里N1和N3应该一样</p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="id20">
+<h4>缺陷<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
+<p>双边实验只能描述比较简单的组间溢出场景，不能解决network inference的情形 (个体和个体之间存在干扰)</p>
+<ul class="simple">
+<li><p>举例：直播PK的暴击时刻功能（最后的时候打赏积分翻倍）</p>
+<ul>
+<li><p>PK实验存在双边/多边溢出效应（主播和主播 and 观众和观众），造成对照组没有办法真实反映在没有实验情况下的大盘流水，从而导致实验组比对照组的效果无法折算到大盘实验推全后的收益</p></li>
+<li><p>在PK场景下，双边实验也会造成明显的用户感受不一致：控制组用户与 实验组用户在同一场pk体验相互干扰</p></li>
+<li><p>实验需要根据pk_id随机下发, 无法直接在用户维度(uid)下发进行随机分流</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id21">
+<h3>时间片轮转实验<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<p>时间片轮转实验是一种处理个体之间相互干扰的实验方法，在一定的实验对象上进行实验组策略和对照组策略上的反复切换。</p>
+<ul class="simple">
+<li><p>适用场景为：</p>
+<ul>
+<li><p>个体和个体之间存在干扰</p></li>
+<li><p>无法按个体分流的策略类实验</p></li>
+<li><p>实验样本有限, 个体间差异较大, 想研究单个个体的处理效应 (比如奶牛产奶的实验, 生物、椥学实验)</p></li>
+</ul>
+</li>
+<li><p>设计核心</p>
+<ul>
+<li><p>一次实验时间片的粒度 (granularity)：1分钟换一次/3分钟换一次</p></li>
+<li><p>实验总周期的选择：一天or一周？</p></li>
+<li><p>在实验总周期中选择时间节点随机决定之后一段时间是否实验策略生效</p></li>
+<li><p>Tradeoff——实验粒度 (granularity) 越粗糙, 时间上的干扰造成的bias越小, 但是与此同时实验不够随机, Variance越大, 影响实验数据的statistical inference power。</p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="id22">
+<h4>核心假设<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>我们所关注的指标的potential outcomes的绝对值有一个上界 <span class="math notranslate nohighlight">\(B\)</span>, 且我们在分析中不需要 知道这个 <span class="math notranslate nohighlight">\(B\)</span> 到底是什么。</p></li>
+<li><p>用户无法预测下个时间片到底是实验组，所以时间片的决策不受对末来的预期的影响。</p></li>
+<li><p>如果时间片之间存在时间上的干扰, 这个干扰的影响是固定且有限的, 最多持续m期</p></li>
+</ul>
+</div>
+<div class="section" id="id23">
+<h4>缺点<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>实验周期长</p></li>
+<li><p>无法观察HTE</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="id24">
+<h2>参考资料<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/375902281">知乎｜【AB测试最全干货】史上最全知识点及常见面试题（上篇）</a></p></li>
 <li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/394172096">知乎｜【AB测试最全干货】史上最全知识点及常见面试题（下篇）</a></p></li>
@@ -1369,6 +1649,7 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 <li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/134085246">知乎｜做AA测试，不如看AA波动</a></p></li>
 <li><p><a class="reference external" href="https://www.udacity.com/course/ab-testing--ud257">Udacity｜AB Testing by Google</a></p></li>
 <li><p><a class="reference external" href="https://www.youtube.com/playlist?list=PLY1Fi4XflWSvgsaD9eXng6N5kxcMtcxGK">Youtube｜A/B Testing in Data Science</a></p></li>
+<li><p><a class="reference external" href="https://appukvkryx45804.pc.xiaoe-tech.com/detail/v_60e71278e4b0151fc94e3d00/3">DataFun｜快手直播场景相关的因果推断与实验设计</a></p></li>
 </ul>
 </div>
 </div>
@@ -1405,10 +1686,10 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
             <p class="prev-next-title">基础</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../Deep_Learning/Basics/README.html" title="next page">
+    <a class='right-next' id="next-link" href="2_methods.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">基础</p>
+        <p class="prev-next-title">因果推理方法</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -1,6 +1,19 @@
 # 基础
 
-- 定义：Inferring the effects of any treatment/policy/intervention/etc
+定义：Inferring the effects of any treatment/policy/intervention/etc
+
+因果阶梯：
+1. Association $P(y \mid x)$
+    - How seeing Y change my belief in Y? 
+2. Intervention $P(y \mid d o(x), z)$
+    - What if I do Y
+3. Counterfactuals $P\left(y_{x} \mid x^{\prime}, y^{\prime}\right)$
+    - What if I had acted differently?
+
+核心：
+- 在给定的假设和模型框架下: 
+    - 将因果关系从关联中分割(identification)
+    - 计算因果关系的大小 (estimation)
 
 ## Motivation
 
@@ -8,10 +21,13 @@
 
 
 定义：总体的规律跟分组的规律不同：几组不同的数据中均存在一种 趋势, 但当这些数据组合在一起后, 这种趋势消失或反转。
+- 简单说就是总体看好但分层看不好
 
-产生的原因：数据中存在多个变量。这些变量通常难以识别, 被称为“潜伏变量”。潜伏变量可能是由于采样错误造成的。
+产生的原因：人群分布在混淆变量上不一致，导致相关关系完全可以被扭曲（confounding bias）
 
 统计层面的核心：Partial correlation and marginal correlation can be dramatically different
+
+解决的方式：取决于因果图 forks的话就要分层，collider的话就不要分层
 
 例子：
 
@@ -54,7 +70,24 @@
 
     结论：conclusion取决于causal structure
 
+- 例4: 游戏胜率
+    <center><img src="../images/CI_basic_39.png" width="35%"/></center>
+
+    看似胜率提升了，但其实每种比赛的胜率都下降了，只是最近本身胜率就高的匹配和大乱斗打的多了一点
+
+- 例5: 风控场景
+
+    分析发现小额贷款比大型贷款更容易违约，直觉可能认为银行应停止发放小额贷款。
+    
+    而真实情况可能是小企业失败率更高，也更可能申请小额贷款，因果关系
+    - 是：企业规模小（X2）->违约(Y)
+    - 而并非：贷款规模小（X1）—>违约（Y）
+    
+    因此决策应受企业规模的影响，而非贷款规模。
+
 ### Correlation Does Not Imply Causation
+
+关联性本身是不可解释的（因为两者可能不存在物理意义上的关系）、同时关联性本身也是不稳定的，可能是selection bias（比如在大多数图片中，狗都在草地上，错误狗和草地的强相关就认不出沙滩上的狗了）。因此平时DA做的维度下钻虽然解释性高但是很可能是不科学的！
 
 - 例子：Cor——穿着鞋睡觉的人更容易头疼｜Cau——喝酒醉倒⇒穿着鞋睡觉、喝酒⇒头痛
 
@@ -68,11 +101,21 @@
         Total Association = mixture of causal and confounding association
         > correlation是一种线性的association，不过也会跟general的混称
 
+- 例子：nested problem
+
+    比如搜索影响社交、社交影响内容消费、内容消费影响搜索
+
+    比如点赞影响流量、流量影响GMV、GMV影响流量、流量又影响点赞
+
+- 例子：spillover
+
+    斗鱼直播影响虎牙
+
 ### what does imply causation?
 
 Inferring the effect of treatment/policy on some outcome的时候，怎样才能说明是causal呢？
 
-方法1: 如果你知道做了某件事的potential outcome就是work，不做就没有，那就可以
+方法1是控制实验: 如果你知道做了某件事的potential outcome就是work，不做就没有，那就可以
 <center><img src="../images/CI_basic_7.png" width="65%"/></center>
 
 - 问题：It is impossible to observe all potential outcomes for a given individual. —— CI的根本问题！
@@ -91,10 +134,11 @@ Inferring the effect of treatment/policy on some outcome的时候，怎样才能
     \end{aligned}
     $$
 
-    - 第二个不等号左边是causal quantity，右边是measure of correlation，是不想等的因为有confounding effect（T除了直接对Y，还会通过C去影响Y）
+    - 第二个不等号左边是causal quantity，右边是measure of correlation 是一个associational quantity
+    - 两者不想等的因为有confounding effect（T除了直接对Y，还会通过C去影响Y）
 
 
-方法2: Randomized Control Trails （RCTs）
+方法2是随机试验: Randomized Control Trails （RCTs）
 
 <center><img src="../images/CI_basic_8.png" width="65%"/></center>
 
@@ -102,7 +146,7 @@ Inferring the effect of treatment/policy on some outcome的时候，怎样才能
 
 - 然而这个要求我们的分组是相同的，比如穿鞋睡和不穿鞋睡是抛硬币随机的 不管你清醒与否！这样的效果就是清醒和喝酒的人，在穿不穿鞋这件事情上的分布都是一样的。
 
-方法3: observational studies
+方法3因果推断: 从历史数据进行observational studies
 
 - 场景：Can’t always randomize treatment，比如given一些数据集
 
@@ -112,8 +156,42 @@ Inferring the effect of treatment/policy on some outcome的时候，怎样才能
 
 - 解决方案：adjust/control for confounders
 
-## Potential Outcomes
+### 因果推断的业务场景：
 
+- 如果给圈选的某些用户推送这些内容，他们会更愿意来消费吗?
+
+- 是否给社区活跃用户提供更多的内容，能进一步提升他们在社区消费?——这里需要解答的因果关系是是否用户越活跃、越喜欢探索，就会⇒消费？
+
+    - 比如：可能本来用户就是喜欢app⇒喜欢消费+喜欢在社区留言，不能简单把消费归因到内容给业务出结论。
+
+- 快手直播
+    - 用户激励的设计：什么样的补贴策略能够培养新的直播观众? 
+    - 评估推荐策略：给优质主播增加曝光, 是否能够促进用户 的长期直播观看和打赏 ?
+    - 产品功能迭代：在直播PK中进行产品功能的改进, 是否能 够带动整体直播打赏的提升?
+    - 预估产品和方向的长期价值：改变产品框架, 是否能够增进用户的直播 消费习惯与平台整体长期收入的提升？
+
+---
+
+因果推断有两个基本的框架，侧重点不同
+Pearl的Structural Causal Model - 结构因果模型
+- 特点：利于因果图的方式展现、推导变量之间的关系
+- 缺点：变量数量多、关系复杂的时候，构建SCM的成本很高
+    - 比如年龄、收入、还有用app的习惯等等
+- 优点：SCM可以更好描述变量关系、结果的置信度跟高
+
+Rubin的Potential Outcome Framework - 潜在结果模型
+- 特点：因果关系被淡化，关汢变量因果效应的评估
+- 缺点：没有系统论证变量是否存在因果关系
+- 优点：变量复杂、数据庞大的时候，效应评估变得可行——POF降低变量带来的分析复杂
+度，用准确率换取计算可行性
+
+---
+
+## Potential Outcomes (Rubin)框架
+
+Rubin的Framework强调使用counter factual来寻找合适的对照组，潜在结果等于是创造了一个平行世界，又或者称为反事实事件。
+
+> 因果有两个派系：<br> 以Donald Rubin为代表的Potential Outcome（PO ）——在经济学和社会科学中有大量的应用实例 <br>以Judea Pearl为代表的Structural Causal Model(SCM) , 以DAG表示因果关系——深受计算机学者喜爱
 
 上面提到的 无法观测what would have been if I也可以理解为一种缺失值处理问题：
 
@@ -131,7 +209,14 @@ $$
 $$
 - 因为individual只能有Y(treatment给1)或者Y(treatment给0)中的一个
 
-### Average treatment effect(ATE)
+Rubin框架中常见的方法
+- Matching
+- DID
+- 合成控制
+
+
+### 各种Effect
+#### Average treatment effect(ATE)
 
 > 解决个体无法观测的方法
 
@@ -147,6 +232,8 @@ $$
 什么时候可以呢？
 
 - Ignorability—— $(Y(1), Y(0)) \perp T$
+
+    在用户特征，外界因素等条件一定的前提下，用户被干预与否是独立于他/她的潜在结果
 
     $$
     \begin{aligned}
@@ -176,9 +263,48 @@ Ignorability和Exchangeability假设在成立的的时候，能给我们identifi
 
     <center><img src="../images/CI_basic_14.png" width="85%"/></center>
 
-### Conditional exchangeability假设
+##### 实际案例
 
-很多时候假设exchangeable不可行，但我们可以control for relevant variables by conditioning
+阿里妈妈广告触达问题
+> 来源: DataFunCon 2021
+
+<center><img src="../images/CI_basic_40.png" width="85%"/></center>
+
+#### Average treatment effect on treated
+
+比如我们有NBA广告投放后体育产品的消费量，被投放的群体中男：女=4:1
+- 如果我们希望知道如果对全体用户（男：女调权为1:1） 广告的转化率提升 那就是ATE
+- 如果希望知道对T=1用户（男：女=4:1）广告转化率，那就是ATT
+
+#### Conditional average treatment effect (CATE): 
+
+$\tau(x) \triangleq \mathbb{E}\left[Y_{i}(1)-Y_{i}(0) \mid X=x\right]$
+
+在不同条件下treatment所产生的条件平均效果，又被称作异质性的因果效应(Heterogeneous Treatment Effect, HTE)
+
+- $A T E=E\left(\tau_{i}\right)=\frac{1}{n} \sum_{i=1}^{n}\left(y_{i}^{1}-y_{i}^{0}\right)$ 评估的是整体、是对样本的总量; 而CATE $=E\left(\tau_{i} \mid x\right)=\frac{1}{n_{x}} \sum_{i=1}^{n_{x}}\left(y_{x, i}^{1}-y_{x, i}^{0}\right)$ 是对一个子集$n_{x}$ 相当是根据x圈选了一部分的用户。
+
+- CATE业务中更常用:
+    - 就好比AB实验看结果，如果全局变量不显著，我们会考虑下钻看一下哪些用户群体的变量是显著的，因为我们更多的希望回答上线一个新功能对某一部分群体是否有明显的帮助
+        - 比如判断时长任务对"每周观看视频超过30分钟"的用户的影响
+    - 关心CATE通常是因为希望区分出对处理敏感的群体和不敏感的群体，从而对前者进行处理、避免对后者进行处理，从而节约资源、避免打扰
+    
+    
+
+#### Heterogeneous Treatment Effects
+给全app用户发了优惠券⇒下单GMV均值提升，不代表每个用户都需要发优惠券（存在人群异致性）
+
+### 假设
+
+#### Conditional exchangeability假设
+
+> <div class="discussion"><p>Exchangeability和ignorability是一个事情的两面。</p><ul><li>一个说实验组对照组交换（把treatment给对照组而实验组作为对照），那么他们的结果是相同的；</li><li>一个说对于其中观测到的缺失的反事实数据，我们可以直接忽略缺失，只计算有数据的部分。</li></ul></div>
+
+很多时候假设exchangeable不可行，但我们可以control for relevant variables by conditioning:
+
+在给定的条件下 treatment与潜在结果相独立，即
+    - 具有相同的条件变量X的两个个体，无论在哪种干预下，其潜在结果均应相同
+    - 具有相同的条件变量X的两个个体，他们的干预分配机制都相同
 
 `Conditional exchangeability` (Unconfoundedness / conditional ignorability): $(Y(1), Y(0)) \perp T \mid X$
 
@@ -202,54 +328,62 @@ $$\begin{aligned} \mathbb{E}[Y(1)-Y(0) \mid X] &=\mathbb{E}[Y(1) \mid X]-\mathbb
 
 $$\begin{aligned} \mathbb{E}[Y(1)-Y(0)] &=\mathbb{E}_{X} \mathbb{E}[Y(1)-Y(0) \mid X] \\ &=\mathbb{E}_{X}[\mathbb{E}[Y \mid T=1, X]-\mathbb{E}[Y \mid T=0, X]] \end{aligned}$$
 
-### Positivity假设
- For all values of covariates X present in the population of interest: $0<P(T=1 \mid X=x)<1$
+#### Stable Unit Treatment Value Assumption(SUTVA)
+样本之间具有独立性，个体只受到单一干预（treatment），个体的潜在结果只与自身有关。
+- 无干扰
+    - 对象间互相不会干扰No Interference: 
+    
+        My outcome is unaffected by anyone else’s treatment. Rather, my outcome is only a function of my own treatment.
+
+        $$Y_{i}\left(t_{1}, \ldots, t_{i-1}, t_{i}, t_{i+1}, \ldots, t_{n}\right)=Y_{i}\left(t_{i}\right)$$
+
+        <center><img src="../images/CI_basic_20.png" width="65%"/></center>
+    - 某一个对象被干预, 不会影响其它对象的目标结果
+- 只有一种干预措施
+
+
+#### Positivity假设
+每个个体都可能命中任意一种干预For all values of covariates X present in the population of interest: $0<P(T=1 \mid X=x)<1$
  
  这个保证了上面的式子不会遇到除0的问题，具体可以见课本P12
 
- Intuition: 如果总体中有一个x都没有接收到treatment，我们不知道他们如果接受treatment的话会怎么样
+ Intuition: 如果总体中有一个x都没有接收到treatment，我们不知道他们如果接受treatment的话会怎么样. Population中的样本用户都有一定的几率会被干预（不会被遗忘）!
 
 
  <center><img src="../images/CI_basic_17.png" width="45%"/></center>
 
 
 
-#### Overlap
-另一个解读Positivity的视角：`overlap` of $P(X \mid T=0) \quad$ and $\quad P(X \mid T=1)$
+- Overlap
+    另一个解读Positivity的视角：`overlap` of $P(X \mid T=0) \quad$ and $\quad P(X \mid T=1)$
 
-我们希望covariate distribution of the treatment group to overlap with the covariate distribution of the control group!
+    我们希望covariate distribution of the treatment group to overlap with the covariate distribution of the control group!
 
-<center><img src="../images/CI_basic_18.png" width="45%"/></center>
-
-
-
-所以overlap也叫common support
-
-#### Positivity-Unconfoundedness Tradeoff
-
-这里Positivity和unconfoundedness是一个tradeoff，如果我们增加变量，那么subgroup就会变小，虽然更容易解决confound，但是会让一些group整个T/not T的概率增高（比如subgroup的size缩小到只有1）
+    <center><img src="../images/CI_basic_18.png" width="45%"/></center>
 
 
-#### Extrapolation
 
-违反Positivity的后果是影响模型的表现，因为通常causal effect需要根据(t, x, y)的样本拟合$\mathbb{E}[Y \mid t, x]$
+    所以overlap也叫common support
 
-<center><img src="../images/CI_basic_19.png" width="65%"/></center>
+- Positivity-Unconfoundedness Tradeoff
 
-- 注意 在实际操作中获得$\mathbb{E}[Y \mid T=1, x]$的方法是用任何一个minimize MSE的model就可以（比如Linear Regression）
-
-### No Interference假设
-
-My outcome is unaffected by anyone else’s treatment. Rather, my outcome is only a function of my own treatment.
-
-$$Y_{i}\left(t_{1}, \ldots, t_{i-1}, t_{i}, t_{i+1}, \ldots, t_{n}\right)=Y_{i}\left(t_{i}\right)$$
-
-<center><img src="../images/CI_basic_20.png" width="65%"/></center>
+    这里Positivity和unconfoundedness是一个tradeoff，如果我们增加变量，那么subgroup就会变小，虽然更容易解决confound，但是会让一些group整个T/not T的概率增高（比如subgroup的size缩小到只有1）
 
 
-### Consistency假设
+- Extrapolation
 
-The outcome we observe Y is actually the potential outcome under the observed treatment.
+    违反Positivity的后果是影响模型的表现，因为通常causal effect需要根据(t, x, y)的样本拟合$\mathbb{E}[Y \mid t, x]$
+
+    <center><img src="../images/CI_basic_19.png" width="65%"/></center>
+
+    - 注意 在实际操作中获得$\mathbb{E}[Y \mid T=1, x]$的方法是用任何一个minimize MSE的model就可以（比如Linear Regression）
+
+
+
+#### Consistency假设
+
+某一个对象的潜在结果等于其观测结果——The outcome we observe Y is actually the potential outcome under the observed treatment.
+- 因为ATE评估的时候我们看不到反事实！
 
 If the treatment is $T$, then the observed outcome $Y$ is the potential outcome under treatment $T$. Formally,
 $$
@@ -273,10 +407,13 @@ $$
 - consistency：保证T了之后的Y就是我们想要的
 
 
-## The Flow of Association and Causation Graphs
 
 
+## Pearl - flow of Association and Causation Graphs
 
+Pearl的Framework强调的是对DAG的使用，模型由有向图和观测数据构成
+- 开发了do-算子来推测政策干预后的新的分布，可以计算更复杂的关系图中的因果
+- Pearl的重点在identification（Rubin在estimation和inference），两者互补
 
 ### Causal Graphs
 
@@ -302,6 +439,11 @@ Building blocks:
 
     - 通过Bayes network factorization和Bayes Rule证明可以得到：$P\left(x_{1}, x_{3} \mid x_{2}\right) =\frac{P\left(x_{1}, x_{2}\right)}{P\left(x_{2}\right)} P\left(x_{3} \mid x_{2}\right)$
 
+    - Forks例子：
+        - 游戏内容消费⇒游戏登陆时长❌：因为可能X2是对游戏的兴趣
+    - Colider例子：
+        - 用户看视频的量 跟 收入水平没关系，但是可能 用户对游戏内容的消费会带来游戏内的活跃、高的收入水平也会带来游戏内的活跃，所以对一个固定的游戏活跃程度（比如20～25级），消费量 和 收入水平 的相关关系就会被打通 形成一个虚假的关联
+
 - `Immorality`: 两个没connect的parents有一个共同的child
 
     这个child不允许association flow through it而是直接blcok了，管它叫`collider`
@@ -321,6 +463,8 @@ Building blocks:
 
 
 ### d-separation 
+
+d- separation的作用是用于确定T和Y之间相互独立的话，需要控制哪些变量。比如如果$Z$ 阻断了 $T$ 到 $Y$ 的所有路径，那么 称 $Z \mathrm{~d}$ 分离了$T$ 和 $Y$ ，记为 $(T \perp Y \mid Z)_{G}$
 
 `Blocked path`: A path between nodes $X$ and $Y$ is blocked by a (potentially empty) conditioning set $\mathrm{Z}$ if either of the following is true:
 1. Along the path, there is a chain $\cdots \rightarrow W \rightarrow \cdots$ or a fork $\cdots \leftarrow W \rightarrow \cdots$ where $W$ is conditioned on $(W \in Z)$.
@@ -371,7 +515,9 @@ d-separation Implies Association is Causation!
 用`do`来表示intervention:
 
 - Conditioning只是restrict to subset of data, 而intervene是对整体数据问what would be like if XXX
-<center><img src="../images/CI_basic_30.png" width="45%"/></center>
+    <center><img src="../images/CI_basic_30.png" width="45%"/></center>
+
+    - do(T=1)是把本来有偏的分布调回了原始所有数据的分布（通过前门、后门准则和do-calculus三种方法）
 
 - ATE从而可以写成：$\mathbb{E}[Y \mid d o(T=1)]-\mathbb{E}[Y \mid d o(T=0)]$
 
@@ -416,6 +562,8 @@ d-separation Implies Association is Causation!
 
 ### Backdoor adjustment
 
+Condition相当于把所有的X展开，然后乘它的概率做权重累加就相当于切开了！
+
 - `Backdoor path`:  nondirected unblocked paths from Tto Y
 
     - 如果block掉backdoor path的话就可以identify causal quantities 比如$P(Y \mid d o(t))$
@@ -427,6 +575,9 @@ d-separation Implies Association is Causation!
 - `Backdoor criterion`: A set of variables $W$ satisfies the backdoor criterion relative to $T$ and $Y$ if the following are true:
     1. $W$ blocks all backdoor paths from $T$ to $Y$.
     2. $W$ does not contain any descendants of $T$.
+
+    > 因果关系识别的两种准则——后门准则(backdoor criterion)、前门准则(frontdoor criterion)
+
 
 
 - `Backdoor adjustment`: Given the modularity assumption, that W satisfies the backdoor criterion, and positivity, we can identify the causal effect of $T$ on $Y$:
@@ -457,12 +608,64 @@ d-separation Implies Association is Causation!
 
 **Rule**: don't adjust post-treatment covariate
 
+### 因果图的例子
 
-## Randomized Experiments
+- 视频场景
+
+    <center><img src="../images/CI_basic_43.png" width="75%"/></center>
+
+    <center><img src="../images/CI_basic_44.png" width="75%"/></center>
+        
+    - 为排除策略等common cause带来的confounding bias，要通过后门调整阻断由视频质量到单视频播放时长的路径——conditioning on 视频物理特征、视频内容、用户画像这三个因素
+
+    <center><img src="../images/CI_basic_45.png" width="75%"/></center>
+
+    - 推荐侧上游：
+        - 竞争
+            - 运营策略：我们会参考、学习竞品的成功经验，并适当调整运营策略
+            - 供给分布：竞品会分走市场份额
+        - 运营策略 
+            - 话题质量：平台可能会通过举办节日活动，激励用户发布视频时带话题，如”#520美味告白“；还会引入优质CP、签约大V，增加内容供给，从而增加话题聚合页下总播放量和点赞数
+            - 供给分布：平台的拉新、运营策略会影响内容供给，进而 - 内容分类
+        - 内容分类
+            - 话题质量：不同分类的知名度、受欢迎程度天然有区别（如美妆类>天文类），从而导致相关话题质量不同（如#彩妆教程#>#冥王星#）
+            - 视频物理时长：有些分类的内容会更详实，从而影响类别下视频的物理时长（如知识类>萌宠类）
+            - 召回分布：推荐召回时，系统从海量内容池中快速找出一小部分用户感兴趣的物品，以下两种匹配方式都需要用到内容分类标签
+            无个性化因素的召回路：比如热门商品或者热门文章或者历史点击率高的物料的召回
+            有个性化因素的召回路：比如用户兴趣标签召回
+        - 话题质量 
+            - 召回分布：无个性化因素召回中，倾向于召回热门内容（即高质量话题下的内容）
+        - 用户画像
+            - 召回分布：有个性化因素的召回路中，用户兴趣画像会影响召回结果
+            - 精排分布：尽量精准地对召回物品进行个性化排序，用户兴趣画像会影响精排结果
+            - 重排分布：主要用于改进用户体验，处理如去已读、去重、打散、多样性保证、固定类型物品插入等，用户历史行为（如浏览历史）会通过影响“去已读”影响重排结果
+    - 推荐侧中游：
+        - 因果关系即推荐流程，即召回 - 粗排 - 精排 - 重排
+    - 推荐侧下游：
+        - 重排分布：即最终展示给用户的内容分布，包含以下特征
+            - 曝光分布
+            - 视频质量
+            - 视频物理时长
+        - 用户画像、重排分布共同 - 重排兴趣匹配度
+        - 重排兴趣匹配度 
+            - 单视频播放时长：用户若对推荐结果感兴趣，则该条视频的消费时长会更长
+        - 曝光分布 
+            - 单视频播放时长：对于推荐结果中排序在前的视频，用户更有耐心和好奇心看久一点
+        - 视频质量 
+            - 单视频播放时长：单视频的评转赞情况可能影响用户对视频内容的期望值，如面对一个爆款视频，用户倾向于相信“口碑”、好奇这个视频为什么受欢迎而看完
+        - 视频物理时长 
+            - 单视频播放时长：本身时长短的视频天然限制了用户可消费的时长
+
+## identification
+
+把没办法估计的causal quantity变成可以得到的
+
+### Randomized Experiments
 
 - 随机试验Magic的地方在于：No unobserved confounding
 
-### Comparability / covariate balance
+- Comparability / covariate balance
+
 
 实验组和对照组在其他变量上都是comparable被控制了的，只有T不同，所以区别肯定只是T导致的，从而确保了`covariate balance`: distribution of covariates $X$ is the same across treatment groups:
 $$
@@ -476,3 +679,146 @@ $$
 
  <center><img src="../images/CI_basic_38.png" width="75%"/></center>
 
+### Frontdoor adjustment
+
+> Backdoor是block backdoor path从而得到identification
+
+场景：有的时候混杂因子是unobserved的，无法block掉backdoor path
+
+ <center><img src="../images/CI_basic_41.png" width="75%"/></center>
+
+- 例子：吸烟的基因不可获得所以不能后门调整
+
+解决方案：找到T到Y之间的一个M，把T到Y变成T到M+M到Y
+
+还是上面的例子：
+
+- 首先, $X$ 对 $Z$ 的因果效应是直接可以通过数据得到的:
+    $$
+    P(Z=z \mid d o(X=x))=P(Z=z \mid X=x)
+    $$
+
+- 接下来, $Z$ 对 $Y$ 的因果效应, 两者存在一个共因 $U$, 因此存在混杂, 可以用后门路径调整, 但由于 $U$ 是末观测的变量, 所以我们对 $X$ 进行调整, 即以 $X$ 为条件, 来阻断 $Z \leftarrow X \leftarrow U \rightarrow Y$:
+    $$
+    P(Y=y \mid d o(Z=z))=\sum_{x} P(Y=y \mid Z=z, X=x) P(X=x)
+    $$
+
+总结：前门调整和后门调整神奇的地方就在于，我们在消除了do运算的情况下进行了干预, 也就是说我们仅仅使用观测数据，仅仅使用已知的分布，就能够估计变量之间的因果效应。
+
+### Pearl’s do-calculus
+
+作用：allow us to identify any causal quantity that is identifiable
+
+identify causal estimands when the associated causal graph satisfies neither the backdoor criterion nor the frontdoor criterion
+
+#### Rules of $d o$-calculus
+
+Theorem 6.2 (Rules of do-calculus) Given a causal graph $G$, an associated
+distribution $P$, and disjoint sets of variables $Y, T, Z$, and $W$, the following rules hold.
+
+- Rule 1: 什么时候可以从条件中删除Z
+    $$
+    P(y \mid d o(t), z, w)=P(y \mid d o(t), w) \quad \text { if } Y \perp_{G_{\bar{T}}} Z \mid T, W
+    $$
+
+    - 原理是Generalization of d-separation to interventional distributions
+    
+        正常的d-seperation $P(y \mid z, w)=P(y \mid w) \quad$ if $Y \perp_{G} Z \mid W$ 外加上do T 
+- Rule 2:
+    $$
+    P(y \mid d o(t), d o(z), w)=P(y \mid d o(t), z, w) \quad \text { if } Y \perp_{G_{\bar{T}, \underline{z}}} Z \mid T, W
+    $$
+    - 原理是Generalization of backdoor adjustment to interventional distributions
+    
+        正常的backdoor criterion $P(y \mid d o(z), w)=P(y \mid z, w) \quad$ if $Y \perp_{G_{\underline{z}}} Z \mid W$ 加上do T
+        
+        > Association is causation if the outcome Y and the treatment T are d-separated by some set of variables that are conditioned on W
+- Rule 3:
+    $$
+    P(y \mid d o(t), d o(z), w)=P(y \mid d o(t), w) \quad \text { if } Y \perp_{G_{\bar{T}, \bar{Z}(W)}} Z \mid T, W
+    $$
+    where $Z(W)$ denotes the set of nodes of $Z$ that aren't ancestors of any node of $W$ in $G_{\bar{T}}$.
+
+
+
+
+
+### Conditional Outcome Modeling (COM)
+
+### Propensity Scores
+
+> 是一种调节confounder的方法，不是模拟随机试验！！！
+
+- `Propensity Scores`$P(T=1 \mid W=w)$: the propensity for (probability of) receiving treatment given that W is w
+
+    > propensity score是probability
+
+
+- `Propensity Score Theorem`: Given positivity, unconfoundedness given $W$ implies unconfoundedness given the propensity score e $(W)$. Equivalently,
+    $$
+    (Y(1), Y(0)) \perp T|W \Longrightarrow(Y(1), Y(0)) \perp T| e(W)
+    $$
+
+    - Magic的地方：W是sufficient adjustment set是很高维的，但是e(W)只是一个scaler
+
+
+#### 操作步骤
+
+1. Calculate the propensity score for each person
+
+    - Run一个Logistic regression: 因变量为Binary do(T)、自变量为关心的
+
+    - 对每个样本的probability输出就是propensity score
+
+2. Decide how you want to use the scores
+
+    - Matching
+    
+         1:1? caliper width? without replacement?
+
+         可以根据T和没T的人群中，有没有被T的概率接近的人 就可以match在一起！
+
+    - Weighting
+
+        IPTW? Trimming?
+
+    - Stratification
+
+        Strata size? Trimming?
+
+
+3. Run your regression model within your propensity score matched population
+
+    You can analyze the outcome in your unmatched population, but in the unmatched population you did not adjust for confounders
+    
+    So you also want to analyze the risk within your propensity score matched population (因为同一个match中的propensity score实现了控制confounder！)
+
+
+
+#### 应用案例
+- https://sejdemyr.github.io/r-tutorials/statistics/tutorial8.html
+
+### Inverse Probability Weighting (IPW)
+
+- `pseudo-populations`: 我们可以创建一个伪人群 在这里我们通过re-weighting association⇒causation 
+
+
+
+## 反事实
+
+反事实的三步走方法:
+1. 外展 (Abduction) : 使用证据 $E=e$ 来确定 $U$ 的值。
+2. 干预（Action）：通过用 $X=x$ 来替换原来模型 $M$ 中变量 $X$ 的表达式, 从而修改原模型 $M$ 为 $M_{x}$ 。 
+3. 预测 (Prediction) : 使用修改后的模型 $M_{x}$ 和第一步计算出的 $U$ 值来计算 $Y$ 值。
+
+
+## Causal Discovery
+uplift modeling，difference in differences等方法都集中在如何评估因果的影响，即Causal Effect。但还有一卦是Causal Discovery
+
+ <center><img src="../images/CI_basic_42.png" width="75%"/></center>[](https://km-pro-1258638997.cos.ap-guangzhou.myqcloud.com/files/attachments_1/908/13908/3a84b0da4472c8b379b91de5458f9166.pptx?q-sign-algorithm%3Dsha1%26q-ak%3DAKIDLVP3QWLuCDxYtCEzUjhOpyqQjlW0C8nB%26q-sign-time%3D1653900147%3B1653902007%26q-key-time%3D1653900147%3B1653902007%26q-header-list%3D%26q-url-param-list%3Dci-process%26q-signature%3Dc36c5cf2096ba767e3fb61921dc092d356639b58%26ci-process%3Ddoc-preview%26page%3D8)
+
+ ## 总结
+
+- 无论多高深的算法和模型都离不开你对业务的理解，因果推断也是这样，PSM需要找出所有能影响的因子，这个前期最有效的方法就是通过和产品同学去了解。
+
+- 因果推断其实是数据分析流的下游，我们要层层深入的过程，一开始先EDA商业分析对数据有一部分洞察，找到问题，发掘增长点，然后可以通过统计分析量化相关性看我们发现的规律是否显著，最后再通过因果推断去验证归因结论！

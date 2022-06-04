@@ -6,8 +6,8 @@
 
 围绕这个目标，我给未来一年的自己提出了各种天马行空的要求——
 - `DA基本功样样点满`：SQL/R/Python三语全精通闭着眼写➕看板好看到哭➕各种dataset都能EDA和ML妥妥拿捏➕分析一针见血挖insight直接掘地三尺
-- `因果这个DA加分项直接加爆`：AB test各种实验设计解读指标不在话下的基础上，还能透过correlation跑causality！版本功能迭代拍板有我在不愁！！
-- `上能DL`：虽然说对DL抱有敬畏之心➕会让搞学术的大牛来弄核心任务和优化！！但我可以结合业务先prototype各种nlp baseline solution让业务同学看看效果，如果真的能work再交付给AI lab去结合目前的新paper做各种improve
+- `因果这个DA加分项直接加爆`：AB test各种实验设计解读指标不在话下的基础上，需要离线推因果的话透过correlation跑causality没问题！版本功能迭代拍板有我在不愁，统计+Econ+DS不就是我的background！！
+- `上能DL`：虽然说对DL抱有敬畏之心➕会让搞学术的大牛来弄核心任务和优化！！但我可以结合业务先prototype各种NLP baseline solution让业务同学看看效果，如果真的能work再交付给AI lab去结合目前的新paper做各种improve
 - `下可数仓`：对各种建表部署工作流非常熟练，必要的时候可以自己干全流程来加速项目推进！但尽量对数仓工作避免过分参与，不能一直都做这个——比如各种调优要找数仓BP小哥哥小姐姐！
 
 总而言之就是：

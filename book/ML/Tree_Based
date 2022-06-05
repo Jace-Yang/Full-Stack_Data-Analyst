@@ -1,0 +1,16 @@
+# 基于树的ML
+
+## XGBoost
+
+### 模型解释
+
+`shap value`: Shapley Additive explanations的缩写
+
+- 输出的形式：
+
+    - 每个样本: 可以看到每个特征的shap_value贡献（有正负）
+    - 每个特征：可以看到整体样本上的Shap绝对值取平均值来代表该特征的重要性——shap均值越大，则特征越重要
+- 输出的图标
+    - dependency
+    - individual
+

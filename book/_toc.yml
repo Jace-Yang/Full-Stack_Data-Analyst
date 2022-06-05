@@ -8,32 +8,35 @@ parts:
         sections:
         - file: Data_ETL/Data_cleaning/Regex.ipynb
         - file: Data_ETL/Data_cleaning/pandas.ipynb
+  - caption: 统计分析
+    chapters:
+      - file: STAT/README.md
   - caption: 因果推断
     chapters:
-      - file: Causal_Inference/Basics/README.md
-        sections:
-        - file: Causal_Inference/Basics/Stats.md
+      - file: Causal_Inference/README.md
+      - file: Causal_Inference/1_AB_testing.md
+      - file: Causal_Inference/2_methods.md
   - caption: 深度学习
     chapters:
-      - file: Deep_Learning/Basics/README.md
+      - file: DL/Basics/README.md
         sections:
-        - file: Deep_Learning/Basics/DL_hyperparameter
-        - file: Deep_Learning/Basics/Optimizer
-        - file: Deep_Learning/Basics/Trained_by_GPU
-      - file: Deep_Learning/NLP/README
+        - file: DL/Basics/DL_hyperparameter
+        - file: DL/Basics/Optimizer
+        - file: DL/Basics/Trained_by_GPU
+      - file: DL/NLP/README
         sections:
-        - file: Deep_Learning/NLP/basics
-        - file: Deep_Learning/NLP/Self-attention
-        - file: Deep_Learning/NLP/Transformer
-        - file: Deep_Learning/NLP/BERT
-      - file: Deep_Learning/NN_compression/README
+        - file: DL/NLP/basics
+        - file: DL/NLP/Self-attention
+        - file: DL/NLP/Transformer
+        - file: DL/NLP/BERT
+      - file: DL/NN_compression/README
         sections:
-        - file: Deep_Learning/NN_compression/KD.ipynb
+        - file: DL/NN_compression/KD.ipynb
           sections:
-          - file: Deep_Learning/NN_compression/Distill_Bert.md
-        - file: Deep_Learning/NN_compression/Quantize.md
+          - file: DL/NN_compression/Distill_Bert.md
+        - file: DL/NN_compression/Quantize.md
           sections:
-          - file: Deep_Learning/NN_compression/QBert.md
+          - file: DL/NN_compression/QBert.md
   - caption: 备用的模板
     chapters:
     - file: notebooks

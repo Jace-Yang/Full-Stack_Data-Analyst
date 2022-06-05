@@ -1,0 +1,6 @@
+# Bayes
+
+### BART(Bayesian Additive Regression Trees)
+
+BART与其他树模型(GBDT等)类似,也是一种ensemble树模型,由多个弱学习器组合而成,最终会输出预测的y值.
+不同之处在于BART会对树结构做一定的先验假设,之后利用MCMC方法对模型参数进行模拟和计算.

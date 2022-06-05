@@ -51,7 +51,7 @@ This is a notebook from Jace Yang.
     rm -r _build
     cd ..
     git add .
-    git commit -m "新增数仓📒"
+    git commit -m "新增因果推断📒"
     git push origin main
     open -a "Google Chrome" https://github.com/Jace-Yang/Full-Stack_Data-Analyst/deployments/
     ```

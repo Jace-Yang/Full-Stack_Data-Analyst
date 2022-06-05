@@ -397,7 +397,7 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id6">
-       匹配结构
+       其他匹配方法
       </a>
      </li>
     </ul>
@@ -448,17 +448,17 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     基础
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
      估计方式
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     包的实现
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id13">
-     代码
+     一些魔改
     </a>
    </li>
   </ul>
@@ -483,6 +483,11 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id15">
      问题
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#psm">
+     跟PSM的结合使用
     </a>
    </li>
   </ul>
@@ -543,6 +548,11 @@ const thebe_selector_output = ".output, .cell_output"
    Uplift增益模型
   </a>
   <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trick">
+     特征筛选trick
+    </a>
+   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#meta-learning">
      Meta-Learning方法
@@ -632,6 +642,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id29">
+   参考资料
+  </a>
  </li>
 </ul>
 
@@ -680,7 +695,7 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id6">
-       匹配结构
+       其他匹配方法
       </a>
      </li>
     </ul>
@@ -731,17 +746,17 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     基础
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
      估计方式
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     包的实现
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id13">
-     代码
+     一些魔改
     </a>
    </li>
   </ul>
@@ -766,6 +781,11 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id15">
      问题
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#psm">
+     跟PSM的结合使用
     </a>
    </li>
   </ul>
@@ -826,6 +846,11 @@ const thebe_selector_output = ".output, .cell_output"
    Uplift增益模型
   </a>
   <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trick">
+     特征筛选trick
+    </a>
+   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#meta-learning">
      Meta-Learning方法
@@ -915,6 +940,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id29">
+   参考资料
+  </a>
  </li>
 </ul>
 
@@ -1052,27 +1082,34 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id4">
 <h3>倾向性得分匹配<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>这个步骤的核心是利用propensity score来拉齐实验组和对照组的分布，从而实现对Selection bias的修正</p>
+<ul class="simple">
+<li><p>意义：若一个接受广告曝光的用户和无曝光的用户获得相似的倾向性评分, 则说明我们保持了混淆变量的影响力基本一致, 而唯一影响产品呢关键词搜索的变量则是广告曝光本身。这样就可以假装我们做了一个 A/B Test 了</p></li>
+</ul>
 <div class="section" id="id5">
 <h4>匹配策略<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
-<p>最基本款的 Matching 是 Exact Matching。假设我们感兴趣的因果效应是 ATT：</p>
+<p>匹配对照组用户用的方法：</p>
 <ul class="simple">
+<li><p>Exact matching：
+最基本款的 Matching 是 Exact Matching。假设我们感兴趣的因果效应是 ATT：</p>
+<ul>
 <li><p>对于每一个 T=1的用户，我们从 T=0的分组里找一个 pre-treatment变量 X一模一样的用户把他们配成对，找不到就放弃。</p></li>
 <li><p>配对过程结束后，一部分或者全部 T=1的用户找到了平行世界的自己，我们直接比较两组用户观察结果YY的差异就可以得到结论。</p></li>
 </ul>
-<p>Exact Matching 的一个直观变种是 Distance Matching，科学有效地进行 Matching，一个经典的做法是 Propensity Score Matching</p>
-<p>若一个接受广告曝光的用户和无曝光的用户获得相似的倾向性评分, 则说明我们保持了混淆变量的影响力基本一致, 而唯一影响产品呢关键词搜索的变量则是广告曝光本身。</p>
-<p>这样就可以假装我们做了一个 A/B Test 了</p>
-<p>匹配对照组用户用的方法：</p>
-<ul class="simple">
+</li>
+<li><p>Exact Matching 的一个直观变种是 Distance Matching，科学有效地进行 Matching，一个经典的做法是 Propensity Score Matching</p></li>
 <li><p>greedy search</p></li>
 <li><p>KNN: 进行1对K有放回或无放回匹配</p></li>
 <li><p>分桶法：先对实验组分桶，然后对每一个实验组进行遍历，找到ps分桶值相同的对照组作为新对照组集合中的元素。</p></li>
+<li><p>Caliper：使用得分差异上限（caliper）匹配用户时，我们要求每一对用户的得分差异不超过指定的caliper 比如0.005都选中。但“强扭的瓜不甜”，对没匹配的部分实验组用户是舍弃discard！</p></li>
 </ul>
 </div>
 <div class="section" id="id6">
-<h4>匹配结构<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
-<p>可以使用得分差异上限（caliper）：当我们匹配用户的时候，我们要求每一对用户的得分差异不超过指定的 caliper，“强扭的瓜不甜”。</p>
-<p>而对匹配的部分实验组用户是会舍弃discard的！</p>
+<h4>其他匹配方法<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>腾讯游戏在DataFun 2022的分享中提到了一个时间复杂度大大下降的Hist-PSM，其实就是group by比如*100取整的PS实现分桶，再每组抽等量个体做matching，整体流程：</p>
+<center><img src="../images/CI_method_11.png" width="75%"/></center>
+<p>而这套流程是可以分布式地跑在Spark里的：</p>
+<center><img src="../images/CI_method_12.png" width="75%"/></center>
 </div>
 </div>
 <div class="section" id="positivity">
@@ -1238,41 +1275,93 @@ E[Y|X,T=1]−E[Y|X,T=0] = E\bigg[\dfrac{Y}{P(x)}|X,T=1\bigg]P(x) - E\bigg[\dfrac
 </div>
 <div class="section" id="double-robust-dr">
 <h2>双稳健模型 (Double Robust, DR)<a class="headerlink" href="#double-robust-dr" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p><a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3070495/pdf/kwq439.pdf">Doubly Robust Estimation of Causal Effects</a></p>
+</div></blockquote>
 <p>(Double Robust, DR):  DML方法在针对categorical的treatment时的优化版本。此方法实际上利用了Inverse Propensity Score和Direct Method，以此修正前者产生的过大方差和后者导致的有偏估计。因此对两方法同时robust，故称Doubly Robust (DR)。</p>
 <p>好处：</p>
 <ul class="simple">
-<li><p>IPW需要样本权重主要围绕倾向的分为核心，倾向得分一旦预测不准，会导致上面的估计方法出现很大的偏差。双重稳健估计（doubly robust estimation）是这对这一问题提出的更为稳健的方法，该模型结合了针对结局的回归模型和针对处理的倾向性评分模型，从而得到一个具有双重稳健性的效应估计量，即——<strong>只要回归模型和倾向性评分模型中有一个正确（consistent），就能保证估计量的一致性和无偏。</strong></p></li>
+<li><p>IPW需要样本权重主要围绕倾向的分为核心，倾向得分一旦预测不准，会导致上面的估计方法出现很大的偏差。双重稳健估计（doubly robust estimation）是这对这一问题提出的更为稳健的方法，该模型结合了针对结局的回归模型和针对处理的倾向性评分模型，从而得到一个具有双重稳健性的效应估计量，即——<strong>只要outcome regression模型和倾向性评分模型中有一个正确（consistent），就能保证估计量的一致性和无偏。</strong></p></li>
 <li><p>熟练的会比</p></li>
 </ul>
-<div class="section" id="id11">
-<h3>基础<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>缺点：it’s very hard to model precisely either of those. More often, what ends up happening is that neither the propensity score nor the outcome model are 100% correct. They are both wrong, but in different ways. When this happens, it is not exactly settled if it’s better to use a single model or doubly robust estimation.</p>
 <p>这个方法需要根据已有数据，再学习一个预测的模型，反事实评估某个个体在干预变量变化后，结果变量的期望值。 只要倾向指数的估计模型和反事实预测模型中有一个是对的，计算出的平均因果效应就是无偏的； 但如果两个模型估计都是错误的，那产生的误差可能会非常大。</p>
+<ul class="simple">
+<li><p>反事实预测模型出错的原因：业务中可能无法覆盖全部的混淆因子</p></li>
+</ul>
 <p>DR与DML类似，也有多个建模的中间步骤，</p>
 <ul class="simple">
 <li><p>相同点： 第一阶段也是使用ML模型估计倾向性得分和目标变量Y；第二阶段进行因果效应评估。</p></li>
-<li><p>不同点： 在于第一阶段估计目标变量Y时，同时使用X和Treatment作为特征。</p></li>
+<li><p>不同点： 在于第一阶段估计目标变量Y时，同时使用X和Treatment作为特征。</p>
+<ul>
+<li><p>读原始论文的意思，这里的X是confounder的合集！这就是为啥我们能用LR来估ATE（通常这个X是未知/过于高维的）</p></li>
 </ul>
-</div>
-<div class="section" id="id12">
-<h3>估计方式<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+</li>
+</ul>
+<div class="section" id="id11">
+<h3>估计方式<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <div class="math notranslate nohighlight">
 \[
 \hat{ATE} = \frac{1}{N}\sum \bigg( \dfrac{T_i(Y_i - \hat{\mu_1}(X_i))}{\hat{P}(X_i)} + \hat{\mu_1}(X_i) \bigg) - \frac{1}{N}\sum \bigg( \dfrac{(1-T_i)(Y_i - \hat{\mu_0}(X_i))}{1-\hat{P}(X_i)} + \hat{\mu_0}(X_i) \bigg)
 \]</div>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\hat{P}(x)\)</span>: 对有<span class="math notranslate nohighlight">\(x\)</span>这组数据被分到T=1的倾向性评分的估计(比如 用logisticssuan)</p></li>
-<li><p><span class="math notranslate nohighlight">\(\hat{\mu_1}(x)\)</span>: 对<span class="math notranslate nohighlight">\(E[Y|X, T=1]\)</span>的估计(比如，对T=1的直接Y和X线性回归然后取intercept）
+<li><p><span class="math notranslate nohighlight">\(\hat{\mu_1}(x)\)</span>: 对<span class="math notranslate nohighlight">\(E[Y|X, T=1]\)</span>的估计(比如，对T=1的直接Y和confounder X们线性回归然后取intercept）
 <span class="math notranslate nohighlight">\(\hat{\mu_0}(x)\)</span>: 对<span class="math notranslate nohighlight">\(E[Y|X, T=0]\)</span>的估计</p></li>
 </ul>
-<p>公式解读：</p>
+<p>解读为什么it only requires one of the models, <span class="math notranslate nohighlight">\(\hat{P}(x)\)</span> or <span class="math notranslate nohighlight">\(\hat{\mu}(x)\)</span>, to be correctly specified</p>
 <ul class="simple">
-<li><p>first part of the doubly robust estimator estimates <span class="math notranslate nohighlight">\(E[Y_1]\)</span></p></li>
+<li><p>公式前半部分是<span class="math notranslate nohighlight">\(\hat{E}[Y_1] = \frac{1}{N}\sum \bigg( \dfrac{T_i(Y_i - \hat{\mu_1}(X_i))}{\hat{P}(X_i)} + \hat{\mu_1}(X_i) \bigg)\)</span></p>
+<ul>
+<li><p>Assume that <span class="math notranslate nohighlight">\(\hat{\mu_1}(x)\)</span> is correct. If the propensity score model is wrong, we wouldn’t need to worry because:</p>
+<ul>
+<li><p>if <span class="math notranslate nohighlight">\(\hat{\mu_1}(x)\)</span> is correct, then <span class="math notranslate nohighlight">\(E[T_i(Y_i - \hat{\mu_1}(X_i))]=0\)</span>. That is because the multiplication by <span class="math notranslate nohighlight">\(T_i\)</span> selects only the treated and the residual of <span class="math notranslate nohighlight">\(\hat{\mu_1}\)</span> on the treated have, by definition, mean zero. This causes the whole thing to reduce to <span class="math notranslate nohighlight">\(\hat{\mu_1}(X_i)\)</span>, which is correctly estimated <span class="math notranslate nohighlight">\(E[Y_1]\)</span> by assumption.</p></li>
+<li><p>So, you see, that by being correct, <span class="math notranslate nohighlight">\(\hat{\mu_1}(X_i)\)</span> wipes out the relevance of the propensity score model. We can apply the same reasoning to understand the estimator of <span class="math notranslate nohighlight">\(E[Y_0]\)</span>.</p></li>
+</ul>
+</li>
+<li><p>Assume that <span class="math notranslate nohighlight">\(\hat{\mu_1}(x)\)</span> is wrong but the propensity score model is correct:</p>
+<ul>
+<li><p>rearrange some terms:
+$<span class="math notranslate nohighlight">\(\begin{aligned} 
+  \hat{E}[Y_1] &amp;= \frac{1}{N}\sum \bigg( \dfrac{T_i(Y_i - \hat{\mu_1}(X_i))}{\hat{P}(X_i)} + \hat{\mu_1}(X_i) \bigg) \\ 
+  &amp;= \frac{1}{N}\sum \bigg( \dfrac{T_iY_i}{\hat{P}(X_i)} - \dfrac{T_i\hat{\mu_1}(X_i)}{\hat{P}(X_i)} + \hat{\mu_1}(X_i) \bigg) \\
+  &amp;= \frac{1}{N}\sum \bigg( \dfrac{T_iY_i}{\hat{P}(X_i)} - \bigg(\dfrac{T_i}{\hat{P}(X_i)} - 1\bigg) \hat{\mu_1}(X_i) \bigg) \\
+  &amp;= \frac{1}{N}\sum \bigg( \dfrac{T_iY_i}{\hat{P}(X_i)} - \bigg(\dfrac{T_i - \hat{P}(X_i)}{\hat{P}(X_i)}\bigg) \hat{\mu_1}(X_i) \bigg)
+  \end{aligned}\)</span>$</p></li>
+<li><p>Propensity score正确，所以<span class="math notranslate nohighlight">\(E[T_i - \hat{P}(X_i)]=0\)</span>, which wipes out the part dependent on <span class="math notranslate nohighlight">\(\hat{\mu_1}(X_i)\)</span>. This makes the doubly robust estimator reduce to the propensity score weighting estimator <span class="math notranslate nohighlight">\(\frac{T_iY_i}{\hat{P}(X_i)}\)</span>, which is correct by assumption.</p></li>
+<li><p>So, even if the <span class="math notranslate nohighlight">\(\hat{\mu_1}(X_i)\)</span> is wrong, the estimator will still be correct, provided that the propensity score is correctly specified.</p></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><p>second part estimates <span class="math notranslate nohighlight">\(E[Y_0]\)</span>.</p></li>
+</ul>
+<p>代码：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">doubly_robust</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="n">ps</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">X</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">T</span><span class="p">])</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">X</span><span class="p">])[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">mu0</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2">==0&quot;</span><span class="p">)[</span><span class="n">X</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2">==0&quot;</span><span class="p">)[</span><span class="n">Y</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">X</span><span class="p">])</span>
+    <span class="n">mu1</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2">==1&quot;</span><span class="p">)[</span><span class="n">X</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2">==1&quot;</span><span class="p">)[</span><span class="n">Y</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">X</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">Y</span><span class="p">]</span> <span class="o">-</span> <span class="n">mu1</span><span class="p">)</span><span class="o">/</span><span class="n">ps</span> <span class="o">+</span> <span class="n">mu1</span><span class="p">)</span> <span class="o">-</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">df</span><span class="p">[</span><span class="n">T</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">Y</span><span class="p">]</span> <span class="o">-</span> <span class="n">mu0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ps</span><span class="p">)</span> <span class="o">+</span> <span class="n">mu0</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="s1">&#39;intervention&#39;</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="s1">&#39;achievement_score&#39;</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data_with_categ</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;schoolid&#39;</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">])</span>
+<span class="n">doubly_robust</span><span class="p">(</span><span class="n">data_with_categ</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id12">
+<h3>包的实现<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/microsoft/EconML/blob/main/notebooks/Doubly%20Robust%20Learner%20and%20Interpretability.ipynb">EconML</a></p></li>
 </ul>
 </div>
 <div class="section" id="id13">
-<h3>代码<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://github.com/microsoft/EconML/blob/main/notebooks/Doubly%20Robust%20Learner%20and%20Interpretability.ipynb">https://github.com/microsoft/EconML/blob/main/notebooks/Doubly Robust Learner and Interpretability.ipynb</a></p>
+<h3>一些魔改<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>腾讯游戏在2022 DataFun 数据科学峰会里提到了一个Binary DR，就是把二元的outcome变量（是否留存）先用<span class="math notranslate nohighlight">\(g(x) = log(1 - \frac{1}{x})\)</span> 映射成连续变量（多少天后留存），估计完之后再用sigmoid换回来，效果据说比UBER表现最好的算法UBER-X-Learner还好很多：</p>
+<center><img src="../images/CI_method_13.png" width="65%"/></center>
 </div>
 </div>
 <div class="section" id="did">
@@ -1307,6 +1396,9 @@ E[Y|X,T=1]−E[Y|X,T=0] = E\bigg[\dfrac{Y}{P(x)}|X,T=1\bigg]P(x) - E\bigg[\dfrac
 <div class="section" id="id14">
 <h3>假设<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>干预发生前的 Treatment和control两组符合平行趋势：对结果有干扰的效应随着时间不会变化</p>
+<ul class="simple">
+<li><p>check方法：可以画个时间序列图然后mark两者gap大小的置信区间，看0是不是一直在区间里。</p></li>
+</ul>
 <div class="section" id="setup">
 <h4>模型setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h4>
 <p>是否有t的01变量+前后两个时间段的面板数据+不可观测的个体固定效应：</p>
@@ -1322,6 +1414,21 @@ $<span class="math notranslate nohighlight">\(\beta=\left(\bar{Y}_{\text {post }
 <div class="section" id="id15">
 <h3>问题<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>并不适用于所有实验,也就是要求t0到t1之间，两群人的活跃时长变化趋势是一样的</p>
+</div>
+<div class="section" id="psm">
+<h3>跟PSM的结合使用<a class="headerlink" href="#psm" title="Permalink to this headline">¶</a></h3>
+<center><img src="../images/CI_method_14.png" width="65%"/></center>
+<blockquote>
+<div><p>来源：<a class="reference external" href="https://appukvkryx45804.pc.xiaoe-tech.com/detail/l_627da1d3e4b0cedf38b11d22/4">DataFun 2022电商零售与数据科学论坛｜电商场景下的有效干预策略实践 by 阿里大淘宝技术</a></p>
+</div></blockquote>
+<ul class="simple">
+<li><p>如果单纯用DID的话 对照组之前可能不太符合同质化，所以先用PSM构造虚拟对照组再did会更精准</p></li>
+<li><p>算PS的时候要注意特征的构建，要尽量囊括confounder</p></li>
+<li><p>匹配的时候是先用了Caliper NN Matching（有边界最近邻匹配），然后再在一些重要的特征上做精读的提升（比如T是手淘里面加入斗地主功能，男女差异很大，所以只在男性和男性以及女性和女性之间做匹配）</p></li>
+<li><p>要注意观测一定的时间：有的Treatment可能会长时间带来影响，有的可能只是短期</p></li>
+</ul>
+<center><img src="../images/CI_method_15.png" width="65%"/></center>
+- 注意结论的进一步下钻，我们知道男性在斗地主之后购买下降，那么下降在哪呢？——发现是户外活动类的比如门票
 </div>
 </div>
 <div class="section" id="id16">
@@ -1442,7 +1549,7 @@ $<span class="math notranslate nohighlight">\(
 </ul>
 <p>意义：营销场景中我们都希望每次的投入能达到最大的转化，即把活动福利用在真正需要的用户身上，即找到对于活动敏感的人群进行干预/激励。我们按照是否给干预和是否能带来正向反馈对人群进行分类：</p>
 <center><img src="../images/CI_method_1.png" width="75%"/></center>
-<center><img src="../images/CI_method_5.png" width="75%"/></center>
+<!-- <center><img src="../images/CI_method_5.png" width="75%"/></center> -->
 <ul class="simple">
 <li><p>敏感人群：干预/给了激励后（不发券就不购买、发券才会购买的人群），效果向正向转变的人群；</p></li>
 <li><p>自然转化人群：即使不给激励（无论是否发券，都会购买），也是正向效果的人群；</p></li>
@@ -1450,6 +1557,23 @@ $<span class="math notranslate nohighlight">\(
 <li><p>反作用人群：对营销活动比较反感，不发券的时候会有购买行为，但发券后不购买，可能是干预反感人群。</p></li>
 </ul>
 <p>如果用单纯的单ML/DL模型按照预估的购买率来发券的话，其实不是最优的因为可能里面有自然转化人群，我们其实发到敏感人群上作用才比较大！</p>
+<div class="section" id="trick">
+<h3>特征筛选trick<a class="headerlink" href="#trick" title="Permalink to this headline">¶</a></h3>
+<center><img src="../images/CI_method_16.png" width="75%"/></center>
+<blockquote>
+<div><p>来源：<a class="reference external" href="https://appukvkryx45804.pc.xiaoe-tech.com/detail/l_627da1d3e4b0cedf38b11d22/4">DataFun 2022电商零售与数据科学论坛｜电商场景下的有效干预策略实践 by 阿里大淘宝技术</a></p>
+</div></blockquote>
+<ul class="simple">
+<li><p>特征筛选的时候判断重要性：</p>
+<ul>
+<li><p>先把特征分成若干个箱，比如年龄分0-10、10-20 ···</p></li>
+<li><p>对[20, 30]组内的用户 计算T=0 T=1 outcome的分布的散度</p></li>
+<li><p>再把各个组的散度sum起来，就得到了年龄的特征重要性</p></li>
+</ul>
+</li>
+<li><p>可以根据特征重要性进行特征筛选</p></li>
+</ul>
+</div>
 <div class="section" id="meta-learning">
 <h3>Meta-Learning方法<a class="headerlink" href="#meta-learning" title="Permalink to this headline">¶</a></h3>
 <p>Meta learning是间接估计：不直接对treatment effect进行建模，而是通过对response effect（target）进行建模，用T带来的target变化作为HTE的估计
@@ -1511,7 +1635,7 @@ $<span class="math notranslate nohighlight">\(
 <li><p>最后引入PSM加权得到最后的提升评估结果。</p></li>
 </ul>
 <p>具体过程：</p>
-<center><img src="../images/CI_method_2.png" width="75%"/></center>
+<center><img src="../images/CI_method_2.png" width="40%"/></center>
 <ul>
 <li><p>Step1: 构建T-learner双模型对outcome建模</p>
 <p>可以是传统的机器学习模型如svm，lr，xgboost等，也可以是神经网络</p>
@@ -1578,13 +1702,13 @@ $<span class="math notranslate nohighlight">\(
 <ul>
 <li><p>对于训练过程</p>
 <ul>
-<li><p>决策树模型是通过不断筛选特征进行结点分裂，从而提升结点内样本label的纯度。不同的模型用到了不同的指标作为分裂规则，比如id3用信息增益，cart用基尼指数。这些指标其实都是在衡量分裂后结点内<em>label纯度</em>的变化。</p>
+<li><p>决策树最小化MSE：决策树模型是通过不断筛选特征进行结点分裂，从而提升结点内样本label的纯度。不同的模型用到了不同的指标作为分裂规则，比如id3用信息增益，cart用基尼指数。这些指标其实都是在衡量分裂后结点内<em>label纯度</em>的变化。</p>
 <p>普通决策树：最大化信息增益
 $<span class="math notranslate nohighlight">\(
 \Delta_{\text {gain }}=-\sum_{i=1}^{J} p_{i} \log _{2} p_{i}-\sum_{i=1}^{J} \operatorname{Pr}(i \mid a) \log _{2} \operatorname{Pr}(i \mid a)
 \)</span>$</p>
 </li>
-<li><p>uplift tree的结点分裂目标不同，是为了最大化节点内treatment组和control组之间label的分布差异，差异越大说明对于有对应特征的群体，干预的因果效应越强。</p></li>
+<li><p>uplift tree最大化组间HTE差异并最小化组内HTE差异：uplift tree为了最大化节点内treatment组和control组之间label的分布差异，差异越大说明对于有对应特征的群体，干预的因果效应越强。</p></li>
 </ul>
 <p>增益决策树：最大化 <span class="math notranslate nohighlight">\(T=1\)</span> 与 <span class="math notranslate nohighlight">\(T=0\)</span> 的分布差异(散度)<span class="math notranslate nohighlight">\(D\)</span>:
 $<span class="math notranslate nohighlight">\(
@@ -1627,7 +1751,7 @@ $<span class="math notranslate nohighlight">\(
 <p>定量</p>
 <ul>
 <li><p>AUUC：AUUC的全称是Area Under the Uplift Curve，和AUC一样也是一个面积，不过是基于Uplift Curve积分的</p>
-  <center><img src="../images/CI_method_3.png" width="75%"/></center>
+  <center><img src="../images/CI_method_3.png" width="55%"/></center>
 <ul class="simple">
 <li><p>uplift最大的k个样本里面，Treatment组中T=1的个数 比control组中T=1的个数的差值</p></li>
 <li><p><span class="math notranslate nohighlight">\(G(i)=\left(\frac{n_{t, y=1}(i)}{n_{t}(i)}-\frac{n_{c, y=1}(i)}{n_{c}(i)}\right)\left(n_{t}(i)+n_{c}(i)\right), \quad i=10 \%, 20 \%, \ldots, 100 \%\)</span></p>
@@ -1650,7 +1774,7 @@ $<span class="math notranslate nohighlight">\(
 </ul>
 </li>
 <li><p>案例：</p>
-  <center><img src="../images/CI_method_4.png" width="75%"/></center>
+  <center><img src="../images/CI_method_4.png" width="55%"/></center>
 <ul class="simple">
 <li><p>Two-model最好：</p>
 <ul>
@@ -1739,6 +1863,13 @@ Qini 系数分母是实验组和对照组的总样本量，如果实验组和对
 </li>
 </ul>
 </div>
+</div>
+<div class="section" id="id29">
+<h2>参考资料<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://matheusfacure.github.io/python-causality-handbook/12-Doubly-Robust-Estimation.html">Github｜Causal Inference for the Brave and True</a></p></li>
+<li><p><a class="reference external" href="https://appukvkryx45804.pc.xiaoe-tech.com/detail/l_627da1d3e4b0cedf38b11d22/4">DataFun 2022电商零售与数据科学论坛｜电商场景下的有效干预策略实践 by 阿里大淘宝技术</a></p></li>
+</ul>
 </div>
 </div>
 

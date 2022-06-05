@@ -78,28 +78,30 @@ $\mathbf{e}=\mathrm{P}($ Treatement<是否广告曝光>|搜索活跃度、性别
 
 
 ### 倾向性得分匹配
+
+这个步骤的核心是利用propensity score来拉齐实验组和对照组的分布，从而实现对Selection bias的修正
+- 意义：若一个接受广告曝光的用户和无曝光的用户获得相似的倾向性评分, 则说明我们保持了混淆变量的影响力基本一致, 而唯一影响产品呢关键词搜索的变量则是广告曝光本身。这样就可以假装我们做了一个 A/B Test 了
+
 #### 匹配策略
-最基本款的 Matching 是 Exact Matching。假设我们感兴趣的因果效应是 ATT：
-- 对于每一个 T=1的用户，我们从 T=0的分组里找一个 pre-treatment变量 X一模一样的用户把他们配成对，找不到就放弃。
-- 配对过程结束后，一部分或者全部 T=1的用户找到了平行世界的自己，我们直接比较两组用户观察结果YY的差异就可以得到结论。
-
-Exact Matching 的一个直观变种是 Distance Matching，科学有效地进行 Matching，一个经典的做法是 Propensity Score Matching
-
-若一个接受广告曝光的用户和无曝光的用户获得相似的倾向性评分, 则说明我们保持了混淆变量的影响力基本一致, 而唯一影响产品呢关键词搜索的变量则是广告曝光本身。
-
-这样就可以假装我们做了一个 A/B Test 了
-
 匹配对照组用户用的方法：
+- Exact matching：
+    最基本款的 Matching 是 Exact Matching。假设我们感兴趣的因果效应是 ATT：
+    - 对于每一个 T=1的用户，我们从 T=0的分组里找一个 pre-treatment变量 X一模一样的用户把他们配成对，找不到就放弃。
+    - 配对过程结束后，一部分或者全部 T=1的用户找到了平行世界的自己，我们直接比较两组用户观察结果YY的差异就可以得到结论。
+- Exact Matching 的一个直观变种是 Distance Matching，科学有效地进行 Matching，一个经典的做法是 Propensity Score Matching
 - greedy search
 - KNN: 进行1对K有放回或无放回匹配
 - 分桶法：先对实验组分桶，然后对每一个实验组进行遍历，找到ps分桶值相同的对照组作为新对照组集合中的元素。
+- Caliper：使用得分差异上限（caliper）匹配用户时，我们要求每一对用户的得分差异不超过指定的caliper 比如0.005都选中。但“强扭的瓜不甜”，对没匹配的部分实验组用户是舍弃discard！
 
 
-#### 匹配结构
+#### 其他匹配方法
 
-可以使用得分差异上限（caliper）：当我们匹配用户的时候，我们要求每一对用户的得分差异不超过指定的 caliper，“强扭的瓜不甜”。
+腾讯游戏在DataFun 2022的分享中提到了一个时间复杂度大大下降的Hist-PSM，其实就是group by比如*100取整的PS实现分桶，再每组抽等量个体做matching，整体流程：
+<center><img src="../images/CI_method_11.png" width="75%"/></center>
 
-而对匹配的部分实验组用户是会舍弃discard的！
+而这套流程是可以分布式地跑在Spark里的：
+<center><img src="../images/CI_method_12.png" width="75%"/></center>
 
 ### positivity检查
 
@@ -241,21 +243,26 @@ DML特点:
 
 ## 双稳健模型 (Double Robust, DR)
 
+> [Doubly Robust Estimation of Causal Effects](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3070495/pdf/kwq439.pdf)
+
 (Double Robust, DR):  DML方法在针对categorical的treatment时的优化版本。此方法实际上利用了Inverse Propensity Score和Direct Method，以此修正前者产生的过大方差和后者导致的有偏估计。因此对两方法同时robust，故称Doubly Robust (DR)。
 
 
 好处：
-- IPW需要样本权重主要围绕倾向的分为核心，倾向得分一旦预测不准，会导致上面的估计方法出现很大的偏差。双重稳健估计（doubly robust estimation）是这对这一问题提出的更为稳健的方法，该模型结合了针对结局的回归模型和针对处理的倾向性评分模型，从而得到一个具有双重稳健性的效应估计量，即——**只要回归模型和倾向性评分模型中有一个正确（consistent），就能保证估计量的一致性和无偏。**
+- IPW需要样本权重主要围绕倾向的分为核心，倾向得分一旦预测不准，会导致上面的估计方法出现很大的偏差。双重稳健估计（doubly robust estimation）是这对这一问题提出的更为稳健的方法，该模型结合了针对结局的回归模型和针对处理的倾向性评分模型，从而得到一个具有双重稳健性的效应估计量，即——**只要outcome regression模型和倾向性评分模型中有一个正确（consistent），就能保证估计量的一致性和无偏。**
 - 熟练的会比
 
-
-### 基础
+缺点：it’s very hard to model precisely either of those. More often, what ends up happening is that neither the propensity score nor the outcome model are 100% correct. They are both wrong, but in different ways. When this happens, it is not exactly settled if it’s better to use a single model or doubly robust estimation.
 
 这个方法需要根据已有数据，再学习一个预测的模型，反事实评估某个个体在干预变量变化后，结果变量的期望值。 只要倾向指数的估计模型和反事实预测模型中有一个是对的，计算出的平均因果效应就是无偏的； 但如果两个模型估计都是错误的，那产生的误差可能会非常大。
+- 反事实预测模型出错的原因：业务中可能无法覆盖全部的混淆因子
 
 DR与DML类似，也有多个建模的中间步骤，
 - 相同点： 第一阶段也是使用ML模型估计倾向性得分和目标变量Y；第二阶段进行因果效应评估。
 - 不同点： 在于第一阶段估计目标变量Y时，同时使用X和Treatment作为特征。
+    - 读原始论文的意思，这里的X是confounder的合集！这就是为啥我们能用LR来估ATE（通常这个X是未知/过于高维的）
+
+
 
 ### 估计方式
 $$
@@ -263,19 +270,60 @@ $$
 $$
 
 - $\hat{P}(x)$: 对有$x$这组数据被分到T=1的倾向性评分的估计(比如 用logisticssuan)
-- $\hat{\mu_1}(x)$: 对$E[Y|X, T=1]$的估计(比如，对T=1的直接Y和X线性回归然后取intercept）
+- $\hat{\mu_1}(x)$: 对$E[Y|X, T=1]$的估计(比如，对T=1的直接Y和confounder X们线性回归然后取intercept）
     $\hat{\mu_0}(x)$: 对$E[Y|X, T=0]$的估计
 
-公式解读：
-- first part of the doubly robust estimator estimates $E[Y_1]$ 
+解读为什么it only requires one of the models, $\hat{P}(x)$ or $\hat{\mu}(x)$, to be correctly specified
+- 公式前半部分是$\hat{E}[Y_1] = \frac{1}{N}\sum \bigg( \dfrac{T_i(Y_i - \hat{\mu_1}(X_i))}{\hat{P}(X_i)} + \hat{\mu_1}(X_i) \bigg)$
+
+    - Assume that $\hat{\mu_1}(x)$ is correct. If the propensity score model is wrong, we wouldn't need to worry because:
+        - if $\hat{\mu_1}(x)$ is correct, then $E[T_i(Y_i - \hat{\mu_1}(X_i))]=0$. That is because the multiplication by $T_i$ selects only the treated and the residual of $\hat{\mu_1}$ on the treated have, by definition, mean zero. This causes the whole thing to reduce to $\hat{\mu_1}(X_i)$, which is correctly estimated $E[Y_1]$ by assumption. 
+        - So, you see, that by being correct, $\hat{\mu_1}(X_i)$ wipes out the relevance of the propensity score model. We can apply the same reasoning to understand the estimator of $E[Y_0]$. 
+    - Assume that $\hat{\mu_1}(x)$ is wrong but the propensity score model is correct:
+
+        - rearrange some terms:
+            $$\begin{aligned} 
+            \hat{E}[Y_1] &= \frac{1}{N}\sum \bigg( \dfrac{T_i(Y_i - \hat{\mu_1}(X_i))}{\hat{P}(X_i)} + \hat{\mu_1}(X_i) \bigg) \\ 
+            &= \frac{1}{N}\sum \bigg( \dfrac{T_iY_i}{\hat{P}(X_i)} - \dfrac{T_i\hat{\mu_1}(X_i)}{\hat{P}(X_i)} + \hat{\mu_1}(X_i) \bigg) \\
+            &= \frac{1}{N}\sum \bigg( \dfrac{T_iY_i}{\hat{P}(X_i)} - \bigg(\dfrac{T_i}{\hat{P}(X_i)} - 1\bigg) \hat{\mu_1}(X_i) \bigg) \\
+            &= \frac{1}{N}\sum \bigg( \dfrac{T_iY_i}{\hat{P}(X_i)} - \bigg(\dfrac{T_i - \hat{P}(X_i)}{\hat{P}(X_i)}\bigg) \hat{\mu_1}(X_i) \bigg)
+            \end{aligned}$$
+        - Propensity score正确，所以$E[T_i - \hat{P}(X_i)]=0$, which wipes out the part dependent on $\hat{\mu_1}(X_i)$. This makes the doubly robust estimator reduce to the propensity score weighting estimator $\frac{T_iY_i}{\hat{P}(X_i)}$, which is correct by assumption. 
+        - So, even if the $\hat{\mu_1}(X_i)$ is wrong, the estimator will still be correct, provided that the propensity score is correctly specified.
+
+         
+
+
 - second part estimates $E[Y_0]$.
 
 
 
-### 代码
 
-https://github.com/microsoft/EconML/blob/main/notebooks/Doubly%20Robust%20Learner%20and%20Interpretability.ipynb
+代码：
+```python
+def doubly_robust(df, X, T, Y):
+    ps = LogisticRegression(C=1e6, max_iter=1000).fit(df[X], df[T]).predict_proba(df[X])[:, 1]
+    mu0 = LinearRegression().fit(df.query(f"{T}==0")[X], df.query(f"{T}==0")[Y]).predict(df[X])
+    mu1 = LinearRegression().fit(df.query(f"{T}==1")[X], df.query(f"{T}==1")[Y]).predict(df[X])
+    return (
+        np.mean(df[T]*(df[Y] - mu1)/ps + mu1) -
+        np.mean((1-df[T])*(df[Y] - mu0)/(1-ps) + mu0)
+    )
+T = 'intervention'
+Y = 'achievement_score'
+X = data_with_categ.columns.drop(['schoolid', T, Y])
+doubly_robust(data_with_categ, X, T, Y)
+```
 
+### 包的实现
+
+- [EconML](https://github.com/microsoft/EconML/blob/main/notebooks/Doubly%20Robust%20Learner%20and%20Interpretability.ipynb)
+
+### 一些魔改
+
+腾讯游戏在2022 DataFun 数据科学峰会里提到了一个Binary DR，就是把二元的outcome变量（是否留存）先用$g(x) = log(1 - \frac{1}{x})$ 映射成连续变量（多少天后留存），估计完之后再用sigmoid换回来，效果据说比UBER表现最好的算法UBER-X-Learner还好很多：
+
+<center><img src="../images/CI_method_13.png" width="65%"/></center>
   
 ## DID
 
@@ -292,6 +340,7 @@ https://github.com/microsoft/EconML/blob/main/notebooks/Doubly%20Robust%20Learne
 ### 假设
 
 干预发生前的 Treatment和control两组符合平行趋势：对结果有干扰的效应随着时间不会变化
+- check方法：可以画个时间序列图然后mark两者gap大小的置信区间，看0是不是一直在区间里。
 
 #### 模型setup
 
@@ -307,8 +356,18 @@ $$\beta=\left(\bar{Y}_{\text {post }}^{\text {treat }}-\bar{Y}_{\text {pre }}^{\
 
 并不适用于所有实验,也就是要求t0到t1之间，两群人的活跃时长变化趋势是一样的
 
+### 跟PSM的结合使用
+<center><img src="../images/CI_method_14.png" width="65%"/></center>
 
+> 来源：[DataFun 2022电商零售与数据科学论坛｜电商场景下的有效干预策略实践 by 阿里大淘宝技术](https://appukvkryx45804.pc.xiaoe-tech.com/detail/l_627da1d3e4b0cedf38b11d22/4)
 
+- 如果单纯用DID的话 对照组之前可能不太符合同质化，所以先用PSM构造虚拟对照组再did会更精准
+- 算PS的时候要注意特征的构建，要尽量囊括confounder
+- 匹配的时候是先用了Caliper NN Matching（有边界最近邻匹配），然后再在一些重要的特征上做精读的提升（比如T是手淘里面加入斗地主功能，男女差异很大，所以只在男性和男性以及女性和女性之间做匹配）
+- 要注意观测一定的时间：有的Treatment可能会长时间带来影响，有的可能只是短期
+
+<center><img src="../images/CI_method_15.png" width="65%"/></center>
+- 注意结论的进一步下钻，我们知道男性在斗地主之后购买下降，那么下降在哪呢？——发现是户外活动类的比如门票
 
 ## 树方法
 
@@ -416,9 +475,7 @@ uplift模型跟response模型的区别：
 意义：营销场景中我们都希望每次的投入能达到最大的转化，即把活动福利用在真正需要的用户身上，即找到对于活动敏感的人群进行干预/激励。我们按照是否给干预和是否能带来正向反馈对人群进行分类：
 
 <center><img src="../images/CI_method_1.png" width="75%"/></center>
-<center><img src="../images/CI_method_5.png" width="75%"/></center>
-
-
+<!-- <center><img src="../images/CI_method_5.png" width="75%"/></center> -->
 
 
 - 敏感人群：干预/给了激励后（不发券就不购买、发券才会购买的人群），效果向正向转变的人群；
@@ -430,6 +487,17 @@ uplift模型跟response模型的区别：
 - 反作用人群：对营销活动比较反感，不发券的时候会有购买行为，但发券后不购买，可能是干预反感人群。
 
 如果用单纯的单ML/DL模型按照预估的购买率来发券的话，其实不是最优的因为可能里面有自然转化人群，我们其实发到敏感人群上作用才比较大！
+
+### 特征筛选trick
+<center><img src="../images/CI_method_16.png" width="75%"/></center>
+
+> 来源：[DataFun 2022电商零售与数据科学论坛｜电商场景下的有效干预策略实践 by 阿里大淘宝技术](https://appukvkryx45804.pc.xiaoe-tech.com/detail/l_627da1d3e4b0cedf38b11d22/4)
+
+- 特征筛选的时候判断重要性：
+    - 先把特征分成若干个箱，比如年龄分0-10、10-20 ···
+    - 对[20, 30]组内的用户 计算T=0 T=1 outcome的分布的散度
+    - 再把各个组的散度sum起来，就得到了年龄的特征重要性
+- 可以根据特征重要性进行特征筛选
 
 ### Meta-Learning方法
 
@@ -490,7 +558,7 @@ Intuition：用户受干预和不受干预时，目标变量的取值范围很�
 
 具体过程：
 
-<center><img src="../images/CI_method_2.png" width="75%"/></center>
+<center><img src="../images/CI_method_2.png" width="40%"/></center>
 
 - Step1: 构建T-learner双模型对outcome建模
 
@@ -533,14 +601,14 @@ R Learner 借用正交的概念来消除选择性偏差(之前怎么选择30%和
 #### 跟决策树的区别：
 
 - 对于训练过程
-    - 决策树模型是通过不断筛选特征进行结点分裂，从而提升结点内样本label的纯度。不同的模型用到了不同的指标作为分裂规则，比如id3用信息增益，cart用基尼指数。这些指标其实都是在衡量分裂后结点内*label纯度*的变化。
+    - 决策树最小化MSE：决策树模型是通过不断筛选特征进行结点分裂，从而提升结点内样本label的纯度。不同的模型用到了不同的指标作为分裂规则，比如id3用信息增益，cart用基尼指数。这些指标其实都是在衡量分裂后结点内*label纯度*的变化。
 
         普通决策树：最大化信息增益
     $$
     \Delta_{\text {gain }}=-\sum_{i=1}^{J} p_{i} \log _{2} p_{i}-\sum_{i=1}^{J} \operatorname{Pr}(i \mid a) \log _{2} \operatorname{Pr}(i \mid a)
     $$
 
-    - uplift tree的结点分裂目标不同，是为了最大化节点内treatment组和control组之间label的分布差异，差异越大说明对于有对应特征的群体，干预的因果效应越强。
+    - uplift tree最大化组间HTE差异并最小化组内HTE差异：uplift tree为了最大化节点内treatment组和control组之间label的分布差异，差异越大说明对于有对应特征的群体，干预的因果效应越强。
 
     增益决策树：最大化 $T=1$ 与 $T=0$ 的分布差异(散度)$D$:
     $$
@@ -576,7 +644,7 @@ Uplift score
 定量
 - AUUC：AUUC的全称是Area Under the Uplift Curve，和AUC一样也是一个面积，不过是基于Uplift Curve积分的
 
-    <center><img src="../images/CI_method_3.png" width="75%"/></center>
+    <center><img src="../images/CI_method_3.png" width="55%"/></center>
 
 
     - uplift最大的k个样本里面，Treatment组中T=1的个数 比control组中T=1的个数的差值
@@ -598,7 +666,7 @@ Uplift score
 
 
     - 案例：
-        <center><img src="../images/CI_method_4.png" width="75%"/></center>
+        <center><img src="../images/CI_method_4.png" width="55%"/></center>
 
         - Two-model最好：
             - 先把那些愿意受影响的用户或对象（sure things）满足，不断提升uplift到最高点；
@@ -673,3 +741,7 @@ Causal Graph Learning算法大致被分为两类:
     - Min-Max Parents and Children (MMPC)
     - Causal Generative Neural Network (CGNN)
     - Non-combinatorial Optimization via Trace Exponential and Augmented Lagrangian for Structure learning (NOTEARS)
+
+## 参考资料
+- [Github｜Causal Inference for the Brave and True](https://matheusfacure.github.io/python-causality-handbook/12-Doubly-Robust-Estimation.html)
+- [DataFun 2022电商零售与数据科学论坛｜电商场景下的有效干预策略实践 by 阿里大淘宝技术](https://appukvkryx45804.pc.xiaoe-tech.com/detail/l_627da1d3e4b0cedf38b11d22/4)

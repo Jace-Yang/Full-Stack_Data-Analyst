@@ -1503,10 +1503,11 @@ $<span class="math notranslate nohighlight">\(
 <p>广义随机森林可以看作是对随机森林进行了推广：原来随机森林只能估计观测目标值 <span class="math notranslate nohighlight">\(Y\)</span>, 现在广 义随机森林可以估计任何感兴趣的指标 <span class="math notranslate nohighlight">\(\theta(\cdot)\)</span> 。</p>
 <ul>
 <li><p>异质性最大化分裂准则:</p>
-<p>给定样本 <span class="math notranslate nohighlight">\(J, P\)</span> 表示父节点, <span class="math notranslate nohighlight">\(C_{1}\)</span> 和 <span class="math notranslate nohighlight">\(C_{2}\)</span> 表示两个子节点, <span class="math notranslate nohighlight">\(N\)</span> 表示样本数, 异质性最大化准则为
-$<span class="math notranslate nohighlight">\(
-  \Delta\left(C_{1}, C_{2}\right):=\frac{n_{C_{1}} \cdot n_{C_{2}}}{n_{P}^{2}}\left(\hat{\theta}_{C_{1}}(\mathcal{J}) - \hat{\theta}_{C_{2}}(\mathcal{J})\right)^{2}
-  \)</span>$</p>
+<p>给定样本 <span class="math notranslate nohighlight">\(J, P\)</span> 表示父节点, <span class="math notranslate nohighlight">\(C_{1}\)</span> 和 <span class="math notranslate nohighlight">\(C_{2}\)</span> 表示两个子节点, <span class="math notranslate nohighlight">\(N\)</span> 表示样本数, 异质性最大化准则为</p>
+<div class="math notranslate nohighlight">
+\[
+    \Delta\left(C_{1}, C_{2}\right):=\frac{n_{C_{1}} \cdot n_{C_{2}}}{n_{P}^{2}}\left(\hat{\theta}_{C_{1}}(\mathcal{J}) - \hat{\theta}_{C_{2}}(\mathcal{J})\right)^{2}
+    \]</div>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\frac{n_{C_{1}} \cdot n_{C_{2}}}{n_{P}^{2}}\)</span>: 哟昂来确保两个子节点的样本尽量均衡</p></li>
 <li><p>后者：MSE最小化目标函数来估计</p></li>
@@ -1601,18 +1602,19 @@ $<span class="math notranslate nohighlight">\(
 <div class="section" id="t-learner">
 <h4>T-Learner<a class="headerlink" href="#t-learner" title="Permalink to this headline">¶</a></h4>
 <p>Two-learner是基于两个样本群体（有干预群体和无干预群体）分别建立响应模型，对预测组的用户，分别使用两个模型进行预测，对预测结果进行差分，这个差分值就是干预的提升量（uplift score）：</p>
-<ul class="simple">
-<li><p>模型1–无干预样本建模:</p></li>
-</ul>
+<ul>
+<li><p>模型1–无干预样本建模:</p>
 <div class="math notranslate nohighlight">
 \[
-\hat{\mu_{0}}=M_{1}\left(Y^{0} \sim X^{0}\right)
-\]</div>
-<ul class="simple">
-<li><p>模型2–有干预样本建模：
-$<span class="math notranslate nohighlight">\(
-\hat{\mu_{1}}=M_{2}\left(Y^{1} \sim X^{1}\right)
-\)</span>$</p></li>
+    \hat{\mu_{0}}=M_{1}\left(Y^{0} \sim X^{0}\right)
+    \]</div>
+</li>
+<li><p>模型2–有干预样本建模：</p>
+<div class="math notranslate nohighlight">
+\[
+    \hat{\mu_{1}}=M_{2}\left(Y^{1} \sim X^{1}\right)
+    \]</div>
+</li>
 <li><p>预测, 差分计算增量: <span class="math notranslate nohighlight">\(\hat{\tau}(x)=\hat{\mu_{1}}(x)-\hat{\mu_{0}}(x)\)</span></p></li>
 </ul>
 <p>这种建模方式可以快速实现获取到用户因为干预带来的提升量，通过对干预的提升量（uplift score）进行从高到低排序来决定是否对用户进行干预。相比于S learner的优势在于，我们能够引入不同的学习器来针对不同的潜在结果进行评估，从而有可能能得到更好的估计。</p>

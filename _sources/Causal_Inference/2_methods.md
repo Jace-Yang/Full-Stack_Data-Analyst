@@ -188,9 +188,9 @@ $$
 
 
 
-## 双重机器学习 (Double Machine Learning, DML)
+## 双重机器学习
 
-Double Machine Learning (DML):  同时产生指标和treatment的估计，并利用估计量与观测值之间的残差拟合CATE的估计量。产生指标和treatment的估计的过程中可以利用任意Machine Learning的方法，由此称为Double Machine Learning (DML)。
+双重机器学习 (Double Machine Learning, DML):  同时产生指标和treatment的估计，并利用估计量与观测值之间的残差拟合CATE的估计量。产生指标和treatment的估计的过程中可以利用任意Machine Learning的方法，由此称为Double Machine Learning (DML)。
 
 假设:
 - CIA假设：所有的混淆变量都可以被观测
@@ -241,11 +241,11 @@ DML特点:
     - 想看D对Y的影响(Y)的影响，但D和Y都被非常高维的X confound了
 
 
-## 双稳健模型 (Double Robust, DR)
+## 双稳健模型
 
 > [Doubly Robust Estimation of Causal Effects](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3070495/pdf/kwq439.pdf)
 
-(Double Robust, DR):  DML方法在针对categorical的treatment时的优化版本。此方法实际上利用了Inverse Propensity Score和Direct Method，以此修正前者产生的过大方差和后者导致的有偏估计。因此对两方法同时robust，故称Doubly Robust (DR)。
+双稳健模型 (Double Robust, DR):  DML方法在针对categorical的treatment时的优化版本。此方法实际上利用了Inverse Propensity Score和Direct Method，以此修正前者产生的过大方差和后者导致的有偏估计。因此对两方法同时robust，故称Doubly Robust (DR)。
 
 
 好处：
@@ -439,7 +439,7 @@ Causal Trees + 随机森林 = Causal Random Forest
     $$
     \Delta\left(C_{1}, C_{2}\right):=\frac{n_{C_{1}} \cdot n_{C_{2}}}{n_{P}^{2}}\left(\hat{\theta}_{C_{1}}(\mathcal{J}) - \hat{\theta}_{C_{2}}(\mathcal{J})\right)^{2}
     $$
-    
+
     - $\frac{n_{C_{1}} \cdot n_{C_{2}}}{n_{P}^{2}}$: 哟昂来确保两个子节点的样本尽量均衡
     - 后者：MSE最小化目标函数来估计
 

@@ -216,6 +216,8 @@ Rubin框架中常见的方法
 
 
 ### 各种Effect
+
+
 #### Average treatment effect(ATE)
 
 > 解决个体无法观测的方法
@@ -270,7 +272,9 @@ Ignorability和Exchangeability假设在成立的的时候，能给我们identifi
 
 <center><img src="../images/CI_basic_40.png" width="85%"/></center>
 
-#### Average treatment effect on treated
+#### Average treatment effect on treated (ATT)
+
+$A T T=E\left[Y_{1}-Y_{0} \mid T=1\right]$
 
 比如我们有NBA广告投放后体育产品的消费量，被投放的群体中男：女=4:1
 - 如果我们希望知道如果对全体用户（男：女调权为1:1） 广告的转化率提升 那就是ATE
@@ -285,7 +289,7 @@ $\tau(x) \triangleq \mathbb{E}\left[Y_{i}(1)-Y_{i}(0) \mid X=x\right]$
 - $A T E=E\left(\tau_{i}\right)=\frac{1}{n} \sum_{i=1}^{n}\left(y_{i}^{1}-y_{i}^{0}\right)$ 评估的是整体、是对样本的总量; 而CATE $=E\left(\tau_{i} \mid x\right)=\frac{1}{n_{x}} \sum_{i=1}^{n_{x}}\left(y_{x, i}^{1}-y_{x, i}^{0}\right)$ 是对一个子集$n_{x}$ 相当是根据x圈选了一部分的用户。
 
 - CATE业务中更常用:
-    - 就好比AB实验看结果，如果全局变量不显著，我们会考虑下钻看一下哪些用户群体的变量是显著的，因为我们更多的希望回答上线一个新功能对某一部分群体是否有明显的帮助
+    - 就好比AB实验看结果，如果全局变量不显著，我们会考虑下钻看一下哪些特征的用户子群体的变量是显著的，因为我们更多的希望回答上线一个新功能对某一部分群体是否有明显的帮助（个性化推荐）
         - 比如判断时长任务对"每周观看视频超过30分钟"的用户的影响
     - 关心CATE通常是因为希望区分出对处理敏感的群体和不敏感的群体，从而对前者进行处理、避免对后者进行处理，从而节约资源、避免打扰
     
@@ -386,13 +390,12 @@ $$\begin{aligned} \mathbb{E}[Y(1)-Y(0)] &=\mathbb{E}_{X} \mathbb{E}[Y(1)-Y(0) \m
 - 因为ATE评估的时候我们看不到反事实！
 
 If the treatment is $T$, then the observed outcome $Y$ is the potential outcome under treatment $T$. Formally,
+
 $$
 T=t \Longrightarrow Y=Y(t)
 $$
-We could write this equivalently as follow:
-$$
-Y=Y(T)
-$$
+
+We could write this equivalently as $Y=Y(T)$
 
 <center><img src="../images/CI_basic_21.png" width="65%"/></center>
 
@@ -468,13 +471,14 @@ d- separation的作用是用于确定T和Y之间相互独立的话，需要控�
 
 `Blocked path`: A path between nodes $X$ and $Y$ is blocked by a (potentially empty) conditioning set $\mathrm{Z}$ if either of the following is true:
 1. Along the path, there is a chain $\cdots \rightarrow W \rightarrow \cdots$ or a fork $\cdots \leftarrow W \rightarrow \cdots$ where $W$ is conditioned on $(W \in Z)$.
-2. There is a collider $W$ on the path that is not conditioned on $(W \notin Z)$ and none of its descendants are conditioned on $(\operatorname{de}(W) \nsubseteq Z Z)$.
+2. There is a collider $W$ on the path that is not conditioned on $(W \notin Z)$ and none of its descendants are conditioned on $(\operatorname{do}(W) \nsubseteq Z Z)$.
 
 `Unblocked path`: a path that is not blocked
 
 `d-seperation`: Two (sets of) nodes $\mathrm{X}$ and $\mathrm{Y}$ are d-separated by a set of nodes $\mathrm{Z}$ if all of the paths between (any node in) $X$ and (any node in) $Y$ are blocked by $Z$.
 
 - `Global Markov Assumption`: Given that $P$ is Markov with respect to $G$ (satisfies the local Markov assumption), if $X$ and $Y$ are $d$-separated in $G$ conditioned on $Z$, then $X$ and $Y$ are independent in $P$ conditioned on $Z$. We can write this succinctly as follows:
+
     $$
     X \perp_{G} Y\left|Z \Longrightarrow X \perp_{P} Y\right| Z
     $$
@@ -608,7 +612,7 @@ Condition相当于把所有的X展开，然后乘它的概率做权重累加就�
 
 **Rule**: don't adjust post-treatment covariate
 
-### 因果图的例子
+<!-- ### 因果图的例子
 
 - 视频场景
 
@@ -654,7 +658,7 @@ Condition相当于把所有的X展开，然后乘它的概率做权重累加就�
         - 视频质量 
             - 单视频播放时长：单视频的评转赞情况可能影响用户对视频内容的期望值，如面对一个爆款视频，用户倾向于相信“口碑”、好奇这个视频为什么受欢迎而看完
         - 视频物理时长 
-            - 单视频播放时长：本身时长短的视频天然限制了用户可消费的时长
+            - 单视频播放时长：本身时长短的视频天然限制了用户可消费的时长 -->
 
 ## identification
 
@@ -717,6 +721,7 @@ Theorem 6.2 (Rules of do-calculus) Given a causal graph $G$, an associated
 distribution $P$, and disjoint sets of variables $Y, T, Z$, and $W$, the following rules hold.
 
 - Rule 1: 什么时候可以从条件中删除Z
+
     $$
     P(y \mid d o(t), z, w)=P(y \mid d o(t), w) \quad \text { if } Y \perp_{G_{\bar{T}}} Z \mid T, W
     $$
@@ -725,18 +730,22 @@ distribution $P$, and disjoint sets of variables $Y, T, Z$, and $W$, the followi
     
         正常的d-seperation $P(y \mid z, w)=P(y \mid w) \quad$ if $Y \perp_{G} Z \mid W$ 外加上do T 
 - Rule 2:
+
     $$
     P(y \mid d o(t), d o(z), w)=P(y \mid d o(t), z, w) \quad \text { if } Y \perp_{G_{\bar{T}, \underline{z}}} Z \mid T, W
     $$
+
     - 原理是Generalization of backdoor adjustment to interventional distributions
     
         正常的backdoor criterion $P(y \mid d o(z), w)=P(y \mid z, w) \quad$ if $Y \perp_{G_{\underline{z}}} Z \mid W$ 加上do T
         
         > Association is causation if the outcome Y and the treatment T are d-separated by some set of variables that are conditioned on W
 - Rule 3:
+
     $$
     P(y \mid d o(t), d o(z), w)=P(y \mid d o(t), w) \quad \text { if } Y \perp_{G_{\bar{T}, \bar{Z}(W)}} Z \mid T, W
     $$
+
     where $Z(W)$ denotes the set of nodes of $Z$ that aren't ancestors of any node of $W$ in $G_{\bar{T}}$.
 
 
@@ -815,9 +824,10 @@ distribution $P$, and disjoint sets of variables $Y, T, Z$, and $W$, the followi
 ## Causal Discovery
 uplift modeling，difference in differences等方法都集中在如何评估因果的影响，即Causal Effect。但还有一卦是Causal Discovery
 
- <center><img src="../images/CI_basic_42.png" width="75%"/></center>[](https://km-pro-1258638997.cos.ap-guangzhou.myqcloud.com/files/attachments_1/908/13908/3a84b0da4472c8b379b91de5458f9166.pptx?q-sign-algorithm%3Dsha1%26q-ak%3DAKIDLVP3QWLuCDxYtCEzUjhOpyqQjlW0C8nB%26q-sign-time%3D1653900147%3B1653902007%26q-key-time%3D1653900147%3B1653902007%26q-header-list%3D%26q-url-param-list%3Dci-process%26q-signature%3Dc36c5cf2096ba767e3fb61921dc092d356639b58%26ci-process%3Ddoc-preview%26page%3D8)
+<center><img src="../images/CI_basic_42.png" width="75%"/></center>
+ 
 
- ## 总结
+## 总结
 
 - 无论多高深的算法和模型都离不开你对业务的理解，因果推断也是这样，PSM需要找出所有能影响的因子，这个前期最有效的方法就是通过和产品同学去了解。
 

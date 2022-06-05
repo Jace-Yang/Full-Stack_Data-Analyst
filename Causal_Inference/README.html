@@ -420,8 +420,8 @@ const thebe_selector_output = ".output, .cell_output"
       </ul>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#average-treatment-effect-on-treated">
-       Average treatment effect on treated
+      <a class="reference internal nav-link" href="#average-treatment-effect-on-treated-att">
+       Average treatment effect on treated (ATT)
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
@@ -531,11 +531,6 @@ const thebe_selector_output = ".output, .cell_output"
      Structural causal models
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
-     因果图的例子
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -580,12 +575,12 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id8">
+      <a class="reference internal nav-link" href="#id7">
        操作步骤
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id9">
+      <a class="reference internal nav-link" href="#id8">
        应用案例
       </a>
      </li>
@@ -599,7 +594,7 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id10">
+  <a class="reference internal nav-link" href="#id9">
    反事实
   </a>
  </li>
@@ -609,7 +604,7 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id11">
+  <a class="reference internal nav-link" href="#id10">
    总结
   </a>
  </li>
@@ -683,8 +678,8 @@ const thebe_selector_output = ".output, .cell_output"
       </ul>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#average-treatment-effect-on-treated">
-       Average treatment effect on treated
+      <a class="reference internal nav-link" href="#average-treatment-effect-on-treated-att">
+       Average treatment effect on treated (ATT)
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
@@ -794,11 +789,6 @@ const thebe_selector_output = ".output, .cell_output"
      Structural causal models
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
-     因果图的例子
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -843,12 +833,12 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id8">
+      <a class="reference internal nav-link" href="#id7">
        操作步骤
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id9">
+      <a class="reference internal nav-link" href="#id8">
        应用案例
       </a>
      </li>
@@ -862,7 +852,7 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id10">
+  <a class="reference internal nav-link" href="#id9">
    反事实
   </a>
  </li>
@@ -872,7 +862,7 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id11">
+  <a class="reference internal nav-link" href="#id10">
    总结
   </a>
  </li>
@@ -1171,8 +1161,9 @@ Pearl的Structural Causal Model - 结构因果模型</p>
 <center><img src="../images/CI_basic_40.png" width="85%"/></center>
 </div>
 </div>
-<div class="section" id="average-treatment-effect-on-treated">
-<h4>Average treatment effect on treated<a class="headerlink" href="#average-treatment-effect-on-treated" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="average-treatment-effect-on-treated-att">
+<h4>Average treatment effect on treated (ATT)<a class="headerlink" href="#average-treatment-effect-on-treated-att" title="Permalink to this headline">¶</a></h4>
+<p><span class="math notranslate nohighlight">\(A T T=E\left[Y_{1}-Y_{0} \mid T=1\right]\)</span></p>
 <p>比如我们有NBA广告投放后体育产品的消费量，被投放的群体中男：女=4:1</p>
 <ul class="simple">
 <li><p>如果我们希望知道如果对全体用户（男：女调权为1:1） 广告的转化率提升 那就是ATE</p></li>
@@ -1187,7 +1178,7 @@ Pearl的Structural Causal Model - 结构因果模型</p>
 <li><p><span class="math notranslate nohighlight">\(A T E=E\left(\tau_{i}\right)=\frac{1}{n} \sum_{i=1}^{n}\left(y_{i}^{1}-y_{i}^{0}\right)\)</span> 评估的是整体、是对样本的总量; 而CATE <span class="math notranslate nohighlight">\(=E\left(\tau_{i} \mid x\right)=\frac{1}{n_{x}} \sum_{i=1}^{n_{x}}\left(y_{x, i}^{1}-y_{x, i}^{0}\right)\)</span> 是对一个子集<span class="math notranslate nohighlight">\(n_{x}\)</span> 相当是根据x圈选了一部分的用户。</p></li>
 <li><p>CATE业务中更常用:</p>
 <ul>
-<li><p>就好比AB实验看结果，如果全局变量不显著，我们会考虑下钻看一下哪些用户群体的变量是显著的，因为我们更多的希望回答上线一个新功能对某一部分群体是否有明显的帮助</p>
+<li><p>就好比AB实验看结果，如果全局变量不显著，我们会考虑下钻看一下哪些特征的用户子群体的变量是显著的，因为我们更多的希望回答上线一个新功能对某一部分群体是否有明显的帮助（个性化推荐）</p>
 <ul>
 <li><p>比如判断时长任务对”每周观看视频超过30分钟”的用户的影响</p></li>
 </ul>
@@ -1282,14 +1273,12 @@ Pearl的Structural Causal Model - 结构因果模型</p>
 <ul class="simple">
 <li><p>因为ATE评估的时候我们看不到反事实！</p></li>
 </ul>
-<p>If the treatment is <span class="math notranslate nohighlight">\(T\)</span>, then the observed outcome <span class="math notranslate nohighlight">\(Y\)</span> is the potential outcome under treatment <span class="math notranslate nohighlight">\(T\)</span>. Formally,
-$<span class="math notranslate nohighlight">\(
+<p>If the treatment is <span class="math notranslate nohighlight">\(T\)</span>, then the observed outcome <span class="math notranslate nohighlight">\(Y\)</span> is the potential outcome under treatment <span class="math notranslate nohighlight">\(T\)</span>. Formally,</p>
+<div class="math notranslate nohighlight">
+\[
 T=t \Longrightarrow Y=Y(t)
-\)</span><span class="math notranslate nohighlight">\(
-We could write this equivalently as follow:
-\)</span><span class="math notranslate nohighlight">\(
-Y=Y(T)
-\)</span>$</p>
+\]</div>
+<p>We could write this equivalently as <span class="math notranslate nohighlight">\(Y=Y(T)\)</span></p>
 <center><img src="../images/CI_basic_21.png" width="65%"/></center>
 </div>
 </div>
@@ -1366,15 +1355,16 @@ Y=Y(T)
 <p><code class="docutils literal notranslate"><span class="pre">Blocked</span> <span class="pre">path</span></code>: A path between nodes <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> is blocked by a (potentially empty) conditioning set <span class="math notranslate nohighlight">\(\mathrm{Z}\)</span> if either of the following is true:</p>
 <ol class="simple">
 <li><p>Along the path, there is a chain <span class="math notranslate nohighlight">\(\cdots \rightarrow W \rightarrow \cdots\)</span> or a fork <span class="math notranslate nohighlight">\(\cdots \leftarrow W \rightarrow \cdots\)</span> where <span class="math notranslate nohighlight">\(W\)</span> is conditioned on <span class="math notranslate nohighlight">\((W \in Z)\)</span>.</p></li>
-<li><p>There is a collider <span class="math notranslate nohighlight">\(W\)</span> on the path that is not conditioned on <span class="math notranslate nohighlight">\((W \notin Z)\)</span> and none of its descendants are conditioned on <span class="math notranslate nohighlight">\((\operatorname{de}(W) \nsubseteq Z Z)\)</span>.</p></li>
+<li><p>There is a collider <span class="math notranslate nohighlight">\(W\)</span> on the path that is not conditioned on <span class="math notranslate nohighlight">\((W \notin Z)\)</span> and none of its descendants are conditioned on <span class="math notranslate nohighlight">\((\operatorname{do}(W) \nsubseteq Z Z)\)</span>.</p></li>
 </ol>
 <p><code class="docutils literal notranslate"><span class="pre">Unblocked</span> <span class="pre">path</span></code>: a path that is not blocked</p>
 <p><code class="docutils literal notranslate"><span class="pre">d-seperation</span></code>: Two (sets of) nodes <span class="math notranslate nohighlight">\(\mathrm{X}\)</span> and <span class="math notranslate nohighlight">\(\mathrm{Y}\)</span> are d-separated by a set of nodes <span class="math notranslate nohighlight">\(\mathrm{Z}\)</span> if all of the paths between (any node in) <span class="math notranslate nohighlight">\(X\)</span> and (any node in) <span class="math notranslate nohighlight">\(Y\)</span> are blocked by <span class="math notranslate nohighlight">\(Z\)</span>.</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Global</span> <span class="pre">Markov</span> <span class="pre">Assumption</span></code>: Given that <span class="math notranslate nohighlight">\(P\)</span> is Markov with respect to <span class="math notranslate nohighlight">\(G\)</span> (satisfies the local Markov assumption), if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <span class="math notranslate nohighlight">\(d\)</span>-separated in <span class="math notranslate nohighlight">\(G\)</span> conditioned on <span class="math notranslate nohighlight">\(Z\)</span>, then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent in <span class="math notranslate nohighlight">\(P\)</span> conditioned on <span class="math notranslate nohighlight">\(Z\)</span>. We can write this succinctly as follows:
-$<span class="math notranslate nohighlight">\(
-  X \perp_{G} Y\left|Z \Longrightarrow X \perp_{P} Y\right| Z
-  \)</span>$</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">Global</span> <span class="pre">Markov</span> <span class="pre">Assumption</span></code>: Given that <span class="math notranslate nohighlight">\(P\)</span> is Markov with respect to <span class="math notranslate nohighlight">\(G\)</span> (satisfies the local Markov assumption), if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <span class="math notranslate nohighlight">\(d\)</span>-separated in <span class="math notranslate nohighlight">\(G\)</span> conditioned on <span class="math notranslate nohighlight">\(Z\)</span>, then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent in <span class="math notranslate nohighlight">\(P\)</span> conditioned on <span class="math notranslate nohighlight">\(Z\)</span>. We can write this succinctly as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+    X \perp_{G} Y\left|Z \Longrightarrow X \perp_{P} Y\right| Z
+    \]</div>
 <p>会得到conditional indolence</p>
 </li>
 </ul>
@@ -1509,95 +1499,53 @@ $<span class="math notranslate nohighlight">\(
 </li>
 </ul>
 <p><strong>Rule</strong>: don’t adjust post-treatment covariate</p>
-</div>
-<div class="section" id="id7">
-<h3>因果图的例子<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<ul>
-<li><p>视频场景</p>
-  <center><img src="../images/CI_basic_43.png" width="75%"/></center>
-  <center><img src="../images/CI_basic_44.png" width="75%"/></center>
-<ul class="simple">
-<li><p>为排除策略等common cause带来的confounding bias，要通过后门调整阻断由视频质量到单视频播放时长的路径——conditioning on 视频物理特征、视频内容、用户画像这三个因素</p></li>
-</ul>
-  <center><img src="../images/CI_basic_45.png" width="75%"/></center>
-<ul class="simple">
-<li><p>推荐侧上游：</p>
-<ul>
-<li><p>竞争</p>
-<ul>
-<li><p>运营策略：我们会参考、学习竞品的成功经验，并适当调整运营策略</p></li>
-<li><p>供给分布：竞品会分走市场份额</p></li>
-</ul>
-</li>
-<li><p>运营策略</p>
-<ul>
-<li><p>话题质量：平台可能会通过举办节日活动，激励用户发布视频时带话题，如”#520美味告白“；还会引入优质CP、签约大V，增加内容供给，从而增加话题聚合页下总播放量和点赞数</p></li>
-<li><p>供给分布：平台的拉新、运营策略会影响内容供给，进而 - 内容分类</p></li>
-</ul>
-</li>
-<li><p>内容分类</p>
-<ul>
-<li><p>话题质量：不同分类的知名度、受欢迎程度天然有区别（如美妆类&gt;天文类），从而导致相关话题质量不同（如#彩妆教程#&gt;#冥王星#）</p></li>
-<li><p>视频物理时长：有些分类的内容会更详实，从而影响类别下视频的物理时长（如知识类&gt;萌宠类）</p></li>
-<li><p>召回分布：推荐召回时，系统从海量内容池中快速找出一小部分用户感兴趣的物品，以下两种匹配方式都需要用到内容分类标签
-无个性化因素的召回路：比如热门商品或者热门文章或者历史点击率高的物料的召回
-有个性化因素的召回路：比如用户兴趣标签召回</p></li>
-</ul>
-</li>
-<li><p>话题质量</p>
-<ul>
-<li><p>召回分布：无个性化因素召回中，倾向于召回热门内容（即高质量话题下的内容）</p></li>
-</ul>
-</li>
-<li><p>用户画像</p>
-<ul>
-<li><p>召回分布：有个性化因素的召回路中，用户兴趣画像会影响召回结果</p></li>
-<li><p>精排分布：尽量精准地对召回物品进行个性化排序，用户兴趣画像会影响精排结果</p></li>
-<li><p>重排分布：主要用于改进用户体验，处理如去已读、去重、打散、多样性保证、固定类型物品插入等，用户历史行为（如浏览历史）会通过影响“去已读”影响重排结果</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>推荐侧中游：</p>
-<ul>
-<li><p>因果关系即推荐流程，即召回 - 粗排 - 精排 - 重排</p></li>
-</ul>
-</li>
-<li><p>推荐侧下游：</p>
-<ul>
-<li><p>重排分布：即最终展示给用户的内容分布，包含以下特征</p>
-<ul>
-<li><p>曝光分布</p></li>
-<li><p>视频质量</p></li>
-<li><p>视频物理时长</p></li>
-</ul>
-</li>
-<li><p>用户画像、重排分布共同 - 重排兴趣匹配度</p></li>
-<li><p>重排兴趣匹配度</p>
-<ul>
-<li><p>单视频播放时长：用户若对推荐结果感兴趣，则该条视频的消费时长会更长</p></li>
-</ul>
-</li>
-<li><p>曝光分布</p>
-<ul>
-<li><p>单视频播放时长：对于推荐结果中排序在前的视频，用户更有耐心和好奇心看久一点</p></li>
-</ul>
-</li>
-<li><p>视频质量</p>
-<ul>
-<li><p>单视频播放时长：单视频的评转赞情况可能影响用户对视频内容的期望值，如面对一个爆款视频，用户倾向于相信“口碑”、好奇这个视频为什么受欢迎而看完</p></li>
-</ul>
-</li>
-<li><p>视频物理时长</p>
-<ul>
-<li><p>单视频播放时长：本身时长短的视频天然限制了用户可消费的时长</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<!-- ### 因果图的例子
+
+- 视频场景
+
+    <center><img src="../images/CI_basic_43.png" width="75%"/></center>
+
+    <center><img src="../images/CI_basic_44.png" width="75%"/></center>
+        
+    - 为排除策略等common cause带来的confounding bias，要通过后门调整阻断由视频质量到单视频播放时长的路径——conditioning on 视频物理特征、视频内容、用户画像这三个因素
+
+    <center><img src="../images/CI_basic_45.png" width="75%"/></center>
+
+    - 推荐侧上游：
+        - 竞争
+            - 运营策略：我们会参考、学习竞品的成功经验，并适当调整运营策略
+            - 供给分布：竞品会分走市场份额
+        - 运营策略 
+            - 话题质量：平台可能会通过举办节日活动，激励用户发布视频时带话题，如”#520美味告白“；还会引入优质CP、签约大V，增加内容供给，从而增加话题聚合页下总播放量和点赞数
+            - 供给分布：平台的拉新、运营策略会影响内容供给，进而 - 内容分类
+        - 内容分类
+            - 话题质量：不同分类的知名度、受欢迎程度天然有区别（如美妆类>天文类），从而导致相关话题质量不同（如#彩妆教程#>#冥王星#）
+            - 视频物理时长：有些分类的内容会更详实，从而影响类别下视频的物理时长（如知识类>萌宠类）
+            - 召回分布：推荐召回时，系统从海量内容池中快速找出一小部分用户感兴趣的物品，以下两种匹配方式都需要用到内容分类标签
+            无个性化因素的召回路：比如热门商品或者热门文章或者历史点击率高的物料的召回
+            有个性化因素的召回路：比如用户兴趣标签召回
+        - 话题质量 
+            - 召回分布：无个性化因素召回中，倾向于召回热门内容（即高质量话题下的内容）
+        - 用户画像
+            - 召回分布：有个性化因素的召回路中，用户兴趣画像会影响召回结果
+            - 精排分布：尽量精准地对召回物品进行个性化排序，用户兴趣画像会影响精排结果
+            - 重排分布：主要用于改进用户体验，处理如去已读、去重、打散、多样性保证、固定类型物品插入等，用户历史行为（如浏览历史）会通过影响“去已读”影响重排结果
+    - 推荐侧中游：
+        - 因果关系即推荐流程，即召回 - 粗排 - 精排 - 重排
+    - 推荐侧下游：
+        - 重排分布：即最终展示给用户的内容分布，包含以下特征
+            - 曝光分布
+            - 视频质量
+            - 视频物理时长
+        - 用户画像、重排分布共同 - 重排兴趣匹配度
+        - 重排兴趣匹配度 
+            - 单视频播放时长：用户若对推荐结果感兴趣，则该条视频的消费时长会更长
+        - 曝光分布 
+            - 单视频播放时长：对于推荐结果中排序在前的视频，用户更有耐心和好奇心看久一点
+        - 视频质量 
+            - 单视频播放时长：单视频的评转赞情况可能影响用户对视频内容的期望值，如面对一个爆款视频，用户倾向于相信“口碑”、好奇这个视频为什么受欢迎而看完
+        - 视频物理时长 
+            - 单视频播放时长：本身时长短的视频天然限制了用户可消费的时长 -->
 </div>
 </div>
 <div class="section" id="identification">
@@ -1652,20 +1600,22 @@ $<span class="math notranslate nohighlight">\(
 <p>Theorem 6.2 (Rules of do-calculus) Given a causal graph <span class="math notranslate nohighlight">\(G\)</span>, an associated
 distribution <span class="math notranslate nohighlight">\(P\)</span>, and disjoint sets of variables <span class="math notranslate nohighlight">\(Y, T, Z\)</span>, and <span class="math notranslate nohighlight">\(W\)</span>, the following rules hold.</p>
 <ul>
-<li><p>Rule 1: 什么时候可以从条件中删除Z
-$<span class="math notranslate nohighlight">\(
-  P(y \mid d o(t), z, w)=P(y \mid d o(t), w) \quad \text { if } Y \perp_{G_{\bar{T}}} Z \mid T, W
-  \)</span>$</p>
+<li><p>Rule 1: 什么时候可以从条件中删除Z</p>
+<div class="math notranslate nohighlight">
+\[
+    P(y \mid d o(t), z, w)=P(y \mid d o(t), w) \quad \text { if } Y \perp_{G_{\bar{T}}} Z \mid T, W
+    \]</div>
 <ul>
 <li><p>原理是Generalization of d-separation to interventional distributions</p>
 <p>正常的d-seperation <span class="math notranslate nohighlight">\(P(y \mid z, w)=P(y \mid w) \quad\)</span> if <span class="math notranslate nohighlight">\(Y \perp_{G} Z \mid W\)</span> 外加上do T</p>
 </li>
 </ul>
 </li>
-<li><p>Rule 2:
-$<span class="math notranslate nohighlight">\(
-  P(y \mid d o(t), d o(z), w)=P(y \mid d o(t), z, w) \quad \text { if } Y \perp_{G_{\bar{T}, \underline{z}}} Z \mid T, W
-  \)</span>$</p>
+<li><p>Rule 2:</p>
+<div class="math notranslate nohighlight">
+\[
+    P(y \mid d o(t), d o(z), w)=P(y \mid d o(t), z, w) \quad \text { if } Y \perp_{G_{\bar{T}, \underline{z}}} Z \mid T, W
+    \]</div>
 <ul>
 <li><p>原理是Generalization of backdoor adjustment to interventional distributions</p>
 <p>正常的backdoor criterion <span class="math notranslate nohighlight">\(P(y \mid d o(z), w)=P(y \mid z, w) \quad\)</span> if <span class="math notranslate nohighlight">\(Y \perp_{G_{\underline{z}}} Z \mid W\)</span> 加上do T</p>
@@ -1675,11 +1625,13 @@ $<span class="math notranslate nohighlight">\(
 </li>
 </ul>
 </li>
-<li><p>Rule 3:
-$<span class="math notranslate nohighlight">\(
-  P(y \mid d o(t), d o(z), w)=P(y \mid d o(t), w) \quad \text { if } Y \perp_{G_{\bar{T}, \bar{Z}(W)}} Z \mid T, W
-  \)</span><span class="math notranslate nohighlight">\(
-  where \)</span>Z(W)<span class="math notranslate nohighlight">\( denotes the set of nodes of \)</span>Z<span class="math notranslate nohighlight">\( that aren't ancestors of any node of \)</span>W<span class="math notranslate nohighlight">\( in \)</span>G_{\bar{T}}$.</p></li>
+<li><p>Rule 3:</p>
+<div class="math notranslate nohighlight">
+\[
+    P(y \mid d o(t), d o(z), w)=P(y \mid d o(t), w) \quad \text { if } Y \perp_{G_{\bar{T}, \bar{Z}(W)}} Z \mid T, W
+    \]</div>
+<p>where <span class="math notranslate nohighlight">\(Z(W)\)</span> denotes the set of nodes of <span class="math notranslate nohighlight">\(Z\)</span> that aren’t ancestors of any node of <span class="math notranslate nohighlight">\(W\)</span> in <span class="math notranslate nohighlight">\(G_{\bar{T}}\)</span>.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -1706,8 +1658,8 @@ $<span class="math notranslate nohighlight">\(
 </ul>
 </li>
 </ul>
-<div class="section" id="id8">
-<h4>操作步骤<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id7">
+<h4>操作步骤<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
 <ol>
 <li><p>Calculate the propensity score for each person</p>
 <ul class="simple">
@@ -1735,8 +1687,8 @@ $<span class="math notranslate nohighlight">\(
 </li>
 </ol>
 </div>
-<div class="section" id="id9">
-<h4>应用案例<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id8">
+<h4>应用案例<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="https://sejdemyr.github.io/r-tutorials/statistics/tutorial8.html">https://sejdemyr.github.io/r-tutorials/statistics/tutorial8.html</a></p></li>
 </ul>
@@ -1749,8 +1701,8 @@ $<span class="math notranslate nohighlight">\(
 </ul>
 </div>
 </div>
-<div class="section" id="id10">
-<h2>反事实<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h2>反事实<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p>反事实的三步走方法:</p>
 <ol class="simple">
 <li><p>外展 (Abduction) : 使用证据 <span class="math notranslate nohighlight">\(E=e\)</span> 来确定 <span class="math notranslate nohighlight">\(U\)</span> 的值。</p></li>
@@ -1761,10 +1713,10 @@ $<span class="math notranslate nohighlight">\(
 <div class="section" id="causal-discovery">
 <h2>Causal Discovery<a class="headerlink" href="#causal-discovery" title="Permalink to this headline">¶</a></h2>
 <p>uplift modeling，difference in differences等方法都集中在如何评估因果的影响，即Causal Effect。但还有一卦是Causal Discovery</p>
- <center><img src="../images/CI_basic_42.png" width="75%"/></center>[](https://km-pro-1258638997.cos.ap-guangzhou.myqcloud.com/files/attachments_1/908/13908/3a84b0da4472c8b379b91de5458f9166.pptx?q-sign-algorithm%3Dsha1%26q-ak%3DAKIDLVP3QWLuCDxYtCEzUjhOpyqQjlW0C8nB%26q-sign-time%3D1653900147%3B1653902007%26q-key-time%3D1653900147%3B1653902007%26q-header-list%3D%26q-url-param-list%3Dci-process%26q-signature%3Dc36c5cf2096ba767e3fb61921dc092d356639b58%26ci-process%3Ddoc-preview%26page%3D8)
+<center><img src="../images/CI_basic_42.png" width="75%"/></center>
 </div>
-<div class="section" id="id11">
-<h2>总结<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2>总结<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>无论多高深的算法和模型都离不开你对业务的理解，因果推断也是这样，PSM需要找出所有能影响的因子，这个前期最有效的方法就是通过和产品同学去了解。</p></li>
 <li><p>因果推断其实是数据分析流的下游，我们要层层深入的过程，一开始先EDA商业分析对数据有一部分洞察，找到问题，发掘增长点，然后可以通过统计分析量化相关性看我们发现的规律是否显著，最后再通过因果推断去验证归因结论！</p></li>

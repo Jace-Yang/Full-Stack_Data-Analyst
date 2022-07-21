@@ -172,6 +172,30 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
+  机器学习
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ab5q6faprt.feishu.cn/wiki/wikcnAAmnFwoirO0g9YD546QD0P">
+   飞书笔记
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  数据可视化
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ab5q6faprt.feishu.cn/wiki/wikcndQAXpgjyCzgZxGwc0JDp2f">
+   飞书笔记
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
   深度学习
  </span>
 </p>
@@ -280,6 +304,18 @@ const thebe_selector_output = ".output, .cell_output"
     </ul>
    </li>
   </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  联系方式
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://www.linkedin.com/in/jinhang-yang/">
+   LinkedIn
+  </a>
  </li>
 </ul>
 
@@ -1541,16 +1577,19 @@ $<span class="math notranslate nohighlight">\(
 <h2>Uplift增益模型<a class="headerlink" href="#uplift" title="Permalink to this headline">¶</a></h2>
 <p>传统预测模型会预测<span class="math notranslate nohighlight">\(P(Y=1 \mid T=1)\)</span>(有激励下用户正向反馈的概率)，而Uplift评估T对Y=1的概率的增益，也就是<span class="math notranslate nohighlight">\(P(Y=1 \mid X, \boldsymbol{T})\)</span> - <span class="math notranslate nohighlight">\(P(Y=1 \mid X)\)</span></p>
 <ul class="simple">
-<li><p>因为ITE反事实，所以通常用CATE</p></li>
+<li><p>因为ITE反事实，所以通常用CATE｜但uplift这里可以帮助我们预估回ITE</p></li>
 </ul>
 <p>uplift模型跟response模型的区别：</p>
-<ul class="simple">
-<li><p>Response Model: <span class="math notranslate nohighlight">\(P(Y=1 \mid X)\)</span>, 用户购买概率</p></li>
-<li><p>Uplift Model: <span class="math notranslate nohighlight">\(P(Y=1 \mid X, T)\)</span>, 因为某种干预后用户购买概率，也就是T产生的的增量效果，它的理论基础就是因果推断。</p></li>
+<ul>
+<li><p>Response Model: <span class="math notranslate nohighlight">\(P(Y=1 \mid X)\)</span>：用户购买概率，只刻画了画像和购买的相关性，没有考虑反事实</p></li>
+<li><p>Uplift Model: <span class="math notranslate nohighlight">\(P(Y=1 \mid X, T)\)</span>：因为某种干预后用户购买概率，也就是T产生的的增量效果，它的理论基础就是因果推断。</p>
+<blockquote>
+<div><p>举例：找到能通过激励达到提升<strong>次日留存率最大</strong>的10w个用户</p>
+</div></blockquote>
+</li>
 </ul>
-<p>意义：营销场景中我们都希望每次的投入能达到最大的转化，即把活动福利用在真正需要的用户身上，即找到对于活动敏感的人群进行干预/激励。我们按照是否给干预和是否能带来正向反馈对人群进行分类：</p>
+<p>意义：营销场景中我们都希望每次的投入能达到最大的转化，即把活动福利用在真正需要的用户身上，即找到对于活动敏感的人群进行干预/激励。按照是否给干预和是否能带来正向反馈对人群进行分类：</p>
 <center><img src="../images/CI_method_1.png" width="75%"/></center>
-<!-- <center><img src="../images/CI_method_5.png" width="75%"/></center> -->
 <ul class="simple">
 <li><p>敏感人群：干预/给了激励后（不发券就不购买、发券才会购买的人群），效果向正向转变的人群；</p></li>
 <li><p>自然转化人群：即使不给激励（无论是否发券，都会购买），也是正向效果的人群；</p></li>
@@ -1577,10 +1616,16 @@ $<span class="math notranslate nohighlight">\(
 </div>
 <div class="section" id="meta-learning">
 <h3>Meta-Learning方法<a class="headerlink" href="#meta-learning" title="Permalink to this headline">¶</a></h3>
-<p>Meta learning是间接估计：不直接对treatment effect进行建模，而是通过对response effect（target）进行建模，用T带来的target变化作为HTE的估计
-了解策略对于不同用户的异质性影响</p>
+<p>比如：对于每个年龄是<span class="math notranslate nohighlight">\(x_{i}\)</span>的用户i来说，只能接受治疗观察到<span class="math notranslate nohighlight">\(Y_{1}\left(X_{i}\right)\)</span> 或者 <span class="math notranslate nohighlight">\(Y_{0}\left(X_{i}\right)\)</span> ，所以没法跟反事实做差，但同样的x我们可以去预测反事实的结果</p>
+<img src="../images/CI_method_17.png" style="zoom: 78%;" />
+<p>Meta learning就是解决这样问题的间接估计方法：它不直接对treatment effect进行建模，而是通过对response effect（target）进行建模，用T带来的target变化作为HTE的估计</p>
 <ul class="simple">
-<li><p>优点：可以直接用监督学习的方法直接建模而不需要重新构造模型, 而且实现起来比较快。</p></li>
+<li><p>优点：</p>
+<ul>
+<li><p>可以直接用监督学习的方法直接建模而不需要重新构造模型, 而且实现起来比较快。</p></li>
+<li><p>可以了解策略对于不同用户的异质性影响（比如做uplift score在年龄维度上的弹性实验）</p></li>
+</ul>
+</li>
 <li><p>缺点：因为是间接建模, 它的误差在一些场景下 比较大。</p></li>
 </ul>
 <center><img src="../images/CI_method_7.png" width="75%"/></center>
@@ -1591,53 +1636,34 @@ $<span class="math notranslate nohighlight">\(
 <li><p>模型估计: <span class="math notranslate nohighlight">\(\hat{\mu}=M(Y \sim(X, T))\)</span></p>
 <ul>
 <li><p>输入：对于样本 有自己的X 加上T</p></li>
-<li><p>预测：对实验组用户（T=1）可以预测他们X相同但是T=0下的值，同样对于对照组也可以预测T=1，这样通过反事实</p></li>
-<li><p>对比真实的观测数据就可以得到 对于同样一个x T-1的结果和T=0的结果——CATE</p></li>
+<li><p>预测：对实验组用户(T=1)可以预测他们X相同但是T=0下的值，同样对于对照组也可以预测T=1，这样通过反事实</p></li>
+<li><p>对比真实的观测数据就可以得到 对于同样一个x，它在T-1的结果和T=0的结果——CATE</p></li>
 </ul>
 </li>
 <li><p>把 <span class="math notranslate nohighlight">\(\mathrm{T}=1\)</span> 和 <span class="math notranslate nohighlight">\(\mathrm{T}=0\)</span> 分别代入预测, 差分计算增量: <span class="math notranslate nohighlight">\(\hat{\tau}(x)=\hat{\mu}(x, T=1)-\hat{\mu}(x, T=0)\)</span></p></li>
 </ul>
-<p>特点：这种建模方式在训练的时候相比T-learner用了更多的样本数据进行学习, 在面对多类型干预的情况下（如干预金额大小不一样）, 也可以直接进行建模。</p>
+<p>特点：这种建模方式在训练的时候相比T-learner用了更多的样本数据进行学习，在面对多类型干预的情况下（如干预金额大小不一样）, 也可以直接进行建模。</p>
 </div>
 <div class="section" id="t-learner">
 <h4>T-Learner<a class="headerlink" href="#t-learner" title="Permalink to this headline">¶</a></h4>
-<p>Two-learner是基于两个样本群体（有干预群体和无干预群体）分别建立响应模型，对预测组的用户，分别使用两个模型进行预测，对预测结果进行差分，这个差分值就是干预的提升量（uplift score）：</p>
-<ul>
-<li><p>模型1–无干预样本建模:</p>
-<div class="math notranslate nohighlight">
-\[
-    \hat{\mu_{0}}=M_{1}\left(Y^{0} \sim X^{0}\right)
-    \]</div>
-</li>
-<li><p>模型2–有干预样本建模：</p>
-<div class="math notranslate nohighlight">
-\[
-    \hat{\mu_{1}}=M_{2}\left(Y^{1} \sim X^{1}\right)
-    \]</div>
-</li>
-<li><p>预测, 差分计算增量: <span class="math notranslate nohighlight">\(\hat{\tau}(x)=\hat{\mu_{1}}(x)-\hat{\mu_{0}}(x)\)</span></p></li>
+<blockquote>
+<div><p>Intuition：用户受干预和不受干预时，因变量的分布是不一样的，甚至取值范围都可能不一样，所以应该分别建模</p>
+</div></blockquote>
+<p>Two-learner基于两个样本群体（有干预群体和无干预群体）分别建立响应模型，对预测组的用户，分别使用两个模型进行预测，对预测结果进行差分，这个差分值就是干预的提升量（uplift score）：</p>
+<ul class="simple">
+<li><p>control组样本建模: <span class="math notranslate nohighlight">\(\hat{\mu_{0}}=M_{1}\left(Y^{0} \sim X^{0}\right)\)</span></p></li>
+<li><p>treatment组样本建模：<span class="math notranslate nohighlight">\(\hat{\mu_{1}}=M_{2}\left(Y^{1} \sim X^{1}\right)\)</span></p></li>
+<li><p>预测+差分⇒增量：<span class="math notranslate nohighlight">\(\hat{\tau}(x)=\hat{\mu_{1}}(x)-\hat{\mu_{0}}(x)\)</span></p></li>
 </ul>
 <p>这种建模方式可以快速实现获取到用户因为干预带来的提升量，通过对干预的提升量（uplift score）进行从高到低排序来决定是否对用户进行干预。相比于S learner的优势在于，我们能够引入不同的学习器来针对不同的潜在结果进行评估，从而有可能能得到更好的估计。</p>
-<p>Intuition：用户受干预和不受干预时，目标变量的取值范围很可能是不一样的（数值的分布也不一样）。</p>
-<p>特点：可能bias在两边方向不同，算CATE相减的时候都贡献了bias（S-Learner因为方向一样所以不会有这个问题）</p>
+<p>特点：可能bias在两边方向不同，比如估T=1用户的时候Y=1估大了，估T=0用户的时候Y=1估小了，这个时候算CATE相减的时候都贡献了bias（S-Learner因为bias的方向一样 所以相减的时候不会有这个问题）</p>
 </div>
 <div class="section" id="x-learner">
 <h4>X-Learner<a class="headerlink" href="#x-learner" title="Permalink to this headline">¶</a></h4>
-<p>四个学习器，解决bias的问题。</p>
-<p>基于T-learner构建的双模型上，预测用户的反事实推断——</p>
-<ul class="simple">
-<li><p>T-learner:</p>
-<ul>
-<li><p>用T=0模型预测T=1群体在T=0时的结果</p></li>
-<li><p>用T=1模型预测T=0群体在T=1时的结果</p></li>
-</ul>
-</li>
-<li><p>计算 delta = T learner结果 - 真实结果得到提升值、</p></li>
-<li><p>把delta提升值作为因变量重新构建双模型</p></li>
-<li><p>最后引入PSM加权得到最后的提升评估结果。</p></li>
-</ul>
+<p>四个学习器，解决bias的问题，基于T-learner构建的双模型上，预测用户的反事实推断。</p>
 <p>具体过程：</p>
-<center><img src="../images/CI_method_2.png" width="40%"/></center>
+<center><img src="../images/CI_method_2.png" width="75%"/></center>
+<p>公式：</p>
 <ul>
 <li><p>Step1: 构建T-learner双模型对outcome建模</p>
 <p>可以是传统的机器学习模型如svm，lr，xgboost等，也可以是神经网络</p>
@@ -1647,22 +1673,30 @@ $<span class="math notranslate nohighlight">\(
 </ul>
 </li>
 <li><p>Step2: 预测用户的反事实推断，并差分计算提升值也就是pseudo-effects:</p>
+<p>这里跟T-Learner不一样的是 我们使用真实的数据点与反事实推断的预测值的差值</p>
 <ul class="simple">
-<li><p>实际无干预用户: <span class="math notranslate nohighlight">\(\hat{D^{0}}=\hat{\mu_{1}}\left(X^{0}\right)-Y^{0}\)</span></p></li>
-<li><p>实际有干预用户: <span class="math notranslate nohighlight">\(\hat{D^{1}}=Y^{1}-\hat{\mu_{0}}\left(X^{1}\right)\)</span></p></li>
+<li><p>T=0的用户 预测T=1的反事实结果-真实: <span class="math notranslate nohighlight">\(\hat{D^{0}}=\hat{\mu_{1}}\left(X^{0}\right)-Y^{0}\)</span></p></li>
+<li><p>T=1的用户 真实-预测T=0的反事实结果: <span class="math notranslate nohighlight">\(\hat{D^{1}}=Y^{1}-\hat{\mu_{0}}\left(X^{1}\right)\)</span></p></li>
 </ul>
 </li>
-<li><p>Step3: 把<strong>提升值</strong>(pseudo-effects)作为模型的新label, 重新建模:</p>
+<li><p>Step3: 把<strong>提升值</strong>(原文叫imputed treatment effects)作为模型的新label重新建模，这里相当于两遍分别继续学习T- Learner两个模型的残差项。如果第二步效果好的话这里的 <span class="math notranslate nohighlight">\(\hat{\tau_{0}}\)</span> 会跟<span class="math notranslate nohighlight">\(\hat{D^{0}}\)</span>很接近 因为本质上<span class="math notranslate nohighlight">\(\tau_{i}(x)=E[\tilde{D} i \mid X=x]\)</span></p>
 <ul class="simple">
 <li><p>模型3——无干预样本建模: <span class="math notranslate nohighlight">\(\hat{\tau_{0}}=M_{3}\left(\hat{D^{0}} \sim X^{0}\right)\)</span></p></li>
 <li><p>模型4——有干预样本建模: <span class="math notranslate nohighlight">\(\hat{\tau_{1}}=M_{4}\left(\hat{D^{1}} \sim X^{1}\right)\)</span></p></li>
 </ul>
 </li>
-<li><p>Step4: PSM加权得到最终的uplift: <span class="math notranslate nohighlight">\(\hat{\tau}(x)=p(x) \hat{\tau_{0}}(x)+(1-p(x)) \hat{\tau_{1}}(x)\)</span></p></li>
+<li><p>Step4: PSM加权得到最终的uplift: <span class="math notranslate nohighlight">\(\hat{\tau}(x)=p(x) \hat{\tau_{0}}(x)+(1-p(x)) \hat{\tau_{1}}(x)\)</span></p>
+<ul class="simple">
+<li><p>这里模型3得到的uplift是两个：一个是对T=0的用户建模的结果，一个是对T=1用户建模的结果，</p></li>
+<li><p>角度一：treat数据量很少的时候会容易欠拟合，这个时候大家ps都很低（ps可以认为是在样本数据集中 <span class="math notranslate nohighlight">\(\mathrm{T}=1\)</span> 的比例附近的），那么就会抬升这个用户在被treat的情况下的uplift，从而让treat调成一个伪随机</p></li>
+<li><p>角度二：对于ps高的个体，说明更接近T=1，而M3其实是用T=1的数据去训练的response model，所以用T=1的更准（多用response model的训练part少用测试part）</p></li>
 </ul>
-<p>注意点</p>
+</li>
+</ul>
+<p>额外注意点：</p>
 <ul class="simple">
 <li><p>额外引入propensity score，会引入新的误差</p></li>
+<li><p>注意计算效率，不一定是比T-Learner好的</p></li>
 </ul>
 </div>
 <div class="section" id="r-learner">
@@ -1685,7 +1719,7 @@ $<span class="math notranslate nohighlight">\(
 </li>
 </ul>
 </li>
-<li><p>这Loss里面包吕了目标效应与CATE残差，属于间接评估CATE</p>
+<li><p>这Loss里面包含了目标效应与CATE残差，属于间接评估CATE</p>
 <ul>
 <li><p>Meta learner的方法均为间接评估 CATE</p></li>
 <li><p>直接预估目标效应即 <span class="math notranslate nohighlight">\(Y[T=1 \mid X]\)</span> 和 <span class="math notranslate nohighlight">\(Y[T=0 \mid X]\)</span> ，再计算 <span class="math notranslate nohighlight">\(CAT E ; CATE\)</span> 评估误差理论上大于模型误差</p></li>

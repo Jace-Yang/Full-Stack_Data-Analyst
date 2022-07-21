@@ -135,7 +135,7 @@ $\mathbf{e}=\mathrm{P}($ Treatement<是否广告曝光>|搜索活跃度、性别
         return abs(t.mean () -c.mean()) / np.sqrt(0.5 * (t.var() + c.var()))
     ```
 - 看特征在匹配前后的 QQ-Plot。
-    
+  
     QQ图(Quantile-Quantile plot)是以实验组和对照组的特征匹配分位数后作为横坐标和纵坐标画图。散点越接近对角线说明两组数据越接近。左边All为匹配前的QQ plot，右边Matched为匹配后的QQ图，可以看到匹配前后，散点更加接近对角线，说明数据的分布明显接近。
 
     <center><img src="../images/CI_method_6.png" width="75%"/></center>
@@ -162,7 +162,7 @@ $$
 E[Y|X,T=1]−E[Y|X,T=0] = E\bigg[\dfrac{Y}{P(x)}|X,T=1\bigg]P(x) - E\bigg[\dfrac{Y}{(1-P(x))}|X,T=0\bigg](1-P(x))
 $$
 - 跟之前的直接相减比，现在是赋予了权重，这个权重不是被treat的比例，而是probability of receiving treatment，所以管它叫inverse！
-    
+  
 - 重新跟样本中的用户加权，给不合理分组用户高的权重，让它在不合适的组中的声音变大，从而实验组和实验组中呈现等概率
     <center><img src="../images/CI_method_10.png" width="65%"/></center>
     
@@ -188,9 +188,9 @@ $$
 
 
 
-## 双重机器学习 (Double Machine Learning, DML)
+## 双重机器学习
 
-Double Machine Learning (DML):  同时产生指标和treatment的估计，并利用估计量与观测值之间的残差拟合CATE的估计量。产生指标和treatment的估计的过程中可以利用任意Machine Learning的方法，由此称为Double Machine Learning (DML)。
+双重机器学习 (Double Machine Learning, DML):  同时产生指标和treatment的估计，并利用估计量与观测值之间的残差拟合CATE的估计量。产生指标和treatment的估计的过程中可以利用任意Machine Learning的方法，由此称为Double Machine Learning (DML)。
 
 假设:
 - CIA假设：所有的混淆变量都可以被观测
@@ -241,11 +241,11 @@ DML特点:
     - 想看D对Y的影响(Y)的影响，但D和Y都被非常高维的X confound了
 
 
-## 双稳健模型 (Double Robust, DR)
+## 双稳健模型
 
 > [Doubly Robust Estimation of Causal Effects](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3070495/pdf/kwq439.pdf)
 
-(Double Robust, DR):  DML方法在针对categorical的treatment时的优化版本。此方法实际上利用了Inverse Propensity Score和Direct Method，以此修正前者产生的过大方差和后者导致的有偏估计。因此对两方法同时robust，故称Doubly Robust (DR)。
+双稳健模型 (Double Robust, DR):  DML方法在针对categorical的treatment时的优化版本。此方法实际上利用了Inverse Propensity Score和Direct Method，以此修正前者产生的过大方差和后者导致的有偏估计。因此对两方法同时robust，故称Doubly Robust (DR)。
 
 
 好处：
@@ -324,7 +324,7 @@ doubly_robust(data_with_categ, X, T, Y)
 腾讯游戏在2022 DataFun 数据科学峰会里提到了一个Binary DR，就是把二元的outcome变量（是否留存）先用$g(x) = log(1 - \frac{1}{x})$ 映射成连续变量（多少天后留存），估计完之后再用sigmoid换回来，效果据说比UBER表现最好的算法UBER-X-Learner还好很多：
 
 <center><img src="../images/CI_method_13.png" width="65%"/></center>
-  
+
 ## DID
 
 通过寻找两个表现差异基 本稳定一致的群体, 对其 中一组先不干预后干预, 观察组间差异值的前右变 化
@@ -341,6 +341,8 @@ doubly_robust(data_with_categ, X, T, Y)
 
 干预发生前的 Treatment和control两组符合平行趋势：对结果有干扰的效应随着时间不会变化
 - check方法：可以画个时间序列图然后mark两者gap大小的置信区间，看0是不是一直在区间里。
+
+
 
 #### 模型setup
 
@@ -435,9 +437,11 @@ Causal Trees + 随机森林 = Causal Random Forest
 - 异质性最大化分裂准则:
 
     给定样本 $J, P$ 表示父节点, $C_{1}$ 和 $C_{2}$ 表示两个子节点, $N$ 表示样本数, 异质性最大化准则为
+
     $$
     \Delta\left(C_{1}, C_{2}\right):=\frac{n_{C_{1}} \cdot n_{C_{2}}}{n_{P}^{2}}\left(\hat{\theta}_{C_{1}}(\mathcal{J}) - \hat{\theta}_{C_{2}}(\mathcal{J})\right)^{2}
     $$
+
     - $\frac{n_{C_{1}} \cdot n_{C_{2}}}{n_{P}^{2}}$: 哟昂来确保两个子节点的样本尽量均衡
     - 后者：MSE最小化目标函数来估计
 
@@ -466,17 +470,18 @@ ORF特点:
 ## Uplift增益模型
 
 传统预测模型会预测$P(Y=1 \mid T=1)$(有激励下用户正向反馈的概率)，而Uplift评估T对Y=1的概率的增益，也就是$P(Y=1 \mid X, \boldsymbol{T})$ - $P(Y=1 \mid X)$
-- 因为ITE反事实，所以通常用CATE
+- 因为ITE反事实，所以通常用CATE｜但uplift这里可以帮助我们预估回ITE
 
 uplift模型跟response模型的区别：
-- Response Model: $P(Y=1 \mid X)$, 用户购买概率
-- Uplift Model: $P(Y=1 \mid X, T)$, 因为某种干预后用户购买概率，也就是T产生的的增量效果，它的理论基础就是因果推断。
+- Response Model: $P(Y=1 \mid X)$：用户购买概率，只刻画了画像和购买的相关性，没有考虑反事实
 
-意义：营销场景中我们都希望每次的投入能达到最大的转化，即把活动福利用在真正需要的用户身上，即找到对于活动敏感的人群进行干预/激励。我们按照是否给干预和是否能带来正向反馈对人群进行分类：
+- Uplift Model: $P(Y=1 \mid X, T)$：因为某种干预后用户购买概率，也就是T产生的的增量效果，它的理论基础就是因果推断。
+
+  > 举例：找到能通过激励达到提升**次日留存率最大**的10w个用户
+
+意义：营销场景中我们都希望每次的投入能达到最大的转化，即把活动福利用在真正需要的用户身上，即找到对于活动敏感的人群进行干预/激励。按照是否给干预和是否能带来正向反馈对人群进行分类：
 
 <center><img src="../images/CI_method_1.png" width="75%"/></center>
-<!-- <center><img src="../images/CI_method_5.png" width="75%"/></center> -->
-
 
 - 敏感人群：干预/给了激励后（不发券就不购买、发券才会购买的人群），效果向正向转变的人群；
 
@@ -501,9 +506,16 @@ uplift模型跟response模型的区别：
 
 ### Meta-Learning方法
 
-Meta learning是间接估计：不直接对treatment effect进行建模，而是通过对response effect（target）进行建模，用T带来的target变化作为HTE的估计
-了解策略对于不同用户的异质性影响
-- 优点：可以直接用监督学习的方法直接建模而不需要重新构造模型, 而且实现起来比较快。
+比如：对于每个年龄是$x_{i}$的用户i来说，只能接受治疗观察到$Y_{1}\left(X_{i}\right)$ 或者 $Y_{0}\left(X_{i}\right)$ ，所以没法跟反事实做差，但同样的x我们可以去预测反事实的结果
+
+<img src="../images/CI_method_17.png" style="zoom: 78%;" />
+
+Meta learning就是解决这样问题的间接估计方法：它不直接对treatment effect进行建模，而是通过对response effect（target）进行建模，用T带来的target变化作为HTE的估计
+
+- 优点：
+  - 可以直接用监督学习的方法直接建模而不需要重新构造模型, 而且实现起来比较快。
+  - 可以了解策略对于不同用户的异质性影响（比如做uplift score在年龄维度上的弹性实验）
+
 - 缺点：因为是间接建模, 它的误差在一些场景下 比较大。
 
 <center><img src="../images/CI_method_7.png" width="75%"/></center>
@@ -515,50 +527,37 @@ Single learner把用户是否受干预 (T) 作为特征一起加入到模型构�
 
 - 模型估计: $\hat{\mu}=M(Y \sim(X, T))$
     - 输入：对于样本 有自己的X 加上T
-    - 预测：对实验组用户（T=1）可以预测他们X相同但是T=0下的值，同样对于对照组也可以预测T=1，这样通过反事实
-    - 对比真实的观测数据就可以得到 对于同样一个x T-1的结果和T=0的结果——CATE
+    - 预测：对实验组用户(T=1)可以预测他们X相同但是T=0下的值，同样对于对照组也可以预测T=1，这样通过反事实
+    - 对比真实的观测数据就可以得到 对于同样一个x，它在T-1的结果和T=0的结果——CATE
 - 把 $\mathrm{T}=1$ 和 $\mathrm{T}=0$ 分别代入预测, 差分计算增量: $\hat{\tau}(x)=\hat{\mu}(x, T=1)-\hat{\mu}(x, T=0)$
 
-特点：这种建模方式在训练的时候相比T-learner用了更多的样本数据进行学习, 在面对多类型干预的情况下（如干预金额大小不一样）, 也可以直接进行建模。
+特点：这种建模方式在训练的时候相比T-learner用了更多的样本数据进行学习，在面对多类型干预的情况下（如干预金额大小不一样）, 也可以直接进行建模。
 
 #### T-Learner
 
-Two-learner是基于两个样本群体（有干预群体和无干预群体）分别建立响应模型，对预测组的用户，分别使用两个模型进行预测，对预测结果进行差分，这个差分值就是干预的提升量（uplift score）：
+> Intuition：用户受干预和不受干预时，因变量的分布是不一样的，甚至取值范围都可能不一样，所以应该分别建模
 
-- 模型1--无干预样本建模:
+Two-learner基于两个样本群体（有干预群体和无干预群体）分别建立响应模型，对预测组的用户，分别使用两个模型进行预测，对预测结果进行差分，这个差分值就是干预的提升量（uplift score）：
 
-$$
-\hat{\mu_{0}}=M_{1}\left(Y^{0} \sim X^{0}\right)
-$$
-- 模型2--有干预样本建模：
-$$
-\hat{\mu_{1}}=M_{2}\left(Y^{1} \sim X^{1}\right)
-$$
-- 预测, 差分计算增量: $\hat{\tau}(x)=\hat{\mu_{1}}(x)-\hat{\mu_{0}}(x)$
+- control组样本建模: $\hat{\mu_{0}}=M_{1}\left(Y^{0} \sim X^{0}\right)$
+- treatment组样本建模：$\hat{\mu_{1}}=M_{2}\left(Y^{1} \sim X^{1}\right)$
+- 预测+差分⇒增量：$\hat{\tau}(x)=\hat{\mu_{1}}(x)-\hat{\mu_{0}}(x)$
 
 这种建模方式可以快速实现获取到用户因为干预带来的提升量，通过对干预的提升量（uplift score）进行从高到低排序来决定是否对用户进行干预。相比于S learner的优势在于，我们能够引入不同的学习器来针对不同的潜在结果进行评估，从而有可能能得到更好的估计。
 
-Intuition：用户受干预和不受干预时，目标变量的取值范围很可能是不一样的（数值的分布也不一样）。
-
-特点：可能bias在两边方向不同，算CATE相减的时候都贡献了bias（S-Learner因为方向一样所以不会有这个问题）
+特点：可能bias在两边方向不同，比如估T=1用户的时候Y=1估大了，估T=0用户的时候Y=1估小了，这个时候算CATE相减的时候都贡献了bias（S-Learner因为bias的方向一样 所以相减的时候不会有这个问题）
 
 
 #### X-Learner
- 
-四个学习器，解决bias的问题。
 
-基于T-learner构建的双模型上，预测用户的反事实推断——
-- T-learner:
-    - 用T=0模型预测T=1群体在T=0时的结果
-    - 用T=1模型预测T=0群体在T=1时的结果
-- 计算 delta = T learner结果 - 真实结果得到提升值、
-- 把delta提升值作为因变量重新构建双模型
-- 最后引入PSM加权得到最后的提升评估结果。
+四个学习器，解决bias的问题，基于T-learner构建的双模型上，预测用户的反事实推断。
 
 
 具体过程：
 
-<center><img src="../images/CI_method_2.png" width="40%"/></center>
+<center><img src="../images/CI_method_2.png" width="75%"/></center>
+
+公式：
 
 - Step1: 构建T-learner双模型对outcome建模
 
@@ -566,16 +565,27 @@ Intuition：用户受干预和不受干预时，目标变量的取值范围很�
 
     - 模型1——无干预样本建模: $\hat{\mu_{0}}=M_{1}\left(Y^{0} \sim X^{0}\right)$
     - 模型2——有干预样本建模: $\hat{\mu_{1}}=M_{2}\left(Y^{1} \sim X^{1}\right)$
+
 - Step2: 预测用户的反事实推断，并差分计算提升值也就是pseudo-effects:
-    - 实际无干预用户: $\hat{D^{0}}=\hat{\mu_{1}}\left(X^{0}\right)-Y^{0}$
-    - 实际有干预用户: $\hat{D^{1}}=Y^{1}-\hat{\mu_{0}}\left(X^{1}\right)$
-- Step3: 把**提升值**(pseudo-effects)作为模型的新label, 重新建模:
+
+    这里跟T-Learner不一样的是 我们使用真实的数据点与反事实推断的预测值的差值
+
+    - T=0的用户 预测T=1的反事实结果-真实: $\hat{D^{0}}=\hat{\mu_{1}}\left(X^{0}\right)-Y^{0}$
+    - T=1的用户 真实-预测T=0的反事实结果: $\hat{D^{1}}=Y^{1}-\hat{\mu_{0}}\left(X^{1}\right)$
+
+- Step3: 把**提升值**(原文叫imputed treatment effects)作为模型的新label重新建模，这里相当于两遍分别继续学习T- Learner两个模型的残差项。如果第二步效果好的话这里的 $\hat{\tau_{0}}$ 会跟$\hat{D^{0}}$很接近 因为本质上$\tau_{i}(x)=E[\tilde{D} i \mid X=x]$
     - 模型3——无干预样本建模: $\hat{\tau_{0}}=M_{3}\left(\hat{D^{0}} \sim X^{0}\right)$
     - 模型4——有干预样本建模: $\hat{\tau_{1}}=M_{4}\left(\hat{D^{1}} \sim X^{1}\right)$
+
 - Step4: PSM加权得到最终的uplift: $\hat{\tau}(x)=p(x) \hat{\tau_{0}}(x)+(1-p(x)) \hat{\tau_{1}}(x)$
 
-注意点
+    - 这里模型3得到的uplift是两个：一个是对T=0的用户建模的结果，一个是对T=1用户建模的结果，
+    - 角度一：treat数据量很少的时候会容易欠拟合，这个时候大家ps都很低（ps可以认为是在样本数据集中 $\mathrm{T}=1$ 的比例附近的），那么就会抬升这个用户在被treat的情况下的uplift，从而让treat调成一个伪随机
+    - 角度二：对于ps高的个体，说明更接近T=1，而M3其实是用T=1的数据去训练的response model，所以用T=1的更准（多用response model的训练part少用测试part）
+
+额外注意点：
 - 额外引入propensity score，会引入新的误差
+- 注意计算效率，不一定是比T-Learner好的
 
 #### R-Learner
 
@@ -589,7 +599,7 @@ R Learner 借用正交的概念来消除选择性偏差(之前怎么选择30%和
         - $\widehat{m}^{(-i)}\left(X_{i}\right)$ 是除ith样本外得到的预估值, $Y_{i}$ 是真实值; $W_{i}$:观测数据中的Treatment真实值
         - 前面是机器学习常规的二项残差，后面带有一个惩罚项 [类似正则], $\tau\left(X_{i}\right)=Y\left(W=1 \mid X_{i}\right)-Y(W=$ $\left.0 \mid X_{i}\right)$ 为样本 $X_{i}$ 的预估 CATE
             - 会把受干预影响大的ITE预测得更准，牺牲不太敏感的
-    - 这Loss里面包吕了目标效应与CATE残差，属于间接评估CATE
+    - 这Loss里面包含了目标效应与CATE残差，属于间接评估CATE
         - Meta learner的方法均为间接评估 CATE
         - 直接预估目标效应即 $Y[T=1 \mid X]$ 和 $Y[T=0 \mid X]$ ，再计算 $CAT E ; CATE$ 评估误差理论上大于模型误差
 
@@ -624,7 +634,7 @@ R Learner 借用正交的概念来消除选择性偏差(之前怎么选择30%和
 - 对于预测过程
     - 传统决策树模型的输出，针对分类问题是叶子节点样本最多的分类，对于回归问题是叶子节点的样本均值。
     - uplift tree模型输出是叶子节点中样本的条件平均因果效应，treatment组的样本均值减去control组的样本均值。
-跟随机森林的联系：
+    跟随机森林的联系：
 - uplift tree模型是基于单棵树构建的方法，类比random forest，对uplift tree同样采用bagging的思想得到的就是causal forest模型[4]。
 、
 
@@ -648,7 +658,7 @@ Uplift score
 
 
     - uplift最大的k个样本里面，Treatment组中T=1的个数 比control组中T=1的个数的差值
-
+    
     - $G(i)=\left(\frac{n_{t, y=1}(i)}{n_{t}(i)}-\frac{n_{c, y=1}(i)}{n_{c}(i)}\right)\left(n_{t}(i)+n_{c}(i)\right), \quad i=10 \%, 20 \%, \ldots, 100 \%$
         - 可以看出，AUUC 指标计算方法可以避免实验组和对照组用户数量差别较大导致的指标不可靠问题。
 
@@ -667,7 +677,7 @@ Uplift score
 
     - 案例：
         <center><img src="../images/CI_method_4.png" width="55%"/></center>
-
+    
         - Two-model最好：
             - 先把那些愿意受影响的用户或对象（sure things）满足，不断提升uplift到最高点；
             - 接着是那些不论我们怎么做都不受影响的那批用户（lost causes和sleeping dogs），他们对uplift的累积几乎无贡献，震荡在一个区间里；
@@ -676,7 +686,7 @@ Uplift score
         Qini 系数分母是实验组和对照组的总样本量，如果实验组和对照组用户数量差别比较大，结果将变得不可靠。
 
 - Sensitivity Analysis：
-    
+  
     除了可视化的方法也可以看一些数值来进行敏感性分析，看检验因果假设是否成立
 
     - 增加与变量独立的新变量：理论上对结果不造成影响；
@@ -694,7 +704,7 @@ Uplift score
 滴滴的例子：
 - 按照券值面额从低到高，为每个券类别计算可支配数量
 - 对用户池所有用户按照预估出的Uplift值和计算出的可发放数量倒排截断，并将分配完毕的用户从备选用户池中移除。
-    
+  
     这样一个用户如果在各种券类别下uplift都很高时，我们将会优先为他/她配置券值较低的补贴券。这样做法的好处是简洁明了实现简单，在人工干预较强的时候对于运营的可解释性也比较强。缺点当然就是在自由度更高情况下，显然不能达到全局最优。
 
 #### 整数规划

@@ -42,7 +42,7 @@ This is a notebook from Jace Yang.
     cp -R images _build/html/images
     open -a "Google Chrome" _build/html/index.html
     ghp-import -n -p -f _build/html
-    open -a "Google Chrome" https://github.com/Jace-Yang/Full-Stack_Data-Analyst/deployments/activity_log?environment=github-pages
+    open -a "Google Chrome" https://github.com/Jace-Yang/Full-Stack_Data-Analyst/deployments/
     ```
 
 - Lots of updates on the pages? Also make the main branch up-to-date｜大幅度更新:

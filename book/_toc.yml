@@ -16,6 +16,14 @@ parts:
       - file: Causal_Inference/README.md
       - file: Causal_Inference/1_AB_testing.md
       - file: Causal_Inference/2_methods.md
+  - caption: 机器学习
+    chapters:
+      - url: https://ab5q6faprt.feishu.cn/wiki/wikcnAAmnFwoirO0g9YD546QD0P
+        title: 飞书笔记
+  - caption: 数据可视化
+    chapters:
+      - url: https://ab5q6faprt.feishu.cn/wiki/wikcndQAXpgjyCzgZxGwc0JDp2f
+        title: 飞书笔记
   - caption: 深度学习
     chapters:
       - file: DL/Basics/README.md
@@ -37,10 +45,8 @@ parts:
         - file: DL/NN_compression/Quantize.md
           sections:
           - file: DL/NN_compression/QBert.md
-  - caption: 备用的模板
+  - caption: 联系方式
     chapters:
-    - file: notebooks
-      sections:
-      - file: markdown4
       - url: https://www.linkedin.com/in/jinhang-yang/
         title: LinkedIn
+

@@ -681,7 +681,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul>
 <li><p>Vector-Vector: 输入是一个向量，然后我们的输出,可能是一个<strong>数值</strong>,这个是<strong>Regression</strong>,可能是一个<strong>类别</strong>,这是<strong>Classification</strong></p></li>
 <li><p>Vector-Sequence: 比如Image captioning——input图像，output一句话</p>
-  <center><img src="https://cdn.mathpix.com/snip/images/sYKqUUS2O3e9dwthw1t1qznDv_P_PyLHEB_zdAm-ah0.original.fullsize.png" width="65%"/></center>
+  <center><img src="https://cdn.mathpix.com/snip/images/sYKqUUS2O3e9dwthw1t1qznDv_P_PyLHEB_zdAm-ah0.original.fullsize.png" width="45%"/></center>
 </li>
 <li><p>Sequence-Vector: 比如输入Movie Review，输出评价</p></li>
 <li><p>Sequence- Sequence：比如机器翻译</p></li>
@@ -709,14 +709,12 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="simple">
 <li><p>声音信号：声音讯号其实是一排向量，我们会把一段声音讯号取一个范围叫<strong>Window</strong></p>
 <ul>
-<li><p>把这个Window面的信息描述成一个向量，就叫做一个Frame，语音上会把<strong>一个向量叫做一个Frame</strong>
-<img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210404160614690.png" alt="image-20210404160614690" style="zoom:50%;" /></p>
+<li><p>把这个Window面的信息描述成一个向量，就叫做一个Frame，语音上会把<strong>一个向量叫做一个Frame</strong></p>
 <ul>
 <li><p>通常这个Window的长度就是25个Millisecond</p></li>
 </ul>
 </li>
-<li><p>一小段25个Millisecond里面的语音讯号,為了要描述一整段的声音讯号,你会把这个<strong>Window往右移一点</strong>，从而形成了一段向量
-<img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210404161620047.png" alt="image-20210404161620047" style="zoom:50%;" /></p>
+<li><p>一小段25个Millisecond里面的语音讯号,為了要描述一整段的声音讯号,你会把这个<strong>Window往右移一点</strong>，从而形成了一段向量</p>
 <ul>
 <li><p>通常移动的大小是10个Millisecond</p></li>
 </ul>
@@ -724,18 +722,16 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 </ul>
-<ul>
-<li><p>图：一个Graph/图也是一堆向量，如Social Network</p>
-  <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210404161854708.png" alt="image-20210404161854708" style="zoom:50%;" />
 <ul class="simple">
+<li><p>图：一个Graph/图也是一堆向量，如Social Network</p>
+<ul>
 <li><p>在Social Network上面<strong>每一个节点就是一个人</strong>,然后<strong>节点跟节点之间的edge就是他们两个的关系连接</strong>,比如说是不是朋友等等</p></li>
 <li><p>而<strong>每一个节点可以看作是一个向量</strong>,你可以拿每一个人的,比如说他的Profile裡面的资讯啊,他的性别啊 他的年龄啊,他的工作啊 他讲过的话啊等等,把这些资讯用一个向量来表示</p></li>
 <li><p>所以一个Social Network 一个Graph,你也可以看做是一堆的向量所组成的</p></li>
 </ul>
 </li>
 <li><p>分子信息：一个分子也可以看作是一个Graph</p>
-  <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210404162239665.png" alt="image-20210404162239665" style="zoom:50%;" />
-<ul class="simple">
+<ul>
 <li><p><strong>一个分子可以看作是一个Graph</strong>,分子上面的每一个球,也就是<strong>每一个原子，可以表述成一个向量</strong></p></li>
 <li><p>一个<strong>原子可以用One-Hot Vector</strong>来表示,氢就是1000,碳就是0100,然后这个氧就是0010,所以一个分子就是一个Graph,它就是一堆向量。</p></li>
 </ul>
@@ -745,8 +741,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="output">
 <h3>输出Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p>每一个向量都有一个对应的Label：输入是四个向量的时候,它就要输出四个Label,而每一个Label,它可能是一个数值,那就是Regression的问题,如果每个Label是一个Class,那就是一个Classification的问题<br>
-<img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210404165717142.png" alt="image-20210404165717142" style="zoom:50%;" /></p>
+<li><p>每一个向量都有一个对应的Label：输入是四个向量的时候,它就要输出四个Label,而每一个Label,它可能是一个数值,那就是Regression的问题,如果每个Label是一个Class,那就是一个Classification的问题<br></p>
 <ul>
 <li><p>文字处理：假设你今天要做的是<strong>POS Tagging</strong>,POS Tagging就是词性标註,你要让机器自动决定每一个词汇 它是什麼样的词性,它是名词 还是动词 还是形容词等等</p>
 <p>这个任务啊,其实并没有很容易,举例来说,你现在看到一个句子,I saw a saw，这并不是打错,并不是“我看一个看”,而是“我看到一个锯子”,这个第二个saw当名词用的时候,它是锯子，那所以机器要知道,第一个saw是个动词,第二个saw虽然它也是个saw,但它是名词,但是每一个输入的词汇,都要有一个对应的输出的词性，这个任务就是,输入跟输出的长度是一样的Case,这个就是属於第一个类型的输出</p>
@@ -756,10 +751,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 </ul>
-<ul>
-<li><p>一整个Sequence，只需要输出一个Label</p>
-  <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210404165454032.png" alt="image-20210404165454032" style="zoom:50%;" />
 <ul class="simple">
+<li><p>一整个Sequence，只需要输出一个Label</p>
+<ul>
 <li><p>文字：Sentiment Analysis给机器看一段话,它要<strong>决定说这段话是正面的还是负面的</strong></p></li>
 <li><p>语音：机器要听一段声音,然后决定他是谁讲的</p></li>
 <li><p>Graph：给一个分子,然后要预测说这个分子,比如说它有没有毒性,或者是它的亲水性如何</p></li>
@@ -767,8 +761,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li><p>机器要自己决定,应该要输出多少个Label<br>
 我们不知道应该输出多少个Label,机器要自己决定,应该要输出多少个Label,可能你输入是N个向量,输出可能是N’个Label,為什麼是N’,机器自己决定，这种任务又叫做<strong>sequence to sequence</strong>的任务！</p>
-  <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210404170045293.png" alt="image-20210404170045293" style="zoom: 50%;" />
-<ul class="simple">
+<ul>
 <li><p>翻译就是sequence to sequence的任务,因為输入输出是不同的语言,它们的词汇的数目本来就不会一样多</p></li>
 <li><p>或者是语音辨识也是,真正的语音辨识也是一个sequence to sequence的任务,输入一句话,然后输出一段文字,这也是一个sequence to sequence的任务</p></li>
 </ul>
@@ -780,7 +773,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>输入跟输出数目一样多的状况又叫做<strong>Sequence Labeling</strong>,你要给Sequence裡面的每一个向量,都给它一个Label。</p>
 <ul class="simple">
 <li><p>直觉的想法1: 拿个<strong>Fully-Connected的Network</strong>，但对、词性标记的问题，你给机器一个句子,I saw a saw,对Fully-Connected Network来说,<strong>后面这一个saw跟前面这个saw完全一模一样</strong>,它们是同一个词汇啊，所以会输出一样的东西！</p></li>
-<li><p>直觉的想法2: 所以，要让<strong>让Fully-Connected的Network,考虑context,就</strong>把前后几个向量都串起来,一起丢到Fully-Connected的Network**<br><img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210404173219186.png" alt="image-20210404173219186" style="zoom: 33%;" /></p>
+<li><p>直觉的想法2: 所以，要让<strong>让Fully-Connected的Network,考虑context,就</strong>把前后几个向量都串起来,一起丢到Fully-Connected的Network**</p>
 <ul>
 <li><p>但是<strong>这样子的方法还是有极限</strong>，比如对于需要<strong>考虑一整个Sequence</strong>才能够解决的任务，由于Sequence有长有短，不能通过继续开大Window来做！或者是开一个比最大Sequence大一点的Window</p></li>
 <li><p>但是你开一个这麼大的Window,意味著说你的Fully-Connected的Network需要非常多的参数,那可能不只<strong>运算量很大,可能还容易Overfitting</strong></p></li>
@@ -794,12 +787,10 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id3">
 <h3>整体的运作效果<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Self-Attention的运作方式就是,<strong>Self-Attention会吃一整个Sequence的资讯</strong>，输入4个Vector,它就Output 4个Vector，这4个Vector,他们都是考虑一整个Sequence以后才得到的**，然后再进Fully-Connected的Network决定要输出什麼样的结果，这个就是Self-Attention。</p>
-<ul>
-<li><p><strong>Self-Attention不是只能用一次,你可以叠加很多次</strong></p>
-  <img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210404194146583.png" alt="image-20210404194146583" style="zoom: 33%;" />
-</li>
-<li><p><strong>可以把Fully-Connected的Network,跟Self-Attention交替使用</strong></p>
 <ul class="simple">
+<li><p><strong>Self-Attention不是只能用一次,你可以叠加很多次</strong></p></li>
+<li><p><strong>可以把Fully-Connected的Network,跟Self-Attention交替使用</strong></p>
+<ul>
 <li><p>Self-Attention处理整个Sequence的资讯，Fully-Connected的Network,专注於处理某一个位置的资讯</p></li>
 <li><p>再用Self-Attention,再把整个Sequence资讯再处理一次</p></li>
 </ul>
@@ -810,7 +801,6 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id4">
 <h3>普通Self-Attention<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>那接下来呢就是要跟大家说明,<strong>怎麼產生<span class="math notranslate nohighlight">\(b^1\)</span>这个向量</strong>,那你知道怎麼產生<span class="math notranslate nohighlight">\(b^1\)</span>这个向量以后,你就知道怎麼產生剩下<span class="math notranslate nohighlight">\(b^1 b^2 b^3 b^4\)</span>剩下的向量</p>
-<img src="https://gitee.com/unclestrong/deep-learning21_note/raw/master/imgbed/image-20210404202942477.png" alt="image-20210404202942477" style="zoom: 33%;" />
 <ul>
 <li><p>我们需要根据根据<span class="math notranslate nohighlight">\(a^1\)</span>这个向量，找出整个很长的sequence裡面哪些部分跟判断<span class="math notranslate nohighlight">\(a^1\)</span>是哪一个label是有关係的</p></li>
 <li><p>每一个向量跟<span class="math notranslate nohighlight">\(a^1\)</span>的关联的程度,用一个数值叫α来表示。Transformer里面用的是<strong>dot product</strong>,输入的这两个向量分别乘上两个不同的矩阵，再做element-wise 的相乘后全部加起来以后就得到一个scalar，这个scalar就是α</p>

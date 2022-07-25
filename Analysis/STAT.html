@@ -1,0 +1,767 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>统计分析 &#8212; Towards a Full-stack DA</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="基础" href="../Causal_Inference/README.html" />
+    <link rel="prev" title="数据分析" href="DA.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo2.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Towards a Full-stack DA</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Jace六边形DA笔记库
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  多元分析
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Business.html">
+   商业分析
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="DA.html">
+   数据分析
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   统计分析
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  因果推断
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Causal_Inference/README.html">
+   基础
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Causal_Inference/1_AB_testing.html">
+   AB Test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Causal_Inference/2_methods.html">
+   因果推理方法
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  机器学习
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ML/README.html">
+   基础
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ML/SupervisedML.html">
+   有监督学习
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  深度学习
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../DL/Basics/README.html">
+   基础
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/Basics/DL_hyperparameter.html">
+     DL常见超参及调整策略
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/Basics/Optimizer.html">
+     优化器
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/Basics/Trained_by_GPU.html">
+     GPU训练
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../DL/NLP/README.html">
+   NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/basics.html">
+     基础概念
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/Self-attention.html">
+     Self-Attention
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/Transformer.html">
+     Transformer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/BERT.html">
+     BERT
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../DL/NN_compression/README.html">
+   神经网络压缩
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../DL/NN_compression/KD.html">
+     知识蒸馏
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../DL/NN_compression/Distill_Bert.html">
+       Distill Bert
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../DL/NN_compression/Quantize.html">
+     量化
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../DL/NN_compression/QBert.html">
+       Q-BERT
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  数据仓库
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../DE/README.html">
+   基础概念
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../DE/SQL.html">
+   SQL
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../DE/Data_cleaning/README.html">
+   数据清洗与处理
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DE/Data_cleaning/Regex.html">
+     正则表达式
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DE/Data_cleaning/pandas.html">
+     Pandas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  联系方式
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://www.linkedin.com/in/jinhang-yang/">
+   LinkedIn
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/Analysis/STAT.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FAnalysis/STAT.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Analysis/STAT.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   参数估计
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   假设检验
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#non-negative-matrix-factorization-nmf">
+   Non-negative matrix factorization (NMF)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   各种回归的形式
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   格兰杰因果检验
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   时间序列分解
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-panel-data-analysis">
+   Spatial Panel data analysis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   各种相关系数
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>统计分析</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   参数估计
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   假设检验
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#non-negative-matrix-factorization-nmf">
+   Non-negative matrix factorization (NMF)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   各种回归的形式
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   格兰杰因果检验
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   时间序列分解
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-panel-data-analysis">
+   Spatial Panel data analysis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   各种相关系数
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1>统计分析<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>参数估计<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://blog.csdn.net/liuyuemaicha/article/details/52497512">https://blog.csdn.net/liuyuemaicha/article/details/52497512</a></p>
+<ul class="simple">
+<li><p>用样本统计量去估计总体的参数。</p></li>
+<li><p>分类</p>
+<ul>
+<li><p>点估计：依据样本估计总体分布中所含的未知参数或未知参数的函数。</p></li>
+<li><p>区间估计（置信区间的估计）：依据抽取的样本，根据一定的正确度与精确度的要求，构造出适当的区间，作为总体分布的未知参数或参数的函数的真值所在范围的估计。例如人们常说的有百分之多少的把握保证某值在某个范围内，即是区间估计的最简单的应用。</p></li>
+</ul>
+</li>
+<li><p>估计方法</p>
+<ul>
+<li><p>矩估计法：</p>
+<ul>
+<li><p>矩估计法的理论依据是大数定律，主要基于用样本矩估计总体矩的思想</p></li>
+<li><p>矩的理解：在数理统计学中一类<strong>数字特征</strong>称为矩。</p></li>
+</ul>
+</li>
+<li><p>极大似然估计总结</p>
+<ul>
+<li><p>似然函数直接求导一般不太好求,一般得到似然函数L(θ)之后,都是先求它的对数,即ln L(θ),因为ln函数不会改变L的单调性</p></li>
+<li><p>对ln L(θ)求θ的导数,令这个导数等于0,得到驻点.在这一点,似然函数取到最大值,所以叫最大似然估计法</p></li>
+<li><p>本质原理：似然估计是已知结果去求未知参数，对于已经发生的结果（一般是一系列的样本值）既然他会发生说明在未知参数θ的条件下，这个结果发生的可能性很大。</p>
+<ul>
+<li><p>所以最大似然估计求的就是使这个结果发生的可能性最大的那个θ，这个有点后验的意思</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>置信度、置信区间</p>
+<ul>
+<li><p>置信区间是我们所计算出的变量存在的范围，置信水平就是我们对于这个数值存在于我们计算出的这个范围的可信程度。</p>
+<ul>
+<li><p>举例来讲，有95%的把握，真正的数值在我们所计算的范围里。</p></li>
+<li><p>在这里，95%是置信水平，而计算出的范围，就是置信区间。</p></li>
+<li><p>如果置信度为95%， 则抽取100个样本来估计总体的均值，由100个样本所构造的100个区间中，约有95个区间包含总体均值。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>假设检验<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>**跟参数估计的区别和联系：**参数估计和假设检验是统计推断的两个组成部分，都是利用样本对总体进行某种推断，但推断的角度不同。</p>
+<ul class="simple">
+<li><p>参数估计讨论的是用样本估计总体参数的方法，总体参数μ在估计前是未知的。</p></li>
+<li><p>在假设检验中，则是先对μ的值提出一个假设，然后利用样本信息去检验这个假设是否成立。</p></li>
+</ul>
+<p>常用检验形式：</p>
+<ul class="simple">
+<li><p>T检验</p>
+<ul>
+<li><p>场景：不知道总体标准差需要用样本的标准差来代替、适用于小样本</p></li>
+</ul>
+</li>
+<li><p>Z检验</p>
+<ul>
+<li><p>场景：知道总体的标准差、适用于大样本</p></li>
+</ul>
+</li>
+</ul>
+<p>p值：H0成立下出现这个统计量及它更极端情况的概率</p>
+<ul class="simple">
+<li><p>例：双侧检验硬币公平得到8次正面：把八次正面的概率，与更极端的九次正面、十次正面的概率，以及012的加起来，在0.5的情况下只有0.1，这个就是p值</p></li>
+</ul>
+</div>
+<div class="section" id="non-negative-matrix-factorization-nmf">
+<h2>Non-negative matrix factorization (NMF)<a class="headerlink" href="#non-negative-matrix-factorization-nmf" title="Permalink to this headline">¶</a></h2>
+<p>一种利用矩阵因子化将高维离散矩阵分解为两个低维矩阵，从而实现降维、分层的算法</p>
+</div>
+<div class="section" id="id4">
+<h2>各种回归的形式<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p></p></th>
+<th class="text-align:left head"><p>Functional Form</p></th>
+<th class="text-align:left head"><p>Marginal Effect</p></th>
+<th class="text-align:left head"><p>Elasticity</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Linear</p></td>
+<td class="text-align:left"><p>Y=beta_(0)+beta_(1)X</p></td>
+<td class="text-align:left"><p>beta_(1)</p></td>
+<td class="text-align:left"><p>beta_(1)X//Y</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Linear-log</p></td>
+<td class="text-align:left"><p>Y=beta_(0)+beta_(1)ln X</p></td>
+<td class="text-align:left"><p>beta_(1)//X</p></td>
+<td class="text-align:left"><p>beta_(1)//Y</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Quadratic</p></td>
+<td class="text-align:left"><p>Y=beta_(0)+beta_(1)X+beta_(2)X2</p></td>
+<td class="text-align:left"><p>beta_(1)+2beta_(2)X</p></td>
+<td class="text-align:left"><p>(beta_(1)+2beta_(2)X)X//Y</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Log-linear</p></td>
+<td class="text-align:left"><p>ln Y=beta_(0)+beta_(1)X</p></td>
+<td class="text-align:left"><p>beta_(1)Y</p></td>
+<td class="text-align:left"><p>beta_(1)X</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Double-log</p></td>
+<td class="text-align:left"><p>ln Y=beta_(0)+beta_(1)ln X</p></td>
+<td class="text-align:left"><p>beta_(1)Y//X</p></td>
+<td class="text-align:left"><p>beta_(1)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Logistic</p></td>
+<td class="text-align:left"><p>ln[Y//(1-Y)]=beta_(0)+beta_(1)X</p></td>
+<td class="text-align:left"><p>beta_(1)Y(1-Y)</p></td>
+<td class="text-align:left"><p>beta_(1)(1-Y)X</p></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Elasticity
+$<span class="math notranslate nohighlight">\(
+  \eta_{y, x}=\frac{\% \Delta Y}{\% \Delta X}=\frac{\Delta Y / Y}{\Delta X / X}=\frac{\Delta Y}{\Delta X} \frac{X}{Y}
+  \)</span><span class="math notranslate nohighlight">\(
+  \% change in \)</span>Y<span class="math notranslate nohighlight">\( with respect to a \)</span>%<span class="math notranslate nohighlight">\( change in \)</span>X<span class="math notranslate nohighlight">\( for a small change in \)</span>X$</p></li>
+<li><p>Marginal effect <span class="math notranslate nohighlight">\(=\Delta Y / \Delta X\)</span>
+the change in <span class="math notranslate nohighlight">\(Y\)</span> per unit change in <span class="math notranslate nohighlight">\(X\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \begin{array}{r}
+    \ln \left(Y_{i t}\right)=Y_{b}-1 \\
+    \ln \left(Y_{i t}\right)-\ln \left(Y_{i, t-1}\right)=\ln \left(\frac{Y_{i t}}{Y_{i, L-1}}\right) \\
+    \frac{Y_{k,}-1}{Y_{i t-1}} \\
+    \frac{Y_{i t}-Y_{i t-1}}{Y_{i, t-1}}
+    \end{array}
+  \end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\operatorname{Ln}(X)\)</span> : The change in <span class="math notranslate nohighlight">\(Y\)</span> (in units)related to a <span class="math notranslate nohighlight">\(1 \%\)</span> increase in <span class="math notranslate nohighlight">\(X\)</span>
+<span class="math notranslate nohighlight">\(\operatorname{Ln}(Y)\)</span> : The precent change in <span class="math notranslate nohighlight">\(Y\)</span> related to a one-unit increate in <span class="math notranslate nohighlight">\(X\)</span></p>
+</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>格兰杰因果检验<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>检查X是否有助于Y的增长</p>
+</div>
+<div class="section" id="id6">
+<h2>时间序列分解<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Additive decomposition: <span class="math notranslate nohighlight">\(y_{t}=S_{t}+T_{t}+R_{t}\)</span></p></li>
+<li><p>Multiplicative decomposition: <span class="math notranslate nohighlight">\(y_{t}=S_{t} \times T_{t} \times R_{t}\)</span></p></li>
+</ul>
+</div>
+<div class="section" id="spatial-panel-data-analysis">
+<h2>Spatial Panel data analysis<a class="headerlink" href="#spatial-panel-data-analysis" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Model specification could be a mixed structure of spatial lag and spatial error model.</p></li>
+<li><p>Unobserved heterogeneity could be fxed effects or random effects.</p></li>
+<li><p>OLS is biased and inconsistent; Consistent IV or 2SLS should be used, with robust inference.</p></li>
+<li><p>If normality assumption of the model is maintained, efficient ML estimation could be used but with computatlonal complexity.</p></li>
+<li><p>Efflclent GMM estimation is recommended.</p></li>
+<li><p>案例：比如微信公众号流量影响微信视频号流量有溢出效应</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2>各种相关系数<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>皮尔森相关系数 (Pearson) : 衡量了两个连续型变量之间的线性相关程度, 要求数据连续变量的取值服从正态分布
+$<span class="math notranslate nohighlight">\(
+\rho_{X, Y}=\frac{\operatorname{cov}(X, Y)}{\sigma_{X} \sigma_{Y}}=\frac{E\left[\left(X-\mu_{X}\right)\left(Y-\mu_{Y}\right)\right]}{\sigma_{X} \sigma_{Y}}
+\)</span><span class="math notranslate nohighlight">\(
+斯皮尔曼相关系数（Spearman）：衡量两个变量之间秩次（排序的位置）的相关程度, 通常用于计算离散型数据、分类变量或等级变量
+\)</span><span class="math notranslate nohighlight">\(
+\rho=\frac{\sum_{i}\left(x_{i}-\bar{x}\right)\left(y_{i}-\bar{y}\right)}{\sqrt{\sum_{i}\left(x_{i}-\bar{x}\right)^{2} \sum_{i}\left(y_{i}-\bar{y}\right)^{2}}} .
+\)</span><span class="math notranslate nohighlight">\(
+之间的相关性, 对数据分布没有要求
+肯德尔相关系数 (Kendall's Tau-b) : 用于计算有序的分类变量之间的相关系数, 和斯皮尔曼相关系数相似, 在样本较小时（比如小于12）更为精确
+\)</span><span class="math notranslate nohighlight">\(
+\tau=\frac{(\text { number of concordant pairs })-(\text { number of discordant pairs })}{n(n-1) / 2} .
+\)</span>$</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Analysis"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="DA.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">数据分析</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../Causal_Inference/README.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">基础</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jace Yang<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

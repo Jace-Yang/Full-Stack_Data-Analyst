@@ -1,5 +1,6 @@
 # Jace六边形DA笔记库
 
+
 哈喽，欢迎来到我的笔记库！我是一名哥大DS的学生，现在在努力成为一只物理魔法双修的全栈DA！
 
 <center><img src="https://cdn.mathpix.com/snip/images/xNWgOsmBVBmEF-_XOMDOj9YBO4QD4uqSFGyLYWJnsow.original.fullsize.png" width="40%"/></center>
@@ -30,7 +31,7 @@
 优秀的DS一定是优秀的BA、DA、PM、DE、MLE的集合体！
 :::
 
-## DS职业素养
+### DS职业素养
 
 DS自我定位
 - 立场中立: 全心全意做好业务，但是在没前途的时候也要call out
@@ -43,8 +44,7 @@ DS专业素养
 - 明白逻辑谬误并能抓出来
 - 坦诚清晰的表达，能把复杂问题讲简单
 
-## PM职业素养
+### PM职业素养
 
 同理心是地基，想象力是天空，中间是逻辑和工具。
 > 来源：字节跳动七周年，张一鸣谈「务实的浪漫」：把想象变成现实:
-

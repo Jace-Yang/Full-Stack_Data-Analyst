@@ -1,0 +1,1174 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pandas &#8212; Towards a Full-stack DA</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="正则表达式" href="Regex.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo2.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Towards a Full-stack DA</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Jace六边形DA笔记库
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  多元分析
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Analysis/Business.html">
+   商业分析
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Analysis/DA.html">
+   数据分析
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Analysis/STAT.html">
+   统计分析
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  因果推断
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Causal_Inference/README.html">
+   基础
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Causal_Inference/1_AB_testing.html">
+   AB Test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Causal_Inference/2_methods.html">
+   因果推理方法
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  机器学习
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ML/README.html">
+   基础
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ML/SupervisedML.html">
+   有监督学习
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  深度学习
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../DL/Basics/README.html">
+   基础
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../DL/Basics/DL_hyperparameter.html">
+     DL常见超参及调整策略
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../DL/Basics/Optimizer.html">
+     优化器
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../DL/Basics/Trained_by_GPU.html">
+     GPU训练
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../DL/NLP/README.html">
+   NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../DL/NLP/basics.html">
+     基础概念
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../DL/NLP/Self-attention.html">
+     Self-Attention
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../DL/NLP/Transformer.html">
+     Transformer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../DL/NLP/BERT.html">
+     BERT
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../DL/NN_compression/README.html">
+   神经网络压缩
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../DL/NN_compression/KD.html">
+     知识蒸馏
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../DL/NN_compression/Distill_Bert.html">
+       Distill Bert
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../DL/NN_compression/Quantize.html">
+     量化
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../DL/NN_compression/QBert.html">
+       Q-BERT
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  数据仓库
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../README.html">
+   基础概念
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../SQL.html">
+   SQL
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="README.html">
+   数据清洗与处理
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="Regex.html">
+     正则表达式
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Pandas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  联系方式
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://www.linkedin.com/in/jinhang-yang/">
+   LinkedIn
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/DE/Data_cleaning/pandas.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FDE/Data_cleaning/pandas.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/DE/Data_cleaning/pandas.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/Jace-Yang/Full-Stack_Data-Analyst/master?urlpath=tree/DE/Data_cleaning/pandas.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#agg">
+   agg
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Pandas</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#agg">
+   agg
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="pandas">
+<h1>Pandas<a class="headerlink" href="#pandas" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="agg">
+<h2>agg<a class="headerlink" href="#agg" title="Permalink to this headline">¶</a></h2>
+<p><strong>aggregation的时候顺带修改新生成列的名字:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;kind&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">9.1</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">],</span>
+                   <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">7.9</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">9.9</span><span class="p">,</span> <span class="mf">198.0</span><span class="p">]})</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>kind</th>
+      <th>height</th>
+      <th>weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>cat</td>
+      <td>9.1</td>
+      <td>7.9</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>dog</td>
+      <td>6.0</td>
+      <td>7.5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>cat</td>
+      <td>9.5</td>
+      <td>9.9</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>dog</td>
+      <td>34.0</td>
+      <td>198.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>aggregation的时候考虑多个列，并且改名:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+ 
+<span class="c1"># data is loaded in a DataFrame</span>
+<span class="n">cancer_data</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cancer_data</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cancer_data</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">cancer_data</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;worst texture&#39;</span><span class="p">,</span> <span class="s1">&#39;worst area&#39;</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">]]</span>
+<span class="n">df1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>worst texture</th>
+      <th>worst area</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17.33</td>
+      <td>2019.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>23.41</td>
+      <td>1956.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>25.53</td>
+      <td>1709.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>26.50</td>
+      <td>567.7</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>16.67</td>
+      <td>1575.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>564</th>
+      <td>26.40</td>
+      <td>2027.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>565</th>
+      <td>38.25</td>
+      <td>1731.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>566</th>
+      <td>34.12</td>
+      <td>1124.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>567</th>
+      <td>39.42</td>
+      <td>1821.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>568</th>
+      <td>30.37</td>
+      <td>268.6</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>569 rows × 3 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">meanofTargets</span><span class="p">(</span><span class="n">group1</span><span class="p">):</span>
+   
+    <span class="n">wt</span> <span class="o">=</span> <span class="n">group1</span><span class="p">[</span><span class="s1">&#39;worst texture&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="n">wa</span> <span class="o">=</span> <span class="n">group1</span><span class="p">[</span><span class="s1">&#39;worst area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+    <span class="n">group1</span><span class="p">[</span><span class="s1">&#39;Mean worst texture&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wt</span>
+    <span class="n">group1</span><span class="p">[</span><span class="s1">&#39;Mean worst area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wa</span>
+    <span class="k">return</span> <span class="n">group1</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">meanofTargets</span><span class="p">)</span>
+<span class="n">df2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>worst texture</th>
+      <th>worst area</th>
+      <th>target</th>
+      <th>Mean worst texture</th>
+      <th>Mean worst area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17.33</td>
+      <td>2019.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>23.41</td>
+      <td>1956.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>25.53</td>
+      <td>1709.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>26.50</td>
+      <td>567.7</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>16.67</td>
+      <td>1575.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>564</th>
+      <td>26.40</td>
+      <td>2027.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>565</th>
+      <td>38.25</td>
+      <td>1731.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>566</th>
+      <td>34.12</td>
+      <td>1124.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>567</th>
+      <td>39.42</td>
+      <td>1821.0</td>
+      <td>0</td>
+      <td>29.318208</td>
+      <td>1422.286321</td>
+    </tr>
+    <tr>
+      <th>568</th>
+      <td>30.37</td>
+      <td>268.6</td>
+      <td>1</td>
+      <td>23.515070</td>
+      <td>558.899440</td>
+    </tr>
+  </tbody>
+</table>
+<p>569 rows × 5 columns</p>
+</div></div></div>
+</div>
+<p><strong>类比dplyr和SQL的聚合</strong></p>
+<p>pandas实现GROUP BY环境下的SUM() / SUM()并且能对输出命名的过程是比较复杂的，举一个小例子：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layer_drop_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s1">&#39;data/pandas_example_layer_drop_time.pickle&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_speedup</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">df_output</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;task&#39;</span><span class="p">,</span> <span class="s1">&#39;n_layer_drop&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">df_output</span><span class="p">[</span><span class="s1">&#39;speedup&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inference_latency&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;inference_latency_baseline&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">df_output</span>
+<span class="n">layer_drop_time</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>task</th>
+      <th>experiments</th>
+      <th>strategy</th>
+      <th>n_layer_drop</th>
+      <th>layer_drop</th>
+      <th>Num examples</th>
+      <th>inference_time</th>
+      <th>train_time</th>
+      <th>n_epoch</th>
+      <th>train_time_per_epoch</th>
+      <th>...</th>
+      <th>inference_throughput</th>
+      <th>train_time_per_epoch_baseline</th>
+      <th>inference_latency_baseline</th>
+      <th>inference_throughput_baseline</th>
+      <th>diff_train_time_per_epoch</th>
+      <th>percentage_diff_train_time_per_epoch</th>
+      <th>diff_inference_latency</th>
+      <th>percentage_diff_inference_latency</th>
+      <th>diff_inference_throughput</th>
+      <th>percentage_diff_inference_throughput</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>cola</td>
+      <td>Remove Layers</td>
+      <td>Bottom Drop</td>
+      <td>2</td>
+      <td>0,1</td>
+      <td>1043.0</td>
+      <td>9.267023</td>
+      <td>326.441859</td>
+      <td>3</td>
+      <td>108.813953</td>
+      <td>...</td>
+      <td>112.549625</td>
+      <td>138.738982</td>
+      <td>0.008906</td>
+      <td>112.284841</td>
+      <td>-29.925029</td>
+      <td>-0.275011</td>
+      <td>-0.000021</td>
+      <td>-0.002358</td>
+      <td>0.264784</td>
+      <td>0.002353</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>cola</td>
+      <td>Remove Layers</td>
+      <td>Bottom Drop</td>
+      <td>4</td>
+      <td>0,1,2,3</td>
+      <td>1043.0</td>
+      <td>9.261514</td>
+      <td>262.275043</td>
+      <td>3</td>
+      <td>87.425014</td>
+      <td>...</td>
+      <td>112.616577</td>
+      <td>138.738982</td>
+      <td>0.008906</td>
+      <td>112.284841</td>
+      <td>-51.313968</td>
+      <td>-0.586948</td>
+      <td>-0.000026</td>
+      <td>-0.002954</td>
+      <td>0.331736</td>
+      <td>0.002946</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>cola</td>
+      <td>Remove Layers</td>
+      <td>Bottom Drop</td>
+      <td>6</td>
+      <td>0,1,2,3,4,5</td>
+      <td>1043.0</td>
+      <td>9.268895</td>
+      <td>198.315210</td>
+      <td>3</td>
+      <td>66.105070</td>
+      <td>...</td>
+      <td>112.526899</td>
+      <td>138.738982</td>
+      <td>0.008906</td>
+      <td>112.284841</td>
+      <td>-72.633912</td>
+      <td>-1.098765</td>
+      <td>-0.000019</td>
+      <td>-0.002156</td>
+      <td>0.242058</td>
+      <td>0.002151</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>cola</td>
+      <td>Remove Layers</td>
+      <td>Symmetric Drop</td>
+      <td>2</td>
+      <td>5,6</td>
+      <td>1043.0</td>
+      <td>9.273199</td>
+      <td>326.141196</td>
+      <td>3</td>
+      <td>108.713732</td>
+      <td>...</td>
+      <td>112.474666</td>
+      <td>138.738982</td>
+      <td>0.008906</td>
+      <td>112.284841</td>
+      <td>-30.025250</td>
+      <td>-0.276186</td>
+      <td>-0.000015</td>
+      <td>-0.001691</td>
+      <td>0.189825</td>
+      <td>0.001688</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>cola</td>
+      <td>Remove Layers</td>
+      <td>Symmetric Drop</td>
+      <td>4</td>
+      <td>4,5,6,7</td>
+      <td>1043.0</td>
+      <td>9.271496</td>
+      <td>262.707250</td>
+      <td>3</td>
+      <td>87.569083</td>
+      <td>...</td>
+      <td>112.495329</td>
+      <td>138.738982</td>
+      <td>0.008906</td>
+      <td>112.284841</td>
+      <td>-51.169899</td>
+      <td>-0.584337</td>
+      <td>-0.000017</td>
+      <td>-0.001875</td>
+      <td>0.210488</td>
+      <td>0.001871</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">layer_drop_time</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;task&#39;</span><span class="p">,</span> <span class="s1">&#39;n_layer_drop&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_speedup</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>task</th>
+      <th>n_layer_drop</th>
+      <th>speedup</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>cola</td>
+      <td>2</td>
+      <td>0.998095</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>cola</td>
+      <td>4</td>
+      <td>0.997573</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>cola</td>
+      <td>6</td>
+      <td>0.997965</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>mrpc</td>
+      <td>2</td>
+      <td>0.998157</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>mrpc</td>
+      <td>4</td>
+      <td>1.000850</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>mrpc</td>
+      <td>6</td>
+      <td>1.000129</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>rte</td>
+      <td>2</td>
+      <td>0.837115</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>rte</td>
+      <td>4</td>
+      <td>0.721320</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>rte</td>
+      <td>6</td>
+      <td>0.543230</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>sst-2</td>
+      <td>2</td>
+      <td>0.998929</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>sst-2</td>
+      <td>4</td>
+      <td>0.998318</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>sst-2</td>
+      <td>6</td>
+      <td>0.998895</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>sts-b</td>
+      <td>2</td>
+      <td>1.347481</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>sts-b</td>
+      <td>4</td>
+      <td>1.056215</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>sts-b</td>
+      <td>6</td>
+      <td>0.805969</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>wnli</td>
+      <td>2</td>
+      <td>0.819518</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>wnli</td>
+      <td>4</td>
+      <td>0.660700</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>wnli</td>
+      <td>6</td>
+      <td>0.539791</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p>这个地方apply传入的<code class="docutils literal notranslate"><span class="pre">df</span></code>其实就是shuffle好的每个group，而且包含了group key，</p></li>
+<li><p>我们可以写一个类似reduce的函数，但第一步需要先把group的column给deduplicate了～（不做的话就写成一个复杂版的transform的了）</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./DE/Data_cleaning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="Regex.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">正则表达式</p>
+        </div>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jace Yang<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

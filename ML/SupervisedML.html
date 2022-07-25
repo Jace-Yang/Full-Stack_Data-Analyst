@@ -1,0 +1,2139 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>有监督学习 &#8212; Towards a Full-stack DA</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="基础" href="../DL/Basics/README.html" />
+    <link rel="prev" title="基础" href="README.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo2.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Towards a Full-stack DA</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Jace六边形DA笔记库
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  多元分析
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Analysis/Business.html">
+   商业分析
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Analysis/DA.html">
+   数据分析
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Analysis/STAT.html">
+   统计分析
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  因果推断
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Causal_Inference/README.html">
+   基础
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Causal_Inference/1_AB_testing.html">
+   AB Test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Causal_Inference/2_methods.html">
+   因果推理方法
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  机器学习
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="README.html">
+   基础
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   有监督学习
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  深度学习
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../DL/Basics/README.html">
+   基础
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/Basics/DL_hyperparameter.html">
+     DL常见超参及调整策略
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/Basics/Optimizer.html">
+     优化器
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/Basics/Trained_by_GPU.html">
+     GPU训练
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../DL/NLP/README.html">
+   NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/basics.html">
+     基础概念
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/Self-attention.html">
+     Self-Attention
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/Transformer.html">
+     Transformer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/BERT.html">
+     BERT
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../DL/NN_compression/README.html">
+   神经网络压缩
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../DL/NN_compression/KD.html">
+     知识蒸馏
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../DL/NN_compression/Distill_Bert.html">
+       Distill Bert
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../DL/NN_compression/Quantize.html">
+     量化
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../DL/NN_compression/QBert.html">
+       Q-BERT
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  数据仓库
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../DE/README.html">
+   基础概念
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../DE/SQL.html">
+   SQL
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../DE/Data_cleaning/README.html">
+   数据清洗与处理
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DE/Data_cleaning/Regex.html">
+     正则表达式
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DE/Data_cleaning/pandas.html">
+     Pandas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  联系方式
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://www.linkedin.com/in/jinhang-yang/">
+   LinkedIn
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/ML/SupervisedML.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FML/SupervisedML.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/ML/SupervisedML.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   有监督学习
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     整体框架
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#data-preprocessing">
+       Data Preprocessing
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#missing-data">
+         Missing Data
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#categorical-data">
+         categorical data
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#numerical-feature-scaling">
+         Numerical Feature Scaling
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#outliers">
+         Outliers
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       模型训练步骤
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#knn">
+     KNN
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     线性回归类
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#simple-linear-regression">
+       Simple Linear Regression
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#ridge-regression">
+       Ridge Regression
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#lasso-regression">
+       Lasso Regression
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#elastic-net-regression">
+       Elastic-Net regression
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#l1l2">
+       L1和L2的区别
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#logistic-regression">
+     Logistic Regression
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#setup">
+       模型Setup
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       <strong>
+        多分类问题常规解决方案
+       </strong>
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#logistics">
+       <strong>
+        Logistics解决多分类问题
+       </strong>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#svm">
+     SVM
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#primal-hard-margin">
+       Primal + Hard-margin
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#primal-dual">
+       Primal + Dual
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#primal-soft-margin">
+       Primal + Soft- margin
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dual-soft-margin">
+       Dual + Soft-margin
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ensemble-methods">
+     Ensemble Methods
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#bagging">
+       Bagging
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#boosting">
+       Boosting
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#baggingboosting">
+       Bagging和Boosting的区别
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#stacking">
+       Stacking
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trees">
+     Trees
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#decision-trees">
+       Decision Trees
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#gradient-boosting">
+       Gradient Boosting
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#gradientboostingclassifier">
+       GradientBoostingClassiﬁer
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#histgradientboostingclassifier">
+       HistGradientBoostingClassiﬁer
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#xgboost">
+       XGBoost
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#lightgbm">
+       LightGBM
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#xgboostlightgbm">
+       XGBoost和LightGBM的区别
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#catboost">
+       CatBoost
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reference">
+   Reference
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>有监督学习</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   有监督学习
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     整体框架
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#data-preprocessing">
+       Data Preprocessing
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#missing-data">
+         Missing Data
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#categorical-data">
+         categorical data
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#numerical-feature-scaling">
+         Numerical Feature Scaling
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#outliers">
+         Outliers
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       模型训练步骤
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#knn">
+     KNN
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     线性回归类
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#simple-linear-regression">
+       Simple Linear Regression
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#ridge-regression">
+       Ridge Regression
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#lasso-regression">
+       Lasso Regression
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#elastic-net-regression">
+       Elastic-Net regression
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#l1l2">
+       L1和L2的区别
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#logistic-regression">
+     Logistic Regression
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#setup">
+       模型Setup
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       <strong>
+        多分类问题常规解决方案
+       </strong>
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#logistics">
+       <strong>
+        Logistics解决多分类问题
+       </strong>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#svm">
+     SVM
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#primal-hard-margin">
+       Primal + Hard-margin
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#primal-dual">
+       Primal + Dual
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#primal-soft-margin">
+       Primal + Soft- margin
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dual-soft-margin">
+       Dual + Soft-margin
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ensemble-methods">
+     Ensemble Methods
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#bagging">
+       Bagging
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#boosting">
+       Boosting
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#baggingboosting">
+       Bagging和Boosting的区别
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#stacking">
+       Stacking
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trees">
+     Trees
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#decision-trees">
+       Decision Trees
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#gradient-boosting">
+       Gradient Boosting
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#gradientboostingclassifier">
+       GradientBoostingClassiﬁer
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#histgradientboostingclassifier">
+       HistGradientBoostingClassiﬁer
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#xgboost">
+       XGBoost
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#lightgbm">
+       LightGBM
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#xgboostlightgbm">
+       XGBoost和LightGBM的区别
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#catboost">
+       CatBoost
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reference">
+   Reference
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1>有监督学习<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>整体框架<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><strong>最终输出：超参数设定➕模型➕模型表现</strong></p>
+<ul class="simple">
+<li><p>Development-test split、Hyperparameter tuning 、Optimal model training、Model evaluation、Model deployment</p></li>
+</ul>
+<p><img alt="img" src="../_images/(null)-20220724153653287.(null)" /></p>
+<ul>
+<li><p>evaluation很重要：因为我们需要知道每个复杂度的模型对应的表现是多少，来判断有没有必要用复杂的模型！</p>
+<p>因此：不可以用整个dataset出超参数而放弃evaluation</p>
+</li>
+</ul>
+<div class="section" id="data-preprocessing">
+<h3>Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="missing-data">
+<h4>Missing Data<a class="headerlink" href="#missing-data" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p>不处理（当成一种值）然后用确实不敏感的树模型</p></li>
+<li><p>剔除</p>
+<ul class="simple">
+<li><p>Drop column (typically used as baseline)：缺失太多的时候</p></li>
+<li><p>Drop rows (if there are only a few with missing values)</p></li>
+</ul>
+</li>
+<li><p>填充（Impute:）</p>
+<ul class="simple">
+<li><p>mean or median (SimpleImputer in sklearn API)</p></li>
+<li><p>kNN (neighbors are found using nan_euclidean_distance  metric)</p></li>
+<li><p>Regression models</p></li>
+</ul>
+</li>
+<li><p>Add a binary additional indicator column (跟上一步一致)</p>
+<p>(often captured by adding missing indicator columns)</p>
+<ul class="simple">
+<li><p>Missing in not random! It will add value to the model</p></li>
+<li><p>比如！有个class is always missing！就像16岁以下的这个组没有驾照年限,这个可以是predictive columns！！</p></li>
+</ul>
+</li>
+<li><p>Matrix factorization：将一个含<em>缺失</em>值的矩阵 X 分解为两个(或多个)矩阵,然后这些分解后的矩阵相乘就 可以得到原矩阵的近似 X</p></li>
+</ul>
+</div>
+<div class="section" id="categorical-data">
+<h4>categorical data<a class="headerlink" href="#categorical-data" title="Permalink to this headline">¶</a></h4>
+<p>注意：都是对分开之后的数据！只针对train data 来fit</p>
+<ul class="simple">
+<li><p>Ordinal encoding</p>
+<ul>
+<li><p>Missing value可以理解为最不重要的class然后给0，也可以理解为最重要的给max！或者impute成mode</p></li>
+</ul>
+</li>
+<li><p>One-hot encoding: no information loss.</p>
+<ul>
+<li><p>特点</p>
+<ul>
+<li><p>处理缺失：missing的时候可以把missing当作一种category</p></li>
+<li><p>测试集遇到新的类别的时候：加入<code class="docutils literal notranslate"><span class="pre">handle_unkown</span> <span class="pre">=</span> <span class="pre">&quot;ignore&quot;</span></code>可以</p></li>
+</ul>
+</li>
+<li><p>场景：</p>
+<ul>
+<li><p>One-hot encoding introduces <strong>multi-collinearity</strong></p>
+<ul>
+<li><p>For e.g., x3 = 1 - x1 - x2 (in case when we have three categories)</p></li>
+<li><p>Possible to remove one feature, because it’s a <strong>linear combination of the other columns</strong>, could be problematic for some non-regularized regression models</p></li>
+<li><p>Has <strong>implications</strong> on model interpretation</p>
+<ul>
+<li><p>可以drop这个也可以drop别的，这样的话feature importance就不同了</p></li>
+<li><p>有人可以keep all columns, and apply regulariazation to take care of during the training process, then get insights into the model</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>有的模型 比如trees，可以split on categorical variables, so it will automatically handles categorical variables：</p>
+<ul>
+<li><p>Tree-based models</p></li>
+<li><p>Naive Bayes models</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>问题：Leads to high-dimensional datasets</p></li>
+</ul>
+</li>
+<li><p>Target encoding：不是introduce 1 column for 1 category, 而是summarize the information for each category and convert into 1 column</p>
+<ul>
+<li><p>Generally applicable for high <strong>cardinality</strong> categorical features</p></li>
+<li><p>具体encode的方式取决于模型问题：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Regression</span></code>: Average target value for each category</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Classification</span></code>: Average of 概率——这个比直接map到label好，因为依然可以根据probability区分出不同的class对y的影响</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Binary</span> <span class="pre">classiﬁcation</span></code>: Probability of being in class 1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Multiclass</span> <span class="pre">classiﬁcation</span></code>: <em>One feature per class</em> that gives the probability distribution</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="numerical-feature-scaling">
+<h4>Numerical Feature Scaling<a class="headerlink" href="#numerical-feature-scaling" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>scaling不会改变原始数据，但是会让模型变得好</p></li>
+<li><p>记得要fit_transform(训练集)，然后transform(测试集)而不是fit_transform(测试集)，因为我们不知道测试集的mean和std等</p></li>
+</ul>
+<p><img src="../images/(null)-20220724215527501.(null)" alt="img" style="width:50%;" /><img src="../images/(null)-20220724215537886.(null)" alt="img" style="width:50%;" /></p>
+<ul>
+<li><p>具体的方式：StandardScaler()、MinMaxScaler()、MaxAbsScaler()（除以最大值的话负数还会是负数）、RobustScaler()、Nomalizer()（变成圆形）</p></li>
+<li><p>注意应该做fit的数据集跟应该做fit的模型是一致的</p>
+<ul>
+<li><p>比如hyper parameter tuning的时候  scaler不应该碰validation data</p>
+<img src="../images/(null)-20220724215547062.(null)" alt="img" style="width:50%;" />
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="outliers">
+<h4>Outliers<a class="headerlink" href="#outliers" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>检测方式：IQR、LR之后看cook距离</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>模型训练步骤<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Development-test split</p>
+<ul>
+<li><p>Random split</p>
+<ul class="simple">
+<li><p>比例取决于实际问题</p>
+<ul>
+<li><p>Large Sample Size：两边都够 随便</p></li>
+<li><p>训练集小的 比如只有100个的时候可能需要put aside少一点</p></li>
+<li><p>有时候太多了，只需要训练50%的数据就够了来节省时间，后面拿50%去测试，training procures is shorten without comprimising the quality of model</p></li>
+</ul>
+</li>
+<li><p>最后输出各个target的不一定是占比一样的</p></li>
+</ul>
+</li>
+<li><p>Stratiﬁed Splitting</p>
+<ul>
+<li><p>The stratiﬁed splitting ensures that the <strong>ratio of classes in development</strong> and <strong>test datasets</strong> equals that of the original dataset.</p></li>
+<li><p>Generally employed when performing classiﬁcation tasks on highly imbalanced datasets</p></li>
+<li><p>index是class</p>
+<img src="../images/(null)-20220724221510415.(null)" alt="img" style="width: 33%;" />
+</li>
+<li><p>是SK learn的默认值！</p></li>
+</ul>
+</li>
+<li><p>Structured Splitting</p>
+<ul class="simple">
+<li><p>The structured splitting is generally employed to prevent data leakage.</p></li>
+<li><p>Examples：Stock price predictions、Time-series predictions</p></li>
+</ul>
+</li>
+</ul>
+<img src="../images/(null)-20220724221513024.(null)" alt="img" style="width: 33%;" />
+<p>Hyper-parameter tuning</p>
+<p>核心目标：Training data ⇒ Select Best Parameters</p>
+<img src="../images/(null)-20220724221503960.(null)" alt="img" style="width:25%;" />
+<p>超参的注意事项——注意复杂度</p>
+<ul>
+<li><p>对模型复杂度的理解：对模型变复杂，我们在做Bias-Variance的Tradeoﬀ.模型的预测误差可以分解为三个部分: 偏差(bias)， 方差(variance) 和噪声(noise).</p>
+<ul>
+<li><p>the conflict in trying to simultaneously minimize these two sources of <a class="reference external" href="https://en.wikipedia.org/wiki/Errors_and_residuals_in_statistics">error</a> that prevent supervised learning algorithms from generalizing beyond their training set</p>
+<ul>
+<li><p><strong>The</strong> <em><strong><a class="reference external" href="https://en.wikipedia.org/wiki/Bias_of_an_estimator">bias</a></strong></em> <strong>error</strong> is an error from erroneous assumptions in the learning <a class="reference external" href="https://en.wikipedia.org/wiki/Algorithm">algorithm</a>. High bias can cause an algorithm to <em>miss the relevant relations between features and target outputs</em> (underfitting). 偏差度量了模型的期望预测与真实结果的偏离程度， 即刻画了学习算法本身的拟合能力。偏差则表现为在特定分布上的适应能力，偏差越大越偏离真实值。</p></li>
+<li><p><strong>The</strong> <em><strong><a class="reference external" href="https://en.wikipedia.org/wiki/Variance">variance</a></strong></em> is an error from <strong>sensitivity</strong> to <strong>small fluctuations in the training set</strong>. High variance may result from an algorithm modeling the random <a class="reference external" href="https://en.wikipedia.org/wiki/Noise_(signal_processing)">noise</a> in the training data (<a class="reference external" href="https://en.wikipedia.org/wiki/Overfitting">overfitting</a>). 方差度量了同样大小的训练集的变动所导致的学习性能的变化， 即刻画了数据扰动所造成的影响。方差越大，说明数据分布越分散</p></li>
+<li><p>噪声：噪声表达了在当前任务上任何模型所能达到的期望泛化误差的下界， 即刻画了学习问题本身的难度 。</p>
+<p><img src="../images/(null)-20220724221505235.(null)" alt="img" style="width:45%;" /><img src="../images/(null)-20220724221443081.(null)" alt="img" style="width:45%;" /></p>
+<ul class="simple">
+<li><p>我们想要左上角：都很准确</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>过拟合问题</strong></p>
+<img src="../images/(null)-20220724221442702.(null)" alt="img" style="width: 50%;" />
+<ul class="simple">
+<li><p>underfitting是low variance high bias：没有variance但都预测出偏差了</p>
+<ul>
+<li><p>当算法从数据集学习真实信号的<strong>灵活性有限</strong>时，就会出现偏差。( 想的太过简单，欠拟合), 所以模型整体产生偏差。</p></li>
+<li><p>欠拟合指的是模型没有很好地学习到数据特征，不能够很好地拟合数据，在训练数据和未知数据上表现都很差。</p></li>
+<li><p>欠拟合的原因在于：</p>
+<ul>
+<li><p>特征量过少；</p></li>
+<li><p>模型复杂度过低</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>解决：</p>
+<ul>
+<li><p>增加新特征，可以考虑加入进特征组合、高次特征，来增大假设空间；</p></li>
+<li><p>添加<strong>多项式特征</strong>，这个在机器学习算法里面用的很普遍，例如将线性模型通过添加二次项或者三次项使模型泛化能力更强；</p></li>
+<li><p><strong>减少正则化参数</strong>，正则化的目的是用来防止过拟合的，但是模型出现了欠拟合，则需要减少正则化参数；</p></li>
+<li><p>使用<strong>非线性模型</strong>，比如核SVM 、决策树、深度学习等模型；</p></li>
+<li><p>调整<strong>模型的容量(capacity)</strong>，通俗地，模型的容量是指其拟合各种函数的能力；</p></li>
+<li><p>容量低的模型可能很难拟合训练集。</p></li>
+</ul>
+</li>
+<li><p>overfitting是high variance low bias：平均来看的话 是center the plot means doing well! 但variance非常高</p>
+<ul>
+<li><p>太关注训练集中个体波动，过拟合</p></li>
+<li><p>高方差模型，对特定训练数据集的灵活性极高。</p></li>
+<li><p>高方差模型非常关注训练数据，而对以前没有见过的数据不进行泛化generalizability。因此，这样的模型在训练数据上表现得很好，但在测试数据上却有很高的错误率。</p></li>
+<li><p>过拟合的原因在于：</p>
+<ul>
+<li><p><strong>参数太多</strong>，模型复杂度过高；</p></li>
+<li><p>建模<strong>样本选取有误</strong>，导致选取的样本数据不足以代表预定的分类规则；</p></li>
+<li><p><strong>样本噪音干扰过大</strong>，使得机器将部分噪音认为是特征从而扰乱了预设的分类规则；</p></li>
+<li><p>假设的<strong>模型无法合理存在</strong>，或者说是假设成立的条件实际并不成立。</p></li>
+<li></li>
+</ul>
+</li>
+<li><p>怎么解决过拟合（重点）🌟🌟🌟</p>
+<ul>
+<li><p>获取和使用<strong>更多的数据</strong>（数据集增强）——解决过拟合的根本性方法</p></li>
+<li><p><strong>特征降维</strong>:人工选择保留特征的方法对特征进行降维</p></li>
+<li><p>加入正则化，控制模型的复杂度</p>
+<ul>
+<li><p>为什么参数越小代表模型越简单？</p>
+<ul>
+<li><p>因为参数的稀疏，在一定程度上实现了特征的选择。</p></li>
+<li><p>越复杂的模型，越是会尝试对所有的样本进行拟合，甚至包括一些异常样本点，这就容易造成在较小的区间里预测值产生较大的波动，这种较大的波动也反映了在这个区间里的导数很大，而<strong>只有较大的参数值才能产生较大的导数。因此复杂的模型，其参数值会比较大</strong>。 因此参数越少代表模型越简单</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Dropout</strong></p></li>
+<li><p>Early stopping</p></li>
+<li><p>交叉验证</p></li>
+<li><p>增加噪声</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>参数和超参数的区别：parameter是learn from data的 hyperparameter是你定的</p>
+<ul class="simple">
+<li><p>也可以让数据出hyperparameter，但这样的话就optimization problem会变得复杂，而不是一个简单的可以solve的convex optimization，所以我们会fix它</p></li>
+</ul>
+<p>超参数搜索方法</p>
+<img src="../images/(null)-20220724221446494.(null)" alt="img" style="width:33%;" />
+<ul class="simple">
+<li><p>Grid: there are really three distinct values of one parameter and three distinct values of another parameter, so there are only 3 x 3, 6 different values tried.</p></li>
+<li><p>Random: probably there are nine different values, and in this case there are nine different values. when you actually doing random search, you’re actually <strong>trying different values more than the search itself, which has a finite set of values</strong></p>
+<ul>
+<li><p>好处：<strong>对dominating的parameter可以尝试更多的值</strong></p></li>
+</ul>
+</li>
+<li><p>Bayesian optimization：given search, figure out the best next point to search</p>
+<ul>
+<li><p>Bayesian optimization works by constructing a probability distribution of possible functions (gaussian process) that best describe the function you want to optimize.</p>
+<ul>
+<li><p>Gaussian process把所有搜索过的点拟合成一个函数</p></li>
+</ul>
+</li>
+<li><p>A utility function helps explore the parameter space by trading between exploration and exploitation.</p></li>
+<li><p>The probability distribution of functions is <em>updated (bayesian) based on observations so far.</em></p></li>
+<li><p>区别：不是pre determined的，然后grid 和random不需要使用我们输入的结果</p></li>
+</ul>
+</li>
+<li><p>两者结合——Evolutionary optimization</p></li>
+<li><p>超参选择方法（model selection）：对每个超参strategy，我们需要知道这个超参数表现怎么样</p>
+<ul>
+<li><p>如果使用test data的话，会导致overfitting，所以我们使用一个validation dataset来衡量effectiveness of a hyperparameter value，从而实现model selection！</p></li>
+<li><p>Three-way holdout：跟之前的split testset的方法一样do another split，可以random stratified之类的</p>
+<ul>
+<li><p>效果：give reasonable approximation of test performance on large balanced datasets</p></li>
+</ul>
+</li>
+<li><p>K-fold cross validation (CV)： 数据分成k份，执行k次（k-1份当模型 剩一份评估）⇒平均表现</p></li>
+</ul>
+</li>
+</ul>
+<img src="../images/(null)-20220724221503787.(null)" alt="img" style="width:50%;" />
+<ul>
+<li><p>Leave-one-out CV：k = n，<strong>所有的样本都单独被拿走一次</strong></p>
+<ul class="simple">
+<li><p>High variance 适用于小数据！</p></li>
+</ul>
+</li>
+<li><p>Repeated stratiﬁed K-fold CV：K-fold的基础上 每次development data is <em>shuffled</em> before creating the training &amp; validation datasets</p></li>
+<li><p>Stratiﬁed K-fold CV</p>
+<img src="../images/(null)-20220724221510330.(null)" alt="img" style="width:33%;" />
+<ul class="simple">
+<li><p>Stratiﬁed sampling is used when working with highly imbalanced datasets ！</p></li>
+</ul>
+</li>
+<li><p>Random permutation CV：generate a user defined number of independent train / test dataset splits. Samples are first shuffled and then split into a pair of train and test sets.</p></li>
+<li><p>所以会是乱的！</p></li>
+</ul>
+<p><strong>Optimal model training, model evaluation</strong>：Development data = Training data + validation data ⇒ Model to evaluate</p>
+<ul class="simple">
+<li><p>The purpose of test dataset is to evaluate the <strong>performance of the ﬁnal optimal model</strong></p></li>
+<li><p>Model evaluation is supposed to give a pulse on how the model would perform in the wild.  (测试集的表现是为了衡量在unseen data 的表现！测试集相当于是一个proxy)</p>
+<ul>
+<li><p>这就是为什么在training process我们完全不touch test set</p></li>
+</ul>
+</li>
+</ul>
+<p><img src="../images/(null)-20220724221510063.(null)" alt="img" style="width:33%;" /><img src="../images/(null)-20220724221509687.(null)" alt="img" style="width:33%;" /></p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Model</span> <span class="pre">deployment</span> <span class="pre">Dataset</span></code></strong> ：Training data + validation data + Test data ⇒ Deployed model</p>
+<img src="../images/(null)-20220724222627619.(null)" alt="img" style="width:33%;" />
+</div>
+</div>
+<div class="section" id="knn">
+<h2>KNN<a class="headerlink" href="#knn" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p><a class="reference external" href="https://blog.csdn.net/sinat_30353259/article/details/80901746">https://blog.csdn.net/sinat_30353259/article/details/80901746</a></p>
+</div></blockquote>
+<p>A simple <strong>non-parametric</strong> supervised learning method： Assigns the value of the nearest neighbor(s) to the unseen data point</p>
+<ul class="simple">
+<li><p>Prediction is computationally expensive, while training is trivial</p></li>
+<li><p>Generally performs poorly at high dimensions</p></li>
+</ul>
+<img src="../images/(null)-20220724222726246.(null)" alt="img" style="width:25%;" />
+<p>计算这个点跟所有点的距离</p>
+<ul class="simple">
+<li><p>K = 1的时候 ，用离他最近的一个的label来预测</p></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>线性回归类<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="simple-linear-regression">
+<h3>Simple Linear Regression<a class="headerlink" href="#simple-linear-regression" title="Permalink to this headline">¶</a></h3>
+<p>Assumptions</p>
+<ul class="simple">
+<li><p>Linearity: Y are linearly dependent on each X variable. ( a linear (technically affine) function of x)</p></li>
+<li><p>Independence: Observations are independent to each other. the x’s are independently drawn, and not dependent on each other.</p>
+<ul>
+<li><p>反例：用2天前股价、3天前股价预测今天的</p></li>
+</ul>
+</li>
+<li><p>Homo<strong>scedas</strong>ticity：the ϵ’s, and thus the y’s, have constant variance.——残差 distributed arround 0</p></li>
+<li><p>Normality：残差正态the ϵ’s are drawn from a Normal distribution (i.e. Normally-distributed errors)</p></li>
+</ul>
+<p>公式</p>
+<img src="../images/(null)-20220724222758272.(null)" alt="img" style="width:33%;" />
+<p>问题：有highly-correlated variables的时候，coefficient可能会flip</p>
+<p>改进</p>
+<ul class="simple">
+<li><p>outlier很多的时候可以考虑log transformation on Y</p></li>
+</ul>
+</div>
+<div class="section" id="ridge-regression">
+<h3>Ridge Regression<a class="headerlink" href="#ridge-regression" title="Permalink to this headline">¶</a></h3>
+<img src="../images/(null)-20220724222758758.(null)" alt="img" style="width:33%;" />
+<ul class="simple">
+<li><p>注意是L2正则化$<span class="math notranslate nohighlight">\(\operatorname{Min}_{w} \sum_{i=1}^{m}\left(\hat{y}_{i}-y_{i}\right)^{2}+\alpha\|w\|_{2}^{2} \)</span>$</p></li>
+<li><p>解出来是在里面多了一个$<span class="math notranslate nohighlight">\(\alpha I\)</span><span class="math notranslate nohighlight">\(：\)</span><span class="math notranslate nohighlight">\(\boldsymbol{w}=(X^{T} X+\alpha I )^{-1} X^{T} y\)</span>$</p>
+<ul>
+<li><p>α越大，会越push $<span class="math notranslate nohighlight">\(\boldsymbol{w}\)</span>$ to 0</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="lasso-regression">
+<h3>Lasso Regression<a class="headerlink" href="#lasso-regression" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>公式：</p></li>
+</ul>
+<img src="../images/(null)-20220724222758325.(null)" alt="img" style="width:33%;" />
+<ul>
+<li><p>跟Ridge的区别：</p>
+<img src="../images/(null)-20220724222758875.(null)" alt="img" style="width:33%;" />
+<ul class="simple">
+<li><p>Firstly hit one of the corner 4 points and 1 coefficient become 0 in lasso!</p>
+<ul>
+<li><p>n维度的时候就会hit one of the colomn!</p></li>
+</ul>
+</li>
+<li><p>Ridge的时候有可能是0但大部分不是：<a class="reference external" href="https://stats.stackexchange.com/questions/176599/why-will-ridge-regression-not-shrink-some-coefficients-to-zero-like-lasso">https://stats.stackexchange.com/questions/176599/why-will-ridge-regression-not-shrink-some-coefficients-to-zero-like-lasso</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="elastic-net-regression">
+<h3>Elastic-Net regression<a class="headerlink" href="#elastic-net-regression" title="Permalink to this headline">¶</a></h3>
+<img src="../images/(null)-20220724222759130.(null)" alt="img" style="width:33%;" />
+<ul class="simple">
+<li><p>α：on whole regularization constrain</p></li>
+<li><p>λ：combination weight</p></li>
+</ul>
+<img src="../images/(null)-20220724222758490.(null)" alt="img" style="width:33%;" />
+</div>
+<div class="section" id="l1l2">
+<h3>L1和L2的区别<a class="headerlink" href="#l1l2" title="Permalink to this headline">¶</a></h3>
+<p>L1（Lasso）比L2（Ridge）更容易获得稀疏解，L2比L1更容易获得smooth解</p>
+<p><img alt="img" src="../_images/(null)-20220724222758563.(null)" /></p>
+<p><img alt="img" src="../_images/(null)-20220724222758573.(null)" /></p>
+<p><img alt="img" src="../_images/(null)-20220724222758809.(null)" /></p>
+<p>Logistic Regression</p>
+</div>
+</div>
+<div class="section" id="logistic-regression">
+<h2>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="setup">
+<h3>模型Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h3>
+<p><strong>Loss Function</strong></p>
+<img src="../images/(null)-20220724223457758.(null)" alt="img" style="width:33%;" />
+<ul class="simple">
+<li><p><strong>Hinge loss和log loss相比0-1 loss可以求导，这两个都是upper bond of the loss function（黑色那个）</strong></p></li>
+<li><p>假设 y = 1</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">0-1</span> <span class="pre">loss</span></code>：需要 w.T &#64; x + b &gt;0 才会是0**</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Hinge</span> <span class="pre">loss</span></code>：如果你预测-4 正确为1，那就是1-(1 * (-4)) = 5｜如果预测4正确为1，loss是1-1×4 = -3 然后再max(0, -3) = 0</p>
+<ul>
+<li><p><strong>总之正确的时候预测概率越接近1，loss越接近0，然后越离谱的话给的Hinge就会给越高的loss，而不是0-1那样fixed住</strong></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Logistic</span> <span class="pre">Loss</span></code>: 见下方</p></li>
+</ul>
+</li>
+</ul>
+<p>具体公式：</p>
+<img src="../images/(null)-20220724223457931.(null)" alt="img" style="width:33%;" />
+<p>推导过程：</p>
+<ul class="simple">
+<li><p>首先这是一种广义线性模型：把y=1的概率p用$<span class="math notranslate nohighlight">\(log(\frac{p}{1-p})\)</span><span class="math notranslate nohighlight">\(的联系函数跟系统部分\)</span><span class="math notranslate nohighlight">\(w^Tx + b\)</span>$给联系在了一起，这个function会推导出sigmoid：</p></li>
+</ul>
+<img src="../images/(null)-20220724223457515.(null)" alt="img" style="width:33%;" />
+<ul class="simple">
+<li><p>接着我们用最大似然估计来optimize想要求：$<span class="math notranslate nohighlight">\(p(y=1 \mid x)=\frac{1}{1+\exp \left(-\left(w^{T} x+b\right)\right)}\)</span>$</p></li>
+<li><p><strong>然后就得到了Log Likelihood</strong></p></li>
+</ul>
+<img src="../images/(null)-20220724223457224.(null)" alt="img" style="width:33%;" />
+<ul class="simple">
+<li><p><strong>于是我们把损失函数设定成Min(-LL)</strong></p></li>
+</ul>
+<img src="../images/(null)-20220724223457293.(null)" alt="img" style="width:33%;" />
+<ul>
+<li><p>再加入正则项就得到了一系列：<strong>Loss function for regularized logistics regression：</strong></p>
+<img src="../images/(null)-20220724223457754.(null)" alt="img" style="width:33%;" />
+<ul class="simple">
+<li><p>SK learn里面是C，高的$<span class="math notranslate nohighlight">\(C = \frac{1}{\alpha}\)</span>$相当于没有对参数限制见效</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3><strong>多分类问题常规解决方案</strong><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p><strong>叠加binary</strong></p>
+<ul class="simple">
+<li><p><strong>OVR (One vs Rest)</strong></p></li>
+</ul>
+<img src="../images/(null)-20220724223459288.(null)" alt="img" style="width:33%;" />
+<ul class="simple">
+<li><p><strong>OVO (One vs One)</strong></p></li>
+</ul>
+<img src="../images/(null)-20220724223458436.(null)" alt="img" style="width:33%;" />
+<ul>
+<li><p>建好几个binary classification，如果大多数model说你是class X就是那个</p></li>
+<li><p>对比</p>
+<img src="../images/(null)-20220724223458032.(null)" alt="img" style="width:50%;" />
+<ul class="simple">
+<li><p>比如三条线中间的地方，一人说你是一个class，是uncertainty</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="logistics">
+<h3><strong>Logistics解决多分类问题</strong><a class="headerlink" href="#logistics" title="Permalink to this headline">¶</a></h3>
+<p>直接extend</p>
+<img src="../images/(null)-20220724223459022.(null)" alt="img" style="width:50%;" />
+<ul class="simple">
+<li><p>因此可能会比用ovo和ovr的SVM要好！因为他直接globally optimize all the log odds of ratio. It actually solves it as a multiclass classification problem!</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="svm">
+<h2>SVM<a class="headerlink" href="#svm" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Hard/soft magin含义：</p></li>
+</ul>
+<img src="../images/(null)-20220724224339951.(null)" alt="img" style="width:50%;" />
+<div class="section" id="primal-hard-margin">
+<h3>Primal + Hard-margin<a class="headerlink" href="#primal-hard-margin" title="Permalink to this headline">¶</a></h3>
+<img src="../images/(null)-20220724224337505.(null)" alt="img" style="width:50%;" />
+<ul>
+<li><p>**Objective function的含义：**optimize 划分超平面的 maximum margin （最大间隔）=$<span class="math notranslate nohighlight">\(\frac{2}{\|w\|_{2}^{2}}\)</span><span class="math notranslate nohighlight">\(，也就是minimize\)</span><span class="math notranslate nohighlight">\(\frac{\|w\|_{2}^{2}}{2}\)</span>$</p></li>
+<li><p>限制条件的含义：</p>
+<ul>
+<li><p>点(xi, yi)到直线$<span class="math notranslate nohighlight">\(y=w^{T} x+b\)</span><span class="math notranslate nohighlight">\(的距离\)</span><span class="math notranslate nohighlight">\(\frac{ |w^{T} x_{i}+b-yi|}{{\|w\|_{2}^{2}}} \geq 1\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[\Rightarrow { |w^{T} x_{i}+b-yi|} \geq {{\|w\|_{2}^{2}}}\]</div>
+<div class="math notranslate nohighlight">
+\[\Rightarrow w^{T} x_{i}+b \geq y_i \text{ or } w^{T} x_{i}+b \leq -y_i\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Rightarrow \begin{cases}\omega^{T} x_{i}+b \geq+1, &amp; y_{i}=+1 \\ \omega^{T} x_{i}+b \leq-1, &amp; y_{i}=-1\end{cases}\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\Rightarrow y_{i}\left(w^{T} x_{i}+b\right) \geq 1\]</div>
+<ul class="simple">
+<li><p>他之上那么要&gt;1，如果在它之下要&gt;-1，也就是*y1 &gt; 1</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="primal-dual">
+<h3>Primal + Dual<a class="headerlink" href="#primal-dual" title="Permalink to this headline">¶</a></h3>
+<img src="../images/(null)-20220724224339721.(null)" alt="img" style="width:50%;" />
+<ul class="simple">
+<li><p>**Link：**通过对w和b求导 把结果代回loss function就得到了对偶问题</p></li>
+<li><p>特点：之前需要解w和b、现在只需要解α</p>
+<ul>
+<li><p>α 一个m维向量（m是样本的size，n是变量个数）</p></li>
+<li><p>之前解的是<strong>一个n_feature维问题！现在变成n_sample维问题</strong></p>
+<ul>
+<li><p>如果少量feature的时候 Primal问题解的更快（大多数情况）</p></li>
+<li><p>如果有大量feature的话，Dual解的更快</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>目的</p>
+<ul>
+<li><p>dual可以更容易移动到non- linear的场景里</p></li>
+</ul>
+</li>
+<li><p>效果：这个等式会一直是0 <span class="math notranslate nohighlight">\(\alpha_{i}\left(1-y_{i}\left(w^{T} x_{i}+b\right)\right)=0\)</span></p>
+<ul>
+<li><p>对于非支持向量：αi=0</p></li>
+<li><p>只有解出来的支持向量满足：αi != 0,$<span class="math notranslate nohighlight">\(y_{i}\left(w^{T} x_{i}+b\right) = 1\)</span>$</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="primal-soft-margin">
+<h3>Primal + Soft- margin<a class="headerlink" href="#primal-soft-margin" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>首先ξ introduce loss，然后再通过数学变换把ξ解出来，然后得到的就是Hinge loss</p></li>
+</ul>
+<p><img src="../images/(null)-20220724224337896.(null)" alt="img" style="width:50%;" /><img src="../images/(null)-20220724224336553.(null)" alt="img" style="width:50%;" /></p>
+<ul class="simple">
+<li><p>C的作用：控制error的重要性——C越大，margin越不重要就越小｜<strong>C越小，margin越重要就越大</strong></p></li>
+</ul>
+<img src="../images/(null)-20220724224337202.(null)" alt="img" style="width:50%;" />
+</div>
+<div class="section" id="dual-soft-margin">
+<h3>Dual + Soft-margin<a class="headerlink" href="#dual-soft-margin" title="Permalink to this headline">¶</a></h3>
+<img src="../images/(null)-20220724224337040.(null)" alt="img" style="width:50%;" />
+<ul class="simple">
+<li><p>也可以加入正则化：</p></li>
+</ul>
+<img src="../images/(null)-20220724224337444.(null)" alt="img" style="width:50%;" />
+<ul>
+<li><p>预测的方法：$<span class="math notranslate nohighlight">\(\operatorname{sign}\left(\sum_{i} \alpha_{i} y_{i}\left(x \cdot x_{i}\right)+b\right)\)</span>$</p>
+<ul>
+<li><div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\alpha_i$$：第i个support vector的dual coefficient
+  - $$x_i, y_i$$：第i个support vector的坐标\\#### Kernel Function\\**Kernel function 𝕂(𝒙;𝒙)** 可以 **estimates inner product between two points in the projected space.**\\- 假设有一个magic function 𝝓(𝒙)，可以 projects data to **high-dimensional space**\\  还是给两个点返回距离！但是这个距离是在高维空间上的 所以可能在这个维上看到的不一样\\&lt;img src=&quot;../images/(null)-20220724224338320.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- 但我们关心的是两个𝝓(𝒙i) × 𝝓(𝒙j) 的结果，而不是𝝓本身，所以可以使用一个Kernel trick，假设**𝕂**是直接作用在dot product上面的，从而只需要assume 𝝓的存在就可以了\\&lt;img src=&quot;../images/(null)-20220724224337915.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- 因此这个问题就变成了：\\&lt;img src=&quot;../images/(null)-20220724224338928.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- 类型：\\&lt;img src=&quot;../images/(null)-20220724224338479.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- Linear Kernel：没做啥！
+- Polynomial：
+  - 比如一个一维映射到三维的函数$$\phi\left(x\right)=\left(x, \sqrt{2} x, 1\right)$$，他的效果是$$\phi\left(x_{i}\right) \cdot \phi\left(x_{j}\right)=\left(x_{i}, \sqrt{2} x_{i}, 1\right) \cdot \left(x_{j}, \sqrt{2} x_{j}, 1\right) = \left(x_{i} x_{j}+1\right)^{2}\end{aligned}\end{align} \]</div>
+</li>
+<li><p>他其实等价于一个Polynomial的Kernel Function$<span class="math notranslate nohighlight">\(\mathbb{K}\left(x_{i}, x_{j}\right)=\left(x_{i} x_{j}+1\right)^{2}\)</span>$就可以给出高维空间φ下的点乘结果了</p></li>
+<li><p>计算复杂度也低多了！</p></li>
+</ul>
+</li>
+</ul>
+<img src="../images/(null)-20220724224338277.(null)" alt="img" style="width:50%;" />
+<ul>
+<li><p>RBF(Radial Basis Function) Kernel：如果充分tune γ enough，背后实际上是一个infinite diminutional的space，从而always可以separate data！可以perfectly separate data.</p>
+<p>RBD主要用于线性不可分的情形</p>
+<ul class="simple">
+<li><p>两个点在高维空间越接近，就会有越高的values｜Spread out 的点会smaller</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">γ</span></code>会控制 how the function value decays with distance（γ越大的话，距离越远的sample 值下降得越快）</p></li>
+<li><p>e.g</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="../images/(null)-20220724224338727.(null)" alt="img" style="width:50%;" />
+<p><strong>Kernel选择的思路：</strong></p>
+<p>（1）如果特征维数很高，往往线性可分（SVM解决非线性分类问题的思路就是将样本映射到更高维的特征空间中），可以采用LR或者线性核的SVM；</p>
+<p>（2）如果样本数量很多，由于求解最优化问题的时候，目标函数涉及两两样本计算内积，使用高斯核明显计算量会大于线性核，所以手动添加一些特征，使得线性可分，然后可以用LR或者线性核的SVM；</p>
+<p>（3）如果不满足上述两点，即<strong>特征维数少，样本数量正常</strong>，可以使用高斯核的SVM。</p>
+</div>
+</div>
+<div class="section" id="ensemble-methods">
+<h2>Ensemble Methods<a class="headerlink" href="#ensemble-methods" title="Permalink to this headline">¶</a></h2>
+<p>Bagging和Boosting都是ensemble，就是把弱分类器组装成强分类器的方法</p>
+<p><strong>Motivation</strong></p>
+<ul class="simple">
+<li><p>The decision trees are highly <strong>unstable</strong> and can structurally change with slight variation in input data</p></li>
+<li><p>Decision trees perform poorly on continuous outcomes (regression) due to limited model capacity.</p></li>
+</ul>
+<p><strong>定义</strong></p>
+<ul class="simple">
+<li><p>Several weak/simple learners are <strong>combined</strong> to make the ﬁnal prediction</p></li>
+<li><p>目的：Generally ensemble methods aim to <strong>reduce model variance</strong></p>
+<ul>
+<li><p>Like have multiple such outputs and then you take an average of that.</p></li>
+</ul>
+</li>
+<li><p>效果：Ensemble methods improve performance especially if the individual learners are not correlated.</p>
+<ul>
+<li><p><strong>took a different or a different perspective</strong> of the data itself.</p></li>
+<li><p>采样会⇒成功</p>
+<ul>
+<li><p>if you had one or two highly <strong>dominant features</strong> that probably is saying is highly correlated to your outcome.</p>
+<ul>
+<li><p>Suppose every tree that a building has access to that feature. Probably every tree is going to look very similar right now.</p></li>
+<li><p>Assume that you actually had some trees <strong>not have access to that feature. Then they’ll start looking at the data from a different perspective and they’ll probably build trees that are giving you another notion of your data center. And it’s not dominated by these one or two features that are are highly correlated to the outcome.</strong></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>类型：Depending on training sample construction and output aggregation, there are two categories:</p>
+<ul>
+<li><p>Bagging (Bootstrap aggregation)</p></li>
+<li><p>Boosting</p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="bagging">
+<h3>Bagging<a class="headerlink" href="#bagging" title="Permalink to this headline">¶</a></h3>
+<p>Bagging的主要目的是减少方差</p>
+<ul>
+<li><p>多次采样，训练多个分类器Several training samples (of same size) are created by sampling the dataset <strong>with replacement</strong></p>
+<ul>
+<li><p>从原始样本集中抽取训练集。每轮从原始样本集中使用Bootstraping的方法抽取n个训练样本（在训练集中，有些样本可能被多次抽取到，而有些样本可能一次都没有被抽中）。共进行k轮抽取，得到k个训练集。（k个训练集之间是相互独立的）</p>
+<p>there could be samples that are <strong>repeated</strong> and there are samples that <strong>do not get picked at all.</strong></p>
+<img src="../images/(null)-20220725100730752.(null)" alt="img" style="width: 50%;" />
+</li>
+<li><p>每次使用一个训练集得到一个模型，k个训练集共得到k个模型。（注：这里并没有具体的分类算法或回归方法，我们可以根据具体问题采用不同的分类或回归方法，如决策树、感知器等）</p></li>
+</ul>
+</li>
+<li><p>分类问题：对分类问题：将上步得到的k个模型采用投票的方式得到分类结果</p>
+<p>对回归问题，计算上述模型的均值作为最后的结果。（所有模型的重要性相同）</p>
+</li>
+</ul>
+</div>
+<div class="section" id="boosting">
+<h3>Boosting<a class="headerlink" href="#boosting" title="Permalink to this headline">¶</a></h3>
+<p>Boosting的目的主要是减少偏差</p>
+<ul>
+<li><p>Includes a family of ML algorithms that convert weak learners to strong ones.</p>
+<ul>
+<li><p>The weak learners are learned sequentially with early learners ﬁtting simple models to the data and then analysing data for errors.</p></li>
+<li><p>When an input is misclassiﬁed by one tree, its output is adjusted so that next tree is more likely to learn it correctly.</p>
+<p>每个tree的目标是do better on the misclassify samples of the previous.</p>
+<ul class="simple">
+<li><p>之前分对的down weight</p></li>
+<li><p>之前分错的out weight</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="../images/(null)-20220725100731093.(null)" alt="img" style="width:50%;" />
+<ul class="simple">
+<li><p>最后 combined by a weighted average of each of those trees. 但这个权重跟模型有关！</p></li>
+</ul>
+<blockquote>
+<div><p>Random Forest是直接average！</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>算法流程：</p>
+<ul>
+<li><p>给定初始训练数据，由此训练出第一个基学习器；</p></li>
+<li><p>根据基学习器的表现对样本进行调整，在之前学习器做错的样本上投入更多关注；</p></li>
+<li><p>用调整后的样本，训练下一个基学习器；</p></li>
+<li><p>重复上述过程T次，将T个学习器加权结合。</p></li>
+</ul>
+</li>
+<li><p>通过提高那些在前一轮被弱分类器分错样例的权值，减小前一轮分对样例的权值，来使得分类器对误分的数据有较好的效果。</p></li>
+<li><p>通过什么方式来组合弱分类器？</p>
+<ul>
+<li><p>通过加法模型将弱分类器进行线性组合，比如AdaBoost通过加权多数表决的方式，即增大错误率小的分类器的权值，同时减小错误率较大的分类器的权值。</p></li>
+<li><p>而提升树通过拟合残差的方式逐步减小残差，将每一步生成的模型叠加得到最终模型。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="baggingboosting">
+<h3>Bagging和Boosting的区别<a class="headerlink" href="#baggingboosting" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>1）样本选择上：</p>
+<ul>
+<li><p>Bagging：训练集是在原始集中有放回选取的，从原始集中选出的各轮训练集之间是独立的。</p></li>
+<li><p>Boosting：每一轮的训练集不变，只是训练集中每个样例在分类器中的权重发生变化。而权值是根据上一轮的分类结果进行调整。</p></li>
+</ul>
+</li>
+<li><p>2）样例权重：</p>
+<ul>
+<li><p>Bagging：使用均匀取样，每个样例的权重相等</p></li>
+<li><p>Boosting：根据错误率不断调整样例的权值，错误率越大则权重越大。</p></li>
+</ul>
+</li>
+<li><p>3）预测函数：</p>
+<ul>
+<li><p>Bagging：所有预测函数的权重相等。</p></li>
+<li><p>Boosting：每个弱分类器都有相应的权重，对于分类误差小的分类器会有更大的权重。</p></li>
+</ul>
+</li>
+<li><p>4）并行计算：</p>
+<ul>
+<li><p>Bagging：各个预测函数可以并行生成</p></li>
+<li><p>Boosting：各个预测函数只能顺序生成，因为后一个模型参数需要前一轮模型的结果。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="stacking">
+<h3>Stacking<a class="headerlink" href="#stacking" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>多次采样，训练多个分类器，将输出作为最后的输入特征</p></li>
+<li><p>将训练好的所有基模型对训练集进行预测，第个<span class="math notranslate nohighlight">\(i\)</span>基模型对第<span class="math notranslate nohighlight">\(i\)</span>个训练样本的预测值将作为新的训练集中第<span class="math notranslate nohighlight">\(i\)</span>个样本的第<span class="math notranslate nohighlight">\(i\)</span>个特征值，最后基于新的训练集进行训练。同理，预测的过程也要先经过所有基模型的预测形成新的测试集，最后再对测试集进行预测。</p></li>
+<li><p>stacking常见的使用方式：</p>
+<ul>
+<li><p>由k-NN、随机森林和朴素贝叶斯基础分类器组成，它的预测结果由作为元分类器的逻回归组合。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="trees">
+<h2>Trees<a class="headerlink" href="#trees" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="decision-trees">
+<h3>Decision Trees<a class="headerlink" href="#decision-trees" title="Permalink to this headline">¶</a></h3>
+<p><strong>特点</strong></p>
+<ul class="simple">
+<li><p>Greedy algorithm</p></li>
+<li><p>Applicable to both classiﬁcation &amp; regression problems</p>
+<ul>
+<li><p>Regression的话只能是finite的数值</p></li>
+</ul>
+</li>
+</ul>
+<img src="../images/(null)-20220724230711129.(null)" alt="img" style="width:67%;" />
+<ul class="simple">
+<li><p>Easy to interpret &amp; deploy：可以让别人handwrite</p></li>
+<li><p>Non-linear decision boundary</p>
+<ul>
+<li><p>tree相当于是在高维空间的好几个维度上去splitting up the space</p></li>
+</ul>
+</li>
+<li><p>Minimal preprocessing</p>
+<ul>
+<li><p>missing 和 categorical可以handle！</p></li>
+</ul>
+</li>
+<li><p>Invariant to scale of data</p>
+<ul>
+<li><p>Invariant to the scale of the data because it is it is <em>not really looking at at absolute values of the of the features</em>. More on the ranges of the features.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Framework</strong></p>
+<img src="../images/(null)-20220724230711222.(null)" alt="img" style="width:67%;" />
+<p><strong>Loss</strong></p>
+<p>分类任务：</p>
+<ul>
+<li><p>Impurity衡量：<span class="math notranslate nohighlight">\(Entropy(node)=-\sum_{i=1}^{K} p_{i} \log _{2} p_{i} \)</span> ｜ <span class="math notranslate nohighlight">\(Gini Index(node)=1-\sum_{i=1}^{K} p_{i}^{2}\)</span>$</p>
+<ul>
+<li><div class="math notranslate nohighlight">
+\[p_{i}=\text{probability of beloing to a class} =\frac{\text{number of samples of the class}}{\text{total number of samples in that node}}\]</div>
+</li>
+<li><p>例子</p>
+<p><img src="../images/(null)-20220724230710858.(null)" alt="img" style="width:33%;" /><img src="../images/(null)-20220724230711014.(null)" alt="img" style="width:33%;" /></p>
+</li>
+<li><p>两者区别不大——gini的最大值是1，entropy的最大值是0.5</p></li>
+</ul>
+</li>
+<li><p>Information Gain（评估信息增益Information Gain对确定的feature和确定的split threshold）</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Expectation_value">Expected</a> information gain $<span class="math notranslate nohighlight">\(IG(T, a)=H(T)-H(T \mid a)\)</span>$ is the reduction in <a class="reference external" href="https://en.wikipedia.org/wiki/Information_entropy">information entropy</a> <em>Η</em> from a prior state to a state that takes some information as given. 也就是不纯度的下降</p>
+<ul>
+<li><div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}H(T)$$：a priori Shannon entropy 
+  - $$H(T\mid a) = \sum_{v \in vals(a)} \frac{\left|S_{a}(v)\right|}{|T|}  H\left(S_{a}(v)\right)$$：样本占比为权的加权平均entropy
+    - $$\frac{\left|S_{a}(v)\right|}{|T|} $$: 其实分到a的占比（权重），拿这个去加权平均
+      - $$S_{a}(v)=\left\{x \in T \mid x_{a}=v\right\}$$表示T中分裂到a里面的node组成的集合
+    - $$H\left(S_{a}(v)\right)$$：$$S_{a}(v)$$的Entropy
+  - e.g\\  &lt;img src=&quot;../images/(null)-20220724231640012.(null)&quot; alt=&quot;img&quot; style=&quot;width:33%;&quot; /&gt;\\  - Numerical的： An exhaustive **search across all features and values** to ﬁnd the (feature, threshold) combination with the highest information gain (IG).\\  &lt;img src=&quot;../images/(null)-20220724231943423.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\  - Categorical的：\\    - An exhaustive **search across all categorical features** and their categories to ﬁnd the(feature, subsets) combination with the highest information gain (IG).\\      &lt;img src=&quot;../images/(null)-20220724231943637.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\    - Use **target encoding** to reduce time complexity by only evaluating O(L)  splits of the ordered categories.\\      - 首先：The categories are ordered by mean response rate \\      - 接着按顺序一个一个include feature\\      - 这样找出来的会是optimal的！\\        &lt;img src=&quot;../images/(null)-20220724231943028.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\#### 决策树Overfitting的解决\\&gt; 不训练到完整的tree\\- `Pruning`：start from the bottom and start chopping off parts of the tree that don't make sense.
+  - Reduced error
+    - Starting at the leaves, each node is replaced with its most popular class (chopping)
+    - If the validation metric is not negatively aﬀected, then the change is kept, else it is reverted.
+    - Reduced error pruning has the advantage of speed and simplicity.
+    
+  - Cost complexity
+    - The node with the least $$\alpha_{eff}=\frac{R(t)-R_{\alpha}\left(T_{t}\right)}{T-1}$$is pruned
+    
+    - α相当于一个正则项的系数，从而$$R_{\alpha}(T)=R(T)+\alpha|T|\end{aligned}\end{align} \]</div>
+<ul>
+<li><div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}R\left(T_{t}\right)=\sum_{i \in \text { leaf nodes }} R(i)$$, sum of impurities for all leaf nodes t of a tree rooted at node t.
+    - α越高，惩罚越大，会从overfitting -&gt; sweetspot -&gt; underfitting. 随着alpha提高，总impurity会有steep change\\&lt;img src=&quot;../images/(null)-20220724230711183.(null)&quot; alt=&quot;img&quot; style=&quot;width:40%;&quot; /&gt;&lt;img src=&quot;../images/(null)-20220724230711425.(null)&quot; alt=&quot;img&quot; style=&quot;width:40%;&quot; /&gt;\\- `Early stopping`：build up to a point and then you stop.\\  - Maximum depth：only build it to a certain depth which prevents you from going very deep.
+    - 比如用DFS，那就是往下split直到变成pure node or reach max_depth
+  - Maximum leaf nodes：only have a certain number of leaf nodes
+  - Minimum samples split：there are a minimum number of samples before I consider it a split
+  - Minimum impurity decrease
+  
+  \\#### Feature Importance\\probability of sample reaching that node： the (normalized) total reduction of the criterion brought by that feature\\### Random Forests\\随机一种基于树模型的Bagging的优化版本，一棵树的生成肯定还是不如多棵树，因此就有了随机森林，解决决策树泛化能力弱的特点。\\- 多次随机取样，多次随机取属性，选取最优分割点，构建多个(CART)分类器，投票表决\\- 算法流程：\\  - 输入为样本集$D={(x，y_1)，(x_2，y_2) \dots (x_m，y_m)}$，弱分类器迭代次数$T$。\\  - 输出为最终的强分类器$f(x)$\\  - 对于$t=1，2 \dots T$\\    - 对训练集进行第$t$次随机采样，共采集$m$次，得到包含$m$个样本的采样集Dt\\    - 用采样集$D_t$训练第$t$个决策树模型$G_t(x)$，在训练决策树模型的节点的时候，在节点上所有的样本特征中选择一部分样本特征，在这些随机选择的部分样本特征中选择一个最优的特征来做决策树的左右子树划分\\  - 如果是分类算法预测，则$T$个弱学习器投出最多票数的类别或者类别之一为最终类别\\    如果是回归算法，$T$个弱学习器得到的回归结果进行算术平均得到的值为最终的模型输出。\\- 随机森林为什么不容易过拟合？\\  - 随机森林中的每一颗树都是过拟合的，拟合到非常小的细节上
+    - 随机森林通过引入随机性，使每一颗树拟合的细节不同\\  - 所有树组合在一起，过拟合的部分就会自动被消除掉。\\**算法**：\\&lt;img src=&quot;../images/(null)-20220725101113336.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- Applicable to both classiﬁcation and regression problems
+- Smarter bagging for trees
+- Motivated by theory that generalization **improves with uncorrelated trees**
+- Bootstrapped samples and random subset of features are used to train each tree
+  - sample rows and columns, 每个去train decision tree
+  - highly dominate 的变量 RF 会去debiased features
+- The outputs from each of the models are averaged to make the ﬁnal prediction.\\超**参数**：\\- Random Forest hyperparameters:
+  - \# of trees
+  - \# of features
+    - Classiﬁcation - sqrt(# of features) 是 general guideline
+    - Regression - # of features，一般不sample feature
+- Decision Tree hyperparameters (splitting criteria, maximum depth, etc. ) \\**RandomForest不需要CV的原因**\\- 每次训练的时候 都只看了bootstrap sample，有一部分的数据是没有touch的
+- Uses `out-of-bag (OOB)` error for model selection
+  - OOB error is the **average error of** **a data point** calculated using predictions from the trees that do not contain it in their respective bootstrap sample
+  - 每个data point 的 error = 样本外预测的error的平均
+    - 如果有一个sample去了所有的tree，那么它就不会加入out-of-bag的计算
+    - 如果有一个sample只去了一个tree，那么这个tree的error就是这个data point的oob error
+      - If I built 100 trees and 99 trees used 1 sample and one tree did not use that sample, then that one tree will make a prediction on this, and you can calculate the error from that.\\ **Feature Importances**\\- RF有两种方法：\\  - 通过计算Gini系数的减少量VIm=GI−(GIL+GIR)判断特征重要性，越大越重要。\\  - 对于一颗树，先使用袋外错误率(OOB)样本计算测试误差a，再随机打乱OOB样本中第i个特征（上下打乱特征矩阵第i列的顺序）后计算测试误差b，a与b差距越大特征i越重要。\\    - 袋外数据(OOB)： 大约有1/3的训练实例没有参与第k棵树的生成，它们称为第$k$棵树的袋外数据样本。\\    - 在随机森林中某个特征$X$的重要性的计算方法如下：\\    - 对于随机森林中的每一颗决策树，使用相应的OOB(袋外数据)来计算它的袋外数据误差，记为$err_{OOB1}$。\\    - 随机地对袋外数据OOB所有样本的特征$X$加入噪声干扰(就可以随机的改变样本在特征X处的值)，再次计算它的袋外数据误差，记为$err_{OOB2}$。\\    - 假设随机森林中有$N$棵树，那么对于特征$X$的重要性为$(err_{OOB2}-err_{OOB1}/N)$，之所以可以用这个表达式来作为相应特征的重要性的度量值是因为：若给某个特征随机加入噪声之后，袋外的准确率大幅度降低，则说明这个特征对于样本的分类结果影响很大，也就是说它的重要程度比较高。\\- Feature importance is calculated as the **decrease in node impurity** weighted by the *probability of samples in node*s that are reaching that node.
+  - The node probability can be calculated by the **number of samples that reach the node**, divided by the total number of samples.
+  - 有时候会选少的number of trees 特别是提升不显著的时候，比如100个tree可能只用了5个features，那么后面我就可以只maintain这5个features
+- The higher the value the more important the feature.\\&lt;img src=&quot;../images/(null)-20220725101112347.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- SKLearn中的 `warm_start`
+  - When fitting an estimator repeatedly on the same dataset, but for multiple parameter values (such as to find the value maximizing performance as in [grid search](https://scikit-learn.org/stable/modules/grid_search.html#grid-search)), it may be possible to reuse aspects of the model learned from the previous parameter value, saving time. When `warm_start` is true, the existing [fitted](https://scikit-learn.org/stable/glossary.html#term-fitted) model [attributes](https://scikit-learn.org/stable/glossary.html#term-attributes) are used to initialize the new model in a subsequent call to [fit](https://scikit-learn.org/stable/glossary.html#term-fit).
+  - Note that this is only applicable for some models and some parameters, and even some orders of parameter values. For example, `warm_start` may be used when building random forests to add more trees to the forest (increasing `n_estimators`) but not to reduce their number.\\### Adaptive Boosting\\Adaboost算法利用同一种基分类器（弱分类器），基于分类器的错误率分配不同的权重参数，最后累加加权的预测结果作为输出。\\**流程**：\\- 样本赋予权重，得到第一个分类器。\\  Initially, a decision stump classiﬁer (just splits the data into two regions) is ﬁt to the data\\- 计算该分类器的错误率，根据**错误率赋予分类器权重（**注意这里是分类器的权重）\\- &lt;u&gt;增加分错样本的权重，减小分对样本的权重&lt;/u&gt;（注意这里是样本的权重）\\  The data points correctly classiﬁed are given less weightage while misclassiﬁed data points are given higher weightage in the next iteration\\- 然后再用新的样本权重训练数据，得到新的分类器\\  A decision stump classiﬁer is now ﬁt to the data with weights determined in previous iteration\\- 多次迭代，直到**分类器错误率为0或者整体弱分类器错误为0，或者到达迭代次数。**\\- 将**所有弱分类器的结果加权求和**，得到一个较为准确的分类结果。错误率低的分类器获得更高的决定系数，从而在对数据进行预测时起关键作用。\\  Weights (𝝆) for each classiﬁer (estimated during the training process) are used to combine the outputs and make the ﬁnal prediction.\\&lt;img src=&quot;../images/(null)-20220725101132539.(null)&quot; alt=&quot;img&quot; style=&quot;width: 50%;&quot; /&gt;\\**算法：**\\1. Initialize the observation weights $w_{i}=1 / N, i=1,2, \ldots, N$.\\   最开始所有观测都是equal weights\\2. For $m=1$ to $M$ 训练M个classifier:\\  1. Fit a classifier $G_{m}(x)$ to the training data using weights $w_{i}$.\\  2. 计算它的weighted error = $\frac{错误样本的总权重}{总权重}$：\\    $$\operatorname{err}_{m}=\frac{\sum_{i=1}^{N} w_{i} I\left(y_{i} \neq G_{m}\left(x_{i}\right)\right)}{\sum_{i=1}^{N} w_{i}} \end{aligned}\end{align} \]</div>
+</li>
+</ul>
+</li>
+</ul>
+<ol class="simple">
+<li><p>Compute <span class="math notranslate nohighlight">\(\alpha_{m}=\log \left(\left(1-\operatorname{err}_{m}\right) / \operatorname{err}_{m}\right)\)</span> 得到classifier的权重</p></li>
+<li><p>Set <span class="math notranslate nohighlight">\(w_{i} \leftarrow w_{i} \cdot \exp \left[\alpha_{m} \cdot I\left(y_{i} \neq G_{m}\left(x_{i}\right)\right)\right], i=1,2, \ldots, N\)</span></p></li>
+</ol>
+</li>
+</ul>
+<ol class="simple">
+<li><p>Output <span class="math notranslate nohighlight">\(G(x)=\operatorname{sign}\left[\sum_{m=1}^{M} \alpha_{m} G_{m}(x)\right]\)</span>: 所有的Classifier的结果根据$<span class="math notranslate nohighlight">\(\alpha_m\)</span>$为权加权平均！</p></li>
+</ol>
+<p><strong>数学理解</strong></p>
+<ul>
+<li><p>算法的Assumed Formula $<span class="math notranslate nohighlight">\(G(x)=\sum_{m} \alpha_{m} G_{m}(x)\)</span>$</p>
+<ul>
+<li><p>Assume the Loss function is a exponentially loss function:$<span class="math notranslate nohighlight">\(L_{e x p}(x, y)=\exp (-y G(x))\)</span>$</p></li>
+<li><p>所以目标变成了<span class="math notranslate nohighlight">\(E=\operatorname{Min}_{\alpha_{m}, G_{m}}\left(\sum_{i} \exp \left(-y_{i} \sum_{m} \alpha_{m} G_{m}\left(x_{i}\right)\right)\right)\)</span></p>
+<ul>
+<li><p>求$<span class="math notranslate nohighlight">\(\frac{\partial E}{\partial \alpha_{m}}=0\)</span>$:</p>
+<div class="math notranslate nohighlight">
+\[\alpha_{m}=\ln \left(\frac{1-e r r_{m}}{e r r_{m}}\right)\]</div>
+<div class="math notranslate nohighlight">
+\[\operatorname{err}_{m}=\frac{\sum_{i=1}^{N} w_{i} I\left(y_{i} \neq G_{m}\left(x_{i}\right)\right)}{\sum_{i=1}^{N} w_{i}}\]</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>超参数</strong></p>
+<ul class="simple">
+<li><p>Classiﬁcation:</p>
+<ul>
+<li><p># estimators</p></li>
+<li><p>learning rate：每次加入a fraction of the value</p></li>
+<li><p>base estimator：可以换成别的模型，而不是<code class="docutils literal notranslate"><span class="pre">decision</span> <span class="pre">stump</span> <span class="pre">classiﬁer</span></code></p></li>
+</ul>
+</li>
+<li><p>Regression：</p>
+<ul>
+<li><p>loss function</p></li>
+<li><p>learning rate</p></li>
+<li><p># of estimators</p></li>
+<li><p>base estimator</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="gradient-boosting">
+<h3>Gradient Boosting<a class="headerlink" href="#gradient-boosting" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>分类回归都可以（分类的话 也是拿probability去regression）</p></li>
+<li><p>Trains regression trees in a sequential manner on <strong>modiﬁed versions of the datasets.</strong></p></li>
+<li><p>Every tree is trained on the residuals of the data points obtained by subtracting the predictions from the previous tree</p>
+<ul>
+<li><p><strong>weights</strong> for each classiﬁer (estimated during the training process) are used to combine the outputs and make the ﬁnal prediction.</p></li>
+</ul>
+</li>
+</ul>
+<img src="../images/(null)-20220725101152441.(null)" alt="img" style="width:50%;" />
+<p><strong>算法</strong></p>
+<p>Input: training set <span class="math notranslate nohighlight">\(\left\{\left(x_{i}, y_{i}\right)\right\}_{i=1}^{n}\)</span>, a differentiable loss function <span class="math notranslate nohighlight">\(L(y, F(x))\)</span>, number of iterations <span class="math notranslate nohighlight">\(M\)</span>.
+Algorithm:</p>
+<ol class="simple">
+<li><p>Initialize model with a constant value 第一步先用一个loss最小的常数来预测:
+$<span class="math notranslate nohighlight">\(
+F_{0}(x)=\underset{\gamma}{\arg \min } \sum_{i=1}^{n} L\left(y_{i}, \gamma\right) .
+\)</span>$</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(m=1\)</span> to <span class="math notranslate nohighlight">\(M\)</span> :</p>
+<ol class="simple">
+<li><p>Compute so-called pseudo-residuals 计算一个残差 其实也就是梯度！:
+$<span class="math notranslate nohighlight">\(
+r_{i m}=-\left[\frac{\partial L\left(y_{i}, F\left(x_{i}\right)\right)}{\partial F\left(x_{i}\right)}\right]_{F(x)=F_{m-1}(x)} \text { for } i=1, \ldots, n \text {. }
+\)</span>$</p></li>
+</ol>
+</li>
+<li><p>Fit a base learner (or weak learner, e.g. tree) <span class="math notranslate nohighlight">\(h_{m}(x)\)</span> to pseudo-residuals, i.e. train it using the training set <span class="math notranslate nohighlight">\(\left\{\left(x_{i}, r_{i m}\right)\right\}_{i=1}^{n}\)</span></p></li>
+<li><p>Compute multiplier <span class="math notranslate nohighlight">\(\gamma_{m}\)</span> by solving the following one-dimensional optimization problem:
+$<span class="math notranslate nohighlight">\(
+\gamma_{m}=\underset{\gamma}{\arg \min } \sum_{i=1}^{n} L\left(y_{i}, F_{m-1}\left(x_{i}\right)+\gamma h_{m}\left(x_{i}\right)\right) .
+\)</span>$</p></li>
+<li><p>Update the model:
+$<span class="math notranslate nohighlight">\(
+F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
+\)</span>$</p></li>
+<li><p>Output <span class="math notranslate nohighlight">\(F_{M}(x)\)</span>.</p></li>
+</ol>
+<p><strong>为什么叫gradient boosting？</strong></p>
+<ul class="simple">
+<li><p>Gradient Descent</p></li>
+</ul>
+<img src="../images/(null)-20220725101152792.(null)" alt="img" style="width:50%;" />
+<ul class="simple">
+<li><p>Gradient Boosting：The gradient in Gradient boosting is nothing but the residual. As every tree we are boosting the residual (fit a model that does well on that that residual), we are actually boosting the gradient</p></li>
+<li><p>目标函数<span class="math notranslate nohighlight">\(E=\operatorname{Min}_{\gamma_{m}, F_{m}}\left(\frac{1}{2} \sum_{i}\left(y_{i}-F\left(x_{i}\right)\right)^{2}\right)\)</span></p>
+<ul>
+<li><p>假设Function的形式是$<span class="math notranslate nohighlight">\(F(x)=\sum_{m} \gamma_{m} F_{m}(x)\)</span><span class="math notranslate nohighlight">\(， 用squared error\)</span><span class="math notranslate nohighlight">\(L(x, y)=\frac{1}{2}(y-F(x))^{2}\)</span>$</p></li>
+<li><p>可以计算在m这个模型出来的时候计算的Gradient = $<span class="math notranslate nohighlight">\( \frac{\partial E}{\partial F_{m-1}(x)} = - (y - F_{m-1}(x))=\)</span>$第m-1轮的residual相反数</p></li>
+<li><p>然后就得到了更新规则：$<span class="math notranslate nohighlight">\(F_{m}(x)=F_{m-1}(x)-\gamma \frac{\partial E}{\partial F_{m-1}(x)}\)</span>$</p>
+<ul>
+<li><p>Gradient = $<span class="math notranslate nohighlight">\( \frac{\partial E}{\partial F_{m-1}(x)} = y - F_{m-1}(x) =\)</span>$第m轮训练时面对的上一轮的residual</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>在MSE的情況下，负Gradient刚好是residual，而在其它情况下，gradient descent的时候依然是在沿着gradient的方向学习优化</p></li>
+</ul>
+<p><strong>超参数</strong></p>
+<ul class="simple">
+<li><p># of estimators</p></li>
+<li><p>Learning rate</p></li>
+<li><p>Decision tree parameters (max depth, min number of samples etc.)</p></li>
+<li><p>Regularization parameters</p></li>
+<li><p>Row sampling / Column sampling: Pass tree from one to another的时候可以只pass a sample of samples.</p></li>
+</ul>
+<hr class="docutils" />
+<p>各种Implementation</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="gradientboostingclassifier">
+<h3>GradientBoostingClassiﬁer<a class="headerlink" href="#gradientboostingclassifier" title="Permalink to this headline">¶</a></h3>
+<p>Early implementation of Gradient Boosting in sklearn</p>
+<ul class="simple">
+<li><p>Most important parameters：</p>
+<ul>
+<li><p>of estimators</p></li>
+<li><p>learning rate</p></li>
+</ul>
+</li>
+<li><p>好用性：</p>
+<ul>
+<li><p>Supports both binary &amp; multi-class classiﬁcation</p></li>
+<li><p>Supports sparse data</p></li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li><p>Typical slow on large datasets</p></li>
+</ul>
+</li>
+<li><p>特征重要性：</p>
+<ul>
+<li><p>所有回归树中通过特征i分裂后<strong>平方损失的减少值</strong>的和/回归树数量 得到特征重要性。</p></li>
+<li><p>在sklearn中，GBDT和RF的特征重要性计算方法是相同的，都是基于单棵树计算每个特征的重要性，探究每个特征在每棵树上做了多少的贡献，再取个平均值。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="histgradientboostingclassifier">
+<h3>HistGradientBoostingClassiﬁer<a class="headerlink" href="#histgradientboostingclassifier" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Orders of magnitude <strong>faster</strong> than GradientBoostingClassiﬁer on large datasets</p></li>
+<li><p>Inspired by LightGBM implementation</p></li>
+<li><p>Histogram-based split ﬁnding in tree learning</p></li>
+<li><p>缺点：</p>
+<ul>
+<li><p>Does not support sparse data</p></li>
+<li><p>Does not support monotonicity constraints：比如enforce一个变量的系数为正/负的！</p>
+<ul>
+<li><p>the true relationship has some quality, constraints can be used to improve the predictive performance of the model.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>优点：</p>
+<ul>
+<li><p>Supports both binary &amp; multi-class classiﬁcation</p></li>
+<li><p>Natively supports categorical features（不需要Preprocess）</p></li>
+<li><p>Bin the value into less bins (1000 unique数值 -&gt; 10)</p></li>
+</ul>
+</li>
+</ul>
+<img src="../images/(null)-20220725101152501.(null)" alt="img" style="width:50%;" />
+</div>
+<div class="section" id="xgboost">
+<h3>XGBoost<a class="headerlink" href="#xgboost" title="Permalink to this headline">¶</a></h3>
+<p>XGBoost采用的是level-wise（BFS）生长策略，能够同时分裂同一层的叶子，从而进行多线程优化。</p>
+<ul>
+<li><p>在决策树的生长过程中，一个非常关键的问题是如何找到叶子的节点的最优切分点”Xgboost 支持两种分裂节点的方法——贪心算法和近似算法</p>
+<ul class="simple">
+<li><p>贪心算法：针对每个特征，把属于该节点的训练样本根据该特征值进行升序排列，通过线性扫描的方式来决定该特征的最佳分裂点，并记录该特征的分裂收益</p></li>
+<li><p>近似算法：对于每个特征，首先根据特征分布的分位数提出候选划分点，然后将连续型特征映射到由这些候选点划分的桶中，然后聚合统计信息找到所有区间的最佳分裂点</p></li>
+</ul>
+</li>
+<li><p>优点</p>
+<ul>
+<li><p>损失函数进行了二阶泰勒展开：</p>
+<ul>
+<li><p>泰勒二阶近似比GBDT一阶近似更接近真实的Loss Fnction，自然优化的更彻底二阶信息能够让梯度收敛的更快，类似牛顿法比SGD收敛更快。</p>
+<p>二阶信息本身就能让梯度收敛更快更准确。这一点在优化算法里的<strong>牛顿法</strong>中已经证实。可以简单认为一阶导指引梯度方向，二阶导指引梯度方向如何变化。简单来说，相对于GBDT的一阶泰勒展开，XGBoost采用二阶泰勒展开，可以更为精准的逼近真实的损失函数。</p>
+</li>
+<li><p>能够自定义损失函数，二阶泰勒展开可以近似大量损失函数；</p></li>
+<li><p>注意：GBDT+MSE的时候boosting拟合的才是残差，<strong>XGBoost拟合的不是残差而是直接利用了二阶导数作为拟合对象，找到误差函数obj减小的幅度</strong></p></li>
+</ul>
+</li>
+<li><p>可以在特征颗粒度并行训练</p>
+<ul class="simple">
+<li><p>不是说每棵树可以并行训练，<span class="math notranslate nohighlight">\(XGBoost\)</span>本质上仍然采用<span class="math notranslate nohighlight">\(Boosting\)</span>思想，每棵树训练前需要等前面的树训练完成才能开始训练。</p></li>
+<li><p>决策树的学习最耗时的一个步骤就是对特征的值进行排序（因为要确定最佳分割点），XGBoost在训练之前，每个特征按特征值对样本进行预排序<strong>并存储为block结构</strong></p></li>
+<li><p>在后面查找特征分割点时可以重复使用block</p></li>
+<li><p>只不过在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，这里各个特征的增益计算也可以多线程进行</p></li>
+</ul>
+</li>
+<li><p>直方图：Fast approximate split ﬁnding based on histograms</p>
+<ul>
+<li><p><strong>xgboost在每一层都动态构建直方图</strong>，分桶的依据是样本的二级梯度，每一层都要重新构建</p>
+<p>lightgbm中对每个特征都有一个直方图，所以构建一次直方图就够了</p>
+</li>
+</ul>
+</li>
+<li><p>加入正则项<code class="docutils literal notranslate"><span class="pre">Adds</span> <span class="pre">l1</span> <span class="pre">and</span> <span class="pre">l2</span> <span class="pre">penalties</span> <span class="pre">on</span> <span class="pre">leaf</span> <span class="pre">weights</span></code>: 加入了正则项，用于控制模型的复杂度。正则项里包含了树的叶子节点个数、叶子节点权重的 L2 范式。正则项降低了模型的方差，使学习出来的模型更加简单，有助于防止过拟合；</p></li>
+<li><p>**Shrinkage（缩减）：**相当于学习速率。XGBoost 在进行完一次迭代后，会将叶子节点的权重乘上该系数，主要是为了削弱每棵树的影响，让后面有更大的学习空间；</p></li>
+<li><p>好用的点：</p>
+<ul class="simple">
+<li><p>Supports <code class="docutils literal notranslate"><span class="pre">GPU</span> <span class="pre">training</span></code>块结构可以很好的支持并行计算｜sparse data｜missing values｜Works well with pipelines in sklearn due to a compatible interface</p>
+<ul>
+<li><p>缺失值的处理（Light GBM一样）：先不处理那些值缺失的样本，采用那些有值的样本搞出分裂点，在遍历每个有值特征的时候，尝试将缺失样本划入左子树和右子树，选择使损失最优的值作为分裂点</p></li>
+</ul>
+</li>
+<li><p>Monotonicity &amp; feature interaction constraints</p>
+<ul>
+<li><p><strong>feature interaction constraints:</strong> when you consider one feature, you don’t want to consider another feature in that branch itself. So we can impose such feature interaction constraints as well, in addition to monotonic relationships.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul class="simple">
+<li><p>虽然利用预排序和近似算法可以降低寻找最佳分裂点的计算量，但在节点分裂过程中仍需要遍历数据集；</p></li>
+<li><p>预排序过程的空间复杂度过高，不仅需要存储特征值，还需要存储特征对应样本的梯度统计值的索引，相当于消耗了两倍的内存。</p></li>
+<li><p>但不加区分的对待同一层的叶子，带来了很多没必要的开销</p></li>
+<li><p>Does not support categorical variables natively</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Feature importance：</strong></p>
+<ul class="simple">
+<li><p>importance_type=weight（默认值），特征重要性使用特征在所有树中作为划分属性的次数。</p></li>
+<li><p>mportance_type=gain，特征重要性使用特征在作为划分属性时loss平均的降低量。</p></li>
+<li><p>importance_type=cover，特征重要性使用特征在作为划分属性时对样本的覆盖度</p></li>
+</ul>
+<p><strong>处理过拟合的情况</strong>：首先BFS的没那么容易过拟合</p>
+<ul class="simple">
+<li><p>目标函数中增加了正则项：使用叶子结点的数目和叶子结点权重的<span class="math notranslate nohighlight">\(L2\)</span>模的平方，控制树的复杂度。</p></li>
+<li><p>设置目标函数的<strong>增益阈值</strong>：如果分裂后目标函数的增益小于该阈值，则不分裂。</p></li>
+<li><p>设置<strong>最小样本权重和</strong>的阈值：当引入一次分裂后，重新计算新生成的左、右两个叶子结点的样本权重和。如果任一个叶子结点的样本权重低于某一个阈值（最小样本权重和），也会放弃此次分裂。</p></li>
+<li><p>设置树的最大深度：<span class="math notranslate nohighlight">\(XGBoost\)</span> 先从顶到底建立树直到最大深度，再从底到顶反向检查是否有<strong>不满足分裂条件的结点，进行剪枝。</strong></p></li>
+<li><p><strong>shrinkage</strong>: 学习率或步长逐渐缩小，给后面的训练留出更多的学习空间</p></li>
+<li><p>子采样：<u><em>每轮计算可以不使用全部样本，使算法更加保守</em></u></p></li>
+<li><p><strong>列抽样</strong>：训练的时候只用一部分特征（不考虑剩余的block块即可）</p></li>
+</ul>
+<p><strong>参数：</strong></p>
+<ul class="simple">
+<li><p>第一类参数：用于直接控制当个树模型的复杂度。包括max_depth，min_child_weight，gamma 等参数</p>
+<ul>
+<li><p>gamma：在节点分裂时，只有分裂后损失函数的值下降了，才会分裂这个节点。Gamma指定了节点分裂所需的最小损失函数下降值。 这个参数的值越大，算法越保守</p></li>
+</ul>
+</li>
+<li><p>第二类参数：用于增加随机性，从而使得模型在训练时对于噪音不敏感。包括：</p>
+<ul>
+<li><p>subsample - 每棵树，随机采样的比例</p></li>
+<li><p>colsample_bytree - 控制每棵随机采样的列数的占比</p></li>
+</ul>
+</li>
+<li><p>还有就是直接减小learning rate，但需要同时增加estimator 参数。</p></li>
+</ul>
+</div>
+<div class="section" id="lightgbm">
+<h3>LightGBM<a class="headerlink" href="#lightgbm" title="Permalink to this headline">¶</a></h3>
+<p>从 LightGBM 名字我们可以看出其是轻量级（Light）的梯度提升机（GBM），其相对 XGBoost 具有训练速度快、内存占用低的特点。</p>
+<p>LightGBM采用leaf-wise生长策略（DFS）：每次从当前所有叶子中找到分裂增益最大（一般也是数据量最大）的一个叶子，然后分裂，如此循环；但会生长出比较深的决策树，产生过拟合。</p>
+<ul>
+<li><p>优点</p>
+<ul>
+<li><p><strong>Histogram</strong>：直方图算法的基本思想是先把连续的浮点特征值离散化成k个整数（其实又是分桶的思想，而这些桶称为bin，比如[0,0.1)→0, [0.1,0.3)→1），同时构造一个宽度为k的直方图</p>
+<p>将属于该箱子的样本数据更新为箱子的值，用直方图表示</p>
+<ul class="simple">
+<li><p>**可以减少内存消耗：**因为不用额外存储预排序的结果，可以只保存特征离散化后的值</p></li>
+<li><p><strong>计算代价更小</strong>：</p>
+<ul>
+<li><p>预排序算法每遍历一个特征值就要计算一次在这里分裂的information gain，但直方图只需要计算k个统的数</p></li>
+<li><p>同时，一个叶子的直方图可以由它的父亲节点的直方图与它兄弟的直方图做差得到</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>单边梯度采样 <code class="docutils literal notranslate"><span class="pre">Gradient-based</span> <span class="pre">One-Sided</span> <span class="pre">Sampling</span> <span class="pre">(GOSS)</span></code></p>
+<ul class="simple">
+<li><p>GBDT 算法的梯度大小可以反应样本的权重，梯度越小说明模型拟合的越好，单边梯度抽样算法利用这一信息对样本进行**<u>抽样</u>**，减少了大量梯度小的样本，在接下来的计算锅中只需关注梯度高的样本，极大的减少了计算量</p>
+<ul>
+<li><p>在对每个tree做sampling从而加速的时候：**因为每一步的gradient就是residual，我就可以sample based on this residual. 把梯度大的选出来，**梯度小的sample it out. 可以设置一个threshold把低的筛掉</p></li>
+</ul>
+</li>
+<li><p>这个操作后面也会用权重平衡回来，让<strong>一方面算法将更多的注意力放在训练不足的样本上，另一方面通过乘上权重来防止采样对原始数据分布造成太大的影响</strong></p></li>
+</ul>
+</li>
+<li><p>互斥特征捆绑Exclusive feature <code class="docutils literal notranslate"><span class="pre">bundling</span></code> to handle sparse features</p>
+<ul class="simple">
+<li><p>如果两个特征并不完全互斥（如只有一部分情况下是不同时取非零值），可以用互斥率表示互斥程度。互斥特征捆绑算法（Exclusive Feature Bundling, EFB）指出如果将一些特征进行融合绑定，则可以降低特征数量。</p></li>
+<li><p>speed up the process of splitting</p></li>
+<li><p>在实际应用中，高维度特征具有稀疏性，这样可以设计一个减少有效特征数量的无损的方法，特别是在稀疏特征中，许多特征是互斥的，出现大量0，例如one-hot。我们可以捆绑互斥的特征。最后我们还原捆绑互斥问题为图着色问题，使用贪心算法近似求解。</p></li>
+</ul>
+</li>
+<li><p>**<u>LightGBM 原生支持类别特征｜</u>**Supports GPU training, sparse data &amp; missing values｜Generally faster than XGBoost on CPUs｜Supports <strong>distributed training</strong> on diﬀerent frameworks like Ray, Spark, Dask etc.</p></li>
+<li><p>缺失值处理：每次分割的时候，分别把缺失值放在左右两边各计算一次，然后比较两种情况的增益，择优录取</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="xgboostlightgbm">
+<h3>XGBoost和LightGBM的区别<a class="headerlink" href="#xgboostlightgbm" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>树生长策略</p>
+<ul>
+<li><p>XGB采用level-wise的分裂策略：XGB对每一层所有节点做无差别分裂，但是可能有些节点增益非常小，对结果影响不大，带来不必要的开销。</p></li>
+<li><p>LGB采用leaf-wise的分裂策略：Leaf-wise是在所有叶子节点中选取分裂收益最大的节点进行的，但是很容易出现过拟合问题，所以需要对最大深度做限制</p></li>
+</ul>
+</li>
+<li><p>特征角度：分割点查找算法不同</p>
+<ul>
+<li><p>XGB使用特征预排序算法，LGB使用基于直方图的切分点算法，其优势如下：</p>
+<ul>
+<li><p>减少内存占用，比如离散为256个bin时，只需要用8位整形就可以保存一个样本被映射为哪个bin(这个bin可以说就是转换后的特征)，对比预排序的exact greedy算法来说（用int_32来存储索引+ 用float_32保存特征值），可以节省7/8的空间。</p></li>
+<li><p>计算效率提高，预排序的Exact greedy对每个特征都需要遍历一遍数据，并计算增益。而直方图算法在建立完直方图后，只需要对每个特征遍历直方图即可。</p></li>
+</ul>
+</li>
+<li><p>LGB还可以使用直方图做差加速，一个节点的直方图可以通过父节点的直方图减去兄弟节点的直方图得到，从而加速计算</p>
+<ul>
+<li><p>XGB 在每一层都动态构建直方图， 因为XGB的直方图算法不是针对某个特定的feature，而是所有feature共享一个直方图(每个样本的权重是二阶导)，所以每一层都要重新构建直方图。</p></li>
+<li><p>LGB中对每个特征都有一个直方图，所以构建一次直方图就够了</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>样本选择：会做单边梯度采样，LightGBM会将更多的注意力放在训练不足的样本上</p></li>
+<li><p>还有一些小的区别：</p>
+<ul>
+<li><p>离散变量处理上：XGB无法直接输入类别型变量因此需要事先对类别型变量进行编码（例如独热编码），LGB可以直接处理类别型变量</p></li>
+<li><p>识别一些互斥的特征上，LightGBM可以bundling等等</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="catboost">
+<h3>CatBoost<a class="headerlink" href="#catboost" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Optimized for <strong>categorical</strong> features</p></li>
+<li><p>Uses <code class="docutils literal notranslate"><span class="pre">target</span> <span class="pre">encoding</span></code> to handle categorical features</p></li>
+<li><p>Uses ordered boosting to build “symmetirc” trees</p>
+<ul>
+<li><p>给每个 sample编一个time （ incorporate a sense of time on the data itself, which means that these samples have occurred before and these samples have occurred later.）</p></li>
+<li><p>Every three trains on a portion of the data based on that time and then it makes a prediction on the other part.</p></li>
+</ul>
+</li>
+<li><p>Overfitting dertector</p></li>
+<li><p>Supports GPU training, sparse data &amp; missing values</p></li>
+<li><p>Monotonicity constraints</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="reference">
+<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://www.zhihu.com/question/21883548/answer/205191440">知乎|就是杨宗|SVM的核函数如何选取？</a></p>
+<p><a class="reference external" href="https://zhuanlan.zhihu.com/p/87885678">知乎|阿泽|【机器学习】决策树（下）——XGBoost、LightGBM（非常详细）</a></p>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./ML"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="README.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">基础</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../DL/Basics/README.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">基础</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jace Yang<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

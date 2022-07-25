@@ -560,7 +560,7 @@ d-separation Implies Association is Causation!
     
     Otherwise, $P\left(x_{1}, \ldots, x_{n} \mid d o(S=s)\right)=0$
 
-    The latter's product is only over $i \notin S$ rather than all $i$.
+    The latter's Business is only over $i \notin S$ rather than all $i$.
        
     <center><img src="../images/CI_basic_33.png" width="75%"/></center>
 

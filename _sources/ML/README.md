@@ -58,6 +58,14 @@
 
 metric主要用来评测机器学习模型的好坏程度，不同的任务应该选择不同的评价指标。分类，回归和排序问题应该选择不同的评价函数。
 
+Evaluation Metrics
+
+- Evaluation metrics are generally used to measure the performance of an ML model.
+- Evaluation metrics indicate how well the models would do when deployed
+- The choice of metrics is very task-speciﬁc and determines what the model learns
+  - can direct your model to learn specific things based on the evaluation metric
+- It is important to know what you are willing to **trade oﬀ** when training ML models for a task
+
 ### **回归指标**
 
 - 平均绝对误差(MAE)，又称L1范数损失：
@@ -90,16 +98,27 @@ metric主要用来评测机器学习模型的好坏程度，不同的任务应�
 
 ### 分类指标
 
-- 准确率和错误率
+**分类**
 
-  $$Acc(y,\hat{y})=\frac{1}{n}\sum_{i=1}^{n}y_i=\hat{y_i} $$
+- Threshold-based metrics
+  - Classiﬁcation Accuracy
+  - Precision, Recall & F1-score
+- Ranking-based metrics
+  - Average Precision (AP)
+  - Area Under Curve (AUC)
 
-  $$ Error(y, \hat{y})=1-acc(y,\hat{y}) \tag{7} $$ 
+准确率和错误率
 
-  - Acc与Error平等对待每个类别，即**每一个样本判对 (0) 和判错 (1) 的代价都是一样的**。
-  - 使用Acc与Error作为衡量指标时，需要考虑样本不均衡问题以及实际业务中好样本与坏样本的重要程度。
+$$Acc(y,\hat{y})=\frac{1}{n}\sum_{i=1}^{n}y_i=\hat{y_i} $$
 
-- **混淆矩阵**：对于二分类问题,可将样例根据其真是类别与学习器预测类别的组合划分为
+$$ Error(y, \hat{y})=1-acc(y,\hat{y}) \tag{7} $$ 
+
+- Acc与Error平等对待每个类别，即**每一个样本判对 (0) 和判错 (1) 的代价都是一样的**。
+- 使用Acc与Error作为衡量指标时，需要考虑样本不均衡问题以及实际业务中好样本与坏样本的重要程度。
+
+
+
+**混淆矩阵**：对于二分类问题,可将样例根据其真是类别与学习器预测类别的组合划分为
 
 ```PHP
 真正例(true positive, TP):预测为 1，预测正确，即实际 1
@@ -146,6 +165,33 @@ metric主要用来评测机器学习模型的好坏程度，不同的任务应�
   - 实际的模型的ROC曲线则是一条上凸的曲线，介于随机和理想的ROC曲线之间。而ROC曲线下的面积，即为AUC！
   - 这里的x和y分别对应TPR和FPR，也是ROC曲线的横纵坐标。 $$ \mathrm{AUC}=\int_{t=\infty}^{-\infty} y(t) d x(t) \tag{15} $$
 
+
+
+#### 对比
+
+首先，两个都是both are ranking metrics：如果一个模型预测的probability是之前的一半，AUC和AP都不会改变！log-loss之类的才会改变
+
+<img src="../images/(null)-20220726015315694.(null)" alt="img" style="zoom:50%;" />
+
+
+
+- **Precision-Recall PR Curve ⇒ Average Precision(AP)**
+
+  - 好处是imbalance datasets表现更好make more sense： In case of imbalance datasets, AP is a better estimate indicative of model
+
+    - AUC will still be very high even the model is bad! 没给你true picture
+
+      <img src="../images/(null)-20220726015315595.(null)" alt="img" style="zoom: 50%;" />
+
+- Receiver Operating Curve(ROC) ⇒ Area Unver ROC (AUROC / AUC)
+
+  - AUROC measures whether the model is able to rank positive examples higher than negative samples 
+  - 根据probability来rank prediction：如果全对的话，就是正确地把positive都放上面了，这样从threshold=1 recall=1 慢慢下降threshold的过程中，没有False Positive出现所以在FPR=0往上走，然后等threshold卡完所有positive继续往下走才因为threshold过低出现False Positive，但这个时候所有的P positive都被检测了，所以在recall = 1往右走
+  - 好处是有Benchmark: random prediction ⇒ 0.5 
+    - easier to know how well the model is performing than random using AUROC than AP 
+    - 因为这样移动threshold的时候会按sample的比例一边丢一个
+    - If you get a score of 0 that means the classifier is perfectly incorrect, it is predicting the incorrect choice 100% of the time.
+
 - KS值(Kolmogorov-Smirnov)是在模型中用于**区分预测正负样本分隔程度**的评价指标，一般应用于金融风控领域。
 
   与ROC曲线相似，ROC是以FPR作为横坐标，TPR作为纵坐标，通过改变不同阈值，从而得到ROC曲线。
@@ -167,6 +213,16 @@ metric主要用来评测机器学习模型的好坏程度，不同的任务应�
 - CVR (Conversion Rate)，CVR即转化率。是一个衡量CPA广告效果的指标
 
   简言之就是用户点击广告到成为一个有效激活或者注册甚至付费用户的转化率. $$ cvr=\frac{点击量}{转化量}　\tag{17} $$
+
+
+
+#### 多分类
+
+多分类时都一样，除了AUC
+
+<img src="../images/(null)-20220726015221534.(null)" alt="img" style="zoom:50%;" />
+
+
 
 ## 参考
 

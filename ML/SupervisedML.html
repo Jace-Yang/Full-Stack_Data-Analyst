@@ -589,16 +589,18 @@ const thebe_selector_output = ".output, .cell_output"
       <a class="reference internal nav-link" href="#gradient-boosting">
        Gradient Boosting
       </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#gradientboostingclassifier">
-       GradientBoostingClassiﬁer
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#histgradientboostingclassifier">
-       HistGradientBoostingClassiﬁer
-      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#gradientboostingclassifier">
+         GradientBoostingClassiﬁer
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#histgradientboostingclassifier">
+         HistGradientBoostingClassiﬁer
+        </a>
+       </li>
+      </ul>
      </li>
      <li class="toc-h3 nav-item toc-entry">
       <a class="reference internal nav-link" href="#xgboost">
@@ -824,16 +826,18 @@ const thebe_selector_output = ".output, .cell_output"
       <a class="reference internal nav-link" href="#gradient-boosting">
        Gradient Boosting
       </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#gradientboostingclassifier">
-       GradientBoostingClassiﬁer
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#histgradientboostingclassifier">
-       HistGradientBoostingClassiﬁer
-      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#gradientboostingclassifier">
+         GradientBoostingClassiﬁer
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#histgradientboostingclassifier">
+         HistGradientBoostingClassiﬁer
+        </a>
+       </li>
+      </ul>
      </li>
      <li class="toc-h3 nav-item toc-entry">
       <a class="reference internal nav-link" href="#xgboost">
@@ -1704,15 +1708,15 @@ const thebe_selector_output = ".output, .cell_output"
   - 有时候会选少的number of trees 特别是提升不显著的时候，比如100个tree可能只用了5个features，那么后面我就可以只maintain这5个features
 - The higher the value the more important the feature.\\&lt;img src=&quot;../images/(null)-20220725101112347.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- SKLearn中的 `warm_start`
   - When fitting an estimator repeatedly on the same dataset, but for multiple parameter values (such as to find the value maximizing performance as in [grid search](https://scikit-learn.org/stable/modules/grid_search.html#grid-search)), it may be possible to reuse aspects of the model learned from the previous parameter value, saving time. When `warm_start` is true, the existing [fitted](https://scikit-learn.org/stable/glossary.html#term-fitted) model [attributes](https://scikit-learn.org/stable/glossary.html#term-attributes) are used to initialize the new model in a subsequent call to [fit](https://scikit-learn.org/stable/glossary.html#term-fit).
-  - Note that this is only applicable for some models and some parameters, and even some orders of parameter values. For example, `warm_start` may be used when building random forests to add more trees to the forest (increasing `n_estimators`) but not to reduce their number.\\### Adaptive Boosting\\Adaboost算法利用同一种基分类器（弱分类器），基于分类器的错误率分配不同的权重参数，最后累加加权的预测结果作为输出。\\**流程**：\\- 样本赋予权重，得到第一个分类器。\\  Initially, a decision stump classiﬁer (just splits the data into two regions) is ﬁt to the data\\- 计算该分类器的错误率，根据**错误率赋予分类器权重（**注意这里是分类器的权重）\\- &lt;u&gt;增加分错样本的权重，减小分对样本的权重&lt;/u&gt;（注意这里是样本的权重）\\  The data points correctly classiﬁed are given less weightage while misclassiﬁed data points are given higher weightage in the next iteration\\- 然后再用新的样本权重训练数据，得到新的分类器\\  A decision stump classiﬁer is now ﬁt to the data with weights determined in previous iteration\\- 多次迭代，直到**分类器错误率为0或者整体弱分类器错误为0，或者到达迭代次数。**\\- 将**所有弱分类器的结果加权求和**，得到一个较为准确的分类结果。错误率低的分类器获得更高的决定系数，从而在对数据进行预测时起关键作用。\\  Weights (𝝆) for each classiﬁer (estimated during the training process) are used to combine the outputs and make the ﬁnal prediction.\\&lt;img src=&quot;../images/(null)-20220725101132539.(null)&quot; alt=&quot;img&quot; style=&quot;width: 50%;&quot; /&gt;\\**算法：**\\1. Initialize the observation weights $w_{i}=1 / N, i=1,2, \ldots, N$.\\   最开始所有观测都是equal weights\\2. For $m=1$ to $M$ 训练M个classifier:\\  1. Fit a classifier $G_{m}(x)$ to the training data using weights $w_{i}$.\\  2. 计算它的weighted error = $\frac{错误样本的总权重}{总权重}$：\\    $$\operatorname{err}_{m}=\frac{\sum_{i=1}^{N} w_{i} I\left(y_{i} \neq G_{m}\left(x_{i}\right)\right)}{\sum_{i=1}^{N} w_{i}} \end{aligned}\end{align} \]</div>
-</li>
-</ul>
+  - Note that this is only applicable for some models and some parameters, and even some orders of parameter values. For example, `warm_start` may be used when building random forests to add more trees to the forest (increasing `n_estimators`) but not to reduce their number.\\### Adaptive Boosting\\Adaboost算法利用同一种基分类器（弱分类器），基于分类器的错误率分配不同的权重参数，最后累加加权的预测结果作为输出。\\**流程**：\\- 样本赋予权重，得到第一个分类器。\\  Initially, a decision stump classiﬁer (just splits the data into two regions) is ﬁt to the data\\- 计算该分类器的错误率，根据**错误率赋予分类器权重（**注意这里是分类器的权重）\\- &lt;u&gt;增加分错样本的权重，减小分对样本的权重&lt;/u&gt;（注意这里是样本的权重）\\  The data points correctly classiﬁed are given less weightage while misclassiﬁed data points are given higher weightage in the next iteration\\- 然后再用新的样本权重训练数据，得到新的分类器\\  A decision stump classiﬁer is now ﬁt to the data with weights determined in previous iteration\\- 多次迭代，直到**分类器错误率为0或者整体弱分类器错误为0，或者到达迭代次数。**\\- 将**所有弱分类器的结果加权求和**，得到一个较为准确的分类结果。错误率低的分类器获得更高的决定系数，从而在对数据进行预测时起关键作用。\\  Weights (𝝆) for each classiﬁer (estimated during the training process) are used to combine the outputs and make the ﬁnal prediction.\\&lt;img src=&quot;../images/(null)-20220725101132539.(null)&quot; alt=&quot;img&quot; style=&quot;width: 50%;&quot; /&gt;\\**算法：**\\1. Initialize the observation weights $w_{i}=1 / N, i=1,2, \ldots, N$.\\   最开始所有观测都是equal weights\\2. For $m=1$ to $M$ 训练M个classifier:\\   1. Fit a classifier $G_{m}(x)$ to the training data using weights $w_{i}$.\\   2. 计算它的weighted error = $\frac{错误样本的总权重}{总权重}$：\\      $$\operatorname{err}_{m}=\frac{\sum_{i=1}^{N} w_{i} I\left(y_{i} \neq G_{m}\left(x_{i}\right)\right)}{\sum_{i=1}^{N} w_{i}} \end{aligned}\end{align} \]</div>
 </li>
 </ul>
 <ol class="simple">
 <li><p>Compute <span class="math notranslate nohighlight">\(\alpha_{m}=\log \left(\left(1-\operatorname{err}_{m}\right) / \operatorname{err}_{m}\right)\)</span> 得到classifier的权重</p></li>
 <li><p>Set <span class="math notranslate nohighlight">\(w_{i} \leftarrow w_{i} \cdot \exp \left[\alpha_{m} \cdot I\left(y_{i} \neq G_{m}\left(x_{i}\right)\right)\right], i=1,2, \ldots, N\)</span></p></li>
 </ol>
+</li>
+</ul>
 </li>
 </ul>
 <ol class="simple">
@@ -1824,10 +1828,9 @@ F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
 </ul>
 <hr class="docutils" />
 <p>各种Implementation</p>
-</div>
 <hr class="docutils" />
 <div class="section" id="gradientboostingclassifier">
-<h3>GradientBoostingClassiﬁer<a class="headerlink" href="#gradientboostingclassifier" title="Permalink to this headline">¶</a></h3>
+<h4>GradientBoostingClassiﬁer<a class="headerlink" href="#gradientboostingclassifier" title="Permalink to this headline">¶</a></h4>
 <p>Early implementation of Gradient Boosting in sklearn</p>
 <ul class="simple">
 <li><p>Most important parameters：</p>
@@ -1856,7 +1859,7 @@ F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
 </ul>
 </div>
 <div class="section" id="histgradientboostingclassifier">
-<h3>HistGradientBoostingClassiﬁer<a class="headerlink" href="#histgradientboostingclassifier" title="Permalink to this headline">¶</a></h3>
+<h4>HistGradientBoostingClassiﬁer<a class="headerlink" href="#histgradientboostingclassifier" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Orders of magnitude <strong>faster</strong> than GradientBoostingClassiﬁer on large datasets</p></li>
 <li><p>Inspired by LightGBM implementation</p></li>
@@ -1880,6 +1883,7 @@ F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
 </li>
 </ul>
 <img src="../images/(null)-20220725101152501.(null)" alt="img" style="width:50%;" />
+</div>
 </div>
 <div class="section" id="xgboost">
 <h3>XGBoost<a class="headerlink" href="#xgboost" title="Permalink to this headline">¶</a></h3>
@@ -1949,6 +1953,22 @@ F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
 <li><p>importance_type=weight（默认值），特征重要性使用特征在所有树中作为划分属性的次数。</p></li>
 <li><p>mportance_type=gain，特征重要性使用特征在作为划分属性时loss平均的降低量。</p></li>
 <li><p>importance_type=cover，特征重要性使用特征在作为划分属性时对样本的覆盖度</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shap</span> <span class="pre">value</span></code>: Shapley Additive explanations的缩写</p>
+<ul>
+<li><p>输出的形式：</p>
+<ul>
+<li><p>每个样本: 可以看到每个特征的shap_value贡献（有正负）</p></li>
+<li><p>每个特征：可以看到整体样本上的Shap绝对值取平均值来代表该特征的重要性——shap均值越大，则特征越重要</p></li>
+</ul>
+</li>
+<li><p>输出的图标</p>
+<ul>
+<li><p>dependency</p></li>
+<li><p>individual</p></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <p><strong>处理过拟合的情况</strong>：首先BFS的没那么容易过拟合</p>
 <ul class="simple">
@@ -2020,32 +2040,35 @@ F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
 </div>
 <div class="section" id="xgboostlightgbm">
 <h3>XGBoost和LightGBM的区别<a class="headerlink" href="#xgboostlightgbm" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>树生长策略</p>
 <ul>
+<li><p>树生长策略不同</p>
+<ul class="simple">
 <li><p>XGB采用level-wise的分裂策略：XGB对每一层所有节点做无差别分裂，但是可能有些节点增益非常小，对结果影响不大，带来不必要的开销。</p></li>
 <li><p>LGB采用leaf-wise的分裂策略：Leaf-wise是在所有叶子节点中选取分裂收益最大的节点进行的，但是很容易出现过拟合问题，所以需要对最大深度做限制</p></li>
 </ul>
 </li>
-<li><p>特征角度：分割点查找算法不同</p>
+<li><p>树对特征分割点查找算法不同：</p>
 <ul>
-<li><p>XGB使用特征预排序算法，LGB使用基于直方图的切分点算法，其优势如下：</p>
-<ul>
+<li><p>XGB使用特征预排序算法</p></li>
+<li><p>LGB使用基于直方图的切分点算法：</p>
+<ul class="simple">
 <li><p>减少内存占用，比如离散为256个bin时，只需要用8位整形就可以保存一个样本被映射为哪个bin(这个bin可以说就是转换后的特征)，对比预排序的exact greedy算法来说（用int_32来存储索引+ 用float_32保存特征值），可以节省7/8的空间。</p></li>
-<li><p>计算效率提高，预排序的Exact greedy对每个特征都需要遍历一遍数据，并计算增益。而直方图算法在建立完直方图后，只需要对每个特征遍历直方图即可。</p></li>
+<li><p>计算效率提高，预排序的Exact greedy对每个特征都需要遍历一遍数据，并计算增益。而直方图算法在建立完直方图后，只需要对每个特征遍历直方图即可</p></li>
 </ul>
 </li>
-<li><p>LGB还可以使用直方图做差加速，一个节点的直方图可以通过父节点的直方图减去兄弟节点的直方图得到，从而加速计算</p>
+<li><p>然后这里也跟分裂方式有关</p>
 <ul>
 <li><p>XGB 在每一层都动态构建直方图， 因为XGB的直方图算法不是针对某个特定的feature，而是所有feature共享一个直方图(每个样本的权重是二阶导)，所以每一层都要重新构建直方图。</p></li>
-<li><p>LGB中对每个特征都有一个直方图，所以构建一次直方图就够了</p></li>
+<li><p>LGB中对每个特征都有一个直方图，所以构建一次直方图就够了</p>
+<p>LGB还可以使用直方图做差加速，一个节点的直方图可以通过父节点的直方图减去兄弟节点的直方图得到，从而加速计算</p>
+</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p>样本选择：会做单边梯度采样，LightGBM会将更多的注意力放在训练不足的样本上</p></li>
 <li><p>还有一些小的区别：</p>
-<ul>
+<ul class="simple">
 <li><p>离散变量处理上：XGB无法直接输入类别型变量因此需要事先对类别型变量进行编码（例如独热编码），LGB可以直接处理类别型变量</p></li>
 <li><p>识别一些互斥的特征上，LightGBM可以bundling等等</p></li>
 </ul>

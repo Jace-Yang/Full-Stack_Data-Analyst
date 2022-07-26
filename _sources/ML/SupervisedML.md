@@ -917,15 +917,18 @@ Adaboost算法利用同一种基分类器（弱分类器），基于分类器的
 
 2. For $m=1$ to $M$ 训练M个classifier:
 
-  1. Fit a classifier $G_{m}(x)$ to the training data using weights $w_{i}$.
+   1. Fit a classifier $G_{m}(x)$ to the training data using weights $w_{i}$.
 
-  2. 计算它的weighted error = $\frac{错误样本的总权重}{总权重}$：
+   2. 计算它的weighted error = $\frac{错误样本的总权重}{总权重}$：
 
-    $$\operatorname{err}_{m}=\frac{\sum_{i=1}^{N} w_{i} I\left(y_{i} \neq G_{m}\left(x_{i}\right)\right)}{\sum_{i=1}^{N} w_{i}} $$
+      $$\operatorname{err}_{m}=\frac{\sum_{i=1}^{N} w_{i} I\left(y_{i} \neq G_{m}\left(x_{i}\right)\right)}{\sum_{i=1}^{N} w_{i}} $$
 
-  3. Compute $\alpha_{m}=\log \left(\left(1-\operatorname{err}_{m}\right) / \operatorname{err}_{m}\right)$ 得到classifier的权重
+     3. Compute $\alpha_{m}=\log \left(\left(1-\operatorname{err}_{m}\right) / \operatorname{err}_{m}\right)$ 得到classifier的权重
 
-  4. Set $w_{i} \leftarrow w_{i} \cdot \exp \left[\alpha_{m} \cdot I\left(y_{i} \neq G_{m}\left(x_{i}\right)\right)\right], i=1,2, \ldots, N$
+
+     4. Set $w_{i} \leftarrow w_{i} \cdot \exp \left[\alpha_{m} \cdot I\left(y_{i} \neq G_{m}\left(x_{i}\right)\right)\right], i=1,2, \ldots, N$
+
+
 3. Output $G(x)=\operatorname{sign}\left[\sum_{m=1}^{M} \alpha_{m} G_{m}(x)\right]$: 所有的Classifier的结果根据$$\alpha_m$$为权加权平均！
 
 **数学理解**
@@ -1018,7 +1021,7 @@ $$
 
 ---
 
-### GradientBoostingClassiﬁer
+#### GradientBoostingClassiﬁer
 
 Early implementation of Gradient Boosting in sklearn
 
@@ -1034,7 +1037,7 @@ Early implementation of Gradient Boosting in sklearn
   - 所有回归树中通过特征i分裂后**平方损失的减少值**的和/回归树数量 得到特征重要性。
   - 在sklearn中，GBDT和RF的特征重要性计算方法是相同的，都是基于单棵树计算每个特征的重要性，探究每个特征在每棵树上做了多少的贡献，再取个平均值。
 
-### HistGradientBoostingClassiﬁer
+#### HistGradientBoostingClassiﬁer
 
 - Orders of magnitude **faster** than GradientBoostingClassiﬁer on large datasets 
 - Inspired by LightGBM implementation
@@ -1113,6 +1116,16 @@ XGBoost采用的是level-wise（BFS）生长策略，能够同时分裂同一层
 
 - importance_type=cover，特征重要性使用特征在作为划分属性时对样本的覆盖度
 
+- `shap value`: Shapley Additive explanations的缩写
+  - 输出的形式：
+
+    - 每个样本: 可以看到每个特征的shap_value贡献（有正负）
+    - 每个特征：可以看到整体样本上的Shap绝对值取平均值来代表该特征的重要性——shap均值越大，则特征越重要
+  - 输出的图标
+    - dependency
+    - individual
+
+
 
 
 **处理过拟合的情况**：首先BFS的没那么容易过拟合
@@ -1181,27 +1194,32 @@ LightGBM采用leaf-wise生长策略（DFS）：每次从当前所有叶子中找
 
 ### XGBoost和LightGBM的区别
 
-- 树生长策略
+- 树生长策略不同
 
   - XGB采用level-wise的分裂策略：XGB对每一层所有节点做无差别分裂，但是可能有些节点增益非常小，对结果影响不大，带来不必要的开销。
 
   - LGB采用leaf-wise的分裂策略：Leaf-wise是在所有叶子节点中选取分裂收益最大的节点进行的，但是很容易出现过拟合问题，所以需要对最大深度做限制 
 
-- 特征角度：分割点查找算法不同
+- 树对特征分割点查找算法不同：
 
-  - XGB使用特征预排序算法，LGB使用基于直方图的切分点算法，其优势如下：
+  - XGB使用特征预排序算法
+
+  - LGB使用基于直方图的切分点算法：
 
     - 减少内存占用，比如离散为256个bin时，只需要用8位整形就可以保存一个样本被映射为哪个bin(这个bin可以说就是转换后的特征)，对比预排序的exact greedy算法来说（用int_32来存储索引+ 用float_32保存特征值），可以节省7/8的空间。
 
-    - 计算效率提高，预排序的Exact greedy对每个特征都需要遍历一遍数据，并计算增益。而直方图算法在建立完直方图后，只需要对每个特征遍历直方图即可。
+    - 计算效率提高，预排序的Exact greedy对每个特征都需要遍历一遍数据，并计算增益。而直方图算法在建立完直方图后，只需要对每个特征遍历直方图即可
 
-  - LGB还可以使用直方图做差加速，一个节点的直方图可以通过父节点的直方图减去兄弟节点的直方图得到，从而加速计算
+  - 然后这里也跟分裂方式有关
 
     - XGB 在每一层都动态构建直方图， 因为XGB的直方图算法不是针对某个特定的feature，而是所有feature共享一个直方图(每个样本的权重是二阶导)，所以每一层都要重新构建直方图。
 
     - LGB中对每个特征都有一个直方图，所以构建一次直方图就够了
+    
+      LGB还可以使用直方图做差加速，一个节点的直方图可以通过父节点的直方图减去兄弟节点的直方图得到，从而加速计算
 
 - 样本选择：会做单边梯度采样，LightGBM会将更多的注意力放在训练不足的样本上
+
 - 还有一些小的区别：
   - 离散变量处理上：XGB无法直接输入类别型变量因此需要事先对类别型变量进行编码（例如独热编码），LGB可以直接处理类别型变量
   - 识别一些互斥的特征上，LightGBM可以bundling等等

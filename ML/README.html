@@ -435,11 +435,23 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal nav-link" href="#id5">
      分类指标
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       对比
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       多分类
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
+  <a class="reference internal nav-link" href="#id8">
    参考
   </a>
  </li>
@@ -484,11 +496,23 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal nav-link" href="#id5">
      分类指标
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       对比
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       多分类
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
+  <a class="reference internal nav-link" href="#id8">
    参考
   </a>
  </li>
@@ -583,6 +607,17 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id3">
 <h2>模型的评测指标<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>metric主要用来评测机器学习模型的好坏程度，不同的任务应该选择不同的评价指标。分类，回归和排序问题应该选择不同的评价函数。</p>
+<p>Evaluation Metrics</p>
+<ul class="simple">
+<li><p>Evaluation metrics are generally used to measure the performance of an ML model.</p></li>
+<li><p>Evaluation metrics indicate how well the models would do when deployed</p></li>
+<li><p>The choice of metrics is very task-speciﬁc and determines what the model learns</p>
+<ul>
+<li><p>can direct your model to learn specific things based on the evaluation metric</p></li>
+</ul>
+</li>
+<li><p>It is important to know what you are willing to <strong>trade oﬀ</strong> when training ML models for a task</p></li>
+</ul>
 <div class="section" id="id4">
 <h3><strong>回归指标</strong><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul>
@@ -622,8 +657,22 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id5">
 <h3>分类指标<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p><strong>分类</strong></p>
+<ul class="simple">
+<li><p>Threshold-based metrics</p>
 <ul>
-<li><p>准确率和错误率</p>
+<li><p>Classiﬁcation Accuracy</p></li>
+<li><p>Precision, Recall &amp; F1-score</p></li>
+</ul>
+</li>
+<li><p>Ranking-based metrics</p>
+<ul>
+<li><p>Average Precision (AP)</p></li>
+<li><p>Area Under Curve (AUC)</p></li>
+</ul>
+</li>
+</ul>
+<p>准确率和错误率</p>
 <div class="math notranslate nohighlight">
 \[Acc(y,\hat{y})=\frac{1}{n}\sum_{i=1}^{n}y_i=\hat{y_i} \]</div>
 <div class="math notranslate nohighlight">
@@ -632,9 +681,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>Acc与Error平等对待每个类别，即<strong>每一个样本判对 (0) 和判错 (1) 的代价都是一样的</strong>。</p></li>
 <li><p>使用Acc与Error作为衡量指标时，需要考虑样本不均衡问题以及实际业务中好样本与坏样本的重要程度。</p></li>
 </ul>
-</li>
-<li><p><strong>混淆矩阵</strong>：对于二分类问题,可将样例根据其真是类别与学习器预测类别的组合划分为</p></li>
-</ul>
+<p><strong>混淆矩阵</strong>：对于二分类问题,可将样例根据其真是类别与学习器预测类别的组合划分为</p>
 <div class="highlight-PHP notranslate"><div class="highlight"><pre><span></span><span class="x">真正例(true positive, TP):预测为 1，预测正确，即实际 1</span>
 
 <span class="x">假正例(false positive, FP):预测为 1，预测错误，即实际 0</span>
@@ -679,6 +726,36 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>这里的x和y分别对应TPR和FPR，也是ROC曲线的横纵坐标。 $<span class="math notranslate nohighlight">\( \mathrm{AUC}=\int_{t=\infty}^{-\infty} y(t) d x(t) \tag{15} \)</span>$</p></li>
 </ul>
 </li>
+</ul>
+<div class="section" id="id6">
+<h4>对比<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>首先，两个都是both are ranking metrics：如果一个模型预测的probability是之前的一半，AUC和AP都不会改变！log-loss之类的才会改变</p>
+<img src="../images/(null)-20220726015315694.(null)" alt="img" style="zoom:50%;" />
+<ul>
+<li><p><strong>Precision-Recall PR Curve ⇒ Average Precision(AP)</strong></p>
+<ul>
+<li><p>好处是imbalance datasets表现更好make more sense： In case of imbalance datasets, AP is a better estimate indicative of model</p>
+<ul>
+<li><p>AUC will still be very high even the model is bad! 没给你true picture</p>
+<img src="../images/(null)-20220726015315595.(null)" alt="img" style="zoom: 50%;" />
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Receiver Operating Curve(ROC) ⇒ Area Unver ROC (AUROC / AUC)</p>
+<ul class="simple">
+<li><p>AUROC measures whether the model is able to rank positive examples higher than negative samples</p></li>
+<li><p>根据probability来rank prediction：如果全对的话，就是正确地把positive都放上面了，这样从threshold=1 recall=1 慢慢下降threshold的过程中，没有False Positive出现所以在FPR=0往上走，然后等threshold卡完所有positive继续往下走才因为threshold过低出现False Positive，但这个时候所有的P positive都被检测了，所以在recall = 1往右走</p></li>
+<li><p>好处是有Benchmark: random prediction ⇒ 0.5</p>
+<ul>
+<li><p>easier to know how well the model is performing than random using AUROC than AP</p></li>
+<li><p>因为这样移动threshold的时候会按sample的比例一边丢一个</p></li>
+<li><p>If you get a score of 0 that means the classifier is perfectly incorrect, it is predicting the incorrect choice 100% of the time.</p></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><p>KS值(Kolmogorov-Smirnov)是在模型中用于<strong>区分预测正负样本分隔程度</strong>的评价指标，一般应用于金融风控领域。</p>
 <p>与ROC曲线相似，ROC是以FPR作为横坐标，TPR作为纵坐标，通过改变不同阈值，从而得到ROC曲线。</p>
 <p>ks曲线为TPR-FPR，ks曲线的最大值通常为ks值。可以理解TPR是收益，FPR是代价，ks值是收益最大。图中绿色线是TPR、蓝色线是FPR。</p>
@@ -699,9 +776,15 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </div>
+<div class="section" id="id7">
+<h4>多分类<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<p>多分类时都一样，除了AUC</p>
+<img src="../images/(null)-20220726015221534.(null)" alt="img" style="zoom:50%;" />
 </div>
-<div class="section" id="id6">
-<h2>参考<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>参考<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
 <li><p>周志华 西瓜书</p></li>
 <li><p>李航 统计学习方法</p></li>

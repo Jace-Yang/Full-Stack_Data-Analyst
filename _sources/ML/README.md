@@ -2,7 +2,7 @@
 
 ## 机器学习分类
 
-<img src="../images/(null)-20220724132314070.(null)" alt="img" style="zoom: 33%;" />
+<img src="../images/(null)-20220724132314070.(null)" alt="img" style="width: 33%;" />
 
 - 根据label的类型来分
 
@@ -66,6 +66,8 @@ Evaluation Metrics
   - can direct your model to learn specific things based on the evaluation metric
 - It is important to know what you are willing to **trade oﬀ** when training ML models for a task
 
+
+
 ### **回归指标**
 
 - 平均绝对误差(MAE)，又称L1范数损失：
@@ -79,7 +81,8 @@ Evaluation Metrics
 
   $$M S E=\frac{1}{n} \sum_{i=1}^{n}\left(y_{i}-\hat{y}_{i}\right)^{2}$$
 
-  - 由于MSE与我们的目标变量的量纲不一致，为了保证量纲一致性，我们需要对MSE进行开方 ：
+  - 由于MSE与我们的目标变量的量纲不一致，为了保证量纲一致性，我们需要对MSE进行开方 得到RMSE
+  - Outlier多时会被push得非常高, MSE会让model去predict outlier right 所以要么tune outlier再用MSE，要么就用MAE
 
 - 均方根误差(RMSE)
 
@@ -92,9 +95,15 @@ Evaluation Metrics
   - $y$表示实际销量, $\hat{y}$表示预测销量, $\bar{y}$表示实际销量的均值, $n$表示样本数, $i$表示第$i$个样本, $Var$表示实际值的方差，也就是销量的变异情况。
 
   - $R2_{score}$越大，模型准确率越好。
+  - $MSE$表示均方误差，为残差平方和的均值,该部分不能能被数学模型解释的部分,属于不可解释性变异。
+    - 因此： $$可解释性变异占比 = 1-\frac{不可解释性变异}{整体变异}= 1-\frac{M S E}{\operatorname{Var}} = R2_score \tag{5} $$
 
-- $MSE$表示均方误差，为残差平方和的均值,该部分不能能被数学模型解释的部分,属于不可解释性变异。
-  - 因此： $$可解释性变异占比 = 1-\frac{不可解释性变异}{整体变异}= 1-\frac{M S E}{\operatorname{Var}} = R2_score \tag{5} $$
+- Mean Absolute Percentage Error (MAPE): $\frac{100}{n} \sum_{i=1}^{n} \mid \frac{y_{i}-\hat{y}_{i}}{y_{i}}$，特点是跟value本身大小也有关系
+
+  - Intuition：y范围很大时候 大y当然会带来大的error, 所以不make sense
+
+
+
 
 ### 分类指标
 
@@ -107,7 +116,7 @@ Evaluation Metrics
   - Average Precision (AP)
   - Area Under Curve (AUC)
 
-准确率和错误率
+#### 准确率和错误率
 
 $$Acc(y,\hat{y})=\frac{1}{n}\sum_{i=1}^{n}y_i=\hat{y_i} $$
 
@@ -118,29 +127,95 @@ $$ Error(y, \hat{y})=1-acc(y,\hat{y}) \tag{7} $$
 
 
 
-**混淆矩阵**：对于二分类问题,可将样例根据其真是类别与学习器预测类别的组合划分为
+#### Confusion Matrix / 评价指标
 
-```PHP
-真正例(true positive, TP):预测为 1，预测正确，即实际 1
+对于二分类问题,可将样例根据其真是类别与学习器预测类别的组合划分为
 
-假正例(false positive, FP):预测为 1，预测错误，即实际 0
+- 真正例(true positive, TP):预测为 1，预测正确，即实际 1
+- 假正例(false positive, FP):预测为 1，预测错误，即实际 0
+- 真反例(ture negative, TN):预测为 0，预测正确，即实际 0
+- 假反例(false negative, FN):预测为 0，预测错误，即实际 1
 
-真反例(ture negative, TN):预测为 0，预测正确，即实际 0
+<img src="../images/(null)-20220726100557307.(null)" alt="img" style="width:50%;" />
 
-假反例(false negative, FN):预测为 0，预测错误，即实际 1
-```
+> **通常把minority当作Positive** **:** Minority class is considered positive as best practice——因为希望learn minority class well（如果要learn majority class就直接预测大多数就好了）
 
-则有:TP+FP+TN+FN=样例总数
+- 刚刚的$$Accuracy=\frac{\sum_{i=1}^{n} I_{\hat{y_{i}}=y_{i}}}{n} = \frac{\colorbox{#eaf1f5}{TN+TP}}{TN+TP+FP+FN}$$
+  -  could be misleading in case of imbalance datasets 
+  - accuracy paradox: higher the accuracy does not necessarily mean a better model.
+    - 比如风控直接说大家都是正常的 accuracy一样很高
 
-- 准确率（查准率） Precision：分类器**预测的正样本中预测正确的比例**，取值范围为[0,1]，取值越大，模型预测能力越好。 $$ P=\frac{TP}{TP+FP} \tag{8} $$
+| **Normalize by y_true**                                      | **Normalize by y_pred**                                      |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| <img src="../images/(null)-20220726101304187.(null)" alt="img" style="width:33%;" /> | <img src="../images/(null)-20220726101304176.(null)" alt="img" style="width:33%;" /> |
+| True Positive Rate / **Recall** / Sensitivity = $$\frac{\colorbox{#c9e8ee}{TP}}{\colorbox{#c9e8ee}{TP}+FN}=\frac{TP}{所有Positive样本}$$：the fraction of relevant instances that were retrieved <br> False Positive Rate = $$\frac{\colorbox{#d9ed8a}{FP}}{\colorbox{#d9ed8a}{FP}+TN}=\frac{FP}{所有Negative样本}$$ | Precision= $$\frac{\colorbox{#c39dc6}{TP}}{\colorbox{#c39dc6}{TP}+FP}=\frac{TP}{所有Positive预测}$$：the fraction of relevant instances *among retrieved* instances |
+| 能把癌症的人中的多少检测出来                                 | 判定成spam中有多少是实锤，下结论的时候有多precise            |
+| $$\text{F1-Score} =2 \times \frac{\text { Precision*Recall }}{\text { Precision+Recall }}$$：harmonic mean of precision & recall 当两边都在意的时候用F1！ |                                                              |
 
-- 召回率（查全率）Recall：Recall 是分类器所预测正确的正样本占所有正样本的比例，取值范围为[0,1]，取值越大，模型预测能力越好。 $$ R=\frac{TP}{TP+FN} \tag{9} $$
 
-- F1 Score：Precision和Recall 是互相影响的，理想情况下肯定是做到两者都高，但是一般情况下Precision高、Recall 就低， Recall 高、Precision就低。为了均衡两个指标，我们可以采用Precision和Recall的加权调和平均（weighted harmonic mean）来衡量，即
+
+##### Precision VS Recall
+
+- 准确率（查准率） `Precision`：分类器**预测的正样本中预测正确的比例**，取值范围为[0,1]，取值越大，模型预测能力越好。 $$ P=\frac{TP}{TP+FP} \tag{8} $$
+
+- 召回率（查全率）`Recall`：Recall 是分类器所预测正确的正样本占所有正样本的比例，取值范围为[0,1]，取值越大，模型预测能力越好。 $$ R=\frac{TP}{TP+FN} \tag{9} $$
+
+- `F1 Score`：Precision和Recall 是互相影响的，理想情况下肯定是做到两者都高，但是一般情况下Precision高、Recall 就低， Recall 高、Precision就低。为了均衡两个指标，我们可以采用Precision和Recall的加权调和平均（weighted harmonic mean）来衡量，即
 
    $$ \frac{1}{F_1}=\frac{1}{2} \cdot (\frac{1}{P}+\frac{1}{R}) \tag{10} $$, $$ F_1=\frac{2*P*R}{P+R} \tag{11} $$
 
-- ROC，全称是"受试者工作特征"(Receiver Operating Characteristic)曲线，ROC曲线为 FPR 与 TPR 之间的关系曲线，这个组合以 FPR 对 TPR，即是以代价 (costs) 对收益 (benefits)，显然收益越高，代价越低，模型的性能就越好。
+- Averaging Metrics
+
+   - $$\text{Macro Recall} = \frac{1}{|L|} \sum_{l \in L} R\left(y_{l}, \hat{y}_{l}\right)$$
+
+     Average over recall **per class equally** ⇔ $\text{Balanced Accuracy}= \frac{1}{2} \left(\frac{T P}{T P+F N}+\frac{T N}{T N+F P}\right)$
+
+   - $$\text{Weighted Recall}= \frac{1}{n} \sum_{l \in L} n_{l} R\left(y_{l}, \hat{y}_{l}\right)$$
+
+     Weighted average (by class size) over recall per class ⇔ Accuracy
+
+     - Imbalanced 的数据不用！不然会give a higher weight to the majority class.
+
+
+
+**计算举例：**
+
+<img src="../images/(null)-20220726101620779.(null)" alt="img" style="width:50%;" />
+
+- 全局：$$Accuracy = \frac{23+2184}{23+2184+3+27} = 0.9865$$
+- Minority Class：
+  - $$Recall = \frac{23}{23+27} = 0.46$$
+  - $$Precision = \frac{23}{23+3} = 0.8846$$
+  - $$F1\text{-}score = 2 \times \frac{0.8846 * 0.46}{0.8846 + 0.46} = 0.60526$$
+- Averaging Metrics:
+  - $$\begin{aligned} \text{Macro Recall} &= \frac{1}{2} (\frac{23}{23+27} + \frac{2184}{2184+3})= 0.7293 \\ &= \text{Balanced Accuracy} \end{aligned}$$
+  - $$\begin{aligned} \text{Weighted Recall} &= \frac{1}{2184+3+27+23} ((23+27) \times \frac{23}{23+27} + (2184+3) \times \frac{2184}{2184+3}))  \\  &= \frac{23+2184 }{2184+3+27+23} = 0.9865\\ &= \text{Accuracy}  \end{aligned}$$
+
+
+
+##### Metric Choosing的问题
+
+原则：
+
+- Problem-speciﬁc
+- Balanced accuracy better than accuracy (most of the times)
+- Cost associated with misclassiﬁcation
+
+两种场景：
+
+| **场景**   | **第一类错误（Reject True H0｜拒真｜**`FP`**）成本高**       | **第二类错误（Accept False H0｜取伪｜**`FN`**）成本高**      |
+| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **Metric** | Choose `precision` $$=\frac{TP}{TP+\colorbox{#a8b6e0}{FP}}$$ | Choose `recall`$$=\frac{TP}{TP+\colorbox{#a8b6e0}{FN}}$$     |
+| **例子**   | Predicting an email as spam when it is not (false positive) has higher cost than predicting email as not spam **“邮件False Positive第一类错误成本高，要非常小心precisely地给Positive预测，所以预测positive里面的TP要高⇒precision要高”** | Predicting that an individual has no cancer when he/she has cancer (false negative) is far more costlier than the other way round **“癌症False Negative第二类错误成本高，要尽量recall回所有的Positive=1 sample⇒recall要高”** |
+| **做法**   | `提高threshold`：让每个y_pred_positive都是很sure的结果，牺牲recall但更加precise ![img](../images/(null)-20220726102205607.(null)) | `降低threshold`：多召回多预测出positive（predict negative的时候我非常sure），可以牺牲precision但提高recall y_true_positive的占比 ![img](../images/(null)-20220726102205600.(null)) |
+
+
+
+#### 曲线指标
+
+##### Receiver Operating Curve (ROC) ⇒ Area Under Curve (AUC)
+
+- ROC，全称是"受试者工作特征"(Receiver Operating Characteristic)曲线，ROC曲线为 **FPR 与 TPR** 之间的关系曲线，这个组合以 FPR 对 TPR，即是以代价 (costs) 对收益 (benefits)，显然收益越高，代价越低，模型的性能就越好。
 
   - ROC曲线的横轴是"假正例率"(False Positive Rate, **FPR**), 纵轴是"真正例率"(True Positive Rate, **TPR**), **注意这里不是上文提高的P和R**.
 
@@ -148,7 +223,7 @@ $$ Error(y, \hat{y})=1-acc(y,\hat{y}) \tag{7} $$
 
     $$ TPR=\frac{TP}{TP+FN} \tag{12} $$
 
-  - x 轴为假阳性率（FPR）：在所有的负样本中，**分类器预测错误的比例**
+  - x 轴为假阳性率（FPR）：在所有的负样本中，**分类器预测错误的比例**，（等于1-负样本的recall）
 
     $$ FPR=\frac{FP}{TN+FP} \tag{13} $$
 
@@ -167,60 +242,91 @@ $$ Error(y, \hat{y})=1-acc(y,\hat{y}) \tag{7} $$
 
 
 
-#### 对比
+端点解读：
+
+<img src="../images/(null)-20220726103010432.(null)" alt="img" style="width:50%;" />
+
+- `(1, 1)`当recall (y轴的True Positive Rate)为1的时候，相当于召回全部正样本，类似threshold=0.01，那么这个时候所有的负样本都给你搞成Positive了没有TN，False Positive Rate = $$\frac{\colorbox{#d9ed8a}{FP}}{\colorbox{#d9ed8a}{FP}+TN}=\frac{FP}{所有Negative样本}=\frac{所有Negative样本}{所有Negative样本}=1$$
+- `（0， 0）`当recall (y轴的True Positive Rate)为0的时候，相当于什么正样本都不召回，类似threshold=0.99，那么这个时候根本没有错的Positive，False Positive Rate = $$\frac{\colorbox{#d9ed8a}{FP}}{\colorbox{#d9ed8a}{FP}+TN}=\frac{FP}{所有Negative样本}=\frac{0}{所有Negative样本}=0$$
+
+
+
+##### Precision-Recall (PR) Curve
+
+- A precision-recall curve shows the relationship between `precision` and `recall` at every cut-oﬀ point. 
+- Visualize eﬀect of selected threshold on performance.
+
+<img src="../images/(null)-20220726102916189.(null)" alt="img" style="width:33%;" />
+
+- `（0， 1）`当recall为0的时候，相当于没有一个正样本被召回， ⇒全部预测不是Fraud(Negative)了，也就没有错误的Positive，因此 $$precision=\frac{TP}{TP+0}=1$$ 
+- `（1， 0.93）`当recall为1的时候，相当于我为了把所有正样本召回，threshold为0⇒我全部当Fraud打(预测Positive)，那么这时候毫无precise可言，因此 $$precision=\frac{TP}{n}=precision_{min}$$ 
+
+
+
+##### 对比
 
 首先，两个都是both are ranking metrics：如果一个模型预测的probability是之前的一半，AUC和AP都不会改变！log-loss之类的才会改变
 
-<img src="../images/(null)-20220726015315694.(null)" alt="img" style="zoom:50%;" />
-
-
+<img src="../images/(null)-20220726015315694.(null)" alt="img" style="width:50%;" />
 
 - **Precision-Recall PR Curve ⇒ Average Precision(AP)**
 
   - 好处是imbalance datasets表现更好make more sense： In case of imbalance datasets, AP is a better estimate indicative of model
 
-    - AUC will still be very high even the model is bad! 没给你true picture
+    - AUC will still be very high even the model is bad! 没给你true picture：主要是AUC曲线横坐标是False Positive Rate也就是FP/所有负样本，分母是很大的，但TN没有价值（比如正确预测一个贷款的人不会违约）
 
-      <img src="../images/(null)-20220726015315595.(null)" alt="img" style="zoom: 50%;" />
+      <img src="../images/(null)-20220726015315595.(null)" alt="img" style="width: 67%;" />
 
-- Receiver Operating Curve(ROC) ⇒ Area Unver ROC (AUROC / AUC)
+- **Receiver Operating Curve(ROC) ⇒ Area Unver ROC (AUROC / AUC)**
 
-  - AUROC measures whether the model is able to rank positive examples higher than negative samples 
-  - 根据probability来rank prediction：如果全对的话，就是正确地把positive都放上面了，这样从threshold=1 recall=1 慢慢下降threshold的过程中，没有False Positive出现所以在FPR=0往上走，然后等threshold卡完所有positive继续往下走才因为threshold过低出现False Positive，但这个时候所有的P positive都被检测了，所以在recall = 1往右走
+  - AUROC measures whether the model is able to *rank positive examples higher than negative samples* 
+  - 根据probability来rank prediction：
+    - 如果全（就是正确地把positive都放上面）的情况下：从threshold=1 recall=0 慢慢下降threshold的过程中不会有False Positive出现，所以在FPR=0垂直往上走，然后等threshold卡完所有positive继续往下走才因为threshold过低出现False Positive，但这个时候所有的P positive都被检测了，所以在recall = 1的位置水平往右走
   - 好处是有Benchmark: random prediction ⇒ 0.5 
     - easier to know how well the model is performing than random using AUROC than AP 
     - 因为这样移动threshold的时候会按sample的比例一边丢一个
     - If you get a score of 0 that means the classifier is perfectly incorrect, it is predicting the incorrect choice 100% of the time.
 
-- KS值(Kolmogorov-Smirnov)是在模型中用于**区分预测正负样本分隔程度**的评价指标，一般应用于金融风控领域。
+#### 其他指标
 
-  与ROC曲线相似，ROC是以FPR作为横坐标，TPR作为纵坐标，通过改变不同阈值，从而得到ROC曲线。
+**KS值(Kolmogorov-Smirnov)**
 
-  ks曲线为TPR-FPR，ks曲线的最大值通常为ks值。可以理解TPR是收益，FPR是代价，ks值是收益最大。图中绿色线是TPR、蓝色线是FPR。
+<img src="../images/1353331-20190628225817455-978692269.png" alt="img" style="width:50%;" />
 
-  KS的计算步骤如下：
+- 模型中用于**区分预测正负样本分隔程度**的评价指标，一般应用于金融风控领域。
+- 与ROC曲线相似：
+  - ROC是以FPR作为横坐标，TPR作为纵坐标，通过改变不同阈值，从而得到ROC曲线。
+  - ks曲线为TPR-FPR，ks曲线的最大值通常为ks值。可以理解TPR是收益，FPR是代价，ks值是收益最大。图中绿色线是TPR、蓝色线是FPR。
 
-  1. 按照模型的结果对每个样本进行打分
-  2. 所有样本按照评分排序，从小到大分为10组（或20组）
-  3. 计算每个评分区间的好坏样本数。
-  4. 计算每个评分区间的累计好样本数占总好账户数比率(good%)和累计坏样本数占总坏样本数比率(bad%)。
-  5. 计算每个评分区间累计坏样本占比与累计好样本占比差的绝对值（累计bad%-累计good%），然后对这些绝对值取最大值即得此评分模型的K-S值。
+KS的计算步骤如下：
 
-- CTR（Click-Through-Rate）
+1. 按照模型的结果对每个样本进行打分
+2. 所有样本按照评分排序，从小到大分为10组（或20组）
+3. 计算每个评分区间的好坏样本数。
+4. 计算每个评分区间的累计好样本数占总好账户数比率(good%)和累计坏样本数占总坏样本数比率(bad%)。
+5. 计算每个评分区间累计坏样本占比与累计好样本占比差的绝对值（累计bad%-累计good%），然后对这些绝对值取最大值即得此评分模型的K-S值。
 
-  CTR即点击通过率,是互联网广告常用的术语,指网络广告（图片广告/文字广告/关键词广告/排名广告/视频广告等）的点击到达率,即该广告的实际点击次数（严格的来说,可以是到达目标页面的数量）除以广告的展现量(Show content). $$ ctr=\frac{点击次数}{展示量}　\tag{16} $$
-
-- CVR (Conversion Rate)，CVR即转化率。是一个衡量CPA广告效果的指标
-
-  简言之就是用户点击广告到成为一个有效激活或者注册甚至付费用户的转化率. $$ cvr=\frac{点击量}{转化量}　\tag{17} $$
-
+注意：K-S值仅仅代表模型的分割样本的能力，不能表示分割的是否准确，即便好坏客户完全分错，K-S值依然可以很高
 
 
-#### 多分类
+
+**CTR（Click-Through-Rate）**
+
+- 点击通过率,是互联网广告常用的术语,指网络广告（图片广告/文字广告/关键词广告/排名广告/视频广告等）的点击到达率,即该广告的实际点击次数（严格的来说,可以是到达目标页面的数量）除以广告的展现量(Show content). $$ ctr=\frac{点击次数}{展示量}　\tag{16} $$
+
+
+
+**CVR (Conversion Rate)，CVR即转化率。**是一个衡量CPA广告效果的指标
+
+- 用户点击广告到成为一个有效激活或者注册甚至付费用户的转化率. $$ cvr=\frac{点击量}{转化量}　\tag{17} $$
+
+
+
+#### 多分类问题
 
 多分类时都一样，除了AUC
 
-<img src="../images/(null)-20220726015221534.(null)" alt="img" style="zoom:50%;" />
+<img src="../images/(null)-20220726015221534.(null)" alt="img" style="width:50%;" />
 
 
 
@@ -231,3 +337,4 @@ $$ Error(y, \hat{y})=1-acc(y,\hat{y}) \tag{7} $$
 3. https://baike.baidu.com/item/CVR/20215345
 4. https://baike.baidu.com/item/CTR/10653699?fr=aladdin
 5. https://www.cnblogs.com/shenxiaolin/p/9309749.html
+6. https://www.cnblogs.com/wqbin/p/11105186.html

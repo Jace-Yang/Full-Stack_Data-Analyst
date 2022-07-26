@@ -529,11 +529,6 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     外部环境带来偶然因素
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
      统计显著!=实际显著
     </a>
    </li>
@@ -545,6 +540,11 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#data-peaking">
      Data Peaking
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     外部环境带来偶然因素
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -762,11 +762,6 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     外部环境带来偶然因素
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
      统计显著!=实际显著
     </a>
    </li>
@@ -778,6 +773,11 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#data-peaking">
      Data Peaking
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     外部环境带来偶然因素
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -986,23 +986,30 @@ const thebe_selector_output = ".output, .cell_output"
 <ul>
 <li><p>利用用户的唯一标识的尾号或者其他标识进行分类，如按照尾号的奇数或者偶数将其分为两组。</p></li>
 <li><p>用一个hash函数将用户的唯一标识进行hash取模，分桶。可以将用户均匀地分到若干个桶中，如分到100个或者1000个桶中，这样的好处就是可以进一步将用户打散，提高分组的效果。</p></li>
+<li><p>当然，如果有多个分组并行进行的情况的话，要考虑独占域和分享域问题。（不同域之间的用户相互独立，交集为空）对于共享域，我们要进行分层。但是在分层中，下一层要将上一层的用户打散，确保下一层用户的随机性。</p></li>
 </ul>
 </li>
 </ul>
-<p>当然，如果有多个分组并行进行的情况的话，要考虑独占域和分享域问题。（不同域之间的用户相互独立，交集为空）对于共享域，我们要进行分层。但是在分层中，下一层要将上一层的用户打散，确保下一层用户的随机性。</p>
-<p>如果是双边市场的话，可以用户、平台、生产者三方进行实验</p>
+<p><strong>实验对象：</strong></p>
+<ul class="simple">
+<li><p>如果是双边市场的话，可以用户、平台、生产者三方进行实验</p></li>
+</ul>
 <center><img src="../images/CI_abtest_4.png" width="75%"/></center>
 <ul>
 <li><p>推荐实验</p>
   <center><img src="../images/CI_abtest_5.png" width="75%"/></center>
 </li>
-<li><p>人群实验
-对人群的选择人：行为圈选、标签圈选、属性圈选</p>
+<li><p>人群实验</p>
+<p>对人群的选择人：行为圈选、标签圈选、属性圈选</p>
 <ul>
 <li><p>分流：用户分流是指按照地域、性别、年龄等把用户均匀地分为几个组，1个用户只能出现在1个组中。</p>
 <ul class="simple">
 <li><p>例子：只看“安卓用户”、只看“北京地区用户”等等，很多时候实验会在一个城市进行，因为不同城市之间的用户差异会很大（特别是美团滴滴之类的）</p></li>
-<li><p>问题：实际情况中，往往会同时上线多个实验，拿广告来说，有针对样式形态的实验，有针对广告位置策略的实验，有针对预估模型的实验。如果只是按照这种分流模式来，在每组实验放量10%的情况下，整体的流量只能同时开展10个实验。这个实验的效率是非常低的。为了解决这个问题，提出了用户分层、流量复用的方法。</p></li>
+<li><p>问题：实际情况中，往往会同时上线多个实验，拿广告来说，有针对样式形态的实验，有针对广告位置策略的实验，有针对预估模型的实验。</p>
+<ul>
+<li><p>如果只是按照这种分流模式来，在每组实验放量10%的情况下，整体的流量只能同时开展10个实验。这个实验的效率是非常低的。为了解决这个问题，提出了用户分层、流量复用的方法。</p></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>分层：同一份流量可以分布在多个实验层，也就是说同一批用户可以出现在不同的实验层，前提是各个实验层之间无业务关联，保证这一批用户都均匀地分布到所有的实验层里，达到用户“正交”的效果就可以。所谓的正交分层，其实可以理解为互不影响的流量分层，从而实验流量复用的效果。</p></li>
@@ -1065,13 +1072,13 @@ const thebe_selector_output = ".output, .cell_output"
 <ul>
 <li><p>最小样本量计算公式</p>
 <div class="math notranslate nohighlight">
-\[  
+\[
     \mathrm{N}=\frac{(\sigma_{1}^{2}+\sigma_{2}^{2}) (Z_{1-\frac{\alpha}{2}}+Z_{1-\beta})^{2} }{\delta^{2}} \approx \frac{2 \sigma^{2} \cdot(1.96+0.84)^{2}}{\delta^{2}} \approx \frac{16 * \sigma^{2}}{\delta^{2}}
     \]</div>
 <ul>
 <li><p>公式解释</p>
 <ul>
-<li><p>样本标准差<span class="math notranslate nohighlight">\(\sigma\)</span>衡量的是整体样本数据的波动性，可从样本中计算得到</p>
+<li><p>**样本标准差<span class="math notranslate nohighlight">\(\sigma\)</span>**衡量的是整体样本数据的波动性，可从样本中计算得到</p>
 <ul>
 <li><p>观测指标为绝对值类指标时:
 $<span class="math notranslate nohighlight">\(
@@ -1086,7 +1093,7 @@ $<span class="math notranslate nohighlight">\(
   \)</span>P_{A}<span class="math notranslate nohighlight">\(和\)</span>P_{B}$为观测数据，比如希望点击率从20%提升到25%，那么PA=20%，PB=25%，δ=5%。</p></li>
 </ul>
 </li>
-<li><p>组间预期差值<span class="math notranslate nohighlight">\(\delta\)</span>代表预期实验组和对照组两组数据的差，比如说期望点击率从20%提升到25%，那么δ就是5%。</p></li>
+<li><p>**组间预期差值<span class="math notranslate nohighlight">\(\delta\)</span>**代表预期实验组和对照组两组数据的差，比如说期望点击率从20%提升到25%，那么δ就是5%。</p></li>
 <li><p>α：犯第一类拒真错误的概率</p>
 <ul class="simple">
 <li><p>1-α := 置信水平</p></li>
@@ -1139,8 +1146,12 @@ $<span class="math notranslate nohighlight">\(
 <p>所以根据<span class="math notranslate nohighlight">\(-Z_{\beta}=Z_{\alpha / 2}-\frac{\mu_{c}-\mu_{t}}{\sqrt{2} \sigma / \sqrt{n}}\)</span>可以得到:
 $<span class="math notranslate nohighlight">\(n \approx \frac{2\left(Z_{\alpha / 2}+Z_{\beta}\right)^{2} \sigma^{2}}{\left(\mu_{c}-\mu_{t}\right)^{2}}\)</span>$</p>
 </li>
-<li><p>以上公式是计算出单个实验组所需的样本量，若有多个实验组，乘以实验组的个数就可以得到最终的样本量。</p></li>
+<li><p>以上公式是计算出单个实验组所需的样本量</p>
+<ul class="simple">
+<li><p>若有多个实验组，乘以实验组的个数就可以得到最终的样本量。</p></li>
 <li><p>样本量可以是一段时间里累积的样本量，比如需要10000个样本，每天可以产生1000个，那运行10天可以的！</p></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>例子：</p>
@@ -1165,7 +1176,7 @@ $<span class="math notranslate nohighlight">\(n \approx \frac{2\left(Z_{\alpha /
 </li>
 <li><p>在线计算工具：<a class="reference external" href="https://www.evanmiller.org/ab-testing/">Evans awesome AB Tools</a></p>
 <p>以上的例子：</p>
-  <center><img src="../images/CI_abtest_6.png" width="65%"/></center>
+  <center><img src="../images/CI_abtest_6.png" width="45%"/></center>
 </li>
 <li><p>代码</p>
 <p>基于<a class="reference external" href="https://toutiao.io/posts/q660w08/preview">delta method</a>
@@ -1243,14 +1254,10 @@ $<span class="math notranslate nohighlight">\(\sqrt{n}\left(g\left(Y_{n}\right)-
 <li><p>设计与开发：</p>
 <ul>
 <li><p>创建变体：对网站原有版本的元素进行所需的更改。可能是更改按钮的颜色，交换页面上元素的顺序，隐藏导航元素或完全自定义的内容。</p></li>
+<li><p>埋点设计：把相关的用户行为收集起来，供后续的流程进行数据分析，从而得出实验结论。</p></li>
 </ul>
 </li>
-</ul>
-<p>​	 - 埋点设计：把相关的用户行为收集起来，供后续的流程进行数据分析，从而得出实验结论。</p>
-<ul>
-<li><p>分配流量分割进行测试</p>
-<p>这里要注意辛普森悖论！要严格执行之前设计的分流分层方案让样本均匀随机。</p>
-</li>
+<li><p>分配流量分割进行测试：这里要注意辛普森悖论！要严格执行之前设计的分流分层方案让样本均匀随机。</p></li>
 <li><p>埋点采集数据</p></li>
 </ul>
 </div>
@@ -1399,7 +1406,7 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 <li><p>Network effect: 控制组的用户会被实验组的用户影响</p>
 <p>User behaviors are impacted by others. The effect can spillover the control group</p>
 <ul class="simple">
-<li><p>例1：比如我们对司机激励策略 由于司机会群里讨论所以会感觉自己受到不公平的待遇！</p></li>
+<li><p>例1: 比如我们对司机激励策略 由于司机会群里讨论所以会感觉自己受到不公平的待遇！</p></li>
 <li><p>例2: 假设好友被分到了实验组，我被分到了对照组。曝光给好友的内容更加的有吸引力，他作出了点赞、评论等互动行为。而产品的社交属性，使我可以看到好友的互动行为，原本不会被曝光给我的内容，我通过好友的互动间接接收到了。也提高了我去互动的概率，提高了活跃程度。这样就发生了实验组想对照组溢出的问题，独立的假设受到了破坏。</p></li>
 </ul>
 </li>
@@ -1461,11 +1468,7 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 </ul>
 </div>
 <div class="section" id="id11">
-<h3>外部环境带来偶然因素<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
-<p>比如打车的时候有下雨，电商有大促，就会带来随机性</p>
-</div>
-<div class="section" id="id12">
-<h3>统计显著!=实际显著<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<h3>统计显著!=实际显著<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>问：如果你发现AB测试的结果在统计上来说是显著，但是在实际中却不显著，这是为什么？</p>
 <ul>
 <li><p>解释：统计学上的显著并不意味着实际效果的显著，假设检验只是告诉我们数据差异由随机产生的概率有多大，而实际显著是一个业务对改进商业价值的业务判断</p>
@@ -1493,7 +1496,9 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 <li><p>缺点：太过保守</p></li>
 </ul>
 <p>解决方案2：False Discovery Rate</p>
-<p><span class="math notranslate nohighlight">\(\mathrm{FDR}=E[\frac{\text { false positives }}{\text { rejections }}]\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathrm{FDR}=E[\frac{\text { false positives }}{\text { rejections }}]\)</span></p></li>
+</ul>
 </div>
 <div class="section" id="data-peaking">
 <h3>Data Peaking<a class="headerlink" href="#data-peaking" title="Permalink to this headline">¶</a></h3>
@@ -1507,13 +1512,17 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 <p>如果没有完成Pre-determined的duration的话，得到的effect是随机性造成的（过早停止测试可能会让一些异常的数据没有办法发生“均值回归“）！</p>
 <p>此外，我们需要的是一个reproducible，而peak的时候终止很可能是一种无法复现的结果。</p>
 </div>
+<div class="section" id="id12">
+<h3>外部环境带来偶然因素<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>比如打车的时候有下雨，电商有大促，就会带来随机性</p>
+</div>
 <div class="section" id="id13">
 <h3>单侧检验<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>当显著性水平一定时，如要在多个选件中确定入选者，那么单侧检验所需观察到的选件之间的转化率差异更小。这似乎很有吸引力，因为与使用双侧检验相比，单侧检验可以更早地确定入选者。但单侧检验是有代价的！</p>
 <ul class="simple">
 <li><p>例如，在一个单侧检验中，测试B是否比A好必须在开始测试​之前，决定是测试 B 优于 A 还是 A 优于 B。但是，如果是先查看了 A/B 测试的结果并看到 B 优于 A，然后​决定进行一个单侧检验来看这种差异是否具有统计意义，那么就违反了统计测试背后的假设。违反测试的假设意味着您的置信区间不可靠，并且测试的误报率比预期的要高。</p></li>
 </ul>
-<p>您可以将单侧检验看做是一种已经由裁判做出决定、只是对该选件进行试验的测试。在单侧检验中，您已经确定了入选选件，而且只是想证明这一点，而不是向每个体验提供平等的机会来证明自己可以是入选者。单侧检验只应在这种极少发生的情况下使用：您只关注某个策略是否优于其他策略，而不是其他策略优于某个策略。</p>
+<p>您可以将单侧检验看做是一种已经由裁判做出决定、只是对该选件进行试验的测试。在单侧检验中，您已经确定了入选选件，而且只是想证明这一点，而不是向每个体验提供平等的机会来证明自己可以是入选者。单侧检验只应在这种极少发生的情况下使用：您<strong>只关注某个策略是否优于其他策略，而不是其他策略优于某个策略。</strong></p>
 <p>避免出现单侧检验问题，我们通常使用始终运用双侧检验的 A/B 测试解决方案！</p>
 </div>
 </div>
@@ -1625,8 +1634,7 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 <li><p>主播端向消费端溢出：实验组主播可能更加卖力直播，同时影响both实验组和控制组观众</p></li>
 </ul>
 </li>
-<li><p>帮助归因：比如解释主播端分析看到实验组的主播比控制组的主播有更高的观流时长和
-点赞次数,：</p>
+<li><p>帮助归因：比如解释主播端分析看到实验组的主播比控制组的主播有更高的观流时长和点赞次数：</p>
 <ul>
 <li><p>猜想：挂件导致实验组的主播提高了推流的质量, 因为他们发现有一些观众会跳离自己的直播间，于是做出了更多的努力来 “挽留”观众</p>
 <p>验证方法：可以看N1 vs N3（这样对比可以排除主播对用户的溢出 因为用户是控制组的都看不到挂件），检查是否有N1的消费/互动 &gt; N3的消费/互动</p>
@@ -1652,7 +1660,7 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 </div>
 <div class="section" id="id21">
 <h3>时间片轮转实验<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
-<p>时间片轮转实验是一种处理个体之间相互干扰的实验方法，在一定的实验对象上进行实验组策略和对照组策略上的反复切换。</p>
+<p>时间片轮转实验是一种处理个体之间相互干扰的实验方法，<strong>在一定的实验对象上进行实验组策略和对照组策略上的反复切换</strong>。</p>
 <ul class="simple">
 <li><p>适用场景为：</p>
 <ul>

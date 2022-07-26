@@ -407,6 +407,24 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#early-stopping">
+   Early Stopping
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dropout">
+   Dropout
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -419,6 +437,24 @@ const thebe_selector_output = ".output, .cell_output"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#early-stopping">
+   Early Stopping
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dropout">
+   Dropout
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -428,6 +464,35 @@ const thebe_selector_output = ".output, .cell_output"
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
 <h1>基础<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>这一部分cover一些深度学习的基础概念！</p>
+<div class="section" id="early-stopping">
+<h2>Early Stopping<a class="headerlink" href="#early-stopping" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="dropout">
+<h2>Dropout<a class="headerlink" href="#dropout" title="Permalink to this headline">¶</a></h2>
+<p><img alt="img" src="../../_images/(null)-20220726112646162.(null)" /></p>
+<ul>
+<li><p>定义：Dropout is a regularization technique to deal with overfitting problem and improve generalization</p>
+<ul class="simple">
+<li><p>dropout的含义：node is not used in this in the next round of training and and all its connections will be not be updated</p></li>
+<li><p>dropout的方式：randomly dropout probability for each hidden layers</p></li>
+</ul>
+</li>
+<li><p>Prevents co-adaptation</p>
+<p>of activation units</p>
+<ul class="simple">
+<li><p>Each hidden unit learns certain features <strong>independently - the</strong> features that each neuron is learning our robust features they are not dependent upon the presence or not presence of the subsequence of the previous layers!</p></li>
+<li><p>这样各个hidden unit学习的是different features</p></li>
+</ul>
+</li>
+<li><p>Probabilistically drop input features or activation units in hidden layers</p>
+<ul class="simple">
+<li><p><strong>Layer dependent</strong> dropout probability  ( ~0.2 for input, ~0.5 for hidden)</p></li>
+<li><p>为什么要input小：you do not want to use a high value of report for the input 因为 most the input features will be gone right in the training而我们希望保留！但也可以允许一定的dropout</p></li>
+</ul>
+</li>
+<li><p>Test的时候怎么处理dropout：apply dropout probability！这样test的时候其实layer都在</p></li>
+</ul>
+</div>
 <div class="toctree-wrapper compound">
 </div>
 </div>

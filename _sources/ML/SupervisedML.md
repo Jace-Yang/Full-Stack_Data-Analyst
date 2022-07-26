@@ -23,11 +23,11 @@
   - Drop column (typically used as baseline)：缺失太多的时候
   - Drop rows (if there are only a few with missing values)
 
-- 填充（Impute:）
+- 填充（Impute）/估算(estimation)：
 
-  - mean or median (SimpleImputer in sklearn API)
+  - mean or median (SimpleImputer in sklearn API) 没有充分考虑数据中已有的信息，误差可能较大
   - kNN (neighbors are found using nan_euclidean_distance  metric)
-  - Regression models
+  - Regression models根据调查对象对其他问题的答案，通过变量之间的相关分析或逻辑推论进行估计。例如，某一产品的拥有情况可能与家庭收入有关，可以根据调查对象的家庭收入推算拥有这一产品的可能性
 
 - Add a binary additional indicator column (跟上一步一致)
 
@@ -85,7 +85,11 @@
 
 <img src="../images/(null)-20220724215527501.(null)" alt="img" style="width:50%;" /><img src="../images/(null)-20220724215537886.(null)" alt="img" style="width:50%;" />
 
-- 具体的方式：StandardScaler()、MinMaxScaler()、MaxAbsScaler()（除以最大值的话负数还会是负数）、RobustScaler()、Nomalizer()（变成圆形）
+- 具体的方式：
+
+  标准化：最大最小标准化、z标准化——StandardScaler()、MinMaxScaler()、MaxAbsScaler()（除以最大值的话负数还会是负数）、RobustScaler()、Nomalizer()（变成圆形）
+
+  归一化：对于文本或评分特征，不同样本之间可能有整体上的差异，如a文本共20个词，b文本30000个词，b文本中各个维度上的频次都很可能远远高于a文本
 
 - 注意应该做fit的数据集跟应该做fit的模型是一致的
 
@@ -96,6 +100,49 @@
 #### Outliers
 
 - 检测方式：IQR、LR之后看cook距离
+
+
+
+#### 处理样本不平衡
+
+**Change data**
+
+- Random Undersampling
+
+- Random Oversampling
+
+- Ensemble Resampling
+
+  - A random re-sample of majority class is used for training each instance in an ensemble
+  - The minority class is retained while training the instance.
+
+- Synthetic Minority Oversampling Technique (SMOTE)
+
+  <img src="../images/image-20220726111730712.png" alt="image-20220726111730712" style="width:50%;" />
+
+  - Synthetic Minority Oversampling Technique (SMOTE) is a popular method to handle training with imbalanced datasets
+  - SMOTE **adds synthetic interpolated sample**s to minority class
+  - The following procedure is repeated for every original data point in minority class:
+    - Pick a neighbor from $k$ nearest neighbors
+    - **Sample a point randomly from the line** joining the two data points.
+    - Add the point to the minority class
+  - Leads to large datasets (due to oversampling)
+
+**Change training procedure**
+
+- assighing Class weights：make sure the penalty of predicting minority wrong is more high!
+  - Reweight each sample during training
+    - Modify the loss function to account for class weights
+    - Similar effect as oversampling (except that this is not random)
+- 修改模型的损失函数：不是F1了而是更不同的
+
+**重新选择评价指标**：
+
+- AP
+
+**重构问题**
+
+- 仔细对你的问题进行分析与挖掘，是否可以将你的问题划分成多个更小的问题，而这些小问题更容易解决。
 
 
 
@@ -1020,6 +1067,14 @@ $$
 各种Implementation
 
 ---
+
+#### **GBDT**
+
+- 首先介绍Adaboost Tree，是一种boosting的树集成方法。基本思路是依次训练多棵树，每棵树训练时对分错的样本进行加权。树模型中对样本的加权实际是对样本采样几率的加权，在进行有放回抽样时，分错的样本更有可能被抽到
+- GBDT是Adaboost Tree的改进，每棵树都是CART（分类回归树），树在叶节点输出的是一个数值，分类误差就是真实值减去叶节点的输出值，得到残差。GBDT要做的就是使用梯度下降的方法减少分类误差值。
+- 在GBDT的迭代中，假设我们前一轮迭代得到的强学习器是ft−1(x), 损失函数是L(y,ft−1(x)), 我们本轮迭代的目标是找到一个CART回归树模型的弱学习器ht(x)，让本轮的损失损失L(y,ft(x)=L(y,ft−1(x)+ht(x))最小。也就是说，本轮迭代找到决策树，要让样本的损失尽量变得更小。
+- 得到多棵树后，根据每颗树的分类误差进行加权投票
+- GBDT的思想可以用一个通俗的例子解释，假如有个人30岁，我们首先用20岁去拟合，发现损失有10岁，这时我们用6岁去拟合剩下的损失，发现差距还有4岁，第三轮我们用3岁拟合剩下的差距，差距就只有一岁了。如果我们的迭代轮数还没有完，可以继续迭代下面，每一轮迭代，拟合的岁数误差都会减小。
 
 #### GradientBoostingClassiﬁer
 

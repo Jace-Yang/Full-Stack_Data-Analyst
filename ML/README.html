@@ -438,12 +438,56 @@ const thebe_selector_output = ".output, .cell_output"
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id6">
-       对比
+       准确率和错误率
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#confusion-matrix">
+       Confusion Matrix / 评价指标
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#precision-vs-recall">
+         Precision VS Recall
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#metric-choosing">
+         Metric Choosing的问题
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id7">
-       多分类
+       曲线指标
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#receiver-operating-curve-roc-area-under-curve-auc">
+         Receiver Operating Curve (ROC) ⇒ Area Under Curve (AUC)
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#precision-recall-pr-curve">
+         Precision-Recall (PR) Curve
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id8">
+         对比
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       其他指标
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id10">
+       多分类问题
       </a>
      </li>
     </ul>
@@ -451,7 +495,7 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id8">
+  <a class="reference internal nav-link" href="#id11">
    参考
   </a>
  </li>
@@ -499,12 +543,56 @@ const thebe_selector_output = ".output, .cell_output"
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id6">
-       对比
+       准确率和错误率
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#confusion-matrix">
+       Confusion Matrix / 评价指标
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#precision-vs-recall">
+         Precision VS Recall
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#metric-choosing">
+         Metric Choosing的问题
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#id7">
-       多分类
+       曲线指标
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#receiver-operating-curve-roc-area-under-curve-auc">
+         Receiver Operating Curve (ROC) ⇒ Area Under Curve (AUC)
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#precision-recall-pr-curve">
+         Precision-Recall (PR) Curve
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id8">
+         对比
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       其他指标
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id10">
+       多分类问题
       </a>
      </li>
     </ul>
@@ -512,7 +600,7 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id8">
+  <a class="reference internal nav-link" href="#id11">
    参考
   </a>
  </li>
@@ -529,7 +617,7 @@ const thebe_selector_output = ".output, .cell_output"
 <h1>基础<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
 <h2>机器学习分类<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<img src="../images/(null)-20220724132314070.(null)" alt="img" style="zoom: 33%;" />
+<img src="../images/(null)-20220724132314070.(null)" alt="img" style="width: 33%;" />
 <ul>
 <li><p>根据label的类型来分</p>
 <ul class="simple">
@@ -633,7 +721,8 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="math notranslate nohighlight">
 \[M S E=\frac{1}{n} \sum_{i=1}^{n}\left(y_{i}-\hat{y}_{i}\right)^{2}\]</div>
 <ul class="simple">
-<li><p>由于MSE与我们的目标变量的量纲不一致，为了保证量纲一致性，我们需要对MSE进行开方 ：</p></li>
+<li><p>由于MSE与我们的目标变量的量纲不一致，为了保证量纲一致性，我们需要对MSE进行开方 得到RMSE</p></li>
+<li><p>Outlier多时会被push得非常高, MSE会让model去predict outlier right 所以要么tune outlier再用MSE，要么就用MAE</p></li>
 </ul>
 </li>
 <li><p>均方根误差(RMSE)</p>
@@ -646,11 +735,16 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(y\)</span>表示实际销量, <span class="math notranslate nohighlight">\(\hat{y}\)</span>表示预测销量, <span class="math notranslate nohighlight">\(\bar{y}\)</span>表示实际销量的均值, <span class="math notranslate nohighlight">\(n\)</span>表示样本数, <span class="math notranslate nohighlight">\(i\)</span>表示第<span class="math notranslate nohighlight">\(i\)</span>个样本, <span class="math notranslate nohighlight">\(Var\)</span>表示实际值的方差，也就是销量的变异情况。</p></li>
 <li><p><span class="math notranslate nohighlight">\(R2_{score}\)</span>越大，模型准确率越好。</p></li>
+<li><p><span class="math notranslate nohighlight">\(MSE\)</span>表示均方误差，为残差平方和的均值,该部分不能能被数学模型解释的部分,属于不可解释性变异。</p>
+<ul>
+<li><p>因此： $<span class="math notranslate nohighlight">\(可解释性变异占比 = 1-\frac{不可解释性变异}{整体变异}= 1-\frac{M S E}{\operatorname{Var}} = R2_score \tag{5} \)</span>$</p></li>
 </ul>
 </li>
-<li><p><span class="math notranslate nohighlight">\(MSE\)</span>表示均方误差，为残差平方和的均值,该部分不能能被数学模型解释的部分,属于不可解释性变异。</p>
+</ul>
+</li>
+<li><p>Mean Absolute Percentage Error (MAPE): <span class="math notranslate nohighlight">\(\frac{100}{n} \sum_{i=1}^{n} \mid \frac{y_{i}-\hat{y}_{i}}{y_{i}}\)</span>，特点是跟value本身大小也有关系</p>
 <ul class="simple">
-<li><p>因此： $<span class="math notranslate nohighlight">\(可解释性变异占比 = 1-\frac{不可解释性变异}{整体变异}= 1-\frac{M S E}{\operatorname{Var}} = R2_score \tag{5} \)</span>$</p></li>
+<li><p>Intuition：y范围很大时候 大y当然会带来大的error, 所以不make sense</p></li>
 </ul>
 </li>
 </ul>
@@ -672,7 +766,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 </ul>
-<p>准确率和错误率</p>
+<div class="section" id="id6">
+<h4>准确率和错误率<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <div class="math notranslate nohighlight">
 \[Acc(y,\hat{y})=\frac{1}{n}\sum_{i=1}^{n}y_i=\hat{y_i} \]</div>
 <div class="math notranslate nohighlight">
@@ -681,32 +776,153 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>Acc与Error平等对待每个类别，即<strong>每一个样本判对 (0) 和判错 (1) 的代价都是一样的</strong>。</p></li>
 <li><p>使用Acc与Error作为衡量指标时，需要考虑样本不均衡问题以及实际业务中好样本与坏样本的重要程度。</p></li>
 </ul>
-<p><strong>混淆矩阵</strong>：对于二分类问题,可将样例根据其真是类别与学习器预测类别的组合划分为</p>
-<div class="highlight-PHP notranslate"><div class="highlight"><pre><span></span><span class="x">真正例(true positive, TP):预测为 1，预测正确，即实际 1</span>
-
-<span class="x">假正例(false positive, FP):预测为 1，预测错误，即实际 0</span>
-
-<span class="x">真反例(ture negative, TN):预测为 0，预测正确，即实际 0</span>
-
-<span class="x">假反例(false negative, FN):预测为 0，预测错误，即实际 1</span>
-</pre></div>
 </div>
-<p>则有:TP+FP+TN+FN=样例总数</p>
+<div class="section" id="confusion-matrix">
+<h4>Confusion Matrix / 评价指标<a class="headerlink" href="#confusion-matrix" title="Permalink to this headline">¶</a></h4>
+<p>对于二分类问题,可将样例根据其真是类别与学习器预测类别的组合划分为</p>
+<ul class="simple">
+<li><p>真正例(true positive, TP):预测为 1，预测正确，即实际 1</p></li>
+<li><p>假正例(false positive, FP):预测为 1，预测错误，即实际 0</p></li>
+<li><p>真反例(ture negative, TN):预测为 0，预测正确，即实际 0</p></li>
+<li><p>假反例(false negative, FN):预测为 0，预测错误，即实际 1</p></li>
+</ul>
+<img src="../images/(null)-20220726100557307.(null)" alt="img" style="width:50%;" />
+<blockquote>
+<div><p><strong>通常把minority当作Positive</strong> <strong>:</strong> Minority class is considered positive as best practice——因为希望learn minority class well（如果要learn majority class就直接预测大多数就好了）</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>刚刚的$<span class="math notranslate nohighlight">\(Accuracy=\frac{\sum_{i=1}^{n} I_{\hat{y_{i}}=y_{i}}}{n} = \frac{\colorbox{#eaf1f5}{TN+TP}}{TN+TP+FP+FN}\)</span>$</p>
 <ul>
-<li><p>准确率（查准率） Precision：分类器<strong>预测的正样本中预测正确的比例</strong>，取值范围为[0,1]，取值越大，模型预测能力越好。 $<span class="math notranslate nohighlight">\( P=\frac{TP}{TP+FP} \tag{8} \)</span>$</p></li>
-<li><p>召回率（查全率）Recall：Recall 是分类器所预测正确的正样本占所有正样本的比例，取值范围为[0,1]，取值越大，模型预测能力越好。 $<span class="math notranslate nohighlight">\( R=\frac{TP}{TP+FN} \tag{9} \)</span>$</p></li>
-<li><p>F1 Score：Precision和Recall 是互相影响的，理想情况下肯定是做到两者都高，但是一般情况下Precision高、Recall 就低， Recall 高、Precision就低。为了均衡两个指标，我们可以采用Precision和Recall的加权调和平均（weighted harmonic mean）来衡量，即</p>
+<li><p>could be misleading in case of imbalance datasets</p></li>
+<li><p>accuracy paradox: higher the accuracy does not necessarily mean a better model.</p>
+<ul>
+<li><p>比如风控直接说大家都是正常的 accuracy一样很高</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Normalize by y_true</strong></p></th>
+<th class="head"><p><strong>Normalize by y_pred</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><img src="../images/(null)-20220726101304187.(null)" alt="img" style="width:33%;" /></p></td>
+<td><p><img src="../images/(null)-20220726101304176.(null)" alt="img" style="width:33%;" /></p></td>
+</tr>
+<tr class="row-odd"><td><p>True Positive Rate / <strong>Recall</strong> / Sensitivity = $<span class="math notranslate nohighlight">\(\frac{\colorbox{#c9e8ee}{TP}}{\colorbox{#c9e8ee}{TP}+FN}=\frac{TP}{所有Positive样本}\)</span><span class="math notranslate nohighlight">\(：the fraction of relevant instances that were retrieved &lt;br&gt; False Positive Rate = \)</span><span class="math notranslate nohighlight">\(\frac{\colorbox{#d9ed8a}{FP}}{\colorbox{#d9ed8a}{FP}+TN}=\frac{FP}{所有Negative样本}\)</span>$</p></td>
+<td><p>Precision= $<span class="math notranslate nohighlight">\(\frac{\colorbox{#c39dc6}{TP}}{\colorbox{#c39dc6}{TP}+FP}=\frac{TP}{所有Positive预测}\)</span>$：the fraction of relevant instances <em>among retrieved</em> instances</p></td>
+</tr>
+<tr class="row-even"><td><p>能把癌症的人中的多少检测出来</p></td>
+<td><p>判定成spam中有多少是实锤，下结论的时候有多precise</p></td>
+</tr>
+<tr class="row-odd"><td><p>$<span class="math notranslate nohighlight">\(\text{F1-Score} =2 \times \frac{\text { Precision*Recall }}{\text { Precision+Recall }}\)</span>$：harmonic mean of precision &amp; recall 当两边都在意的时候用F1！</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="precision-vs-recall">
+<h5>Precision VS Recall<a class="headerlink" href="#precision-vs-recall" title="Permalink to this headline">¶</a></h5>
+<ul>
+<li><p>准确率（查准率） <code class="docutils literal notranslate"><span class="pre">Precision</span></code>：分类器<strong>预测的正样本中预测正确的比例</strong>，取值范围为[0,1]，取值越大，模型预测能力越好。 $<span class="math notranslate nohighlight">\( P=\frac{TP}{TP+FP} \tag{8} \)</span>$</p></li>
+<li><p>召回率（查全率）<code class="docutils literal notranslate"><span class="pre">Recall</span></code>：Recall 是分类器所预测正确的正样本占所有正样本的比例，取值范围为[0,1]，取值越大，模型预测能力越好。 $<span class="math notranslate nohighlight">\( R=\frac{TP}{TP+FN} \tag{9} \)</span>$</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F1</span> <span class="pre">Score</span></code>：Precision和Recall 是互相影响的，理想情况下肯定是做到两者都高，但是一般情况下Precision高、Recall 就低， Recall 高、Precision就低。为了均衡两个指标，我们可以采用Precision和Recall的加权调和平均（weighted harmonic mean）来衡量，即</p>
 <div class="math notranslate nohighlight">
 \[ \frac{1}{F_1}=\frac{1}{2} \cdot (\frac{1}{P}+\frac{1}{R}) \tag{10} $$, $$ F_1=\frac{2*P*R}{P+R} \tag{11} \]</div>
 </li>
-<li><p>ROC，全称是”受试者工作特征”(Receiver Operating Characteristic)曲线，ROC曲线为 FPR 与 TPR 之间的关系曲线，这个组合以 FPR 对 TPR，即是以代价 (costs) 对收益 (benefits)，显然收益越高，代价越低，模型的性能就越好。</p>
+<li><p>Averaging Metrics</p>
+<ul>
+<li><div class="math notranslate nohighlight">
+\[\text{Macro Recall} = \frac{1}{|L|} \sum_{l \in L} R\left(y_{l}, \hat{y}_{l}\right)\]</div>
+<p>Average over recall <strong>per class equally</strong> ⇔ <span class="math notranslate nohighlight">\(\text{Balanced Accuracy}= \frac{1}{2} \left(\frac{T P}{T P+F N}+\frac{T N}{T N+F P}\right)\)</span></p>
+</li>
+<li><div class="math notranslate nohighlight">
+\[\text{Weighted Recall}= \frac{1}{n} \sum_{l \in L} n_{l} R\left(y_{l}, \hat{y}_{l}\right)\]</div>
+<p>Weighted average (by class size) over recall per class ⇔ Accuracy</p>
+<ul class="simple">
+<li><p>Imbalanced 的数据不用！不然会give a higher weight to the majority class.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>计算举例：</strong></p>
+<img src="../images/(null)-20220726101620779.(null)" alt="img" style="width:50%;" />
+<ul>
+<li><p>全局：$<span class="math notranslate nohighlight">\(Accuracy = \frac{23+2184}{23+2184+3+27} = 0.9865\)</span>$</p></li>
+<li><p>Minority Class：</p>
+<ul>
+<li><div class="math notranslate nohighlight">
+\[Recall = \frac{23}{23+27} = 0.46\]</div>
+</li>
+<li><div class="math notranslate nohighlight">
+\[Precision = \frac{23}{23+3} = 0.8846\]</div>
+</li>
+<li><div class="math notranslate nohighlight">
+\[F1\text{-}score = 2 \times \frac{0.8846 * 0.46}{0.8846 + 0.46} = 0.60526\]</div>
+</li>
+</ul>
+</li>
+<li><p>Averaging Metrics:</p>
+<ul>
+<li><div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned} \text{Macro Recall} &amp;= \frac{1}{2} (\frac{23}{23+27} + \frac{2184}{2184+3})= 0.7293 \\ &amp;= \text{Balanced Accuracy} \end{aligned}\end{split}\]</div>
+</li>
+<li><div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned} \text{Weighted Recall} &amp;= \frac{1}{2184+3+27+23} ((23+27) \times \frac{23}{23+27} + (2184+3) \times \frac{2184}{2184+3}))  \\  &amp;= \frac{23+2184 }{2184+3+27+23} = 0.9865\\ &amp;= \text{Accuracy}  \end{aligned}\end{split}\]</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="metric-choosing">
+<h5>Metric Choosing的问题<a class="headerlink" href="#metric-choosing" title="Permalink to this headline">¶</a></h5>
+<p>原则：</p>
+<ul class="simple">
+<li><p>Problem-speciﬁc</p></li>
+<li><p>Balanced accuracy better than accuracy (most of the times)</p></li>
+<li><p>Cost associated with misclassiﬁcation</p></li>
+</ul>
+<p>两种场景：</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>场景</strong></p></th>
+<th class="head"><p><strong>第一类错误（Reject True H0｜拒真｜</strong><code class="docutils literal notranslate"><span class="pre">FP</span></code><strong>）成本高</strong></p></th>
+<th class="head"><p><strong>第二类错误（Accept False H0｜取伪｜</strong><code class="docutils literal notranslate"><span class="pre">FN</span></code><strong>）成本高</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Metric</strong></p></td>
+<td><p>Choose <code class="docutils literal notranslate"><span class="pre">precision</span></code> $<span class="math notranslate nohighlight">\(=\frac{TP}{TP+\colorbox{#a8b6e0}{FP}}\)</span>$</p></td>
+<td><p>Choose <code class="docutils literal notranslate"><span class="pre">recall</span></code>$<span class="math notranslate nohighlight">\(=\frac{TP}{TP+\colorbox{#a8b6e0}{FN}}\)</span>$</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>例子</strong></p></td>
+<td><p>Predicting an email as spam when it is not (false positive) has higher cost than predicting email as not spam <strong>“邮件False Positive第一类错误成本高，要非常小心precisely地给Positive预测，所以预测positive里面的TP要高⇒precision要高”</strong></p></td>
+<td><p>Predicting that an individual has no cancer when he/she has cancer (false negative) is far more costlier than the other way round <strong>“癌症False Negative第二类错误成本高，要尽量recall回所有的Positive=1 sample⇒recall要高”</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>做法</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">提高threshold</span></code>：让每个y_pred_positive都是很sure的结果，牺牲recall但更加precise <img alt="img" src="../_images/(null)-20220726102205607.(null)" /></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">降低threshold</span></code>：多召回多预测出positive（predict negative的时候我非常sure），可以牺牲precision但提高recall y_true_positive的占比 <img alt="img" src="../_images/(null)-20220726102205600.(null)" /></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id7">
+<h4>曲线指标<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="receiver-operating-curve-roc-area-under-curve-auc">
+<h5>Receiver Operating Curve (ROC) ⇒ Area Under Curve (AUC)<a class="headerlink" href="#receiver-operating-curve-roc-area-under-curve-auc" title="Permalink to this headline">¶</a></h5>
+<ul>
+<li><p>ROC，全称是”受试者工作特征”(Receiver Operating Characteristic)曲线，ROC曲线为 <strong>FPR 与 TPR</strong> 之间的关系曲线，这个组合以 FPR 对 TPR，即是以代价 (costs) 对收益 (benefits)，显然收益越高，代价越低，模型的性能就越好。</p>
 <ul>
 <li><p>ROC曲线的横轴是”假正例率”(False Positive Rate, <strong>FPR</strong>), 纵轴是”真正例率”(True Positive Rate, <strong>TPR</strong>), <strong>注意这里不是上文提高的P和R</strong>.</p></li>
 <li><p>y 轴为真阳性率（TPR）：在所有的正样本中，分类器预测正确的比例（等于Recall）</p>
 <div class="math notranslate nohighlight">
 \[ TPR=\frac{TP}{TP+FN} \tag{12} \]</div>
 </li>
-<li><p>x 轴为假阳性率（FPR）：在所有的负样本中，<strong>分类器预测错误的比例</strong></p>
+<li><p>x 轴为假阳性率（FPR）：在所有的负样本中，<strong>分类器预测错误的比例</strong>，（等于1-负样本的recall）</p>
 <div class="math notranslate nohighlight">
 \[ FPR=\frac{FP}{TN+FP} \tag{13} \]</div>
 </li>
@@ -727,26 +943,49 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 </ul>
-<div class="section" id="id6">
-<h4>对比<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>端点解读：</p>
+<img src="../images/(null)-20220726103010432.(null)" alt="img" style="width:50%;" />
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">1)</span></code>当recall (y轴的True Positive Rate)为1的时候，相当于召回全部正样本，类似threshold=0.01，那么这个时候所有的负样本都给你搞成Positive了没有TN，False Positive Rate = $<span class="math notranslate nohighlight">\(\frac{\colorbox{#d9ed8a}{FP}}{\colorbox{#d9ed8a}{FP}+TN}=\frac{FP}{所有Negative样本}=\frac{所有Negative样本}{所有Negative样本}=1\)</span>$</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">（0，</span> <span class="pre">0）</span></code>当recall (y轴的True Positive Rate)为0的时候，相当于什么正样本都不召回，类似threshold=0.99，那么这个时候根本没有错的Positive，False Positive Rate = $<span class="math notranslate nohighlight">\(\frac{\colorbox{#d9ed8a}{FP}}{\colorbox{#d9ed8a}{FP}+TN}=\frac{FP}{所有Negative样本}=\frac{0}{所有Negative样本}=0\)</span>$</p></li>
+</ul>
+</div>
+<div class="section" id="precision-recall-pr-curve">
+<h5>Precision-Recall (PR) Curve<a class="headerlink" href="#precision-recall-pr-curve" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li><p>A precision-recall curve shows the relationship between <code class="docutils literal notranslate"><span class="pre">precision</span></code> and <code class="docutils literal notranslate"><span class="pre">recall</span></code> at every cut-oﬀ point.</p></li>
+<li><p>Visualize eﬀect of selected threshold on performance.</p></li>
+</ul>
+<img src="../images/(null)-20220726102916189.(null)" alt="img" style="width:33%;" />
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">（0，</span> <span class="pre">1）</span></code>当recall为0的时候，相当于没有一个正样本被召回， ⇒全部预测不是Fraud(Negative)了，也就没有错误的Positive，因此 $<span class="math notranslate nohighlight">\(precision=\frac{TP}{TP+0}=1\)</span>$</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">（1，</span> <span class="pre">0.93）</span></code>当recall为1的时候，相当于我为了把所有正样本召回，threshold为0⇒我全部当Fraud打(预测Positive)，那么这时候毫无precise可言，因此 $<span class="math notranslate nohighlight">\(precision=\frac{TP}{n}=precision_{min}\)</span>$</p></li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h5>对比<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h5>
 <p>首先，两个都是both are ranking metrics：如果一个模型预测的probability是之前的一半，AUC和AP都不会改变！log-loss之类的才会改变</p>
-<img src="../images/(null)-20220726015315694.(null)" alt="img" style="zoom:50%;" />
+<img src="../images/(null)-20220726015315694.(null)" alt="img" style="width:50%;" />
 <ul>
 <li><p><strong>Precision-Recall PR Curve ⇒ Average Precision(AP)</strong></p>
 <ul>
 <li><p>好处是imbalance datasets表现更好make more sense： In case of imbalance datasets, AP is a better estimate indicative of model</p>
 <ul>
-<li><p>AUC will still be very high even the model is bad! 没给你true picture</p>
-<img src="../images/(null)-20220726015315595.(null)" alt="img" style="zoom: 50%;" />
+<li><p>AUC will still be very high even the model is bad! 没给你true picture：主要是AUC曲线横坐标是False Positive Rate也就是FP/所有负样本，分母是很大的，但TN没有价值（比如正确预测一个贷款的人不会违约）</p>
+<img src="../images/(null)-20220726015315595.(null)" alt="img" style="width: 67%;" />
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>Receiver Operating Curve(ROC) ⇒ Area Unver ROC (AUROC / AUC)</p>
+<li><p><strong>Receiver Operating Curve(ROC) ⇒ Area Unver ROC (AUROC / AUC)</strong></p>
 <ul class="simple">
-<li><p>AUROC measures whether the model is able to rank positive examples higher than negative samples</p></li>
-<li><p>根据probability来rank prediction：如果全对的话，就是正确地把positive都放上面了，这样从threshold=1 recall=1 慢慢下降threshold的过程中，没有False Positive出现所以在FPR=0往上走，然后等threshold卡完所有positive继续往下走才因为threshold过低出现False Positive，但这个时候所有的P positive都被检测了，所以在recall = 1往右走</p></li>
+<li><p>AUROC measures whether the model is able to <em>rank positive examples higher than negative samples</em></p></li>
+<li><p>根据probability来rank prediction：</p>
+<ul>
+<li><p>如果全（就是正确地把positive都放上面）的情况下：从threshold=1 recall=0 慢慢下降threshold的过程中不会有False Positive出现，所以在FPR=0垂直往上走，然后等threshold卡完所有positive继续往下走才因为threshold过低出现False Positive，但这个时候所有的P positive都被检测了，所以在recall = 1的位置水平往右走</p></li>
+</ul>
+</li>
 <li><p>好处是有Benchmark: random prediction ⇒ 0.5</p>
 <ul>
 <li><p>easier to know how well the model is performing than random using AUROC than AP</p></li>
@@ -756,9 +995,22 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </li>
-<li><p>KS值(Kolmogorov-Smirnov)是在模型中用于<strong>区分预测正负样本分隔程度</strong>的评价指标，一般应用于金融风控领域。</p>
-<p>与ROC曲线相似，ROC是以FPR作为横坐标，TPR作为纵坐标，通过改变不同阈值，从而得到ROC曲线。</p>
-<p>ks曲线为TPR-FPR，ks曲线的最大值通常为ks值。可以理解TPR是收益，FPR是代价，ks值是收益最大。图中绿色线是TPR、蓝色线是FPR。</p>
+</ul>
+</div>
+</div>
+<div class="section" id="id9">
+<h4>其他指标<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p><strong>KS值(Kolmogorov-Smirnov)</strong></p>
+<img src="../images/1353331-20190628225817455-978692269.png" alt="img" style="width:50%;" />
+<ul class="simple">
+<li><p>模型中用于<strong>区分预测正负样本分隔程度</strong>的评价指标，一般应用于金融风控领域。</p></li>
+<li><p>与ROC曲线相似：</p>
+<ul>
+<li><p>ROC是以FPR作为横坐标，TPR作为纵坐标，通过改变不同阈值，从而得到ROC曲线。</p></li>
+<li><p>ks曲线为TPR-FPR，ks曲线的最大值通常为ks值。可以理解TPR是收益，FPR是代价，ks值是收益最大。图中绿色线是TPR、蓝色线是FPR。</p></li>
+</ul>
+</li>
+</ul>
 <p>KS的计算步骤如下：</p>
 <ol class="simple">
 <li><p>按照模型的结果对每个样本进行打分</p></li>
@@ -767,30 +1019,32 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>计算每个评分区间的累计好样本数占总好账户数比率(good%)和累计坏样本数占总坏样本数比率(bad%)。</p></li>
 <li><p>计算每个评分区间累计坏样本占比与累计好样本占比差的绝对值（累计bad%-累计good%），然后对这些绝对值取最大值即得此评分模型的K-S值。</p></li>
 </ol>
-</li>
-<li><p>CTR（Click-Through-Rate）</p>
-<p>CTR即点击通过率,是互联网广告常用的术语,指网络广告（图片广告/文字广告/关键词广告/排名广告/视频广告等）的点击到达率,即该广告的实际点击次数（严格的来说,可以是到达目标页面的数量）除以广告的展现量(Show content). $<span class="math notranslate nohighlight">\( ctr=\frac{点击次数}{展示量}　\tag{16} \)</span>$</p>
-</li>
-<li><p>CVR (Conversion Rate)，CVR即转化率。是一个衡量CPA广告效果的指标</p>
-<p>简言之就是用户点击广告到成为一个有效激活或者注册甚至付费用户的转化率. $<span class="math notranslate nohighlight">\( cvr=\frac{点击量}{转化量}　\tag{17} \)</span>$</p>
-</li>
+<p>注意：K-S值仅仅代表模型的分割样本的能力，不能表示分割的是否准确，即便好坏客户完全分错，K-S值依然可以很高</p>
+<p><strong>CTR（Click-Through-Rate）</strong></p>
+<ul class="simple">
+<li><p>点击通过率,是互联网广告常用的术语,指网络广告（图片广告/文字广告/关键词广告/排名广告/视频广告等）的点击到达率,即该广告的实际点击次数（严格的来说,可以是到达目标页面的数量）除以广告的展现量(Show content). $<span class="math notranslate nohighlight">\( ctr=\frac{点击次数}{展示量}　\tag{16} \)</span>$</p></li>
+</ul>
+<p>**CVR (Conversion Rate)，CVR即转化率。**是一个衡量CPA广告效果的指标</p>
+<ul class="simple">
+<li><p>用户点击广告到成为一个有效激活或者注册甚至付费用户的转化率. $<span class="math notranslate nohighlight">\( cvr=\frac{点击量}{转化量}　\tag{17} \)</span>$</p></li>
 </ul>
 </div>
-<div class="section" id="id7">
-<h4>多分类<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id10">
+<h4>多分类问题<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
 <p>多分类时都一样，除了AUC</p>
-<img src="../images/(null)-20220726015221534.(null)" alt="img" style="zoom:50%;" />
+<img src="../images/(null)-20220726015221534.(null)" alt="img" style="width:50%;" />
 </div>
 </div>
 </div>
-<div class="section" id="id8">
-<h2>参考<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h2>参考<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
 <li><p>周志华 西瓜书</p></li>
 <li><p>李航 统计学习方法</p></li>
 <li><p><a class="reference external" href="https://baike.baidu.com/item/CVR/20215345">https://baike.baidu.com/item/CVR/20215345</a></p></li>
 <li><p><a class="reference external" href="https://baike.baidu.com/item/CTR/10653699?fr=aladdin">https://baike.baidu.com/item/CTR/10653699?fr=aladdin</a></p></li>
 <li><p><a class="reference external" href="https://www.cnblogs.com/shenxiaolin/p/9309749.html">https://www.cnblogs.com/shenxiaolin/p/9309749.html</a></p></li>
+<li><p><a class="reference external" href="https://www.cnblogs.com/wqbin/p/11105186.html">https://www.cnblogs.com/wqbin/p/11105186.html</a></p></li>
 </ol>
 </div>
 </div>

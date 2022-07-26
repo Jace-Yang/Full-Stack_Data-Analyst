@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>基础概念 &#8212; Towards a Full-stack DA</title>
+    <title>无监督学习 &#8212; Towards a Full-stack DA</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,10 +53,10 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="SQL" href="SQL.html" />
-    <link rel="prev" title="Q-BERT" href="../DL/NN_compression/QBert.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -151,12 +151,12 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../ML/README.html">
+  <a class="reference internal" href="README.html">
    基础
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../ML/SupervisedML.html">
+  <a class="reference internal" href="SupervisedML.html">
    有监督学习
   </a>
  </li>
@@ -278,19 +278,19 @@ const thebe_selector_output = ".output, .cell_output"
   数据仓库
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../DE/README.html">
    基础概念
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="SQL.html">
+  <a class="reference internal" href="../DE/SQL.html">
    SQL
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="Data_cleaning/README.html">
+  <a class="reference internal" href="../DE/Data_cleaning/README.html">
    数据清洗与处理
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
@@ -300,12 +300,12 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="Data_cleaning/Regex.html">
+    <a class="reference internal" href="../DE/Data_cleaning/Regex.html">
      正则表达式
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Data_cleaning/pandas.html">
+    <a class="reference internal" href="../DE/Data_cleaning/pandas.html">
      Pandas
     </a>
    </li>
@@ -364,7 +364,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/DE/README.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/ML/UnsupervisedML.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -384,10 +384,10 @@ const thebe_selector_output = ".output, .cell_output"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FDE/README.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FML/UnsupervisedML.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/DE/README.md"><button
+        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/ML/UnsupervisedML.md"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -413,39 +413,32 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   数据分层
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   数据仓库
+  <a class="reference internal nav-link" href="#clustering">
+   Clustering
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#hadoop-hdfs">
-     存储：Hadoop/HDFS
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#mapreduce">
-     计算：MapReduce
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   底层数据库
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     三段锁协议
+    <a class="reference internal nav-link" href="#k-means-clustering">
+     K-means Clustering
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id6">
+      <a class="reference internal nav-link" href="#id2">
+       算法
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       缺点
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#k">
+       选择k的方法
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
       </a>
      </li>
     </ul>
@@ -453,9 +446,23 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
-   参考资料：
+  <a class="reference internal nav-link" href="#dimensionality-reduction">
+   Dimensionality Reduction
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pca">
+     PCA
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#t-sne">
+     <strong>
+      t-SNE
+     </strong>
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -467,7 +474,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>基础概念</h1>
+                <h1>无监督学习</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -478,39 +485,32 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   数据分层
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   数据仓库
+  <a class="reference internal nav-link" href="#clustering">
+   Clustering
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#hadoop-hdfs">
-     存储：Hadoop/HDFS
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#mapreduce">
-     计算：MapReduce
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   底层数据库
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     三段锁协议
+    <a class="reference internal nav-link" href="#k-means-clustering">
+     K-means Clustering
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id6">
+      <a class="reference internal nav-link" href="#id2">
+       算法
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       缺点
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#k">
+       选择k的方法
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
       </a>
      </li>
     </ul>
@@ -518,9 +518,23 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
-   参考资料：
+  <a class="reference internal nav-link" href="#dimensionality-reduction">
+   Dimensionality Reduction
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pca">
+     PCA
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#t-sne">
+     <strong>
+      t-SNE
+     </strong>
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -532,86 +546,183 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
-<h1>基础概念<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>无监督学习<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Unsupervised Learning</p>
+<ul class="simple">
+<li><p>定义：In the unsupervised learning paradigm, we have features X, but no labels  y. The goal is to learn some structure in  in order to better understand the data.</p>
+<ul>
+<li><p>找underlying  structure of the model!</p></li>
+<li><p>跟EDA其实是一个目的</p></li>
+</ul>
+</li>
+</ul>
+<img src="../images/(null)-20220726104826976.(null)" alt="img" style="width:50%;" />
+<ul class="simple">
+<li><p>种类：clustering、dimensionality reduction、anomaly detection</p></li>
+</ul>
+<img src="../images/(null)-20220726104826651.(null)" alt="img" style="width:50%;" />
+<ul class="simple">
+<li><p>通常需要domain expertise</p>
+<ul>
+<li><p>Choosing number of clusters</p></li>
+<li><p>Defining a distance metric</p></li>
+<li><p>Understanding what constitutes an anomaly (怎么才算缺失！）</p>
+<ul>
+<li><p>比如： little probability points are actually are not anomalies because they’re just in different modes of the data which are normal.</p>
+<ul>
+<li><p>比如机翼的fluctuate特别小的outlier可能是启动的时候都会有的现象</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="clustering">
+<h2>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>定义：Clustering is the problem of organizing data points into groups (clusters), such that data points within each cluster are similar to each other.</p></li>
+</ul>
+<img src="../images/(null)-20220726104826816.(null)" alt="img" style="width:50%;" />
+<div class="section" id="k-means-clustering">
+<h3>K-means Clustering<a class="headerlink" href="#k-means-clustering" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The k-means algorithm groups data points into k clusters, based on the distance between each data point and it’s closest cluster center</p></li>
+</ul>
 <div class="section" id="id2">
-<h2>数据分层<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h4>算法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<img src="../images/(null)-20220726104826742.(null)" alt="img" style="width:67%;" />
+<p><img src="../images/(null)-20220726104826626.(null)" alt="img" style="width: 33%;" /><img src="../images/(null)-20220726104826947.(null)" alt="img" style="width:33%;" /></p>
 <ul class="simple">
-<li><p>数据运营层 (ODS)</p>
+<li><p>所有的features are weighted equally with l-2 norm</p>
 <ul>
-<li><p>ODS: Operation Data Store 数据准备区, 也称为贴源层。数据仓库源头系统的数据表通常会原封不动的存储一份, 这称为ODS层, 是后续数据仓库加工数据的来源。</p></li>
+<li><p>这个地方可以加权！</p></li>
 </ul>
 </li>
-<li><p>数据仓库层 (DW) DW数据分层, 由下到上为:</p>
+<li><p>找停止的条件：</p>
 <ul>
-<li><p>DWD: data warehouse details 细节数据层, 是业务层与数据仓库的隔离层。主要对ODS数据层做一些数据清洗和规范化的操作。</p>
-<ul>
-<li><p>数据清洗: 去除空值、脏数据、超过极限范围的</p></li>
+<li><p>Data-center not moving</p></li>
+<li><p><strong>Loss Function</strong>: Some of squared error of all data points to the cluster center, adding all those up, see when that stablilizes ( not decrease much further)</p></li>
 </ul>
 </li>
-<li><p>DWB: data warehouse base 数据基础层, 存储的是客观数据, 一般用作中间层, 可以认为是大量指标的数据层。</p></li>
-<li><p>DWS: data warehouse service 数据服务层, 基于DWB上的基础数据, 整合汇总成分析某一个主题域的服务数据层, 一般是宽表。用于提供后续的业务查询, OLAP分析, 数据分发等。
--用户行为, 轻度聚合</p>
-<ul>
-<li><p>主要对ODS/DWD层数据做一些轻度的汇总。</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>数据服务层/应用层 (ADS)</p>
-<ul>
-<li><p>ADS: applicationData Service应用数据服务, 该层主要是提供数据产品和数据分析使用的数据, 一般会存储在ES、mysq|等系统中供线上系统使用。</p></li>
-<li><p>我们通过说的报表数据, 或者说那种大宽表, 一般就放在这里</p></li>
-</ul>
-</li>
-</ul>
-<p>数据库设计三范式
-为了建立冗余较小、结构合理的数据库，设计数据库时必须遵循一定的规则。在关系型数据库中这种规则就称为范式。范式时符合某一种设计要求的总结。</p>
-<ul class="simple">
-<li><p>第一范式：确保每列保持原子性，即要求数据库表中的所有字段值都是不可分解的原子值。</p></li>
-<li><p>第二范式：确保表中的每列都和主键相关。也就是说在一个数据库表中，一个表中只能保存一种数据，不可以把多种数据保存在同一张数据库表中。
-作用：减少了数据库的冗余</p></li>
-<li><p>第三范式：确保每列都和主键列直接相关，而不是间接相关。</p></li>
 </ul>
 </div>
 <div class="section" id="id3">
-<h2>数据仓库<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="hadoop-hdfs">
-<h3>存储：Hadoop/HDFS<a class="headerlink" href="#hadoop-hdfs" title="Permalink to this headline">¶</a></h3>
-<p>HDFS 架构原理HDFS采用Master/Slave架构。</p>
-<p>一个HDFS集群包含一个单独的NameNode和多个DataNode。</p>
-<p><strong>NameNode</strong>作为Master服务，它负责管理文件系统的命名空间和客户端对文件的访问。NameNode会保存文件系统的具体信息，包括文件信息、文件被分割成具体block块的信息、以及每一个block块归属的DataNode的信息。对于整个集群来说，HDFS通过NameNode对用户提供了一个单一的命名空间。</p>
-<p><strong>DataNode</strong>作为Slave服务，在集群中可以存在多个。通常每一个DataNode都对应于一个物理节点。DataNode负责管理节点上它们拥有的存储，它将存储划分为多个block块，管理block块信息，同时周期性的将其所有的block块信息发送给NameNode。</p>
+<h4>缺点<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p>聚类中心的个数K 需要事先给定，但在实际中这个 K 值的选定是非常难以估计的，很多时候，事先并不知道给定的数据集应该分成多少个类别才最合适</p></li>
+<li><p>对噪声和离群点敏感；</p></li>
+<li><p>Kmeans需要人为地确定初始聚类中心，不同的初始聚类中心可能导致完全不同的聚类结果。</p>
+<p>K-means will produce different clusters (local optima) for different initializations of the cluster centers!  ⇒ it’s possible that k-means finds a poor clustering of the data (shown on right).</p>
+<ul class="simple">
+<li><p>原因：random-initializations ➕ non-convex!</p></li>
+</ul>
+</li>
+</ul>
+<img src="../images/(null)-20220726104826996.(null)" alt="img" style="width: 33%;" />
+<ul class="simple">
+<li><p>解决方案：</p>
+<ul>
+<li><p>Run k-means with multiple (random) initializations of clusters centers. Take the clustering with the lowest loss.、</p></li>
+<li><p>Use k-means++ algorithm, which “spreads out” initial cluster centers over the feature space.</p>
+<ul>
+<li><p>根据数据的分布来的</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
-<div class="section" id="mapreduce">
-<h3>计算：MapReduce<a class="headerlink" href="#mapreduce" title="Permalink to this headline">¶</a></h3>
-<p><strong>Mapper</strong>: 当你向MapReduce框架提交一个计算作业时，它会首先把计算作业拆分成若干个Map任务，然后分配到不同的节点上去执行，每一个Map任务处理输入数据中的一部分。</p>
-<p><strong>Reducer</strong>: 当Map任务完成后，它会生成一些中间文件，这些中间文件将会作为Reduce任务的输入数据。Reduce任务的主要目标就是把前面若干个Map的输出汇总并输出。</p>
-</div>
+<div class="section" id="k">
+<h4>选择k的方法<a class="headerlink" href="#k" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p>One option is to rely on domain knowledge: are there known clusters in the domain that you wish to discover?</p></li>
+<li><p>If not, a common approach is to plot the loss function of k-means over increasing , and choose to be the point where the loss looks reasonable.</p>
+<ul>
+<li><div class="math notranslate nohighlight">
+\[\operatorname{loss}=\sum_{i=1}^{m}\left\|\mu^{\left(y^{(i)}\right)}-x^{(i)}\right\|_{2}\]</div>
+<img src="../images/(null)-20220726104827014.(null)" alt="img" style="width:33%;" />
+<ul class="simple">
+<li><p>选3</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="section" id="id4">
-<h2>底层数据库<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id5">
-<h3>三段锁协议<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<p><strong>共享锁（share lock）</strong>：共享 (S) 用于只读操作，如 SELECT 语句。</p>
-<p>如果事务T对数据A加上共享锁后，则其他事务只能对A再加共享锁，不能加排他锁。获准共享锁的事务只能读数据，不能修改数据。</p>
-<p><strong>排他锁（exclusive lock）</strong>：用于数据修改操作，例如 INSERT、UPDATE 或 DELETE。确保不会同时同一资源进行多重更新。</p>
-<p>如果事务T对数据A加上排他锁后，则其他事务不能再对A加任任何类型的封锁。获准排他锁的事务既能读数据，又能修改数据。</p>
-<p>**作用：**利用三段锁，可以避免以下问题</p>
+<h4><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="section" id="dimensionality-reduction">
+<h2>Dimensionality Reduction<a class="headerlink" href="#dimensionality-reduction" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>丢失修改：两个事务T1和T2读入同一数据并修改，T2提交的结果破坏了T1提交的结果，导致T1的修改被丢失</p></li>
-<li><p>读脏数据：事务T1对数据D进行修改，事务T2读取到了事务T1修改的数据，接着事务T1发生异常进行回滚，事务T2读取到的就叫做“脏数据”</p></li>
-<li><p>不可重复读：不可重复读是指事务T1读取数据后，事务T2执行更新操作，使T1无法再现前一次读取结果</p></li>
+<li><p>Motive：</p>
+<ul>
+<li><p>解释侧原因 ：we want a low-dimensional representation of the data which captures as much information as possible.</p></li>
+<li><p>模型侧原因</p></li>
 </ul>
-<div class="section" id="id6">
-<h4><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
-</div>
-</div>
-</div>
-<div class="section" id="id7">
-<h2>参考资料：<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+</li>
+</ul>
+<img src="../images/(null)-20220726104827265.(null)" alt="img" style="width:50%;" />
+<ul>
+<li><p>有些需要非multi-collinearity！</p></li>
+<li><p>lower the variance by getting rid of unnecessary features.</p>
+<ul>
+<li><p>Adding more features考虑bias and variance of the model parameters的时候：</p>
+<p>会increase model complexity</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.cnblogs.com/amyzhu/p/13513425.html">数据仓库分层中的ODS、DWD、DWS </a></p></li>
+<li><p>如果重新sample data训练模型的话 vary a lot in that case, you have a high variance model.！</p></li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="pca">
+<h3>PCA<a class="headerlink" href="#pca" title="Permalink to this headline">¶</a></h3>
+<p>在统计学中，主成分分析（PCA）是一种简化数据集的技术。它是一个线性变换。这个变换把数据变换到一个新的坐标系统中，使得任何数据投影的第一大方差在第一个坐标(称为第一主成分)上，第二大方差在第二个坐标(第二主成分)上，依次类推。主成分分析经常用减少数据集的维数，同时保持数据集的对方差贡献最大的特征。这是通过保留低阶主成分，忽略高阶主成分做到的。这样低阶成分往往能够保留住数据的最重要方面。但是，这也不是一定的，要视具体应用而定。</p>
+<p>主成分分析的原理是设法将原来变量重新组合成一组新的相互无关的几个综合变量，同时根据实际需要从中可以取出几个较少的综合变量尽可能多地反映原来变量的信息的统计方法叫做主成分分析或称主分量分析，也是数学上处理降维的一种方法。主成分分析是设法将原来众多具有一定相关性（比如P个指标），重新组合成一组新的互相无关的综合指标来代替原来的指标。通常数学上的处理就是将原来P个指标作线性组合，作为新的综合指标。最经典的做法就是用F1（选取的第一个线性组合，即第一个综合指标）的方差来表达，即Va（rF1）越大，表示F1包含的信息越多。因此在所有的线性组合中选取的F1应该是方差最大的，故称F1为第一主成分。如果第一主成分不足以代表原来P个指标的信息，再考虑选取F2即选第二个线性组合，为了有效地反映原来信息，F1已有的信息就不需要再出现再F2中，用数学语言表达就是要求Cov（F1,F2）=0，则称F2为第二主成分，依此类推可以构造出第三、第四，……，第P个主成分。</p>
+<ul class="simple">
+<li><p>PCA为什么要中心化？</p>
+<ul>
+<li><p>因为要算协方差。</p></li>
+<li><p>单纯的线性变换只是产生了倍数缩放，无法消除量纲对协方差的影响，而协方差是为了让投影后方差最大。</p></li>
+</ul>
+</li>
+</ul>
+<p>Principal component analysis (PCA) <strong>projects data to a lower-dimensional linear subspace</strong>, in a way that preserves the axes of <strong>highest variance</strong> in the data.</p>
+<ul class="simple">
+<li><p>也就是会找到 best possible lower-dimentional sub-space来project data！</p></li>
+</ul>
+<img src="../images/(null)-20220726104827271.(null)" alt="img" style="width:50%;" />
+<ul class="simple">
+<li><p>这个图上 我们依然可以see the cluster distinguished from each other!</p></li>
+<li><p>比如如果是这样的一个平面，那么data的variance就会非常小因为都缩在一团了</p></li>
+</ul>
+<img src="../images/(null)-20220726104827238.(null)" alt="img" style="width:50%;" />
+<ul class="simple">
+<li><p><em>Idea: use the first two principal components (instead of the 31 original features) to predict diagnosis. This will result in a simpler, low variance model.</em></p></li>
+</ul>
+<p>算法</p>
+<img src="../images/(null)-20220726104827284.(null)" alt="img" style="width:50%;" />
+<ul class="simple">
+<li><p>用之前要注意：standardize features to have zero mean and unit variance!</p>
+<ul>
+<li><p>否则 features with high variance will dominate the principal component directions</p></li>
+</ul>
+</li>
+</ul>
+<img src="../images/(null)-20220726104827656.(null)" alt="img" style="width:50%;" />
+<ul class="simple">
+<li><p>这里的number就是PCA对应的系数</p></li>
+</ul>
+</div>
+<div class="section" id="t-sne">
+<h3><strong>t-SNE</strong><a class="headerlink" href="#t-sne" title="Permalink to this headline">¶</a></h3>
+<p>将不相似的数据点放置在较低维度区域时，<strong>数据点相距较远</strong>。但是为了在低维、非线性曲面的流型上表示高维数据，我们同时需要把相似的数据点放在一起展示，这就是线性方法的劣势。</p>
+<p>T-SNE的核心想法是先把数据点散乱分布到低维上，让相同label的点互相吸引，不同的点相互排斥，从而实现在低维的聚拢和分类</p>
+</div>
 </div>
 </div>
 
@@ -628,7 +739,7 @@ const thebe_selector_output = ".output, .cell_output"
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./DE"
+            path: "./ML"
         },
         predefinedOutput: true
     }
@@ -639,21 +750,7 @@ const thebe_selector_output = ".output, .cell_output"
               
             
                 <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../DL/NN_compression/QBert.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Q-BERT</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="SQL.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">SQL</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
+<div class='prev-next-area'>
 </div>
             
         </div>

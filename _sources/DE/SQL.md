@@ -11,6 +11,49 @@ NULL
 - NULL=NULL 的返回结果是 NULL， 而不是 true。
 - NULL<>1 的返回结果是 NULL，而不是 true。
 
+## 函数
+
+### 聚合函数
+
+#### COUNT
+
+**count()和count(1)和count(*)区别：**
+
+- 执行效果上：
+
+  - count(*)包括了所有的列，相当于行数，在统计结果的时候，**不会忽略为NULL的值。**
+
+  - count(1)包括了忽略所有列，用1代表代码行，在统计结果的时候，**不会忽略为NULL的值**。
+
+  - count(列名)只包括列名那一列，**在统计结果的时候，会忽略列值为空**（这里的空不是指空字符串或者0，而是表示null）的计数，**即某个字段值为NULL时，不统计**。
+    - PS： `count(col1, col2)` is not valid syntax！ 需要COUNT(IF(col1 IS NOT NULL AND col2 IS NOT NULL, 1, NULL))
+
+- 执行效率上：
+
+  - 列名为主键，count(列名)会比count(1)快
+
+  - 列名不为主键，count(1)会比count(列名)快
+
+  - 如果表多个列并且没有主键，则 count(1) 的执行效率优于 count（*）
+
+  - 如果有主键，则 select count（主键）的执行效率是最优的
+
+  - 如果表只有一个字段，则 select count（*）最优。
+
+### JOIN
+
+- Tips：*Mysql*不支持FULL JOIN——要使用UNION ALL 模拟*全连接*
+
+### 窗口函数
+
+#### 排序
+
+- rank()排序相同时会重复，总数不变，即会出现1、1、3这样的排序结果；
+- dense_rank()排序相同时会重复，总数会减少，即会出现1、1、2这样的排序结果；
+- row_number()排序相同时不会重复，会根据顺序排序
+
+
+
 ## 索引
 
 主键索引：必须要有主键，主键建议是单列字段，使用有序递增的整数值做主键。

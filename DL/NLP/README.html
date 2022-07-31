@@ -53,9 +53,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="基础概念" href="basics.html" />
+    <link rel="next" title="Self-Attention" href="Self-attention.html" />
     <link rel="prev" title="GPU训练" href="../Basics/Trained_by_GPU.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
@@ -209,11 +211,6 @@ const thebe_selector_output = ".output, .cell_output"
    </i>
   </label>
   <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="basics.html">
-     基础概念
-    </a>
-   </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Self-attention.html">
      Self-Attention
@@ -410,6 +407,82 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#benchmark">
+   Benchmark
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#glue-general-language-understanding-evaluation">
+     GLUE：General Language Understanding Evaluation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   文本表征
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#word2vector">
+     Word2Vector
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#cbow">
+       CBOW
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#skip-gram">
+       Skip-gram
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#word2veclda">
+       Word2Vec与LDA的区别
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       问题
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tf-idf">
+     Tf-idf
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   主题模型
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lda">
+     LDA
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   参考资料
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -422,6 +495,82 @@ const thebe_selector_output = ".output, .cell_output"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#benchmark">
+   Benchmark
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#glue-general-language-understanding-evaluation">
+     GLUE：General Language Understanding Evaluation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   文本表征
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#word2vector">
+     Word2Vector
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#cbow">
+       CBOW
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#skip-gram">
+       Skip-gram
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#word2veclda">
+       Word2Vec与LDA的区别
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       问题
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tf-idf">
+     Tf-idf
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   主题模型
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lda">
+     LDA
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   参考资料
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -430,6 +579,225 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="nlp">
 <h1>NLP<a class="headerlink" href="#nlp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="benchmark">
+<h2>Benchmark<a class="headerlink" href="#benchmark" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="glue-general-language-understanding-evaluation">
+<h3>GLUE：General Language Understanding Evaluation<a class="headerlink" href="#glue-general-language-understanding-evaluation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Corpus of Linguistic Acceptability (CoLA)</p></li>
+<li><p>Stanford Sentiment Treebank (SST-2)</p></li>
+<li><p>Microsoft Research Paraphrase Corpus (MRPC)</p></li>
+<li><p>Quora Question Pairs (QQP)</p></li>
+<li><p>Semantic Textual Similarity Benchmark (STS-B)</p></li>
+<li><p>Multi-Genre Natural Language Inference (MNLI)</p></li>
+<li><p>Question-answering NLI (QNLI)</p></li>
+<li><p>Recognizing Textual Entailment (RTE)</p></li>
+<li><p>Winograd NLI (WNLI)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>文本表征<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="word2vector">
+<h3>Word2Vector<a class="headerlink" href="#word2vector" title="Permalink to this headline">¶</a></h3>
+<p>词嵌入模型：把词映射为实数域向量的技术也叫词嵌⼊</p>
+<p>谷歌2013年提出的Word2Vec是目前最常用的词嵌入模型之一。Word2Vec实际是一种<strong>浅层的神经网络模型</strong>，它有两种网络结构，分别是<strong>连续词袋</strong>（CBOW）和<strong>跳字</strong>(Skip-Gram)模型。</p>
+<div class="section" id="cbow">
+<h4>CBOW<a class="headerlink" href="#cbow" title="Permalink to this headline">¶</a></h4>
+<p>全称Continuous Bag-of-Word，中文叫做连续词袋模型：<strong>以上下文来预测当前词</strong> <span class="math notranslate nohighlight">\(w_t\)</span> 。CBOW模型的目的是预测 <span class="math notranslate nohighlight">\(P(w_t| w_{t-k}, \cdots, w_{t-1}, w_{t+1}, \cdots, w_{t+k}) \)</span></p>
+<p><img alt="img" src="../../_images/v2-27f3e577618f84c0026968d273d823ef_b.jpg" /></p>
+<ul class="simple">
+<li><p>前向传播过程</p>
+<ul>
+<li><p>输入层: 输入C个单词<span class="math notranslate nohighlight">\(x\)</span>： <span class="math notranslate nohighlight">\(x_{1k}, \cdots, x_{Ck} \)</span>，并且每个 <span class="math notranslate nohighlight">\(x\)</span> 都是用 <strong>One-hot</strong> 编码表示，每一个 <span class="math notranslate nohighlight">\(x\)</span> 的维度为 V（词表长度）。</p>
+<ul>
+<li><p>输入层到隐层</p>
+<ul>
+<li><p>首先，共享矩阵为 <span class="math notranslate nohighlight">\(W_{V \times N}\)</span> ，<strong>V表示词表长度</strong>，W的每一行表示的就是一个N维的向量（训练结束后，W的每一行就表示一个词的词向量）。</p></li>
+<li><p>然后，我们把所有<strong>输入的词转<span class="math notranslate nohighlight">\(x\)</span>化为对应词向量</strong>，然后<strong>取平均值</strong>，这样我们就得到了隐层输出值 ( 注意，隐层中无激活函数，也就是说这里是线性组合)。 其中，隐层输出 <span class="math notranslate nohighlight">\(h\)</span> 是一个N维的向量 。
+$<span class="math notranslate nohighlight">\(
+h = \frac{1}{C} W^T(x_1 + x_2 + \cdots + x_c)
+\)</span>$</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>隐层到输出层：隐层的输出为N维向量 <span class="math notranslate nohighlight">\(h\)</span> ， 隐层到输出层的权重矩阵为  <span class="math notranslate nohighlight">\(W'_{N \times V}\)</span> 。然后，通过矩阵运算我们得到一个 <span class="math notranslate nohighlight">\(V \times 1 \)</span> 维向量
+$<span class="math notranslate nohighlight">\(
+u = W'^{T} * h
+\)</span>$</p></li>
+<li><p>其中，向量 <span class="math notranslate nohighlight">\(u\)</span>  的第 <span class="math notranslate nohighlight">\(i\)</span>  行表示词汇表中第 <span class="math notranslate nohighlight">\(i\)</span>  个词的可能性，然后我们的目的就是取可能性最高的那个词。因此，在最后的输出层是一个softmax 层获取分数最高的词，那么就有我们的最终输出：</p></li>
+</ul>
+</li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+P(w_j| context)  =y_i =  \frac{exp({u_j})}{\sum_{k \in V} exp({u_k})}
+\]</div>
+<ul class="simple">
+<li><p>损失函数：我们假定 <span class="math notranslate nohighlight">\(j^*\)</span> 是真实单词在词汇表中的下标，那么根据极大似然法，则目标函数定义如下：</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+E = -log \, p(W_O |W_I) = -log \, \frac{exp({u_j})}{\sum_{k \in V} exp({u_k})} =  log  \sum_{k \in V} exp(u_{k})  -u_j
+\]</div>
+</div>
+<div class="section" id="skip-gram">
+<h4>Skip-gram<a class="headerlink" href="#skip-gram" title="Permalink to this headline">¶</a></h4>
+<p>Skip-Gram的基本思想是：<strong>通过当前词 <span class="math notranslate nohighlight">\(w_t\)</span> 预测其上下文 <span class="math notranslate nohighlight">\(w_{t-i}, \cdots , w_{t+i}\)</span></strong> ，模型如下图所示：</p>
+<p><img alt="img" src="../../_images/v2-42ef75691c18a03cfda4fa85a8409e19_b.jpg" /></p>
+<ul class="simple">
+<li><p>前向传播过程</p>
+<ul>
+<li><p>输入层：   输入的是一个单词，其表示形式为 <strong>One-hot</strong> ，我们将其表示为V维向量 <span class="math notranslate nohighlight">\(x_k\)</span> ，其中 <span class="math notranslate nohighlight">\(V\)</span> 为词表大小。然后，通过词向量矩阵 <span class="math notranslate nohighlight">\(W_{V \times N}\)</span> 我们得到一个N维向量<br />
+$<span class="math notranslate nohighlight">\(
+h = W^T * x_k = v^{T}_{w_I}
+\)</span>$</p></li>
+<li><p>隐层： 而隐层中没有激活函数，也就是说输入=输出，因此隐藏的输出也是 <span class="math notranslate nohighlight">\(h\)</span> 。</p>
+<ul>
+<li><p>隐层到输出层：</p>
+<ul>
+<li><p>首先，因为要输出C个单词，因此我们此时的输出有C个分布： <span class="math notranslate nohighlight">\(y_1, \cdots y_C \)</span>，且每个分布都是独立的，我们需要单独计算， 其中 <span class="math notranslate nohighlight">\(y_i\)</span>  表示窗口的第 <span class="math notranslate nohighlight">\(i\)</span>  个单词的分布。</p></li>
+<li><p>其次， 因为矩阵 <span class="math notranslate nohighlight">\(W'_{N \times V}\)</span> 是共享的，因此我们得到的 <span class="math notranslate nohighlight">\(V \times 1\)</span> 维向量 <span class="math notranslate nohighlight">\(u\)</span> 其实是相同的，也就是有 <span class="math notranslate nohighlight">\(u_{c,j} = u_j\)</span> ，这里 <span class="math notranslate nohighlight">\(u\)</span> 的每一行同 CBOW 中一样，表示的也是评分。</p></li>
+<li><p>最后，每个分布都经过一个 softmax 层，不同于 CBOW，我们此处产生的是第 <span class="math notranslate nohighlight">\(i\)</span> 个单词的分布（共有C个单词），如下：
+$<span class="math notranslate nohighlight">\(
+P(w_{i,j}| context)  =y_i =  \frac{exp({u_j})}{\sum_{k \in V} exp({u_k})}
+\)</span>$</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>损失函数：假设 <span class="math notranslate nohighlight">\(j^*\)</span> 是真实单词在词汇表中的下标，那么根据极大似然法，则目标函数定义如下：</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split} E &amp;= - log \, p(w_1, w_2, \cdots, w_C | w_I)   \\ &amp;= - log \prod_{c=1}^C P(w_c|w_i) \\ &amp;= - log  \prod_{c=1}^{C} \frac{exp(u_{c, j})}{\sum_{k=1}^{V} exp(u_{c,k}) } \\ &amp;= - \sum_{c=1}^C u_{j^*_c} + C \cdot log \sum_{k=1}^{V} exp(u_k) \end{split}
+\end{split}\]</div>
+</div>
+<div class="section" id="word2veclda">
+<h4>Word2Vec与LDA的区别<a class="headerlink" href="#word2veclda" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>LDA：LDA是利用文档中<strong>单词的共现关系</strong>来对单词按<strong>主题聚类</strong>，也可以理解为对“<strong>文档-单词</strong>”矩阵进行<strong>分解</strong>，得到“<strong>文档-主题</strong>”和“<strong>主题-单词</strong>”两个<strong>概率分布</strong>。</p></li>
+<li><p>Word2Vec：Word2Vec是利用<strong>上下文-单词</strong>“矩阵进行学习，其中上下文由周围的几个单词组成，由此得到的词向量表示更多地融入了上下文共现的特征。也就是说，如果两个单词所对应的word2vec向量相似度较高，那么它们很可能经常在同样的上下文中出现。</p></li>
+<li><p>LDA模型是一种基于<strong>概率图模型</strong>的<strong>生成式模型</strong>，其似然函数可以写成若干条件概率连乘的形式，其中包括需要推测的隐含变量（即主题）；</p></li>
+<li><p>而Word2Vec模型一般表达为<strong>神经网络</strong>的形式，似然函数定义在网络的输出之上，需要通过学习网络的权重以得到单词的稠密向量表示。</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h4>问题<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>对每个local context window单独训练，没有利用包 含在global co-currence矩阵中的统计信息。</p></li>
+<li><p>对多义词无法很好的表示和处理，因为使用了唯一的词向量</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="tf-idf">
+<h3>Tf-idf<a class="headerlink" href="#tf-idf" title="Permalink to this headline">¶</a></h3>
+<p><strong>一个词语在一篇文章中出现次数越多, 同时在所有文档中出现次数越少, 越能够代表该文章.</strong></p>
+<ul class="simple">
+<li><p><strong>TF:</strong> Term Frequency, 表示词频。 一个给定的词在该文章中出现的次数。
+$<span class="math notranslate nohighlight">\(
+TF = \frac{\text{某个词在文章中的出现次数}}{\text{文章的总词数}}  \\
+\)</span>$</p></li>
+<li><p><strong>IDF:</strong> Inverse Document Frequency, 表示逆文档频率。如果包含词条 t 的文档越少, IDF越大，则说明词条具有很好的类别区分能力。</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+IDF = log(\frac{语料库的文档总数}{包含该词的文档数+1})  \\
+\end{split}\]</div>
+<ul class="simple">
+<li><p>**TF-IDF：**某一特定文件内的高词语频率，以及该词语在整个文件集合中的低文件频率，可以产生出高权重的TF-IDF。因此，<strong>TF-IDF倾向于过滤掉常见的词语</strong>，保留重要的词语
+$<span class="math notranslate nohighlight">\(
+\text{TF-IDF} = TF \times IDF
+\)</span>$</p></li>
+</ul>
+<p><strong>举例说明</strong></p>
+<p>假设现在有一篇文章， 文章中包含 10000 个词组， 其中，”贵州” 出现100次，”的” 出现500次，那么我们可以计算得到这几个词的 TF(词频) 值：
+$<span class="math notranslate nohighlight">\(
+TF(贵州) = 100 / 10000 = 0.01 \\
+TF(的) = 500 / 10000 = 0.05
+\)</span><span class="math notranslate nohighlight">\(
+现在语料库中有 1000 篇文章， 其中，包含 &quot;贵州&quot; 的有 99 篇， 包含 &quot;的&quot; 的有 899 篇， 则它们的 IDF 值计算为：
+\)</span><span class="math notranslate nohighlight">\(
+IDF(贵州) = log(1000 / (99+1)) = 1.000 \\
+IDF(的) = log(1000 / (899+1)) = 0.046
+\)</span>$</p>
+<p><strong>优缺点</strong></p>
+<ul class="simple">
+<li><p>优点：简单快速，而且容易理解。</p></li>
+<li><p>缺点：有时候用词频来衡量文章中的一个词的重要性<strong>不够全面</strong>，有时候重要的词出现的可能不够多，而且这种计算无法体现位置信息，<strong>无法体现词在上下文的重要性</strong>。</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>主题模型<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lda">
+<h3>LDA<a class="headerlink" href="#lda" title="Permalink to this headline">¶</a></h3>
+<p>LDA(Latent Dirichlet Allocation)：潜在狄利克雷分布，是一种非监督机器学习技术。它认为一篇文档是有多个主题的，而每个主题又对应着不同的词。</p>
+<p>核心思想是认为一篇文档的生成流程是：</p>
+<ul class="simple">
+<li><p>以一定概率选出一个主题</p></li>
+<li><p>以一定概率选出一个词</p></li>
+<li><p>重复上述流程直至选出所有词</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(L D A\)</span> 的学习过程可以看作以形成的主题作为桥梁，通过两个向量 <span class="math notranslate nohighlight">\(\left(\theta_{d}, \Phi_{t}\right)\)</span>, 分別给定 <span class="math notranslate nohighlight">\(P\)</span> (词|主题) 和 <span class="math notranslate nohighlight">\(P\)</span> (主题|文档) 从而计算P(词|文档) 的过 程：<span class="math notranslate nohighlight">\(p(\)</span> 词语 <span class="math notranslate nohighlight">\(\mid\)</span> 文档 <span class="math notranslate nohighlight">\()=\sum_{\text {主题 }} p(\)</span> 词语 <span class="math notranslate nohighlight">\(\mid\)</span> 主题 <span class="math notranslate nohighlight">\() \times p(\)</span> 主题 <span class="math notranslate nohighlight">\(\mid\)</span> 文档 <span class="math notranslate nohighlight">\()\)</span></p>
+<p><img alt="1346651772_3109" src="../../_images/1346651772_3109.png" /></p>
+<p>用来推测文档的主题分布。它可以将文档集中每篇文档的主题以概率分布的形式给出，从而通过分析一些文档抽取出它们的主题分布后，便可以根据主题分布进行主题聚类或文本分类。</p>
+<p>LDA预测出的结果是文档在N个topic上的权重分布</p>
+<p>训练过程</p>
+<img src="../../images/LDA-train.png" alt="LDA-train" style="zoom:50%;" />
+<ul class="simple">
+<li><p>​	Gibbs采样｜对应贝叶斯参数估计的过程：先验分布+数据的知识= 后验分布 这个求参数的方法推导比较复杂，不是简单的极大似然估计可以搞定的。需要用到使用变分EM以及吉布斯(Gibbs Sampling)的方式</p></li>
+</ul>
+<p>LDA 中主题数目如何确定？</p>
+<p>在 LDA 中，主题的数目没有一个固定的最优解。模型训练时，需要事先设置主题数，训练人员需要根据训练出来的结果，手动调参，有优化主题数目，进而优化文本分类结果。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">LatentDirichletAllocation</span>
+
+<span class="n">n_topics</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># 主题数</span>
+<span class="n">lda</span> <span class="o">=</span> <span class="n">LatentDirichletAllocation</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">n_topics</span><span class="p">,</span>
+                                <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+                                <span class="n">learning_method</span><span class="o">=</span><span class="s1">&#39;online&#39;</span><span class="p">,</span>
+                                <span class="n">learning_offset</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                                <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">lda</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tf</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lda</span><span class="o">.</span><span class="n">components_</span><span class="p">)</span> <span class="c1"># 显示主题数 model.topic_word_</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lda</span><span class="o">.</span><span class="n">components_</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>   <span class="n">几个主题就是几行</span> <span class="n">多少个关键词就是几列</span> 
+
+<span class="c1"># 困惑度</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lda</span><span class="o">.</span><span class="n">perplexity</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">sub_sampling</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>    
+
+<span class="c1"># 主题-关键词分布</span>
+<span class="k">def</span> <span class="nf">print_top_words</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tf_feature_names</span><span class="p">,</span> <span class="n">n_top_words</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">topic_idx</span><span class="p">,</span><span class="n">topic</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">components_</span><span class="p">):</span>    <span class="c1"># lda.component相当于model.topic_word_</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Topic #</span><span class="si">%d</span><span class="s1">:&#39;</span> <span class="o">%</span> <span class="n">topic_idx</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">tf_feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">topic</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[:</span><span class="o">-</span><span class="n">n_top_words</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 定义好函数之后 暂定每个主题输出前20个关键词</span>
+<span class="n">n_top_words</span> <span class="o">=</span> <span class="mi">50</span>                                       
+<span class="n">tf_feature_names</span> <span class="o">=</span> <span class="n">tf_vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
+<span class="n">print_top_words</span><span class="p">(</span><span class="n">lda</span><span class="p">,</span> <span class="n">tf_feature_names</span><span class="p">,</span> <span class="n">n_top_words</span><span class="p">)</span>
+
+<span class="c1"># 可视化</span>
+<span class="kn">import</span> <span class="nn">pyLDAvis</span>
+<span class="kn">import</span> <span class="nn">pyLDAvis.sklearn</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pyLDAvis</span><span class="o">.</span><span class="n">sklearn</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">lda</span><span class="p">,</span><span class="n">tf</span><span class="p">,</span><span class="n">tf_vectorizer</span><span class="p">)</span> 
+<span class="n">pyLDAvis</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>参考资料<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>百面机器学习</p></li>
+<li><p><a class="reference external" href="https://github.com/scutan90/DeepLearning-500-questions">https://github.com/scutan90/DeepLearning-500-questions</a></p></li>
+<li><p><a class="reference external" href="https://github.com/NLP-LOVE/ML-NLP">https://github.com/NLP-LOVE/ML-NLP</a></p></li>
+<li><p><a class="reference external" href="https://github.com/songyingxin/NLPer-Interview">https://github.com/songyingxin/NLPer-Interview</a></p></li>
+</ul>
+</div>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -466,10 +834,10 @@ const thebe_selector_output = ".output, .cell_output"
             <p class="prev-next-title">GPU训练</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="basics.html" title="next page">
+    <a class='right-next' id="next-link" href="Self-attention.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">基础概念</p>
+        <p class="prev-next-title">Self-Attention</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

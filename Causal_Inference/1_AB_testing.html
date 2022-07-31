@@ -212,11 +212,6 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../DL/NLP/basics.html">
-     基础概念
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../DL/NLP/Self-attention.html">
      Self-Attention
     </a>
@@ -588,6 +583,13 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id17">
    AB test的局限性
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-b-test">
+     成本问题：需要足量随机流量使结果具备统计意义，会耗费流量；需要持续一段时间以收集数据，耗费时间；当可做A/B Test的选择太多时，往往难以全部尝试。
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id18">
@@ -821,6 +823,13 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id17">
    AB test的局限性
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-b-test">
+     成本问题：需要足量随机流量使结果具备统计意义，会耗费流量；需要持续一段时间以收集数据，耗费时间；当可做A/B Test的选择太多时，往往难以全部尝试。
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id18">
@@ -1623,9 +1632,12 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 </ul>
 </li>
 <li><p>开发角度：同时维护多套代码也有一定成本。这就导致我们无法直接使用AB实验</p></li>
-<li><p>成本高：需要足量随机流量使结果具备统计意义，会耗费流量；需要持续一段时间以收集数据，耗费时间；当可做A/B Test的选择太多时，往往难以全部尝试。</p></li>
-<li><p>不可行：比如探究社交压力对用户发表朋友圈的意愿有什么影响，不可能在用户朋友圈伪造或隐藏点赞和评论。</p></li>
+<li></li>
+<li><p><strong>伦理上</strong>不可行：比如探究社交压力对用户发表朋友圈的意愿有什么影响，不可能在用户朋友圈伪造或隐藏点赞和评论。</p></li>
 </ul>
+<div class="section" id="a-b-test">
+<h3>成本问题：需要足量随机流量使结果具备统计意义，会耗费流量；需要持续一段时间以收集数据，耗费时间；当可做A/B Test的选择太多时，往往难以全部尝试。<a class="headerlink" href="#a-b-test" title="Permalink to this headline">¶</a></h3>
+</div>
 <p>在这种情况下，有时候我们可以使用用户细分：</p>
 <ul>
 <li><p>我们首先细分、细分再细分用户，接着对每一个细分后的用户群进行分析，以期望得到更加靠谱的结果。</p>

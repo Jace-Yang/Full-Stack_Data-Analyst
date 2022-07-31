@@ -212,11 +212,6 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../DL/NLP/basics.html">
-     基础概念
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../DL/NLP/Self-attention.html">
      Self-Attention
     </a>
@@ -499,6 +494,11 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
        </li>
        <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#features-selection">
+         Features selection
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
         <a class="reference internal nav-link" href="#optimal-model-training-model-evaluation">
          <strong>
           Optimal model training, model evaluation
@@ -524,6 +524,11 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
+     朴素贝叶斯
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
      线性回归类
     </a>
     <ul class="nav section-nav flex-column">
@@ -565,7 +570,7 @@ const thebe_selector_output = ".output, .cell_output"
       </a>
      </li>
      <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id9">
+      <a class="reference internal nav-link" href="#id10">
        <strong>
         多分类问题常规解决方案
        </strong>
@@ -686,6 +691,18 @@ const thebe_selector_output = ".output, .cell_output"
      <li class="toc-h3 nav-item toc-entry">
       <a class="reference internal nav-link" href="#catboost">
        CatBoost
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     时间序列类
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#prophet">
+       Prophet
       </a>
      </li>
     </ul>
@@ -799,6 +816,11 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
        </li>
        <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#features-selection">
+         Features selection
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
         <a class="reference internal nav-link" href="#optimal-model-training-model-evaluation">
          <strong>
           Optimal model training, model evaluation
@@ -824,6 +846,11 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id8">
+     朴素贝叶斯
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
      线性回归类
     </a>
     <ul class="nav section-nav flex-column">
@@ -865,7 +892,7 @@ const thebe_selector_output = ".output, .cell_output"
       </a>
      </li>
      <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id9">
+      <a class="reference internal nav-link" href="#id10">
        <strong>
         多分类问题常规解决方案
        </strong>
@@ -986,6 +1013,18 @@ const thebe_selector_output = ".output, .cell_output"
      <li class="toc-h3 nav-item toc-entry">
       <a class="reference internal nav-link" href="#catboost">
        CatBoost
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     时间序列类
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#prophet">
+       Prophet
       </a>
      </li>
     </ul>
@@ -1311,54 +1350,70 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>模型复杂度过低</p></li>
 </ul>
 </li>
-</ul>
-</div>
-<div class="section" id="id6">
-<h5><strong>过拟合问题</strong><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h5>
-<img src="../images/(null)-20220724221442702.(null)" alt="img" style="width: 50%;" />
-<ul class="simple">
 <li><p>解决：</p>
 <ul>
 <li><p>增加新特征，可以考虑加入进特征组合、高次特征，来增大假设空间；</p></li>
-<li><p>添加<strong>多项式特征</strong>，这个在机器学习算法里面用的很普遍，例如将线性模型通过添加二次项或者三次项使模型泛化能力更强；</p></li>
+<li><p>添加<strong>多项式特征</strong>，这个在机器学习算法里面用的很普遍，例如将线性模型通过添加二次项或者三次项使模型<strong>泛化能力更强</strong>；</p></li>
 <li><p><strong>减少正则化参数</strong>，正则化的目的是用来防止过拟合的，但是模型出现了欠拟合，则需要减少正则化参数；</p></li>
 <li><p>使用<strong>非线性模型</strong>，比如核SVM 、决策树、深度学习等模型；</p></li>
 <li><p>调整<strong>模型的容量(capacity)</strong>，通俗地，模型的容量是指其拟合各种函数的能力；</p></li>
 <li><p>容量低的模型可能很难拟合训练集。</p></li>
 </ul>
 </li>
-<li><p>overfitting是high variance low bias：平均来看的话 是center the plot means doing well! 但variance非常高</p>
+</ul>
+</div>
+<div class="section" id="id6">
+<h5><strong>过拟合问题</strong><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h5>
+<img src="../images/(null)-20220724221442702.(null)" alt="img" style="width: 50%;" />
 <ul>
+<li><p>overfitting是high variance low bias：平均来看的话 是center the plot means doing well! 但variance非常高</p>
+<ul class="simple">
 <li><p>太关注训练集中个体波动，过拟合</p></li>
 <li><p>高方差模型，对特定训练数据集的灵活性极高。</p></li>
 <li><p>高方差模型非常关注训练数据，而对以前没有见过的数据不进行泛化generalizability。因此，这样的模型在训练数据上表现得很好，但在测试数据上却有很高的错误率。</p></li>
+</ul>
+</li>
 <li><p>过拟合的原因在于：</p>
-<ul>
+<p>机器学习算法为了满足尽可能复杂的任务, 其模型的拟合 能力一般远远高于问题复杂度, 也就是说, 机器学习算法有「拟合出正确规则的前提下, 进一步拟 合噪声」的能力。</p>
+<ul class="simple">
 <li><p><strong>参数太多</strong>，模型复杂度过高；</p></li>
 <li><p>建模<strong>样本选取有误</strong>，导致选取的样本数据不足以代表预定的分类规则；</p></li>
 <li><p><strong>样本噪音干扰过大</strong>，使得机器将部分噪音认为是特征从而扰乱了预设的分类规则；</p></li>
 <li><p>假设的<strong>模型无法合理存在</strong>，或者说是假设成立的条件实际并不成立。</p></li>
-<li></li>
 </ul>
 </li>
 <li><p>怎么解决过拟合（重点）🌟🌟🌟</p>
 <ul>
 <li><p>获取和使用<strong>更多的数据</strong>（数据集增强）——解决过拟合的根本性方法</p></li>
-<li><p><strong>特征降维</strong>:人工选择保留特征的方法对特征进行降维</p></li>
-<li><p>加入正则化，控制模型的复杂度</p>
-<ul>
+<li><p>清洗数据：把明显异常的数据剔除</p>
+<ul class="simple">
+<li><p>增加噪声：平衡异常值</p></li>
+</ul>
+</li>
+<li><p><strong>特征降维</strong></p>
+<ul class="simple">
+<li><p>减少特征</p></li>
+<li><p>PCA降维等</p></li>
+</ul>
+</li>
+<li><p>加入l1 / l2正则化，控制模型的复杂度</p>
+<ul class="simple">
+<li><p>因为参数的稀疏，在一定程度上实现了特征的选择。</p></li>
 <li><p>为什么参数越小代表模型越简单？</p>
 <ul>
-<li><p>因为参数的稀疏，在一定程度上实现了特征的选择。</p></li>
-<li><p>越复杂的模型，越是会尝试对所有的样本进行拟合，甚至包括一些异常样本点，这就容易造成在较小的区间里预测值产生较大的波动，这种较大的波动也反映了在这个区间里的导数很大，而<strong>只有较大的参数值才能产生较大的导数。因此复杂的模型，其参数值会比较大</strong>。 因此参数越少代表模型越简单</p></li>
+<li><p>越复杂的模型，越会尝试对所有的样本进行拟合，甚至包括一些异常样本点，这就容易造成在较小的区间里预测值产生较大的波动</p></li>
+<li><p>这种较大的波动也反映了在这个区间里的导数很大，而<strong>只有较大的参数值才能产生较大的导数。因此复杂的模型，其参数值会比较大</strong>。 因此参数越少代表模型越简单</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><strong>Dropout</strong></p></li>
-<li><p>Early stopping</p></li>
-<li><p>交叉验证</p></li>
-<li><p>增加噪声</p></li>
+<li><p>交叉验证来进行模型选择</p></li>
+<li><p>深度学习模型<strong>Dropout</strong> / **Early stopping **/Batch Normalization</p>
+<ul>
+<li><p>dropout 是一种避免神经网络过拟合的正则化技术。像L1和L2这样的正则化技术通过修改代价函数来减少过拟合。而丢弃法修改神经网络本身。它在训练的每一次迭代过程中随机地丢弃神经网络中的神经元。当我们丢弃不同神经元集合的时候，就等同于训练不同的神经网络。不同的神经网络会以不同的方式发生过拟合，所以丢弃的净效应将会减少过拟合的发生。</p>
+<p><img alt="img" src="../_images/1433301-20200930170004003-479276499.png" /></p>
+<p>如上图所示，丢弃法被用于在训练神经网络的过程中随机丢弃神经网络中的神经元。这种技术被证明可以减少很多问题的过拟合，这些问题包括图像分类、图像切割、词嵌入、语义匹配等问题。</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -1419,6 +1474,27 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </div>
 </div>
+<div class="section" id="features-selection">
+<h4>Features selection<a class="headerlink" href="#features-selection" title="Permalink to this headline">¶</a></h4>
+<p>当数据预处理完成后，我们需要选择对于当前学习任务有用的属性特征来进行训练，这类属性称为“相关特征”，而剩下没什么用的属性称为“无关特征”。其实，特征的使用方案也可以认为是一种超参，然后根据准确率的结果来选择，走上一步的框架。也有其他的特征选择方法⬇️</p>
+<p><strong>特征选择的主要原因</strong>：</p>
+<ul class="simple">
+<li><p>在现实任务中经常会遇到维数灾难问题，这是由于属性过多而造成的，若能从中选择出重要特征，使得后续学习过程仅需在一部分特征上构建模型，则维数灾难问题会大为减轻。</p></li>
+<li><p>去除不相关特征往往会降低学习任务的难度，这就像侦探破案一样，抽丝剥茧后只留下关键因素，则真相往往更容易看清。</p></li>
+</ul>
+<p>**注意事项：**特征选择过程必须确保不丢失重要特征，否则后续学习过程会因为重要信息的缺失而无法获得好的性能</p>
+<p><strong>见的特征选择方法</strong></p>
+<ul class="simple">
+<li><p><strong>过滤式（filter）</strong>，先对数据集进行<em>特征选择，再训练学习器</em>，特征选择与后续学习器无关。一般按照发散性或者相关性对各个特征进行评分，设定阈值t，选择评分比t大的特征，或者确定待选择特征个数k，选择特征评分最大的k个特征。著名的过滤式特征选择方法如Relief(Relevant Features)。</p></li>
+<li><p><strong>包裹式（wrapper）</strong>，与过滤式不考虑后续学习器不同，包裹式直接<strong>把最终将使用的学习器的性能作为特征自己的评价准则</strong>。根据目标函数（通常是预测效果评分），每次选择若干特征，或者排除若干特征。典型的包裹式特征选择算法如LVW(Las Vegas Wrapper)。</p>
+<ul>
+<li><p>一般而言，由于包裹式特征选择方法直接针对学习器进行优化，因此从最终学习器性能来看，包裹式比过滤式更好。但另一方面，由于在特征选择过程中需要多次训练学习器，因此包裹式特征选择的计算开销通常比过滤式大得多。</p></li>
+<li><p>Permutation Feature Importance</p></li>
+</ul>
+</li>
+<li><p><strong>嵌入式（embedding）</strong>，前两种方法，特征选择和学习器训练过程有明显的分别，而嵌入式则将两者融为一体，<strong>在学习器训练过程中自动地进行特征选择</strong>。一般先使用某些机器学习的算法和模型进行训练，得到各个特征的权值系数，根据系数从大到小选择特征。类似于Filter方法，但是是通过训练来确定特征的优劣。例如基于树模型的特征选择方法。</p></li>
+</ul>
+</div>
 <div class="section" id="optimal-model-training-model-evaluation">
 <h4><strong>Optimal model training, model evaluation</strong><a class="headerlink" href="#optimal-model-training-model-evaluation" title="Permalink to this headline">¶</a></h4>
 <p>Development data = Training data + validation data ⇒ Model to evaluate</p>
@@ -1456,7 +1532,210 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </div>
 <div class="section" id="id8">
-<h2>线性回归类<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2>朴素贝叶斯<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p><strong>贝叶斯分类器直接用贝叶斯公式解决分类问题</strong>。假设样本的特征向量为<span class="math notranslate nohighlight">\(x\)</span>，类别标签为<span class="math notranslate nohighlight">\(y\)</span>，根据贝叶斯公式，样本属于每个类的条件概率（后验概率）为：
+$<span class="math notranslate nohighlight">\(
+p(y | \mathbf{x})=\frac{p(\mathbf{x} | y) p(y)}{p(\mathbf{x})}
+\)</span><span class="math notranslate nohighlight">\(
+ 分母\)</span>p(x)<span class="math notranslate nohighlight">\(对所有类都是相同的，**分类的规则是将样本归到后验概率最大的那个类**，不需要计算准确的概率值，只需要知道属于哪个类的概率最大即可，这样可以忽略掉分母。分类器的判别函数为： 
+\)</span><span class="math notranslate nohighlight">\(
+\arg \max _{y} p(\mathrm{x} | y) p(y)
+\)</span><span class="math notranslate nohighlight">\(
+在实现贝叶斯分类器时，**需要知道每个类的条件概率分布\)</span>p(x|y)$即先验概率**。一般假设样本服从正态分布。训练时确定先验概率分布的参数，一般用最大似然估计，即最大化对数似然函数。</p>
+<p><strong>贝叶斯分类器是一种生成模型，可以处理多分类问题，是一种非线性模型</strong></p>
+<p><strong>工作原理</strong>：</p>
+<ul class="simple">
+<li><p>假设现在</p>
+<ul>
+<li><p>有样本<span class="math notranslate nohighlight">\(x=(x_1, x_2, x_3, \dots x_n)\)</span>待分类项</p></li>
+<li><p><span class="math notranslate nohighlight">\(m\)</span>个特征<span class="math notranslate nohighlight">\((a_1,a_2,a_3,\dots a_m)\)</span>(特征独立)</p></li>
+<li><p>分类目标<span class="math notranslate nohighlight">\(Y=\{ y_1，y_2，y_3，\dots ,y_n\}\)</span></p></li>
+</ul>
+</li>
+<li><p>那么就<span class="math notranslate nohighlight">\(\max ({P}({y}_1 | {x}), {P}({y}_2 | {x}), {P}({y}_3 | {x}) ,{P}({y_n} | {x}))\)</span>是最终的分类类别。</p></li>
+<li><p>而<span class="math notranslate nohighlight">\(P(y_i | x)=\frac{P(x | y_i) * P(y_i)}{ P(x)} \)</span>，因为<span class="math notranslate nohighlight">\(x\)</span>对于每个分类目标来说都一样，所以就是求<span class="math notranslate nohighlight">\(\max({P}({x}|{y_i})*{P}({y_i}))\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(P(x | y _i) * P(y_i)=P(y_i) * \prod(P(a_j| y_i))\)</span>，而具体的<span class="math notranslate nohighlight">\(P(a_j|y_i)\)</span>和<span class="math notranslate nohighlight">\(P(y_i)\)</span>都是能从训练样本中统计出来</p></li>
+<li><p><span class="math notranslate nohighlight">\({P}({a_j} | {y_i})\)</span>表示该类别下该特征<span class="math notranslate nohighlight">\(a_j\)</span>出现的概率<span class="math notranslate nohighlight">\(P(y_i)\)</span>表示全部类别中这个这个类别出现的概率,这样就能找到应该属于的类别了</p></li>
+</ul>
+<p><strong>朴素贝叶斯如此“朴素”？</strong></p>
+<ul class="simple">
+<li><p>因为它<strong>假定所有的特征在数据集中的作用是同样重要和独立的</strong>。正如我们所知，这个假设在现实世界中是很不真实的，因此，说朴素贝叶斯真的很“朴素”。用贝叶斯公式表达如下：</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+P(Y|X_1, X_2) = \frac{P(X_1|Y) P(X_2|Y) P(Y)}{P(X_1)P(X_2)}
+\]</div>
+<ul class="simple">
+<li><p><strong>而在很多情况下，所有变量几乎不可能满足两两之间的条件。</strong></p></li>
+<li><p>朴素贝叶斯模型(Naive Bayesian Model)的朴素(Naive)的含义是**“很简单很天真”**地假设样本特征彼此独立.这个假设现实中基本上不存在，但特征相关性很小的实际情况还是很多的，所以这个模型仍然能够工作得很好。</p></li>
+</ul>
+<p><strong>朴素贝叶斯算法的前提假设</strong></p>
+<ul class="simple">
+<li><p>特征之间相互独立</p></li>
+<li><p>每个特征同等重要</p></li>
+</ul>
+<p><strong>为什么属性独立性假设在实际情况中很难成立，但朴素贝叶斯仍能取得较好的效果?</strong></p>
+<ul class="simple">
+<li><p>对于分类任务来说，只要各类别的条件概率排序正确、无需精准概率值即可导致正确分类；</p></li>
+<li><p>如果属性间依赖对所有类别影响相同，或依赖关系的影响能相互抵消，则属性条件独立性假设在降低计算开销的同时不会对性能产生负面影响。</p></li>
+</ul>
+<p><strong>朴素贝叶斯中的零概率问题</strong></p>
+<ul class="simple">
+<li><p><strong>零概率问题</strong>：在计算实例的概率时，如果某个量<span class="math notranslate nohighlight">\(x\)</span>，在观察样本库(训练集)中没有出现过，会导致整个实例的概率结果是0。</p></li>
+<li><p><strong>解决办法</strong>：若<span class="math notranslate nohighlight">\(P(x)\)</span>为零则无法计算。为了解决零概率的问题，法国数学家拉普拉斯最早提出用加1的方法估计没有出现过的现象的概率，所以加法平滑也叫做<strong>拉普拉斯平滑</strong>。</p></li>
+<li><p><strong>举个栗子</strong>：假设在文本分类中，有3个类，<span class="math notranslate nohighlight">\(C1、C2、C3\)</span>，在指定的训练样本中，某个词语<span class="math notranslate nohighlight">\(K1\)</span>，在各个类中观测计数分别为0，990，10，<span class="math notranslate nohighlight">\(K1\)</span>的概率为0，0.99，0.01，对这三个量使用拉普拉斯平滑的计算方法如下：</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1/1003=0.001，
+991/1003=0.988，
+11/1003=0.011
+在实际的使用中也经常使用加 lambda(1≥lambda≥0)来代替简单加1。如果对N个计数都加上lambda，这时分母也要记得加上N*lambda。
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>将朴素贝叶斯中的所有概率计算<strong>应用拉普拉斯平滑即可以解决零概率问题</strong>。</p></li>
+</ul>
+<p><strong>概率计算的下溢问题</strong></p>
+<ul class="simple">
+<li><p><strong>下溢问题</strong>：在朴素贝叶斯的计算过程中，需要对特定分类中各个特征出现的<strong>概率进行连乘，小数相乘，越乘越小，这样就造成了下溢出</strong>。
+为了解决这个问题，对乘积结果取自然对数。通过求对数可以避免下溢出或者浮点数舍入导致的错误。</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\prod_{i=x}^{n} p\left(x_{i} | y_{j}\right)
+\]</div>
+<ul class="simple">
+<li><p><strong>解决办法</strong>：对其<strong>取对数</strong>：</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\log \prod_{i=1}^{n} p\left(x_{i} | y_{j}\right)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+=\sum_{i=1}^{n} \log p\left(x_{i} | y_{j}\right)
+\]</div>
+<ul class="simple">
+<li><p>​	将小数的乘法操作转化为取对数后的加法操作，规避了变为零的风险同时并不影响分类结果。</p></li>
+</ul>
+<p><strong>当数据的属性是连续型变量时，朴素贝叶斯算法如何处理</strong></p>
+<ul>
+<li><p>第一种方法：把一个连续的属性离散化，然后用相应的离散区间替换连续属性值。但这种方法不好控制离散区间划分的粒度。如果粒度太细，就会因为每个区间内训练记录太少而不能对<span class="math notranslate nohighlight">\(P(X|Y)\)</span>
+做出可靠的估计，如果粒度太粗，那么有些区间就会有来自不同类的记录，因此失去了正确的决策边界。</p></li>
+<li><p>第二种方法：假设连续变量服从某种概率分布，然后使用训练数据估计分布的参数，例如可以使用高斯分布来表示连续属性的类条件概率分布。</p>
+<ul>
+<li><p>高斯分布有两个参数，均值<span class="math notranslate nohighlight">\(\mu\)</span>和方差<span class="math notranslate nohighlight">\(\sigma 2\)</span>，对于每个类<span class="math notranslate nohighlight">\(y_i\)</span>，属性<span class="math notranslate nohighlight">\(X_i\)</span>的类条件概率等于：</p></li>
+<li><div class="math notranslate nohighlight">
+\[
+    P\left(X_{i}=x_{i} | Y=y_{j}\right)=\frac{1}{\sqrt{2 \Pi} \sigma_{i j}^{2}} e^{\frac{\left(x_{i}-\mu_{j}\right)^{2}}{2 \sigma_{i}^{2}}}
+    \]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mu_{i j}\)</span>：类<span class="math notranslate nohighlight">\(y_j\)</span>的所有训练记录关于<span class="math notranslate nohighlight">\(X_i\)</span>的样本均值估计</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_{i j}^{2}\)</span>：类<span class="math notranslate nohighlight">\(y_j\)</span>的所有训练记录关于<span class="math notranslate nohighlight">\(X\)</span>的样本方差</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><p>通过高斯分布估计出类条件概率。</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>常用的分类模型</strong></p>
+<p>朴素贝叶斯的三个常用模型：高斯、多项式、伯努利</p>
+<ul class="simple">
+<li><p>高斯模型：</p>
+<ul>
+<li><p>处理包含连续型变量的数据，使用高斯分布概率密度来计算类的条件概率密度</p></li>
+</ul>
+</li>
+<li><p>多项式模型：</p>
+<ul>
+<li><p>其中<span class="math notranslate nohighlight">\(\alpha\)</span>为拉普拉斯平滑，加和的是属性出现的总次数，比如文本分类问题里面，不光看词语是否在文本中出现，也得看出现的次数。如果总词数为<span class="math notranslate nohighlight">\(n\)</span>，出现词数为<span class="math notranslate nohighlight">\(m\)</span>的话，说起来有点像掷骰子<span class="math notranslate nohighlight">\(n\)</span>次出现<span class="math notranslate nohighlight">\(m\)</span>次这个词的场景。
+$<span class="math notranslate nohighlight">\(
+P\left(x_{i} | y_{k}\right)=\frac{N_{y k_{1}}+\alpha}{N_{y_{k}}+\alpha n}
+\)</span>$</p></li>
+<li><p>多项式模型适用于离散特征情况，在文本领域应用广泛， 其基本思想是：<strong>我们将重复的词语视为其出现多次</strong>。</p></li>
+</ul>
+</li>
+<li><p>伯努利模型：</p>
+<ul>
+<li><p>伯努利模型特征的取值为布尔型，即出现为true没有出现为false，在文本分类中，就是一个单词有没有在一个文档中出现。</p></li>
+<li><p>伯努利模型适用于离散特征情况，它将重复的词语都视为只出现一次。
+$<span class="math notranslate nohighlight">\(
+P( '代开'， '发票'， '发票'， '我' | S) = P('代开' | S)   P( '发票' | S) P('我' | S)
+\)</span>$
+我们看到，”发票“出现了两次，但是我们只将其算作一次。我们看到，”发票“出现了两次，但是我们只将其算作一次。</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>朴素贝叶斯是高偏差低方差</strong></p>
+<ul class="simple">
+<li><p>在统计学习框架下，大家刻画模型复杂度的时候，有这么个观点，认为<span class="math notranslate nohighlight">\(Error=Bias +Variance\)</span>。</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(Error\)</span>反映的是整个模型的准确度，</p></li>
+<li><p><span class="math notranslate nohighlight">\(Bias\)</span>反映的是模型在样本上的输出与真实值之间的误差，即模型本身的精准度，</p></li>
+<li><p><span class="math notranslate nohighlight">\(Variance\)</span>反映的是模型每一次输出结果与模型输出期望(平均值)之间的误差，即模型的稳定性，数据是否集中。</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><p>对于复杂模型，充分拟合了部分数据，使得他们的偏差较小，而由于对部分数据的过度拟合，对于部分数据预测效果不好，整体来看可能引起方差较大。</p>
+<ul>
+<li><p>对于朴素贝叶斯了。它简单的假设了各个数据之间是无关的，是一个被严重简化了的模型，简单模型与复杂模型相反，大部分场合偏差部分大于方差部分，也就是说高偏差而低方差</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>朴素贝叶斯为什么适合增量计算？</strong></p>
+<ul class="simple">
+<li><p>因为朴素贝叶斯在训练过程中实际只需要计算出各个类别的概率和各个特征的类条件概率，这些概率值可以快速的根据增量数据进行更新，无需重新全量训练，所以其十分适合增量计算，该特性可以使用在超出内存的大量数据计算和按小时级等获取的数据计算中。</p></li>
+</ul>
+<p><strong>高度相关的特征对朴素贝叶斯有什么影响</strong></p>
+<ul class="simple">
+<li><p>假设有两个特征高度相关，相当于该特征在模型中发挥了两次作用(计算两次条件概率)，使得朴素贝叶斯获得的结果向该特征所希望的方向进行了偏移，影响了最终结果的准确性，所以朴素贝叶斯算法应先处理特征，把相关特征去掉。</p></li>
+</ul>
+<p><strong>应用场景</strong></p>
+<ul class="simple">
+<li><p><strong>文本分类/垃圾文本过滤/情感判别</strong>：
+这大概是朴素贝叶斯应用最多的地方了，即使在现在这种分类器层出不穷的年代，在文本分类场景中，朴素贝叶斯依旧坚挺地占据着一席之地。因为多分类很简单，同时在文本数据中，分布独立这个假设基本是成立的。而垃圾文本过滤(比如垃圾邮件识别)和情感分析(微博上的褒贬情绪)用朴素贝叶斯也通常能取得很好的效果。</p></li>
+<li><p><strong>多分类实时预测</strong>：
+对于文本相关的多分类实时预测，它因为上面提到的优点，被广泛应用，简单又高效。</p></li>
+<li><p><strong>推荐系统</strong>：
+朴素贝叶斯和协同过滤是一对好搭档，协同过滤是强相关性，但是泛化能力略弱，朴素贝叶斯和协同过滤一起，能增强推荐的覆盖度和效果。</p></li>
+</ul>
+<p><strong>优缺点</strong></p>
+<ul class="simple">
+<li><p>特点</p>
+<ul>
+<li><p>朴素贝叶斯是一种<strong>对异常值不敏感</strong>的分类器，保留数据中的异常值，常常可以保持贝叶斯算法的整体精度，如果对原始数据进行降噪训练，分类器可能会因为失去部分异常值的信息而导致泛化能力下降。</p></li>
+</ul>
+</li>
+<li><p>优点：</p>
+<ul>
+<li><p>对数据的训练快，分类也快</p></li>
+<li><p>对缺失数据不太敏感，算法也比较简单</p>
+<ul>
+<li><p>朴素贝叶斯是一种<strong>对缺失值不敏感</strong>的分类器，朴素贝叶斯算法能够处理缺失的数据，在算法的建模时和预测时数据的属性都是单独处理的。因此<strong>如果一个数据实例缺失了一个属性的数值，在建模时将被忽略</strong>，不影响类条件概率的计算，在预测时，计算数据实例是否属于某类的概率时也将忽略缺失属性，不影响最终结果。</p></li>
+</ul>
+</li>
+<li><p>对小规模的数据表现很好，能个处理多分类任务，适合增量式训练，尤其是数据量超出内存时，可以一批批的去增量训练</p></li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li><p>对输入数据的表达形式很敏感</p></li>
+<li><p>由于朴素贝叶斯的“朴素”特点，所以会带来一些准确率上的损失。</p></li>
+<li><p>需要计算先验概率，分类决策存在错误率。</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>朴素贝叶斯与 LR 区别</strong>？</p>
+<ul class="simple">
+<li><p><strong>朴素贝叶斯是生成模型</strong>，根据已有样本进行贝叶斯估计学习出先验概率 <span class="math notranslate nohighlight">\(P(Y)\)</span> 和条件概率 <span class="math notranslate nohighlight">\(P(X|Y)\)</span>，进而求出联合分布概率 <span class="math notranslate nohighlight">\(P(X,Y)\)</span>，最后利用贝叶斯定理求解<span class="math notranslate nohighlight">\(P(Y|X)\)</span>， 而<strong>LR是判别模型</strong>，根据极大化对数似然函数直接求出条件概率 <span class="math notranslate nohighlight">\(P(Y|X)\)</span></p></li>
+<li><p>朴素贝叶斯是基于很强的<strong>条件独立假设</strong>(在已知分类Y的条件下，各个特征变量取值是相互独立的)，而 LR 则对此没有要求</p></li>
+<li><p>朴素贝叶斯适用于数据集少的情景，而LR适用于大规模数据集。</p></li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h2>线性回归类<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="simple-linear-regression">
 <h3>Simple Linear Regression<a class="headerlink" href="#simple-linear-regression" title="Permalink to this headline">¶</a></h3>
 <p>Assumptions</p>
@@ -1544,11 +1823,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p><strong>总之正确的时候预测概率越接近1，loss越接近0，然后越离谱的话给的Hinge就会给越高的loss，而不是0-1那样fixed住</strong></p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Logistic</span> <span class="pre">Loss</span></code>: 见下方</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Logistic</span> <span class="pre">Loss</span></code>: 见</p></li>
 </ul>
 </li>
 </ul>
-<p>具体公式：</p>
+<p>Logistic Loss是<strong>log odds ratio</strong></p>
 <img src="../images/(null)-20220724223457931.(null)" alt="img" style="width:33%;" />
 <p>推导过程：</p>
 <ul class="simple">
@@ -1573,8 +1852,8 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </div>
-<div class="section" id="id9">
-<h3><strong>多分类问题常规解决方案</strong><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3><strong>多分类问题常规解决方案</strong><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p><strong>叠加binary</strong></p>
 <ul class="simple">
 <li><p><strong>OVR (One vs Rest)</strong></p></li>
@@ -1599,7 +1878,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>直接extend</p>
 <img src="../images/(null)-20220724223459022.(null)" alt="img" style="width:50%;" />
 <ul class="simple">
-<li><p>因此可能会比用ovo和ovr的SVM要好！因为他直接globally optimize all the log odds of ratio. It actually solves it as a multiclass classification problem!</p></li>
+<li><p>因此可能会比用ovo和ovr的SVM要好！因为他直接globally <strong>optimize all the log odds of ratio</strong>. It actually <em>solves it as a multiclass classification problem!</em></p></li>
 </ul>
 </div>
 </div>
@@ -1685,7 +1964,8 @@ const thebe_selector_output = ".output, .cell_output"
 <ul>
 <li><div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}\alpha_i$$：第i个support vector的dual coefficient
-  - $$x_i, y_i$$：第i个support vector的坐标\\#### Kernel Function\\**Kernel function 𝕂(𝒙;𝒙)** 可以 **estimates inner product between two points in the projected space.**\\- 假设有一个magic function 𝝓(𝒙)，可以 projects data to **high-dimensional space**\\  还是给两个点返回距离！但是这个距离是在高维空间上的 所以可能在这个维上看到的不一样\\&lt;img src=&quot;../images/(null)-20220724224338320.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- 但我们关心的是两个𝝓(𝒙i) × 𝝓(𝒙j) 的结果，而不是𝝓本身，所以可以使用一个Kernel trick，假设**𝕂**是直接作用在dot product上面的，从而只需要assume 𝝓的存在就可以了\\&lt;img src=&quot;../images/(null)-20220724224337915.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- 因此这个问题就变成了：\\&lt;img src=&quot;../images/(null)-20220724224338928.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- 类型：\\&lt;img src=&quot;../images/(null)-20220724224338479.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- Linear Kernel：没做啥！
+  - $$x_i, y_i$$：第i个support vector的坐标\\#### Kernel Function\\**Kernel function 𝕂(𝒙;𝒙)** 可以 **estimates inner product between two points in the projected space.**\\- 假设有一个magic function 𝝓(𝒙)，可以 projects data to **high-dimensional space**\\  还是给两个点返回距离！但是这个距离是在高维空间上的 所以可能在这个维上看到的不一样\\&lt;img src=&quot;../images/(null)-20220724224338320.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- 但我们关心的是两个𝝓(𝒙i) × 𝝓(𝒙j) 的结果，而不是𝝓本身，所以可以使用一个Kernel trick，假设**𝕂**是直接作用在dot product上面的，从而只需要assume 𝝓的存在就可以了\\&lt;img src=&quot;../images/(null)-20220724224337915.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- 因此这个问题就变成了：\\&lt;img src=&quot;../images/(null)-20220724224338928.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- 类型：\\  &lt;img src=&quot;../images/(null)-20220724224338479.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\  - SVM解决非线性的问题：线性核函数的决策边界线性，单高斯核函数的决策边界是非线性的！\\
+- Linear Kernel：没做啥！
 - Polynomial：
   - 比如一个一维映射到三维的函数$$\phi\left(x\right)=\left(x, \sqrt{2} x, 1\right)$$，他的效果是$$\phi\left(x_{i}\right) \cdot \phi\left(x_{j}\right)=\left(x_{i}, \sqrt{2} x_{i}, 1\right) \cdot \left(x_{j}, \sqrt{2} x_{j}, 1\right) = \left(x_{i} x_{j}+1\right)^{2}\end{aligned}\end{align} \]</div>
 </li>
@@ -2346,6 +2626,124 @@ F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
 <li><p>Supports GPU training, sparse data &amp; missing values</p></li>
 <li><p>Monotonicity constraints</p></li>
 </ul>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>时间序列类<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="prophet">
+<h3>Prophet<a class="headerlink" href="#prophet" title="Permalink to this headline">¶</a></h3>
+<p>常见的时间序列分解方法</p>
+<p>将时间序列分成季节项<span class="math notranslate nohighlight">\(S_t\)</span>，趋势项<span class="math notranslate nohighlight">\(T_t\)</span>，剩余项<span class="math notranslate nohighlight">\(R_t\)</span>，即对所有的<span class="math notranslate nohighlight">\(t≥0\)</span>
+$<span class="math notranslate nohighlight">\(
+y_{t}=S_{t}+T_{t}+R_{t}	
+\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[
+y_{t}=S_{t} \times T_{t} \times R_{t}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\ln y_{t}=\ln S_{t}+\ln T_{t}+\ln R_{t}
+\]</div>
+<p>fbprophet 的在此基础上，添加了节日项：
+$<span class="math notranslate nohighlight">\(
+y(t)=g(t)+s(t)+h(t)+\epsilon_{t}
+\)</span>$</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">趋势项模型</span></code>: 基于逻辑回归</p>
+<ul>
+<li><p>prophet在逻辑回归的基础上添加了随时间变化的参数，那么逻辑回归就可以改写成：</p>
+<div class="math notranslate nohighlight">
+\[
+    f(x)=\frac{C(t)}{\left(1+e^{-k(t)(x-m(t))}\right)}
+    \]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(C\)</span> 称为曲线的最大渐近值， <span class="math notranslate nohighlight">\(k\)</span> 表示曲线的增长率，<span class="math notranslate nohighlight">\(m\)</span>  表示曲线的中点</p></li>
+<li><p>当 $<span class="math notranslate nohighlight">\(
+C=1, k=1, m=0
+\)</span><span class="math notranslate nohighlight">\(时，恰好就是大家常见的 sigmoid 函数的形式\)</span>\sigma(x)=1 /\left(1+e^{-x}\right)$</p></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>基于分段线性函数</strong>
+$<span class="math notranslate nohighlight">\(
+g(t)=\frac{C(t)}{1+\exp \left(-\left(k+\boldsymbol{a}(t)^{t} \boldsymbol{\delta}\right) \cdot\left(t-\left(m+\boldsymbol{a}(t)^{T} \boldsymbol{\gamma}\right)\right.\right.}
+\)</span><span class="math notranslate nohighlight">\(
+\)</span>k$表示变化量</p>
+<p><span class="math notranslate nohighlight">\(a_{j}(t)\)</span>表示指示函数：
+$<span class="math notranslate nohighlight">\(
+a_{j}(t)=\left\{\begin{array}{l}1, \text { if } t \geq s_{j} \\ 0, \text { otherwise }\end{array}\right.
+\)</span><span class="math notranslate nohighlight">\(
+\)</span>\delta_{j}<span class="math notranslate nohighlight">\(表示在时间戳\)</span>s_{j}$上的增长率的变化量</p>
+<p><span class="math notranslate nohighlight">\(\gamma_{j}\)</span>确定线段边界
+$<span class="math notranslate nohighlight">\(
+\gamma_{j}=\left(s_{j}-m-\sum_{\ell&lt;j} \gamma_{\ell}\right) \cdot\left(1-\frac{k+\sum_{\ell&lt;j} \delta_{\ell}}{k+\sum_{\ell \leq j} \delta_{\ell}}\right)
+\)</span><span class="math notranslate nohighlight">\(
+其中：
+\)</span><span class="math notranslate nohighlight">\(
+\boldsymbol{a}(t)=\left(a_{1}(t), \cdots, a_{S}(t)\right)^{T}, \boldsymbol{\delta}=\left(\delta_{1}, \cdots, \delta_{S}\right)^{T}, \boldsymbol{\gamma}=\left({\gamma}_{1}, \cdots, \gamma_{S}\right)^{T}
+\)</span>$</p>
+</li>
+</ul>
+</li>
+<li><p>季节性趋势：</p>
+<ul class="simple">
+<li><p>时间序列通常会随着天，周，月，年等季节性的变化而呈现季节性的变化，也称为周期性的变化</p></li>
+<li><p>prophet算法使用傅立叶级数来模拟时间序列的周期性</p></li>
+<li><p>傅立叶级数的形式：
+$<span class="math notranslate nohighlight">\(
+s(t)=\sum_{n=1}^{N}\left(a_{n} \cos \left(\frac{2 \pi n t}{P}\right)+b_{n} \sin \left(\frac{2 \pi n t}{P}\right)\right)
+\)</span>$</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(P\)</span>表示时间序列的周期， <span class="math notranslate nohighlight">\(P = 365.25\)</span>表示以年为周期，<span class="math notranslate nohighlight">\(P = 7\)</span>表示以周为周期。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>节假日效应（holidays and events）</p>
+<p>除了周末，同样有很多节假日，而且不同的国家有着不同的假期，不同的节假日可以看成相互独立的模型，并且可以为不同的节假日设置不同的前后窗口值，表示该节假日会影响前后一段时间的时间序列</p>
+<div class="math notranslate nohighlight">
+\[h(t)=Z(t) \boldsymbol{\kappa}=\sum_{i=1}^{L} \kappa_{i} \cdot 1_{\left\{t \in D_{i}\right\}}\]</div>
+<ul class="simple">
+<li><p>其中：<span class="math notranslate nohighlight">\(Z(t)=\left(1_{\left\{t \in D_{1}\right\}}, \cdots, 1_{\left\{t \in D_{L}\right\}}\right), \boldsymbol{\kappa}=\left(\kappa_{1}, \cdots, \kappa_{L}\right)^{T}\)</span>，<span class="math notranslate nohighlight">\(\boldsymbol{\kappa} \sim \operatorname{Normal}\left(0, v^{2}\right)\)</span></p></li>
+<li><p>该正态分布是受到<span class="math notranslate nohighlight">\(v\)</span> = holidays_prior_scale 这个指标影响的。默认值是 10，当值越大时，表示节假日对模型的影响越大；当值越小时，表示节假日对模型的效果越小</p></li>
+</ul>
+</li>
+<li><p>变点的选择：在 Prophet 算法中，需要给出变点的位置、个数及增长的变化率：</p>
+<ul>
+<li><p>changepoint_range</p>
+<p>changepoint_range 指的是百分比，需要在前 changepoint_range 那么长的时间序列中设置变点</p>
+</li>
+<li><p>n_changepoint</p>
+<p>n_changepoint 表示变点的个数，在默认的函数中是 n_changepoint = 25</p>
+</li>
+<li><p>changepoint_prior_scale。</p>
+<p>changepoint_prior_scale 表示变点增长率的分布情况
+$<span class="math notranslate nohighlight">\(
+\delta_{j} \sim \operatorname{Laplace}(0, \tau)
+\)</span><span class="math notranslate nohighlight">\(
+\)</span>\mathcal{T}$就是 change_point_scale</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>预估的方式</strong></p>
+<ul class="simple">
+<li><p>对于已知的时间序列，可以手动设置s个变点</p></li>
+<li><p>对于预测的数据模型使用Poisson分布找到新增的变点，然后与已知的变点进行拼接</p></li>
+</ul>
+<p><strong>模型参数</strong></p>
+<ol>
+<li><p>Capacity：在增量函数是逻辑回归函数的时候，需要设置的容量值。</p></li>
+<li><p>Change Points：可以通过 n_changepoints 和 changepoint_range 来进行等距的变点设置，也可以通过人工设置的方式来指定时间序列的变点。</p></li>
+<li><p>季节性和节假日：可以根据实际的业务需求来指定相应的节假日。</p></li>
+<li><p>光滑参数：</p>
+<p><span class="math notranslate nohighlight">\(\tau\)</span> = changepoint_prior_scale 可以用来控制趋势的灵活度</p>
+<p><span class="math notranslate nohighlight">\(\sigma\)</span> = seasonality_prior_scale 用来控制季节项的灵活度，</p>
+<p><span class="math notranslate nohighlight">\(v\)</span> =  holidays prior scale 用来控制节假日的灵活度。</p>
+</li>
+</ol>
 </div>
 </div>
 </div>

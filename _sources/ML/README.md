@@ -217,39 +217,37 @@ $$ Error(y, \hat{y})=1-acc(y,\hat{y}) \tag{7} $$
 
 ##### Receiver Operating Curve (ROC) ⇒ Area Under Curve (AUC)
 
-- ROC，全称是"受试者工作特征"(Receiver Operating Characteristic)曲线，ROC曲线为 **FPR 与 TPR** 之间的关系曲线，这个组合以 FPR 对 TPR，即是以代价 (costs) 对收益 (benefits)，显然收益越高，代价越低，模型的性能就越好。
+- **定义**：ROC全称是"受试者工作特征"(Receiver Operating Characteristic)曲线，ROC曲线为 **FPR 与 TPR** 之间的关系曲线，这个组合以 FPR 对 TPR，即是以代价 (costs) 对收益 (benefits)，显然收益越高，代价越低，模型的性能就越好。
 
-  - ROC曲线的横轴是"假正例率"(False Positive Rate, **FPR**), 纵轴是"真正例率"(True Positive Rate, **TPR**), **注意这里不是上文提高的P和R**.
-
-  - y 轴为真阳性率（TPR）：在所有的正样本中，分类器预测正确的比例（等于Recall）
+  - y 轴为真阳性率（TPR）（正样本Recall）：在所有的正样本中，分类器预测正确的比例
 
     $$ TPR=\frac{TP}{TP+FN} \tag{12} $$
 
-  - x 轴为假阳性率（FPR）：在所有的负样本中，**分类器预测错误的比例**，（等于1-负样本的recall）
+  - x 轴为假阳性率（FPR）（负样本的1-recall）：在所有的负样本中，分类器预测错误的比例
 
     $$ FPR=\frac{FP}{TN+FP} \tag{13} $$
 
-  现实使用中,一般使用有限个测试样例绘制ROC曲线,此时需要有有限个(真正例率,假正例率)坐标对. 绘图过程如下:
+- **绘制过程**：对有限个(真正例率,假正例率)坐标对：
 
   - 给定$m^+$个正例和$m^-$个反例,根据学习器预测结果对样例进行排序,然后将分类阈值设为最大,此时真正例率和假正例率都为0,坐标在(0,0)处,标记一个点.
   - 将分类阈值依次设为每个样本的预测值,即依次将每个样本划分为正例.
   - 假设前一个坐标点是(x,y),若当前为真正例,则对应坐标为$(x,y+\frac{1}{m^+})$, 若是假正例,则对应坐标为$(x+\frac{1}{m^-}, y)$
   - 线段连接相邻的点.
 
-- AUC：对于二分类问题，预测模型会对每一个样本预测一个得分s或者一个概率p。 然后，可以选取一个阈值t，让得分s>t的样本预测为正，而得分s<t的样本预测为负。 这样一来，根据预测的结果和实际的标签可以把样本分为4类,则有混淆矩阵：
+- **AUC**：对于二分类问题，预测模型会对每一个样本预测一个得分s或者一个概率p。 然后，可以选取一个阈值t，让得分s>t的样本预测为正，而得分s<t的样本预测为负。 这样一来，根据预测的结果和实际的标签可以把样本分为4类,则有混淆矩阵：
 
   - 随着阈值t选取的不同，这四类样本的比例各不相同。定义真正例率TPR和假正例率FPR为： $$ \begin{array}{l} \mathrm{TPR}=\frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FN}} \ \mathrm{FPR}=\frac{\mathrm{FP}}{\mathrm{FP}+\mathrm{TN}} \end{array} \tag{14} $$ 随着阈值t的变化，TPR和FPR在坐标图上形成一条曲线，这条曲线就是ROC曲线。 显然，如果模型是随机的，模型得分对正负样本没有区分性，那么得分大于t的样本中，正负样本比例和总体的正负样本比例应该基本一致。
   - 实际的模型的ROC曲线则是一条上凸的曲线，介于随机和理想的ROC曲线之间。而ROC曲线下的面积，即为AUC！
   - 这里的x和y分别对应TPR和FPR，也是ROC曲线的横纵坐标。 $$ \mathrm{AUC}=\int_{t=\infty}^{-\infty} y(t) d x(t) \tag{15} $$
 
+- **端点解读**：
 
+  <img src="../images/(null)-20220726103010432.(null)" alt="img" style="width:50%;" />
 
-端点解读：
+  - `(1, 1)`当recall (y轴的True Positive Rate)为1的时候，相当于召回全部正样本，类似threshold=0.01，那么这个时候所有的负样本都给你搞成Positive了没有TN，False Positive Rate = $$\frac{\colorbox{#d9ed8a}{FP}}{\colorbox{#d9ed8a}{FP}+TN}=\frac{FP}{所有Negative样本}=\frac{所有Negative样本}{所有Negative样本}=1$$
 
-<img src="../images/(null)-20220726103010432.(null)" alt="img" style="width:50%;" />
+  - `（0， 0）`当recall (y轴的True Positive Rate)为0的时候，相当于什么正样本都不召回，类似threshold=0.99，那么这个时候根本没有错的Positive，False Positive Rate = $$\frac{\colorbox{#d9ed8a}{FP}}{\colorbox{#d9ed8a}{FP}+TN}=\frac{FP}{所有Negative样本}=\frac{0}{所有Negative样本}=0$$
 
-- `(1, 1)`当recall (y轴的True Positive Rate)为1的时候，相当于召回全部正样本，类似threshold=0.01，那么这个时候所有的负样本都给你搞成Positive了没有TN，False Positive Rate = $$\frac{\colorbox{#d9ed8a}{FP}}{\colorbox{#d9ed8a}{FP}+TN}=\frac{FP}{所有Negative样本}=\frac{所有Negative样本}{所有Negative样本}=1$$
-- `（0， 0）`当recall (y轴的True Positive Rate)为0的时候，相当于什么正样本都不召回，类似threshold=0.99，那么这个时候根本没有错的Positive，False Positive Rate = $$\frac{\colorbox{#d9ed8a}{FP}}{\colorbox{#d9ed8a}{FP}+TN}=\frac{FP}{所有Negative样本}=\frac{0}{所有Negative样本}=0$$
 
 
 

@@ -78,7 +78,15 @@ Unsupervised Learning
 
     - 选3
 
-#### 
+### *DBSCAN*
+
+DBSCAN(Density-Based Spatial Clustering of Applications with Noise)是一基于密度的聚类算法, DBSCAN将笶定义为密度相连的点的最大集合，能够把具有足够高密度的区域划分为簇，并可 在噪声的空间数据库中发现任意形状的聚类。
+
+
+
+
+
+
 
 ## Dimensionality Reduction
 

@@ -392,9 +392,7 @@ const thebe_selector_output = ".output, .cell_output"
             href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FDE/README.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/DE/README.md"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+        
     </div>
 </div>
 
@@ -459,6 +457,18 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id7">
+   大数据
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     数据倾斜
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
    参考资料：
   </a>
  </li>
@@ -524,6 +534,18 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id7">
+   大数据
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     数据倾斜
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
    参考资料：
   </a>
  </li>
@@ -613,9 +635,137 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id7">
-<h2>参考资料：<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2>大数据<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h3>数据倾斜<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p><strong>定义</strong>：Hadoop能够进行对海量数据进行批处理的核心，在于它的分布式思想，也就是多台服务器（节点）组成集群，进行分布式的数据处理。但当大量的数据集中到了一台或者几台机器上计算，这些数据的计算速度远远低于平均计算速度，导致整个计算过程过慢，<strong>这种情况就是发生了数据倾斜</strong>。</p>
+<p><strong>产生机制：<strong>无论是MR还是Spark任务进行计算的时候，都会触发</strong>Shuffle</strong>动作。一些典型的操作如distinct、reduceByKey、groupByKey、join、repartition等都会触发shuffle：一旦触发，Spark就会将相同的key及其value拉到一个节点上。如果有某个key及其对应的数据太多的话，那就会发生明显的单点问题——单个节点处理数据量爆增的情况</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Join</span></code></p>
+<ul>
+<li><p>一个表很小但key集中：分发到某一个或几个Reduce/Stage上的数据远高于平均值</p></li>
+<li><p>大表与大表，但是分桶的判断字段0值或空值过多：空值由一个Reduce处理很慢</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">by</span></code></p>
+<ul>
+<li><p>维度太小了 有些值处理太多，所以reduce很耗时</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Count</span> <span class="pre">Distinct</span></code> / sum(distinct key)</p>
+<ul>
+<li><p>某特殊值过多，处理特殊值好时</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>发生原因</strong>：</p>
+<ul>
+<li><p>数据频率倾斜——某一个区域的数据量要远远大于其他区域</p>
+<ul>
+<li><p><strong>key分布不均匀</strong></p>
+<p>1、某些key的数量过于集中，存在大量相同值的数据</p>
+<p>2、存在大量异常值或空值。</p>
+</li>
+<li><p>唯一值非常少，极少数值有非常多的记录值(唯一值少于几千)</p></li>
+<li><p>唯一值比较多，这个字段的某些值有远远多于其他值的记录数，但是它的占比也小于百分之一或千分之一</p></li>
+</ul>
+</li>
+<li><p>数据大小倾斜——部分记录的大小远远大于平均值。</p></li>
+</ul>
+<p><strong>解决/缓和的办法</strong></p>
+<ul>
+<li><p>**通用：**提高shuffle并行度 <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">spark.sql.shuffle.partitions=</span> <span class="pre">[num_tasks]</span> </code> （默认200），将原本被分配到同一个Task的不同Key分配到不同Task。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">By</span></code>的时候：可以map端聚合，启动负载均衡：使计算变成了两个mapreduce</p>
+<ul>
+<li><p>在第一个中在 shuffle 过程 partition 时随机给 key 打标记，使每个key 随机均匀分布到各个 reduce 上计算，完成部分计算（但相同key没有分配到相同reduce上，所以需要第二次的mapreduce）</p></li>
+<li><p>第二次回归正常 shuffle，但数据分布不均匀的问题在第一次mapreduce已经有了很大的改善</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">set</span><span class="w"> </span><span class="n">hive</span><span class="p">.</span><span class="k">map</span><span class="p">.</span><span class="n">aggr</span><span class="o">=</span><span class="k">true</span><span class="p">;</span><span class="w"> </span><span class="c1">--在map中会做部分聚集操作，效率更高但需要更多的内存</span>
+<span class="k">set</span><span class="w"> </span><span class="n">hive</span><span class="p">.</span><span class="n">groupby</span><span class="p">.</span><span class="n">skewindata</span><span class="o">=</span><span class="k">true</span><span class="p">;</span><span class="w"> </span><span class="c1">--默认false，数据倾斜时负载均衡</span>
+</pre></div>
+</div>
+</li>
+<li><p>例子：</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">--水果字段名为category</span>
+<span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="w"> </span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">category</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span>
+<span class="k">from</span><span class="w"></span>
+<span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="n">category</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="k">cast</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">rand</span><span class="p">())</span><span class="o">+</span><span class="mi">1</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">string</span><span class="p">))</span><span class="w"></span>
+<span class="k">from</span><span class="w"> </span><span class="n">table1</span><span class="w"></span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">concat</span><span class="p">(</span><span class="n">category</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="k">cast</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">rand</span><span class="p">())</span><span class="o">+</span><span class="mi">1</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">string</span><span class="p">))</span><span class="w"></span>
+<span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="c1">--1阶段聚合</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">substr</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">category</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span><span class="w">   </span><span class="c1">--2阶段聚合</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>小表Join大表的时候可以把Reduce Join改成Map Join</p>
+<ul>
+<li><p>原理：mapjoin优化就是在Map阶段完成join工作，而不是像通常的common join在Reduce阶段按照join的列值进行分发数据到每个Reduce上进行join工作。这样避免了<strong>Shuffle</strong>阶段，从而避免了数据倾斜。</p></li>
+<li><p>注意：这个操作会将所有的小表全量复制到每个map任务节点，然后再将小表缓存在每个map节点的内存里与大表进行join工作。小表的大小的不能太大，一般也就几百兆，否则会出现OOM报错。</p></li>
+<li><p>代码</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">set</span><span class="w"> </span><span class="n">hive</span><span class="p">.</span><span class="n">auto</span><span class="p">.</span><span class="k">convert</span><span class="p">.</span><span class="k">join</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span><span class="w"> </span><span class="c1">-- hive是否自动根据文件量大小，选择将common join转成map join 。</span>
+<span class="k">set</span><span class="w"> </span><span class="n">hive</span><span class="p">.</span><span class="n">mapjoin</span><span class="p">.</span><span class="n">smalltable</span><span class="p">.</span><span class="n">filesize</span><span class="w"> </span><span class="o">=</span><span class="mi">25000000</span><span class="p">;</span><span class="w"> </span><span class="c1">--大表小表判断的阈值，如果表的大小小于该值25Mb，则会被判定为小表。则会被加载到内存中运行，将commonjoin转化成mapjoin。一般这个值也就最多几百兆的样子。</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>开启Skewed Join</strong></p>
+<p>hadoop 中默认是使用hive.exec.reducers.bytes.per.reducer = 1000000000</p>
+<p>也就是每个节点的reduce 默认是处理1G大小的数据，如果join操作也产生了数据倾斜，可以在hive 中设定</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>set hive.optimize.skewjoin = true;
+set hive.skewjoin.key = skew_key_threshold （default = 100000）
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>建议每次运行比较复杂的sql 之前都可以设一下这个参数. 如果你不知道设置多少，可以就按官方默认的1个reduce 只处理1G 的算法，那么 skew_key_threshold = 1G/平均行长</p></li>
+<li><p>或者默认直接设成250000000 (差不多算平均行长4个字节)</p></li>
+</ul>
+<p>当我们开启Skew Join之后，在运行时，会对数据进行扫描并检测哪个key会出现倾斜，对于会倾斜的key，用map join做处理，不倾斜的key正常处理。</p>
+</li>
+<li><p>数据打散（<strong>重新设计key</strong>）</p>
+<ul class="simple">
+<li><p>在map阶段时给key加上一个随机数，有了随机数的key就不会被大量的分配到同一节点(小几率)，待到reduce后再把随机数去掉即可；</p></li>
+<li><p>将大表(A)中的id加上后缀(即“id_0”-“id_2”)，起到“打散”的作用。为了结果正确，小表B中的id需要将每条数据都“复制”多份。此时再执行join操作，将会产生三个task，每个task只需要关联一条数据即可，起到了分散的作用<img src="../images/86559.png" alt="86559" style="zoom:50%;" /></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">id,</span> <span class="pre">value,</span> <span class="pre">concat(id,</span> <span class="pre">round(rand()</span> <span class="pre">*</span> <span class="pre">10000)%3)</span> <span class="pre">as</span> <span class="pre">new_id</span></code></p></li>
+</ul>
+</li>
+<li><p>经过处理之后再使用new_id来作为聚合条件</p></li>
+</ul>
+</li>
+<li><p>大表Join大表的时候可以大表拆分，倾斜部分单独处理（比如非常多的卖家、但很多卖家的订单很少）</p>
+<ul class="simple">
+<li><p>中间表分桶排序后join</p></li>
+</ul>
+</li>
+<li><p>partition</p>
+<ul class="simple">
+<li><p>比如现在是按省份进行汇总数据，如果只是简单的按省份去分（这并没有错），那么数据肯定会倾斜，因为各省的数据天然不一样。我们可以通过历史数据、抽样数据或者一些常识，对数据进行人工分区，让数据按照我们自定义的分区规则比较均匀的分配到不同的task中。</p></li>
+<li><p>常见的分区方式：</p>
+<ul>
+<li><p>随机分区：每个区域的数据基本均衡，简单易用，偶尔出现倾斜，但是特征同样也会随机打散。</p></li>
+<li><p>轮询分区：绝对不会倾斜，但是需要提前预知分成若干份，进行轮询。</p></li>
+<li><p>hash散列：可以针对某个特征进行hash散列，保证相同特征的数据在一个区，但是极容易出现数据倾斜。</p></li>
+<li><p>范围分区：需要排序，临近的数据会被分在同一个区，可以控制分区数据均匀。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>开性能</p>
+<ul class="simple">
+<li><p><strong>增加jvm</strong>（Java Virtual Machine：Java虚拟机）<strong>内存</strong>，这适用于变量值非常少的情况，这种情况下，往往只能通过硬件的手段来进行调优，增加jvm内存可以显著的提高运行效率；</p></li>
+<li><p><strong>增加reduce的个数</strong>，这适用于变量值非常多的情况，这种情况下最容易造成的结果就是大量相同key被partition到一个分区，从而一个reduce执行了大量的工作；</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>参考资料：<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.cnblogs.com/amyzhu/p/13513425.html">数据仓库分层中的ODS、DWD、DWS </a></p></li>
+<li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/332368318">知乎｜逆流君｜漫谈数据倾斜解决方案（干货）</a></p></li>
 </ul>
 </div>
 </div>

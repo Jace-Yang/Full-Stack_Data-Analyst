@@ -16,7 +16,13 @@
 
 #### Missing Data
 
-- 不处理（当成一种值）然后用确实不敏感的树模型
+- 不处理（当成一种值）——用对缺失值不敏感的树模型
+
+  - LightGBM和XGBoost都是每次分割的时候，分别把缺失值放在左右两边各计算一次，然后比较两种情况的增益，择优录取
+
+    <img src="../images/v2-3c043cfb7323495327f8ad697b5a3a22_1440w.jpg" alt="img" style="width:40%;" />
+
+  - 但注意这里我们假设了训练数据和预测数据的分布相同，比如缺失值的分布也相同
 
 - 剔除
 
@@ -38,7 +44,7 @@
 
 - Matrix factorization：将一个含*缺失*值的矩阵 X 分解为两个(或多个)矩阵,然后这些分解后的矩阵相乘就 可以得到原矩阵的近似 X
 
-#### categorical data
+#### Categorical data
 
 注意：都是对分开之后的数据！只针对train data 来fit
 
@@ -99,8 +105,37 @@
 
 #### Outliers
 
-- 检测方式：IQR、LR之后看cook距离
+- 检测方式：
 
+  - 基于业务理解：
+    - 超过阈值的脏数据｜比如身高超过2米5；年龄超过150···
+
+  - 基于邻近度的技术：通常可以在对象之间定义邻近性度量，异常对象是那些远离其他对象的对象
+    - **箱线图**：Q1 Q3再离开1.5个IQR(interquartile range Q1~Q3)
+    - 均值离开3个标准差
+    - 聚类分析：计算簇内每个点对于簇中心的相对距离，找到距离大的
+
+  - 建立一个数据模型，异常是那些同模型不能完美拟合的对象
+    - LR之后看cook距离
+
+  - 基于密度的技术：仅当一个点的局部密度显著低于它的大部分近邻时才将其分类为离群点
+    - 局部离群点因子检测：局部离群点因子是一种识别基于密度的局部离群点的算法。使用局部离群因子, 将一个点的局部密度与 其他邻域进行比较。如果前者远小于后者 ( LOF $>1$ ), 那么改点相对于其他邻域在一个密度较为稀疏的位置, 即视为离群点。LOF 的局限性在于只适合用于数值型数据。
+    - 其使用的函数为 `lofactor()`, 所在的包为 DMwR 和 dprep。
+
+- 处理方式：
+
+  - 判定为缺失，然后走缺失的处理方式
+
+  - 不处理
+
+  - Winsorizing： limiting extreme values in the statistical data to reduce the effect of possibly spurious outliers
+
+    ```python
+    from scipy.stats.mstats import winsorize
+    winsorize([92, 19, 101, 58, 1053, 91, 26, 78, 10, 13, -40, 101, 86, 85, 15, 89, 89, 28, -5, 41], limits=[0.05, 0.05])
+    ```
+
+    
 
 
 #### 处理样本不平衡
@@ -148,7 +183,7 @@
 
 ### 模型训练步骤
 
-Development-test split
+#### Development-test split
 
 - Random split
 
@@ -176,11 +211,17 @@ Development-test split
 
 <img src="../images/(null)-20220724221513024.(null)" alt="img" style="width: 33%;" />
 
-Hyper-parameter tuning
+#### Hyper-parameter tuning
 
 核心目标：Training data ⇒ Select Best Parameters
 
 <img src="../images/(null)-20220724221503960.(null)" alt="img" style="width:25%;" />
+
+参数和超参数的区别：parameter是learn from data的 hyperparameter是你定的
+
+- 也可以让数据出hyperparameter，但这样的话就optimization problem会变得复杂，而不是一个简单的可以solve的convex optimization，所以我们会fix它
+
+##### Bias-Variance
 
 超参的注意事项——注意复杂度
 
@@ -188,25 +229,28 @@ Hyper-parameter tuning
 
   - the conflict in trying to simultaneously minimize these two sources of [error](https://en.wikipedia.org/wiki/Errors_and_residuals_in_statistics) that prevent supervised learning algorithms from generalizing beyond their training set
     - **The** ***[bias](https://en.wikipedia.org/wiki/Bias_of_an_estimator)*** **error** is an error from erroneous assumptions in the learning [algorithm](https://en.wikipedia.org/wiki/Algorithm). High bias can cause an algorithm to *miss the relevant relations between features and target outputs* (underfitting). 偏差度量了模型的期望预测与真实结果的偏离程度， 即刻画了学习算法本身的拟合能力。偏差则表现为在特定分布上的适应能力，偏差越大越偏离真实值。
-    
+
     - **The** ***[variance](https://en.wikipedia.org/wiki/Variance)*** is an error from **sensitivity** to **small fluctuations in the training set**. High variance may result from an algorithm modeling the random [noise](https://en.wikipedia.org/wiki/Noise_(signal_processing)) in the training data ([overfitting](https://en.wikipedia.org/wiki/Overfitting)). 方差度量了同样大小的训练集的变动所导致的学习性能的变化， 即刻画了数据扰动所造成的影响。方差越大，说明数据分布越分散
-    
+
     - 噪声：噪声表达了在当前任务上任何模型所能达到的期望泛化误差的下界， 即刻画了学习问题本身的难度 。
-    
+
       <img src="../images/(null)-20220724221505235.(null)" alt="img" style="width:45%;" /><img src="../images/(null)-20220724221443081.(null)" alt="img" style="width:45%;" />
-    
+
       - 我们想要左上角：都很准确
 
-- **过拟合问题**
+##### 欠拟和问题
 
-  <img src="../images/(null)-20220724221442702.(null)" alt="img" style="width: 50%;" />
+underfitting是low variance high bias：没有variance但都预测出偏差了 
 
-  - underfitting是low variance high bias：没有variance但都预测出偏差了 
-    - 当算法从数据集学习真实信号的**灵活性有限**时，就会出现偏差。( 想的太过简单，欠拟合), 所以模型整体产生偏差。
-    - 欠拟合指的是模型没有很好地学习到数据特征，不能够很好地拟合数据，在训练数据和未知数据上表现都很差。
-    - 欠拟合的原因在于：
-      - 特征量过少；
-      - 模型复杂度过低
+- 当算法从数据集学习真实信号的**灵活性有限**时，就会出现偏差。( 想的太过简单，欠拟合), 所以模型整体产生偏差。
+- 欠拟合指的是模型没有很好地学习到数据特征，不能够很好地拟合数据，在训练数据和未知数据上表现都很差。
+- 欠拟合的原因在于：
+  - 特征量过少；
+  - 模型复杂度过低
+
+##### **过拟合问题**
+
+<img src="../images/(null)-20220724221442702.(null)" alt="img" style="width: 50%;" />
 
 
   - 解决：
@@ -247,12 +291,7 @@ Hyper-parameter tuning
       - 交叉验证
       - 增加噪声
 
-
-参数和超参数的区别：parameter是learn from data的 hyperparameter是你定的
-
-- 也可以让数据出hyperparameter，但这样的话就optimization problem会变得复杂，而不是一个简单的可以solve的convex optimization，所以我们会fix它
-
-超参数搜索方法
+##### 超参数搜索方法
 
 <img src="../images/(null)-20220724221446494.(null)" alt="img" style="width:33%;" />
 
@@ -303,7 +342,9 @@ Hyper-parameter tuning
 
   - 所以会是乱的！
 
-**Optimal model training, model evaluation**：Development data = Training data + validation data ⇒ Model to evaluate
+#### **Optimal model training, model evaluation**
+
+Development data = Training data + validation data ⇒ Model to evaluate
 
 - The purpose of test dataset is to evaluate the **performance of the ﬁnal optimal model**
 - Model evaluation is supposed to give a pulse on how the model would perform in the wild.  (测试集的表现是为了衡量在unseen data 的表现！测试集相当于是一个proxy)
@@ -311,7 +352,9 @@ Hyper-parameter tuning
 
 <img src="../images/(null)-20220724221510063.(null)" alt="img" style="width:33%;" /><img src="../images/(null)-20220724221509687.(null)" alt="img" style="width:33%;" />
 
-**`Model deployment Dataset`** ：Training data + validation data + Test data ⇒ Deployed model
+#### **Model deployment** ：
+
+Date set：Training data + validation data + Test data ⇒ Deployed model
 
 <img src="../images/(null)-20220724222627619.(null)" alt="img" style="width:33%;" />
 

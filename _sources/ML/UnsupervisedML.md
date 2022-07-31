@@ -68,7 +68,9 @@ Unsupervised Learning
 
 - One option is to rely on domain knowledge: are there known clusters in the domain that you wish to discover?
 
-- If not, a common approach is to plot the loss function of k-means over increasing , and choose to be the point where the loss looks reasonable.
+- If not, a common approach is to plot the **loss function of k-means** over increasing , and choose to be the point where the loss looks reasonable.
+
+- 
 
   - $$\operatorname{loss}=\sum_{i=1}^{m}\left\|\mu^{\left(y^{(i)}\right)}-x^{(i)}\right\|_{2}$$
 

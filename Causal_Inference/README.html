@@ -394,9 +394,7 @@ const thebe_selector_output = ".output, .cell_output"
             href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FCausal_Inference/README.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Causal_Inference/README.md"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+        
     </div>
 </div>
 
@@ -958,14 +956,14 @@ const thebe_selector_output = ".output, .cell_output"
 <h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="simpson-s-paradox">
 <h3>辛普森悖论 Simpson’s Paradox<a class="headerlink" href="#simpson-s-paradox" title="Permalink to this headline">¶</a></h3>
-<p>定义：总体的规律跟分组的规律不同：几组不同的数据中均存在一种 趋势, 但当这些数据组合在一起后, 这种趋势消失或反转。</p>
+<p><strong>定义</strong>：总体的规律跟分组的规律不同：几组不同的数据中均存在一种趋势, 但当这些数据组合在一起后, 这种趋势消失或反转。</p>
 <ul class="simple">
-<li><p>简单说就是总体看好但分层看不好</p></li>
+<li><p>简单说就是总体看好 但分层看不好</p></li>
 </ul>
-<p>产生的原因：人群分布在混淆变量上不一致，导致相关关系完全可以被扭曲（confounding bias）</p>
-<p>统计层面的核心：Partial correlation and marginal correlation can be dramatically different</p>
-<p>解决的方式：取决于因果图 forks的话就要分层，collider的话就不要分层</p>
-<p>例子：</p>
+<p><strong>产生的原因</strong>：人群分布在混淆变量上不一致，导致相关关系完全可以被扭曲（confounding bias）</p>
+<p><strong>统计层面的核心</strong>：Partial correlation and marginal correlation can be dramatically different</p>
+<p><strong>解决的方式</strong>：取决于因果图 forks的话就要分层，collider的话就不要分层</p>
+<p><strong>例子</strong>：</p>
 <ul>
 <li><p>[例1]: 男性用药多 但恢复率更高，所以让整体有这个correlation，不过by group的correlation不是这样！</p>
   <center><img src="../images/CI_simpson_paradox.png" width="60%"/></center>
@@ -1555,7 +1553,7 @@ T=t \Longrightarrow Y=Y(t)
     <center><img src="../images/CI_basic_43.png" width="75%"/></center>
 
     <center><img src="../images/CI_basic_44.png" width="75%"/></center>
-        
+    
     - 为排除策略等common cause带来的confounding bias，要通过后门调整阻断由视频质量到单视频播放时长的路径——conditioning on 视频物理特征、视频内容、用户画像这三个因素
 
     <center><img src="../images/CI_basic_45.png" width="75%"/></center>

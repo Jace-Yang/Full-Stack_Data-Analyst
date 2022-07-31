@@ -394,9 +394,7 @@ const thebe_selector_output = ".output, .cell_output"
             href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FML/README.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/ML/README.md"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+        
     </div>
 </div>
 
@@ -497,10 +495,20 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     广告场景
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     推荐场景
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id11">
+  <a class="reference internal nav-link" href="#id13">
    参考
   </a>
  </li>
@@ -602,10 +610,20 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     广告场景
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     推荐场景
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id11">
+  <a class="reference internal nav-link" href="#id13">
    参考
   </a>
  </li>
@@ -629,6 +647,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p><code class="docutils literal notranslate"><span class="pre">Supervised</span> <span class="pre">learning</span> </code> algorithms： Learn a function that maps inputs to an output from a set of <strong>labeled</strong> training data.</p>
 <ul>
 <li><p>Downside: getting labeled data is pretty costly. Hard to have clean labeled data.</p></li>
+<li><p>生成模型（常见的生成方法有LDA主题模型、朴素贝叶斯 算法和隐式马尔科夫模型等）：对判别式模型来说求得 <span class="math notranslate nohighlight">\(P(Y \mid X)\)</span>, 对末见示例 <span class="math notranslate nohighlight">\(X\)</span>, 根据 <span class="math notranslate nohighlight">\(P(Y \mid X)\)</span> 可以求得标记Y，即可以直接判别出来, 如上图的左边所示, 实际是就是直接得到了判别边界</p></li>
+<li><p>判别模型（ 常见的判别方法有SVM、LR等）：而生成式模型求得P(Y,X)，对于未见示例X，你要求出X与不同标记之间的联合概率分布，然后大的获胜，如上图右边所示，并没有什么边界存在</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Unsupervised</span> <span class="pre">Learning</span></code>: learn patterns from <strong>unlabeled</strong> data samples.</p></li>
@@ -1025,6 +1045,15 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>计算每个评分区间累计坏样本占比与累计好样本占比差的绝对值（累计bad%-累计good%），然后对这些绝对值取最大值即得此评分模型的K-S值。</p></li>
 </ol>
 <p>注意：K-S值仅仅代表模型的分割样本的能力，不能表示分割的是否准确，即便好坏客户完全分错，K-S值依然可以很高</p>
+</div>
+<div class="section" id="id10">
+<h4>多分类问题<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<p>多分类时都一样，除了AUC</p>
+<img src="../images/(null)-20220726015221534.(null)" alt="img" style="width:50%;" />
+</div>
+</div>
+<div class="section" id="id11">
+<h3>广告场景<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p><strong>CTR（Click-Through-Rate）</strong></p>
 <ul class="simple">
 <li><p>点击通过率,是互联网广告常用的术语,指网络广告（图片广告/文字广告/关键词广告/排名广告/视频广告等）的点击到达率,即该广告的实际点击次数（严格的来说,可以是到达目标页面的数量）除以广告的展现量(Show content). $<span class="math notranslate nohighlight">\( ctr=\frac{点击次数}{展示量}　\tag{16} \)</span>$</p></li>
@@ -1034,15 +1063,94 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>用户点击广告到成为一个有效激活或者注册甚至付费用户的转化率. $<span class="math notranslate nohighlight">\( cvr=\frac{点击量}{转化量}　\tag{17} \)</span>$</p></li>
 </ul>
 </div>
-<div class="section" id="id10">
-<h4>多分类问题<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
-<p>多分类时都一样，除了AUC</p>
-<img src="../images/(null)-20220726015221534.(null)" alt="img" style="width:50%;" />
+<div class="section" id="id12">
+<h3>推荐场景<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p><strong>评估维度</strong></p>
+<ul class="simple">
+<li><p>覆盖率 = 指算法向用户推荐的文章占能符合露出条件文章的比例</p></li>
+<li><p>多样性和新颖性：常见的问题是用户如果大量长时间的点击同一个主题或者是分类，其后推荐的资讯会呈现漏斗状，限制了用户的阅读。这时候就需要推荐系统进行猎奇的多样、新颖推荐以弥补这些缺陷</p></li>
+<li><p><strong>挖掘长尾的能力</strong>：推荐系统的一个重要价值就是发现长尾(长尾理论是 ChrisAnderson 提出的,不熟悉该理论的读者可以自行百度或者看 ChrisAnderson 出的《长尾理论》一书)，将小众的“标的物”分发给喜欢该类“标的物”的用户。度量出推荐系统挖掘长尾的能力，对促进长尾“标的物”的“变现”及更好地满足用户的小众需求从而提升用户的惊喜度非常有价值。</p></li>
+<li><p><strong>实时性</strong>：用户的兴趣是随着时间变化的，推荐系统怎么能够更好的反应用户兴趣变化，做到近实时推荐用户需要的“标的物”是特别重要的问题。</p>
+<ul>
+<li><p>特别像新闻资讯、短视频等满足用户碎片化时间需求的产品，做到近实时推荐更加重要。</p></li>
+</ul>
+</li>
+<li><p><strong>响应及时稳定性</strong>：用户通过触达推荐模块，触发推荐系统为用户提供推荐服务，推荐服务的响应时长，推荐服务是否稳定(服务正常可访问，不挂掉)也是非常关键的。</p></li>
+</ul>
+<p><strong>指标</strong></p>
+<ul>
+<li><p>ILS衡量推荐列表的多样性</p>
+<p><span class="math notranslate nohighlight">\(I L S(L)=\frac{\sum_{b_{i} \in L} \sum_{b_{j} \in L, b_{j}=b_{i}} S\left(b_{i}, b_{j}\right)}{\sum_{b_{i} \in L} \sum_{b_{j} \in L, b_{j}=b_{i}} 1}\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(S\left(b_{i}, b_{j}\right)\)</span> 计算的是 <span class="math notranslate nohighlight">\(i\)</span> 和 <span class="math notranslate nohighlight">\(j\)</span> 两个物品的相似性</p></li>
+<li><p>如果推荐列表中的物品越不相似⇒ILS越小⇒推荐结果的多样性越好</p></li>
+</ul>
+</li>
+<li><p>Hit Rate
+$<span class="math notranslate nohighlight">\(
+\mathrm{HR}=\frac{\text { number of hits }}{\text { number of users }}
+\)</span>$</p>
+<ul class="simple">
+<li><p>#users是用户总 数, 而#hits是测试集中的item出现在Top- N推荐列表中的用户数量。</p></li>
+</ul>
+</li>
+<li><p>Average Precision：在位置K的Average Precision用来衡量一个相关商品在所有ranks的精度。
+$<span class="math notranslate nohighlight">\(
+A P(R)_{k}=\frac{1}{\min (|R|, k)} \sum_{i=1}^{k} \delta(i \in R) \operatorname{Prec}(R)_{i}
+\)</span>$</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">AP</span><span class="p">(</span><span class="n">ranked_list</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute the average precision (AP) of a list of ranked items</span>
+<span class="sd">    ground_truth 表示是否正确的标识</span>
+<span class="sd">    hits 表示 score （预测结果分值）倒排，从第0个到当前个的累计预测正确样本数</span>
+<span class="sd">    sum_precs 表示每个 ground_truth = 1 的位置的 precision 的累加</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">sum_precs</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ranked_list</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">ranked_list</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="ow">in</span> <span class="n">ground_truth</span><span class="p">:</span>
+            <span class="n">hits</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">sum_precs</span> <span class="o">+=</span> <span class="n">hits</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">hits</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sum_precs</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ground_truth</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>那么对于MAP(Mean Average Precision)：所有用户 <span class="math notranslate nohighlight">\(u\)</span> 的AP再取均值</p></li>
+</ul>
+</li>
+<li><p><strong>Normalized Discounted Cummulative Gain(NDCG)</strong></p>
+<ul>
+<li><p><strong>累积增益CG</strong>，表示将每个推荐结果相关性的分值累加后作为整个推荐列表的得分。</p>
+<p><span class="math notranslate nohighlight">\(C G_{k}=\sum_{i=1}^{k} r e l_{i}\)</span> , <span class="math notranslate nohighlight">\(r e l_{i}\)</span> 表示处于位置 <span class="math notranslate nohighlight">\(i\)</span> 的推荐结果的相关性, <span class="math notranslate nohighlight">\(k\)</span> 表示所要考察的推荐列表的大小</p>
+<p>缺点：</p>
+<ul class="simple">
+<li><p>CG没有考虑每个推荐结果处于不同位置对整个推荐结果的影响，例如，我们总是希望相关性大的结果排在前面，相关性低的排在前面会影响用户体验。</p></li>
+</ul>
+</li>
+<li><p><strong>DCG</strong>(Discounted Cummulative Gain)在CG的基础上引入了位置影响因素</p>
+<p><span class="math notranslate nohighlight">\(D C G_{k}=\sum_{i=1}^{k} \frac{2^{r e l_{i}}-1}{\log _{2}(i+1)}\)</span></p>
+<ul class="simple">
+<li><p>分子部分 <span class="math notranslate nohighlight">\(2^{r e l_{i}}-1\)</span>：<span class="math notranslate nohighlight">\(r e l_{i}\)</span> 越大, 即推荐结果 <span class="math notranslate nohighlight">\(i\)</span> 的相关性越大，推荐效果越好，DCG越大。</p></li>
+<li><p>分母部分 <span class="math notranslate nohighlight">\(\log _{2}(i+1)\)</span>：<span class="math notranslate nohighlight">\(i\)</span> 表示推荐结果的位置, <span class="math notranslate nohighlight">\(i\)</span> 越大, 则推荐结果在推荐列表中排名越靠后，推荐效果越差，DCG越 小。</p></li>
+</ul>
+<p>缺点：DCG针对<strong>不同的推荐列表之间很难进行横向评估</strong>，而我们评估一个推荐系统不可能仅使用一个用户的推荐列表及相应结果进行评估，而是对整个测试集中的用户及其推荐列表结果进行评估。</p>
+</li>
+<li><p>那么，不同用户的推荐列表的评估分数就需要进行归一化，也就是<strong>NDCG</strong>。</p></li>
+</ul>
+</li>
+<li><p><strong>Mean Reciprocal Rank(MRR)</strong></p>
+<p><span class="math notranslate nohighlight">\(M R R=\frac{1}{Q} \sum_{i=1}^{|Q|} \frac{1}{r a n k_{i}}\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(|Q|\)</span> 是用户的个数, <span class="math notranslate nohighlight">\(r a n k_{i}\)</span> 是对于第 <span class="math notranslate nohighlight">\(i\)</span> 个用户, 推荐列表中第一个在ground-truth结果中的item所在的排列位置。</p></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
-</div>
-<div class="section" id="id11">
-<h2>参考<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id13">
+<h2>参考<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
 <li><p>周志华 西瓜书</p></li>
 <li><p>李航 统计学习方法</p></li>
@@ -1050,6 +1158,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p><a class="reference external" href="https://baike.baidu.com/item/CTR/10653699?fr=aladdin">https://baike.baidu.com/item/CTR/10653699?fr=aladdin</a></p></li>
 <li><p><a class="reference external" href="https://www.cnblogs.com/shenxiaolin/p/9309749.html">https://www.cnblogs.com/shenxiaolin/p/9309749.html</a></p></li>
 <li><p><a class="reference external" href="https://www.cnblogs.com/wqbin/p/11105186.html">https://www.cnblogs.com/wqbin/p/11105186.html</a></p></li>
+<li><p><a class="reference external" href="https://blog.csdn.net/xiedelong/article/details/112500657">CSDN博主｜xiedelong｜推荐系统中的 MAP 评估指标</a></p></li>
 </ol>
 </div>
 </div>

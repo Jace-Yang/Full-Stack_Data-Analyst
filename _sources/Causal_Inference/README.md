@@ -19,21 +19,22 @@
 
 ### 辛普森悖论 Simpson's Paradox
 
+**定义**：总体的规律跟分组的规律不同：几组不同的数据中均存在一种趋势, 但当这些数据组合在一起后, 这种趋势消失或反转。
 
-定义：总体的规律跟分组的规律不同：几组不同的数据中均存在一种 趋势, 但当这些数据组合在一起后, 这种趋势消失或反转。
-- 简单说就是总体看好但分层看不好
+- 简单说就是总体看好 但分层看不好
 
-产生的原因：人群分布在混淆变量上不一致，导致相关关系完全可以被扭曲（confounding bias）
+**产生的原因**：人群分布在混淆变量上不一致，导致相关关系完全可以被扭曲（confounding bias）
 
-统计层面的核心：Partial correlation and marginal correlation can be dramatically different
+**统计层面的核心**：Partial correlation and marginal correlation can be dramatically different
 
-解决的方式：取决于因果图 forks的话就要分层，collider的话就不要分层
+**解决的方式**：取决于因果图 forks的话就要分层，collider的话就不要分层
 
-例子：
+**例子**：
 
 - [例1]: 男性用药多 但恢复率更高，所以让整体有这个correlation，不过by group的correlation不是这样！
+    
     <center><img src="../images/CI_simpson_paradox.png" width="60%"/></center>
-
+    
 - [例2]: 比如说Y是购买概率，X是看直播时长，有可能实际上 男生女生都是看得越久 购买的概率越低，但由于普遍女生看的久，购买概率高，在整体数据上会体现出“观看直播时间越长，购买概率越高”的错误结论！
 
 - [例3]: 给1500个人Treatment A 550个人B，看致死率，但本身有轻重症之分
@@ -348,7 +349,7 @@ $$\begin{aligned} \mathbb{E}[Y(1)-Y(0)] &=\mathbb{E}_{X} \mathbb{E}[Y(1)-Y(0) \m
 
 #### Positivity假设
 每个个体都可能命中任意一种干预For all values of covariates X present in the population of interest: $0<P(T=1 \mid X=x)<1$
- 
+
  这个保证了上面的式子不会遇到除0的问题，具体可以见课本P12
 
  Intuition: 如果总体中有一个x都没有接收到treatment，我们不知道他们如果接受treatment的话会怎么样. Population中的样本用户都有一定的几率会被干预（不会被遗忘）!
@@ -526,7 +527,7 @@ d-separation Implies Association is Causation!
 - ATE从而可以写成：$\mathbb{E}[Y \mid d o(T=1)]-\mathbb{E}[Y \mid d o(T=0)]$
 
 - 可以观测到的：$P(Y, T, X)$、$P(Y \mid T=t)$
-    
+  
     - 没有do所以可以直接observe data from them without needing to carry out any experiment
 
     Interventional的：$P(Y \mid d o(T=t))$、$P(Y \mid d o(T=t), X=x)$
@@ -561,7 +562,7 @@ d-separation Implies Association is Causation!
     Otherwise, $P\left(x_{1}, \ldots, x_{n} \mid d o(S=s)\right)=0$
 
     The latter's Business is only over $i \notin S$ rather than all $i$.
-       
+    
     <center><img src="../images/CI_basic_33.png" width="75%"/></center>
 
 ### Backdoor adjustment
@@ -619,7 +620,7 @@ Condition相当于把所有的X展开，然后乘它的概率做权重累加就�
     <center><img src="../images/CI_basic_43.png" width="75%"/></center>
 
     <center><img src="../images/CI_basic_44.png" width="75%"/></center>
-        
+    
     - 为排除策略等common cause带来的confounding bias，要通过后门调整阻断由视频质量到单视频播放时长的路径——conditioning on 视频物理特征、视频内容、用户画像这三个因素
 
     <center><img src="../images/CI_basic_45.png" width="75%"/></center>
@@ -825,7 +826,7 @@ distribution $P$, and disjoint sets of variables $Y, T, Z$, and $W$, the followi
 uplift modeling，difference in differences等方法都集中在如何评估因果的影响，即Causal Effect。但还有一卦是Causal Discovery
 
 <center><img src="../images/CI_basic_42.png" width="75%"/></center>
- 
+
 
 ## 总结
 

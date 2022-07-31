@@ -8,6 +8,8 @@
 
   - `Supervised learning ` algorithms： Learn a function that maps inputs to an output from a set of **labeled** training data.
     - Downside: getting labeled data is pretty costly. Hard to have clean labeled data.
+    - 生成模型（常见的生成方法有LDA主题模型、朴素贝叶斯 算法和隐式马尔科夫模型等）：对判别式模型来说求得 $P(Y \mid X)$, 对末见示例 $X$, 根据 $P(Y \mid X)$ 可以求得标记Y，即可以直接判别出来, 如上图的左边所示, 实际是就是直接得到了判别边界
+    - 判别模型（ 常见的判别方法有SVM、LR等）：而生成式模型求得P(Y,X)，对于未见示例X，你要求出X与不同标记之间的联合概率分布，然后大的获胜，如上图右边所示，并没有什么边界存在
   - `Unsupervised Learning`: learn patterns from **unlabeled** data samples.
   - `Reinforcement Learning`: The computer employs trial and error to come up with a solution to the problem. To get the machine to do what the programmer wants, the artificial intelligence **gets either rewards or penalties** for the **actions** it performs. Its goal is to **maximize the total reward**.
   - `Deep Learning`: a class of ML algorithms that uses multiple layers to progressively extract **higher-level features/abstractions** from raw inputs.
@@ -310,6 +312,16 @@ KS的计算步骤如下：
 
 
 
+#### 多分类问题
+
+多分类时都一样，除了AUC
+
+<img src="../images/(null)-20220726015221534.(null)" alt="img" style="width:50%;" />
+
+
+
+### 广告场景
+
 **CTR（Click-Through-Rate）**
 
 - 点击通过率,是互联网广告常用的术语,指网络广告（图片广告/文字广告/关键词广告/排名广告/视频广告等）的点击到达率,即该广告的实际点击次数（严格的来说,可以是到达目标页面的数量）除以广告的展现量(Show content). $$ ctr=\frac{点击次数}{展示量}　\tag{16} $$
@@ -322,11 +334,88 @@ KS的计算步骤如下：
 
 
 
-#### 多分类问题
+### 推荐场景
 
-多分类时都一样，除了AUC
+**评估维度**
 
-<img src="../images/(null)-20220726015221534.(null)" alt="img" style="width:50%;" />
+- 覆盖率 = 指算法向用户推荐的文章占能符合露出条件文章的比例
+
+- 多样性和新颖性：常见的问题是用户如果大量长时间的点击同一个主题或者是分类，其后推荐的资讯会呈现漏斗状，限制了用户的阅读。这时候就需要推荐系统进行猎奇的多样、新颖推荐以弥补这些缺陷
+
+- **挖掘长尾的能力**：推荐系统的一个重要价值就是发现长尾(长尾理论是 ChrisAnderson 提出的,不熟悉该理论的读者可以自行百度或者看 ChrisAnderson 出的《长尾理论》一书)，将小众的“标的物”分发给喜欢该类“标的物”的用户。度量出推荐系统挖掘长尾的能力，对促进长尾“标的物”的“变现”及更好地满足用户的小众需求从而提升用户的惊喜度非常有价值。
+
+- **实时性**：用户的兴趣是随着时间变化的，推荐系统怎么能够更好的反应用户兴趣变化，做到近实时推荐用户需要的“标的物”是特别重要的问题。
+  - 特别像新闻资讯、短视频等满足用户碎片化时间需求的产品，做到近实时推荐更加重要。
+
+- **响应及时稳定性**：用户通过触达推荐模块，触发推荐系统为用户提供推荐服务，推荐服务的响应时长，推荐服务是否稳定(服务正常可访问，不挂掉)也是非常关键的。
+
+**指标**
+
+- ILS衡量推荐列表的多样性
+
+  $I L S(L)=\frac{\sum_{b_{i} \in L} \sum_{b_{j} \in L, b_{j}=b_{i}} S\left(b_{i}, b_{j}\right)}{\sum_{b_{i} \in L} \sum_{b_{j} \in L, b_{j}=b_{i}} 1}$
+
+  - $S\left(b_{i}, b_{j}\right)$ 计算的是 $i$ 和 $j$ 两个物品的相似性
+  - 如果推荐列表中的物品越不相似⇒ILS越小⇒推荐结果的多样性越好
+
+- Hit Rate
+  $$
+  \mathrm{HR}=\frac{\text { number of hits }}{\text { number of users }}
+  $$
+
+  - #users是用户总 数, 而#hits是测试集中的item出现在Top- N推荐列表中的用户数量。
+
+- Average Precision：在位置K的Average Precision用来衡量一个相关商品在所有ranks的精度。
+  $$
+  A P(R)_{k}=\frac{1}{\min (|R|, k)} \sum_{i=1}^{k} \delta(i \in R) \operatorname{Prec}(R)_{i}
+  $$
+
+  ```python
+  def AP(ranked_list, ground_truth):
+      """Compute the average precision (AP) of a list of ranked items
+      ground_truth 表示是否正确的标识
+      hits 表示 score （预测结果分值）倒排，从第0个到当前个的累计预测正确样本数
+      sum_precs 表示每个 ground_truth = 1 的位置的 precision 的累加
+      """
+      hits = 0
+      sum_precs = 0
+      for n in range(len(ranked_list)):
+          if ranked_list[n] in ground_truth:
+              hits += 1
+              sum_precs += hits / (n + 1.0)
+      if hits > 0:
+          return sum_precs / len(ground_truth)
+      else:
+          return 0
+  ```
+  - 那么对于MAP(Mean Average Precision)：所有用户 $u$ 的AP再取均值
+
+- **Normalized Discounted Cummulative Gain(NDCG)**
+
+  - **累积增益CG**，表示将每个推荐结果相关性的分值累加后作为整个推荐列表的得分。
+
+    $C G_{k}=\sum_{i=1}^{k} r e l_{i}$ , $r e l_{i}$ 表示处于位置 $i$ 的推荐结果的相关性, $k$ 表示所要考察的推荐列表的大小
+
+    缺点：
+
+    - CG没有考虑每个推荐结果处于不同位置对整个推荐结果的影响，例如，我们总是希望相关性大的结果排在前面，相关性低的排在前面会影响用户体验。
+
+  - **DCG**(Discounted Cummulative Gain)在CG的基础上引入了位置影响因素
+
+    $D C G_{k}=\sum_{i=1}^{k} \frac{2^{r e l_{i}}-1}{\log _{2}(i+1)}$
+
+    - 分子部分 $2^{r e l_{i}}-1$：$r e l_{i}$ 越大, 即推荐结果 $i$ 的相关性越大，推荐效果越好，DCG越大。
+    - 分母部分 $\log _{2}(i+1)$：$i$ 表示推荐结果的位置, $i$ 越大, 则推荐结果在推荐列表中排名越靠后，推荐效果越差，DCG越 小。
+
+    缺点：DCG针对**不同的推荐列表之间很难进行横向评估**，而我们评估一个推荐系统不可能仅使用一个用户的推荐列表及相应结果进行评估，而是对整个测试集中的用户及其推荐列表结果进行评估。
+
+  - 那么，不同用户的推荐列表的评估分数就需要进行归一化，也就是**NDCG**。
+
+- **Mean Reciprocal Rank(MRR)**
+
+  $M R R=\frac{1}{Q} \sum_{i=1}^{|Q|} \frac{1}{r a n k_{i}}$
+
+  - $|Q|$ 是用户的个数, $r a n k_{i}$ 是对于第 $i$ 个用户, 推荐列表中第一个在ground-truth结果中的item所在的排列位置。
 
 
 
@@ -338,3 +427,4 @@ KS的计算步骤如下：
 4. https://baike.baidu.com/item/CTR/10653699?fr=aladdin
 5. https://www.cnblogs.com/shenxiaolin/p/9309749.html
 6. https://www.cnblogs.com/wqbin/p/11105186.html
+7. [CSDN博主｜xiedelong｜推荐系统中的 MAP 评估指标](https://blog.csdn.net/xiedelong/article/details/112500657)

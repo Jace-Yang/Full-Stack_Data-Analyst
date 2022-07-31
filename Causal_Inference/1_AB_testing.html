@@ -394,9 +394,7 @@ const thebe_selector_output = ".output, .cell_output"
             href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FCausal_Inference/1_AB_testing.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Causal_Inference/1_AB_testing.md"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+        
     </div>
 </div>
 
@@ -1004,10 +1002,15 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>推荐实验</p>
   <center><img src="../images/CI_abtest_5.png" width="75%"/></center>
 </li>
-<li><p>人群实验</p>
-<p>对人群的选择人：行为圈选、标签圈选、属性圈选</p>
+</ul>
+<p><strong>人群圈选方式</strong></p>
+<blockquote>
+<div><p>对人群的选择：行为圈选、标签圈选、属性圈选</p>
+</div></blockquote>
+<p>多层方案</p>
+<p>为了解决以上问题，多层分组方案应运而生，，。具体实现方法如下</p>
 <ul>
-<li><p>分流：用户分流是指按照地域、性别、年龄等把用户均匀地分为几个组，1个用户只能出现在1个组中。</p>
+<li><p><mark style="background-color:#c3dbfc;">分流</mark>：用户分流是指按照地域、性别、年龄等把用户均匀地分为几个组，1个用户只能出现在1个组中。</p>
 <ul class="simple">
 <li><p>例子：只看“安卓用户”、只看“北京地区用户”等等，很多时候实验会在一个城市进行，因为不同城市之间的用户差异会很大（特别是美团滴滴之类的）</p></li>
 <li><p>问题：实际情况中，往往会同时上线多个实验，拿广告来说，有针对样式形态的实验，有针对广告位置策略的实验，有针对预估模型的实验。</p>
@@ -1017,11 +1020,16 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </li>
-<li><p>分层：同一份流量可以分布在多个实验层，也就是说同一批用户可以出现在不同的实验层，前提是各个实验层之间无业务关联，保证这一批用户都均匀地分布到所有的实验层里，达到用户“正交”的效果就可以。所谓的正交分层，其实可以理解为互不影响的流量分层，从而实验流量复用的效果。</p></li>
+<li><p><mark style="background-color:#c3dbfc;">分层</mark>：同一份流量可以分布在多个实验层，也就是说同一批用户可以出现在不同的实验层，前提是<strong>各个实验层之间无业务关联</strong>，保证<u>这一批用户都均匀地分布到所有的实验层里</u>，达到用户“正交”的效果就可以。所谓的正交分层，其实可以理解为互不影响的流量分层，从而实验流量复用的效果。</p>
+<ul class="simple">
+<li><p>根据业务方人为定义一些分层——如：UI 层、推荐算法层</p></li>
+<li><p>每一层对用户随机分组：流量经过每一层时都会被打散重新分配，下一层每一组的流量都随机来源于上一层各组的流量</p></li>
+<li><p>实现同一个用户出现在不同层的不同组里面，做到流量的重复利用</p></li>
+</ul>
+<p>我们其实只需要指定实验处于哪一层，系统就可计算出该层还有多少剩余流量然后自动分配，即使<strong>实验不互斥也没必要共用相同的实验组。</strong></p>
+</li>
 <li><p>分流分层模型：在此模型中增加组、层，并且可以互相嵌套。这要与实际的业务相匹配，拆分过多的结构可能会把简单的业务复杂化，拆分过少的结构又可能不满足实际业务。</p>
   <center><img src="../images/CI_abtest_7.png" width="45%"/></center>
-</li>
-</ul>
 </li>
 <li><p>B端实验</p>
 <ul class="simple">
@@ -1107,7 +1115,7 @@ $<span class="math notranslate nohighlight">\(
 </li>
 <li><p>β，犯第二类取伪的概率</p>
 <ul class="simple">
-<li><p>1-β := 统计功效</p></li>
+<li><p>1-β := 统计功效（没有取伪的概率，也就是在假设检验中， 拒绝原假设后， 接受正确的替换假设的概率）</p></li>
 <li><p>一般情况取0.2</p></li>
 </ul>
 </li>
@@ -1413,6 +1421,7 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 <ul class="simple">
 <li><p>例1: 比如我们对司机激励策略 由于司机会群里讨论所以会感觉自己受到不公平的待遇！</p></li>
 <li><p>例2: 假设好友被分到了实验组，我被分到了对照组。曝光给好友的内容更加的有吸引力，他作出了点赞、评论等互动行为。而产品的社交属性，使我可以看到好友的互动行为，原本不会被曝光给我的内容，我通过好友的互动间接接收到了。也提高了我去互动的概率，提高了活跃程度。这样就发生了实验组想对照组溢出的问题，独立的假设受到了破坏。</p></li>
+<li><p>例3: 直播pk体验中，pk组的体验组连线对战组</p></li>
 </ul>
 </li>
 <li><p>Two-sided markets: 实验组和控制组会竞争一样的资源</p>
@@ -1437,7 +1446,7 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 </ul>
 </li>
 </ul>
-<p>解决方案：防止用户互相影响的方案——Isolate Users</p>
+<p>解决方案1：防止用户互相影响的方案——<strong>Isolate Users</strong></p>
 <ul>
 <li><p>双端市场场景</p>
 <p>Geo-based randomization: Split by geolocations</p>
@@ -1458,18 +1467,25 @@ A: Novelty effect⇒Repeat usage declined when effect wears off</p>
 <li><p>People interact mostly within the cluster</p></li>
 <li><p>Assign clusters randomly</p></li>
 </ul>
-<p>Ego-network randomization:</p>
+<p><strong>Ego-network randomization:</strong></p>
 <ul class="simple">
 <li><p>Originated from LinkedIn</p></li>
 <li><p>An ego network cluster is defined as a portion of a social network formed of a given individual, termed ego, and the other persons with whom she has a social relationship, termed alters</p></li>
-<li><p>One-out network effect: user either has the feature or not</p></li>
+<li><p>One-out network effect: user either has th</p></li>
+<li><p>e feature or not</p></li>
 <li><p>It’s simpler and more scalable</p></li>
 </ul>
+<p>快手直播通过pk_id来分实验而不是用户颗粒度</p>
 </li>
 </ul>
 <p>核心要点：</p>
 <ul class="simple">
 <li><p>系统控制干预，降低对照组用户（没上策略的用户）接触到待评估功能的几率</p></li>
+</ul>
+<p><strong>解决方案2: 时间片轮转实验</strong></p>
+<p>时间片轮转实验是一种处理个体之间相互干扰的实验方法，在一定的实验对象上 进行实验组策略和对照组策略上的反复切换。</p>
+<ul class="simple">
+<li><p>比如快手直播PK：让用户无法知晓下一个时间是否是实验组</p></li>
 </ul>
 </div>
 <div class="section" id="id11">

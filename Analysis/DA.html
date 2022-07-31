@@ -53,6 +53,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="统计分析" href="STAT.html" />
@@ -392,9 +394,7 @@ const thebe_selector_output = ".output, .cell_output"
             href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FAnalysis/DA.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/edit/master/Analysis/DA.md"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+        
     </div>
 </div>
 
@@ -429,13 +429,51 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     指标纵向下钻
+     异动归因
     </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     指标横向分层
-    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       指标横向分层
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       指标纵向下钻
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       贡献率计算
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id8">
+       算法归因
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#adtributor">
+         <strong>
+          Adtributor
+         </strong>
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#impaptr">
+         <strong>
+          ImpAPTr决策树维度组合
+         </strong>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       内外部分析
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#case">
@@ -445,12 +483,12 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
+  <a class="reference internal nav-link" href="#id10">
    数据可视化
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id11">
      基础概念
     </a>
     <ul class="nav section-nav flex-column">
@@ -492,6 +530,33 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id12">
+   数据解决方案
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     打分模型
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     用户生命周期
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     用户流失预警体系
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reference">
+   Reference
+  </a>
  </li>
 </ul>
 
@@ -525,13 +590,51 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     指标纵向下钻
+     异动归因
     </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     指标横向分层
-    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       指标横向分层
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       指标纵向下钻
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       贡献率计算
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id8">
+       算法归因
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#adtributor">
+         <strong>
+          Adtributor
+         </strong>
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#impaptr">
+         <strong>
+          ImpAPTr决策树维度组合
+         </strong>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       内外部分析
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#case">
@@ -541,12 +644,12 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
+  <a class="reference internal nav-link" href="#id10">
    数据可视化
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id11">
      基础概念
     </a>
     <ul class="nav section-nav flex-column">
@@ -589,6 +692,33 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id12">
+   数据解决方案
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     打分模型
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     用户生命周期
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     用户流失预警体系
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reference">
+   Reference
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -612,28 +742,160 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id3">
 <h2>分析方法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id4">
-<h3>指标纵向下钻<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>可以通过人群异质性效果探查（HTE），找到策略未触达的细分人群</p>
-<center><img src="../images/DA_metrics_1.png" width="35%"/></center>
-</div>
+<h3>异动归因<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[
+E(Y)=\sum E\left(Y_{i} \mid X_{i}\right) * P\left(X_{i}\right)
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Y_{i}\)</span> 的变化导致，也就是属性的变化，比如人群A人均下单量下降</p></li>
+<li><p><span class="math notranslate nohighlight">\(P\left(X_{i}\right)\)</span> 变化导致：也就是结构的变化，比如人群A在群体中占比下降</p></li>
+</ul>
 <div class="section" id="id5">
-<h3>指标横向分层<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h4>指标横向分层<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p><strong>分层</strong></p>
 <ul class="simple">
 <li><p>基于核心KPI指标：比如低转化率人群、中等、高转化率人群，知道运营动作要对的人</p></li>
 <li><p>基于人群特征：年龄职业等，其实这些对购买习惯也有影响</p></li>
 <li><p>基于场景：比如不同渠道、界面</p></li>
+<li><p>RFM——对于这些分层方法的一种交叉</p></li>
 </ul>
-<p>RFM——对于这些分层方法的一种交叉</p>
+<center><img src="../images/DA_metrics_1.png" width="35%"/></center>
+</div>
+<div class="section" id="id6">
+<h4>指标纵向下钻<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>例子：标签页vv = 视频详情页PV *标签点击率 *标签页 CTR</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h4>贡献率计算<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<p><strong>加法模型：</strong><span class="math notranslate nohighlight">\(Y=X_{1}+X_{2}+X_{3}\)</span></p>
+<ul class="simple">
+<li><p>例子：各个渠道的UV</p></li>
+<li><p>公式：<span class="math notranslate nohighlight">\(Y=\sum_{i} X_{i} \)</span>  、<span class="math notranslate nohighlight">\( \Delta Y \%=\frac{Y^{1}-Y^{0}}{Y^{0}}\)</span>，贡献等于<span class="math notranslate nohighlight">\(C_{X_{i}}=\frac{X_{i}^{1}-X_{i}^{0}}{Y^{0}}=\frac{\Delta X_{i}}{Y^{0}}\)</span></p>
+<ul>
+<li><p>反证法证明：<span class="math notranslate nohighlight">\(\Delta Y \%=\frac{Y^{1}-Y^{0}}{Y^{0}}=\frac{\sum_{i} X_{i}^{1}-\sum_{i} X_{i}^{0}}{Y^{0}}=\frac{\sum_{i} X_{i}^{1}-X_{i}^{0}}{Y^{0}}=\frac{\sum_{i} \Delta X_{i}}{Y^{0}}=\sum C_{X_{i}}\)</span></p></li>
+</ul>
+</li>
+</ul>
+<p><strong>除法模型：</strong> <span class="math notranslate nohighlight">\(Y=X_{1} \cdot X_{2} \cdot X_{3}\)</span></p>
+<ul class="simple">
+<li><p>需要同时关注**「指标变化」和「流量变化」**，比如已知 <span class="math notranslate nohighlight">\(r p m=c p c^{*} c t r\)</span> 下，算出cpc、ctr分别对rpm的贡献</p></li>
+<li><p>公式：<span class="math notranslate nohighlight">\(C_{X_{i}}=\frac{L\left(Y^{1}, Y^{0}\right) \cdot \ln \left(\frac{X^{1}}{X^{0}}\right)}{Y^{0}}\)</span></p>
+<ul>
+<li><p>其中，<span class="math notranslate nohighlight">\(Y=\prod_{i} X_{i}\)</span> 平均对数权重<span class="math notranslate nohighlight">\(L\left(Y^{1}, Y^{0}\right)=\frac{Y^{1}-Y^{0}}{\ln \left(Y^{1}\right)-\ln \left(Y^{0}\right)}=\frac{\Delta Y}{\ln \left(Y^{1}\right)-\ln \left(Y^{0}\right)}\)</span></p></li>
+<li><p>证明：
+$<span class="math notranslate nohighlight">\(
+\Delta Y \%=\frac{Y^{1}-Y^{0}}{Y^{0}}=\frac{\Delta Y \cdot \ln \left(\frac{Y^{1}}{Y^{0}}\right)}{Y^{0} \cdot \ln \left(\frac{Y^{1}}{Y^{0}}\right)}=\frac{\Delta Y \ln \left(\frac{\prod X_{i}^{1}}{\prod X_{i}^{0}}\right)}{Y^{0} \cdot \ln \left(\frac{Y^{1}}{Y^{0}}\right)}
+\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(
+=\frac{\Delta Y \sum_{i} \ln \left(\frac{X_{i}^{1}}{X_{i}^{0}}\right)}{Y^{0} \cdot \ln \left(\frac{Y^{1}}{Y^{0}}\right)}=\sum_{i} \frac{L\left(Y^{1}, Y^{0}\right)}{Y^{0}} \ln \left(\frac{X_{i}^{1}}{X_{i}^{0}}\right)=\sum_{i} C_{X_{i}}
+\)</span>$</p></li>
+</ul>
+</li>
+<li><p>例子<span class="math notranslate nohighlight">\(ipv=u v \times \frac{d u v}{u v} \times \frac{i p v}{d u v}\)</span></p></li>
+</ul>
+<p><strong>比率模型</strong>：<span class="math notranslate nohighlight">\(Y=\frac{P}{S}=\frac{\sum p_{X_{i}}}{\sum s_{X_{i}}}\)</span> ，<span class="math notranslate nohighlight">\(P_{i}=\frac{p_{X_{i}}}{\sum p_{X_{i}}}, \quad S_{i}=\frac{s_{X_{i}}}{\sum s_{X_{i}}}, \quad Y_{i}=\frac{s_{X_{i}}}{p_{X_{i}}}\)</span></p>
+<ul>
+<li><p>例：从主页到商品页的转化率 可以分各个不同的渠道</p></li>
+<li><p>当分析比率指标进行维度下钻，分项对整体的贡献，受两个因素影响</p>
+<ul>
+<li><p>分项的<strong>相对数指标波动</strong>贡献，即当期与基期的分项规模一致时，分项指标带来的变化</p>
+<p><span class="math notranslate nohighlight">\(A_{X_{i}}=\)</span> 指标同比变化值 * 上期基数占比</p>
+</li>
+<li><p>分项的<strong>结构变化</strong>，即当期与基期分项规模变化部分的指标变化</p>
+<p><span class="math notranslate nohighlight">\(B_{X_{i}}=\)</span> 占比同比变化值 * (分项本期指标 - 整体上期指标)</p>
+</li>
+</ul>
+</li>
+<li><p>公式: <span class="math notranslate nohighlight">\(C_{X_{i}}=\frac{A_{X_{i}}+B_{X_{i}}}{Y^{0}}\)</span></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(A_{X_{i}}=\left(Y_{i}^{1}-Y_{i}^{0}\right) \times P_{i}^{0}\)</span> ，其中 <span class="math notranslate nohighlight">\(Y_{i}^{1}\)</span> 是当月的数据， <span class="math notranslate nohighlight">\(Y_{i}^{0}\)</span> 为上个月（同比/环比）的数据。</p>
+<p><span class="math notranslate nohighlight">\(B_{X_{i}}=\left(P_{i}^{1}-P_{i}^{0}\right) \times\left(Y_{i}^{1}-Y^{0}\right)\)</span></p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>逐层下钻</strong></p>
+<p>然而，在全场景里面有不同的下钻维度（比如流量来源、人群归属、是否新老粉、手机端类型等），先拆哪个后拆哪个其实依赖业务理解</p>
+<img src="../images/399d06b2e54c4e7fb181954271681b48.png" alt="img" style="zoom:33%;" />
+<ul class="simple">
+<li><p>红色表示的链路指标或维度代表对总值下跌贡献率较大，经过一层一层的拆解定位到app端自然流量中转化的降低导致总转化下降：</p></li>
+<li><p>基于流量跨端调控以及流量预算减投的业务背景，我们现将对ipv贡献最大的uv/duv根据端型、流量渠道类型、流量渠道、国家四个维度进行贡献率拆解。</p>
+<ul>
+<li><p>结论一 （第一层拆解）ipv下降主要影响因素是uv-d转化率的波动。</p></li>
+<li><p>结论二 （第二层拆解）uv-d比率的波动主要由APP端与WAP端导致，两种端型贡献持平。</p></li>
+<li><p>结论三 （第三/四层拆解）APP端的自然流量和wap端的付费流量是uv-d总比率波动的主要贡献维度。</p></li>
+<li><p>结论四 （第五层拆解）APP端self-visit中美国对uv-d比率的波动贡献较大。</p></li>
+</ul>
+</li>
+<li><p>通过建立多层归因下钻维度模型， 用自动化的方式层层剥析，从而能尽求完善且正确的<strong>归因到某个维度</strong></p></li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h4>算法归因<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="adtributor">
+<h5><strong>Adtributor</strong><a class="headerlink" href="#adtributor" title="Permalink to this headline">¶</a></h5>
+<blockquote>
+<div><p>《Adtributor: Revenue Debugging in Advertising Systems》</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>单维度</p></li>
+<li><p>组成</p>
+<ul>
+<li><p>EP（explanatory power）是指某个维度下的某个元素的波动占总体波动的比率，可以理解为EP越高，这个维度下的这个元素对于整体北极星的变动贡献幅度最大；</p></li>
+<li><p>Surprise（基于JS散度引入的指标）是指某个维度下的某个元素的波动的异常性，可以理解为Surprise越高，这个维度下的这个元素发生的指标波动越大。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="impaptr">
+<h5><strong>ImpAPTr决策树维度组合</strong><a class="headerlink" href="#impaptr" title="Permalink to this headline">¶</a></h5>
+<blockquote>
+<div><p>《 Impact Analysis based on Pruning Tree》by美团的《<strong>ImpAPTr: A Tool For Identifying The Clues To Online Service Anomalies</strong>》，同时作者也把实现代码开源了：<a class="reference external" href="https://github.com/wanghaao/ImpAPTr">https://github.com/wanghaao/ImpAPTr</a></p>
+</div></blockquote>
+<p>我们可以无限拆下去，在把不同维度下，每个维值的贡献率求出。</p>
+<ul class="simple">
+<li><p>然而颗粒度太细了，有时候在Motivation：ROI作为北极星指标，如果有100下单场景、30个用户来源渠道、10个用户圈层、6个商品等级 4个主要维度的交叉影响，那就总共会产生18万种不同的组合，这个时候就需要多维度的上场了。</p></li>
+<li><p>某个维度可能是可以组合起来的（比如手机是PC和APP的其实group到一起就行），所以需要得到的是一个一维的、贡献最大（有异动的）的维度维值组合</p></li>
+</ul>
+<p>具体过程</p>
+<ul class="simple">
+<li><p>用决策树训练每个最细颗粒度的Y</p></li>
+<li><p>Pruning掉不重要的冗杂分枝</p></li>
+<li><p>对叶子结点人群计算贡献率</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id9">
+<h4>内外部分析<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>企业内部：分为获客（渠道质量低、活动获取非目标用户）、满足需求（新功能改动引发某类用户不满）、提活手段（签到等提活手段没达成目标、产品自然使用周期低导致上次获得的大量用</p></li>
+<li><p>企业外部：PEST宏观经济环境分析</p></li>
+</ul>
+</div>
 </div>
 <div class="section" id="case">
 <h3>Case<a class="headerlink" href="#case" title="Permalink to this headline">¶</a></h3>
 <p><strong>如果次日用户留存率下降了 5%该怎么分析？</strong></p>
 <ul class="simple">
-<li><p>首先采用“两层模型”分析：对用户进行细分，包括新老、渠道、活动、画像等多个维度，然后分别计算每个维度下不同用户的次日留存率。通过这种方法定位到导致留存率下降的用户群体是谁。</p></li>
-<li><p>对于目标群体次日留存下降问题，具体情况具体分析。具体分析可以采用“内部-外部”因素考虑。</p>
+<li><p>首先采用“两层模型”分析：对用户进行细分，包括新老、渠道、活动、画像等多个维度，然后分别计算每个维度下不同用户的次日留存率。通过这种方法定位到导致留存率下降的用户群体是谁</p></li>
+<li><p>在内外部</p>
 <ul>
-<li><p>a. 内部因素找链路——分为获客（渠道质量低、活动获取非目标用户）、满足需求（新功能改动引发某类用户不满）、提活手段（签到等提活手段没达成目标、产品自然使用周期低导致上次获得的大量用户短期内不需要再使用等）；</p></li>
-<li><p>b. 外部因素采用PEST分析（宏观经济环境分析），政治（政策影响）、经济（短期内主要是竞争环境，如对竞争对手的活动）、社会（舆论压力、用户生活方式变化、消费心理变化、价值观变化等偏好变化）、技术（创新解决方案的出现、分销渠道变化等）。</p></li>
+<li><p>内部：</p>
+<ul>
+<li><p>分为获客（渠道质量低、活动获取非目标用户）、满足需求（新功能改动引发某类用户不满）、提活手段（签到等提活手段没达成目标、产品自然使用周期低导致上次获得的大量用</p></li>
+</ul>
+</li>
+<li><p>外部</p>
+<ul>
+<li><p>政治：政策影响</p></li>
+<li><p>经济：短期内主要是竞争环境，如对竞争对手的活动</p></li>
+<li><p>社会：舆论压力、用户生活方式变化、消费心理变化、价值观变化等偏好变化</p></li>
+<li><p>技术：创新解决方案的出现、分销渠道变化等</p></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -740,10 +1002,10 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>数据可视化<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id7">
-<h3>基础概念<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h2>数据可视化<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h3>基础概念<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p><strong>Exploratory Data Analysis (EDA)</strong> is an approach of analyzing datasets to summarize their main characteristics, often using statistical graphics and other data visualization methods</p>
 <blockquote>
 <div><p>缺失、imbalanced、feature、sample size、distribution、skews等等</p>
@@ -849,6 +1111,58 @@ const thebe_selector_output = ".output, .cell_output"
 <p>主题设置大全：</p>
 <p><img alt="ggplot2-theme-elements-reference-v2_hu8994090e1960a0a71878a3756da20076_580819_2000x2000_fit_lanczos_2" src="../_images/ggplot2-theme-elements-reference-v2_hu8994090e1960a0a71878a3756da20076_580819_2000x2000_fit_lanczos_2.png" /></p>
 </div>
+</div>
+<div class="section" id="id12">
+<h2>数据解决方案<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id13">
+<h3>打分模型<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>将各个维度的指标分别以北极星指标为目标训练DNN得到score后weighted sum例子：</p>
+<ul>
+<li><p>Y：是否成功push</p></li>
+<li><p>活跃: 7天活跃天数，30天活跃天数，90天活跃天数，7天内活跃状态，30天活跃状态， 30天有效播放总时长</p></li>
+<li><p>兴趣：6大品类topic 标签，6大品类播放时长占比，top 20 播放cid</p></li>
+<li><p>商业价值：性别、年龄、学历、城市、城市等级、有房状态、有车状态、是否是会员、手机品牌&amp;价格&amp;型号</p></li>
+<li><p>转化机会：7天接收\点击push数、30天接收\点击数</p>
+<p>⇒营销价值总得分</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h3>用户生命周期<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>可以根据流失/活跃 <strong>×</strong> 新用户/老玩家/高级玩家分</p></li>
+</ul>
+</div>
+<div class="section" id="id15">
+<h3>用户流失预警体系<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><a class="reference external" href="https://www.woshipm.com/operate/3617762.html">人人都是产品经理｜运营观察｜3个方面，告诉你用户流失预警体系如何搭建</a></p>
+</div></blockquote>
+<p>其实是一个by预测窗口（比如一周）的分类模型</p>
+<ul class="simple">
+<li><p>Step 1. 搜集、分析用户历史数据表现，包括登陆频次、登陆时长、浏览时长、浏览深度、跳出率、下单频次等用户行为数据确定一个观察窗口，观察窗口期内可以通过流失定义来确定一批已知流失用户。</p></li>
+<li><p>Step 2. 其次建立一个表现窗口，通过建立用户大数据模型来分析已知流失用户画像特征、消费行为特征、用户生命周期特征来建立流失规则集，并不断优化模型提升预测的覆盖率和命中率。</p></li>
+<li><p>Step 3. 在预测窗口，在未来几周或几个月内，通过模型<strong>对尚未明确流失的用户进行预测</strong>，并建立流失评分体系，通过评分规则打上相应流失标签，比如：高风险流失用户、中风险流失用户、低风险流失用户。</p></li>
+</ul>
+<p>模型选择</p>
+<ul class="simple">
+<li><p>cox生存模型：这个模型算法最大的作用是可以分析各个用户变量与流失的关系，并通过生存算法预测出不同用户在未来流失概率。</p>
+<ul>
+<li><p>在survival function里面找突然下降的点</p></li>
+</ul>
+</li>
+<li><p>决策树模型：可以提供不同流失的规则集，用户运营可以通过流失规则快速分层用户并进行运营。</p></li>
+<li><p>神经网络模型：可以计算每个用户的<strong>流失评分</strong>，用户运营可以根据评分高低来确定不同流失风险用户的运营策略。</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<p>异动归因</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://developer.aliyun.com/article/880392">阿里云开发者社区｜异动分析技术解决方案—异动归因之指标拆解</a></p></li>
+<li></li>
+</ul>
 </div>
 </div>
 

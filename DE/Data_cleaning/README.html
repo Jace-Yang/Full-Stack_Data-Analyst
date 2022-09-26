@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>数据清洗与处理 &#8212; Towards a Full-stack DA</title>
+    <title>数据清洗与处理 &#8212; 全栈DS/DA养成手册</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -56,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="正则表达式" href="Regex.html" />
-    <link rel="prev" title="SQL" href="../SQL.html" />
+    <link rel="prev" title="大数据" href="../BigData.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -85,7 +85,7 @@ const thebe_selector_output = ".output, .cell_output"
       <img src="../../_static/logo2.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">Towards a Full-stack DA</h1>
+      <h1 class="site-logo" id="site-title">全栈DS/DA养成手册</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -93,14 +93,7 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../intro.html">
-   Jace六边形DA笔记库
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   多元分析
  </span>
@@ -172,39 +165,17 @@ const thebe_selector_output = ".output, .cell_output"
  </span>
 </p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1">
   <a class="reference internal" href="../../DL/Basics/README.html">
    基础
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../DL/Basics/DL_hyperparameter.html">
-     DL常见超参及调整策略
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../DL/Basics/Optimizer.html">
-     优化器
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../DL/Basics/Trained_by_GPU.html">
-     GPU训练
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../DL/NLP/README.html">
    NLP
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -230,8 +201,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../../DL/NN_compression/README.html">
    神经网络压缩
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -240,8 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="../../DL/NN_compression/KD.html">
      知识蒸馏
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-    <label for="toctree-checkbox-4">
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -257,8 +228,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="../../DL/NN_compression/Quantize.html">
      量化
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-    <label for="toctree-checkbox-5">
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -289,12 +260,17 @@ const thebe_selector_output = ".output, .cell_output"
    SQL
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../BigData.html">
+   大数据
+  </a>
+ </li>
  <li class="toctree-l1 current active has-children">
   <a class="current reference internal" href="#">
    数据清洗与处理
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -329,7 +305,7 @@ const thebe_selector_output = ".output, .cell_output"
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+  By <a href="https://github.com/Jace-Yang">Jace Yang</a>
 </div>
 
 </div>
@@ -454,11 +430,11 @@ const thebe_selector_output = ".output, .cell_output"
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../SQL.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../BigData.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">SQL</p>
+            <p class="prev-next-title">大数据</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="Regex.html" title="next page">
@@ -478,6 +454,9 @@ const thebe_selector_output = ".output, .cell_output"
       By Jace Yang<br/>
     
         &copy; Copyright 2021.<br/>
+      <div class="extra_footer">
+        Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+      </div>
   </p>
 </footer>
 </main>

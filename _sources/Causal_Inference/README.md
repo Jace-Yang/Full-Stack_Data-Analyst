@@ -4,11 +4,11 @@
 
 因果阶梯：
 1. Association $P(y \mid x)$
-    - How seeing Y change my belief in Y? 
+    - How seeing Y change my belief in Y? 比如看到某个症状代表有疾病吗
 2. Intervention $P(y \mid d o(x), z)$
-    - What if I do Y
+    - What if I do X，比如如果禁止香烟会如何
 3. Counterfactuals $P\left(y_{x} \mid x^{\prime}, y^{\prime}\right)$
-    - What if I had acted differently?
+    - What if I had acted differently? 是阿斯匹林让我的头痛停止的吗？
 
 核心：
 - 在给定的假设和模型框架下: 
@@ -32,7 +32,7 @@
 **例子**：
 
 - [例1]: 男性用药多 但恢复率更高，所以让整体有这个correlation，不过by group的correlation不是这样！
-    
+  
     <center><img src="../images/CI_simpson_paradox.png" width="60%"/></center>
     
 - [例2]: 比如说Y是购买概率，X是看直播时长，有可能实际上 男生女生都是看得越久 购买的概率越低，但由于普遍女生看的久，购买概率高，在整体数据上会体现出“观看直播时间越长，购买概率越高”的错误结论！
@@ -190,7 +190,7 @@ Rubin的Potential Outcome Framework - 潜在结果模型
 
 ## Potential Outcomes (Rubin)框架
 
-Rubin的Framework强调使用counter factual来寻找合适的对照组，潜在结果等于是创造了一个平行世界，又或者称为反事实事件。
+Rubin的Framework强调使用counterfactual来寻找合适的对照组，潜在结果等于是创造了一个平行世界，又或者称为反事实事件。
 
 > 因果有两个派系：<br> 以Donald Rubin为代表的Potential Outcome（PO ）——在经济学和社会科学中有大量的应用实例 <br>以Judea Pearl为代表的Structural Causal Model(SCM) , 以DAG表示因果关系——深受计算机学者喜爱
 
@@ -210,10 +210,15 @@ $$
 $$
 - 因为individual只能有Y(treatment给1)或者Y(treatment给0)中的一个
 
-Rubin框架中常见的方法
+Potential outcome model （虚拟事实模型），也叫做Rubin Causal Model（RCM），Rubin框架中常见的方法
 - Matching
 - DID
 - 合成控制
+
+**核心思想：**寻找合适的对照组
+
+- AB
+- 匹配、双重差分、合成控制···
 
 
 ### 各种Effect
@@ -415,7 +420,7 @@ We could write this equivalently as $Y=Y(T)$
 
 ## Pearl - flow of Association and Causation Graphs
 
-Pearl的Framework强调的是对DAG的使用，模型由有向图和观测数据构成
+Pearl的Framework强调的是对因果图的使用，模型由有向图DAG和观测数据构成
 - 开发了do-算子来推测政策干预后的新的分布，可以计算更复杂的关系图中的因果
 - Pearl的重点在identification（Rubin在estimation和inference），两者互补
 

@@ -1,0 +1,1203 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>大数据 &#8212; 全栈DS/DA养成手册</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="数据清洗与处理" href="Data_cleaning/README.html" />
+    <link rel="prev" title="SQL" href="SQL.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo2.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">全栈DS/DA养成手册</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  多元分析
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Analysis/Business.html">
+   商业分析
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Analysis/DA.html">
+   数据分析
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Analysis/STAT.html">
+   统计分析
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  因果推断
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Causal_Inference/README.html">
+   基础
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Causal_Inference/1_AB_testing.html">
+   AB Test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Causal_Inference/2_methods.html">
+   因果推理方法
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  机器学习
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ML/README.html">
+   基础
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ML/SupervisedML.html">
+   有监督学习
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ML/UnsupervisedML.html">
+   无监督学习
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  深度学习
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../DL/Basics/README.html">
+   基础
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../DL/NLP/README.html">
+   NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/Self-attention.html">
+     Self-Attention
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/Transformer.html">
+     Transformer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../DL/NLP/BERT.html">
+     BERT
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../DL/NN_compression/README.html">
+   神经网络压缩
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../DL/NN_compression/KD.html">
+     知识蒸馏
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../DL/NN_compression/Distill_Bert.html">
+       Distill Bert
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../DL/NN_compression/Quantize.html">
+     量化
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../DL/NN_compression/QBert.html">
+       Q-BERT
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  数据仓库
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="README.html">
+   基础概念
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="SQL.html">
+   SQL
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   大数据
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="Data_cleaning/README.html">
+   数据清洗与处理
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Data_cleaning/Regex.html">
+     正则表达式
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Data_cleaning/pandas.html">
+     Pandas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  联系方式
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://www.linkedin.com/in/jinhang-yang/">
+   LinkedIn
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  By <a href="https://github.com/Jace-Yang">Jace Yang</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/DE/BigData.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/Jace-Yang/Full-Stack_Data-Analyst/issues/new?title=Issue%20on%20page%20%2FDE/BigData.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hadoop">
+   Hadoop 生态系统
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Hadoop
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hdfs">
+     HDFS
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       <strong>
+        架构原理
+       </strong>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       执行流程
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mapreduce">
+     MapReduce
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       <strong>
+        MapReduce编程模型
+       </strong>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#yarn">
+     Yarn
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       架构
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       工作原理
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spark">
+   Spark
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#spark-core">
+     Spark Core
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#spark-sql-dataframe">
+     Spark SQL / DataFrame
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sparkhadoop">
+     Spark和Hadoop的差异
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hive">
+   Hive
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hiveql">
+     <strong>
+      HiveQL执行流程：
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     存储形式：
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   参考资料
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>大数据</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hadoop">
+   Hadoop 生态系统
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Hadoop
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hdfs">
+     HDFS
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       <strong>
+        架构原理
+       </strong>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       执行流程
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mapreduce">
+     MapReduce
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       <strong>
+        MapReduce编程模型
+       </strong>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#yarn">
+     Yarn
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       架构
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       工作原理
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spark">
+   Spark
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#spark-core">
+     Spark Core
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#spark-sql-dataframe">
+     Spark SQL / DataFrame
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sparkhadoop">
+     Spark和Hadoop的差异
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hive">
+   Hive
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hiveql">
+     <strong>
+      HiveQL执行流程：
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     存储形式：
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   参考资料
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1>大数据<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="hadoop">
+<h2>Hadoop 生态系统<a class="headerlink" href="#hadoop" title="Permalink to this headline">¶</a></h2>
+<p>Hadoop在广义上指一个生态圈，泛指大数据技术相关的开源组件或产品，不仅包含hadoop，还包括保证hadoop框架正常高效运行其他框架，如HBase，Hive，Spark，Zookeeper，Kafka，flume等辅助框架</p>
+<ul class="simple">
+<li><p>Zookeeper：是一个开源的分布式应用程序协调服务,基于zookeeper可以实现同步服务，配置维护，命名服务。</p></li>
+<li><p>Flume：一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统。</p></li>
+<li><p>Hbase：是一个分布式的、面向列的开源数据库, 利用Hadoop HDFS作为其存储系统。</p></li>
+<li><p>Hive：基于Hadoop的一个数据仓库工具，可以将结构化的数据档映射为一张数据库表，并提供简单的sql 查询功能，可以将sql语句转换为MapReduce任务进行运行。</p></li>
+<li><p>Sqoop：将一个关系型数据库中的数据导进到Hadoop的 HDFS中，也可以将HDFS的数据导进到关系型数据库中。</p></li>
+</ul>
+<img src="../images/5e0c3291923abe618f0d753db1a14074.png" alt="img" style="zoom:50%;" />
+</div>
+<div class="section" id="id2">
+<h2>Hadoop<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Apache Hadoop软件库是一个软件框架，它允许使用简单的<em>编程模型</em>，以一种可靠、高效、可伸缩的方式实现<strong>跨计算机集群的大型数据集的分布式处理</strong>。</p>
+<ul>
+<li><p>它最初的设计目的是为了检测和处理应用程序层的故障，从单个机器扩展到数千台机器（这些机器可以很便宜），每个机器提供本地计算和存储，而不是依靠硬件提供高可靠性。</p>
+<p>整个源头是 Google 发的三篇论文， Hadoop 的 MapReduce/HDFS/HBase 分别对应 Google 的 MapReduce/GFS/Big Table</p>
+</li>
+</ul>
+<p>主要包括三部分内容：Hdfs，MapReduce，Yarn：</p>
+<ul class="simple">
+<li><p>分布式文件系统：<strong>HDFS</strong> —— 实现将文件分布式存储在很多的服务器上</p></li>
+<li><p>分布式运算编程框架：<strong>MapReduce</strong> —— 实现在很多机器上分布式并行运算</p></li>
+<li><p>分布式资源调度平台：<strong>YARN</strong> —— 帮用户调度大量的 MapReduce 程序，并合理分配运算资源</p></li>
+</ul>
+<div class="section" id="hdfs">
+<h3>HDFS<a class="headerlink" href="#hdfs" title="Permalink to this headline">¶</a></h3>
+<p>HDFS，是 Hadoop Distributed File System 的简称，是 Hadoop 抽象分布式文件系统的一种实现。</p>
+<ul class="simple">
+<li><p>实现上：Hadoop 抽象文件系统可以与本地系统、Amazon S3 等集成，甚至可以通过 Web 协议（webhsfs）来操作。</p></li>
+<li><p>传统的文件系统是单机的，不能横跨不同的机器；HDFS 的文件分布在集群机器上，例如客户端写入读取文件的直接操作都是分布在集群各个机器上的，没有单点性能压力，因此 HDFS 的设计本质上是为了大量的数据能横跨成百上千台机器，<strong>提供高吞吐量的服务</strong>，同时<strong>提供副本进行容错及高可靠性保证</strong>（计算机节点很容易出现硬件故障，而不管是 Google 公司的计算平台还是 Hadoop 计算平台都将硬件故障作为常态，通过软件设计来保证系统的可靠性）。</p>
+<ul>
+<li><p>由于 Hadoop 被设计运行在廉价的机器上，这意味着硬件是不可靠的，为了保证容错性，HDFS 提供了数据复制机制。HDFS 将每一个文件存储为一系列<strong>块</strong>，每个块由多个副本来保证容错，块的大小和复制因子可以自行配置（默认情况下，块大小是 128M，默认复制因子是 3）</p></li>
+</ul>
+</li>
+<li><p>使用 HDFS 时，用户看到的是一个文件系统而不是很多文件系统，比如说要获取 /hdfs/tmp/file1 的数据，<strong>引用的是一个文件路径，但是实际的数据存放在很多不同的机器上</strong>，作为用户，不需要知道这些，就好比在单机上我们不关心文件分散在什么磁道什么扇区一样，HDFS 为用户管理这些数据。</p></li>
+</ul>
+<p>优点：</p>
+<ul class="simple">
+<li><p>高容错：由于 HDFS 采用数据的多副本方案，所以部分硬件的损坏不会导致全部数据的丢失。</p></li>
+<li><p>高吞吐量：HDFS 设计的重点是支持高吞吐量的数据访问，而不是低延迟的数据访问。</p></li>
+<li><p>大文件支持：HDFS 适合于大文件的存储，文档的大小应该是是 GB 到 TB 级别的。</p></li>
+<li><p>**简单一致性模型：**HDFS 更适合于一次写入多次读取 (write-once-read-many) 的访问模型。支持将内容追加到文件末尾，但不支持数据的随机访问，不能从文件任意位置新增数据。</p></li>
+<li><p>跨平台移植性：HDFS 具有良好的跨平台移植性，这使得其他大数据计算框架都将其作为数据持久化存储的首选方案。</p></li>
+</ul>
+<div class="section" id="id3">
+<h4><strong>架构原理</strong><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<p>HDFS采用Master/Slave架构。一个HDFS集群包含一个单独的NameNode和多个DataNode。</p>
+<img src="../images/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f686466736172636869746563747572652e706e67.png" alt="img" style="zoom:50%;" />
+<img src="../images/image-20220925164929265.png" alt="image-20220925164929265" style="zoom:50%;" />
+<ul class="simple">
+<li><p>Client：客户端。</p>
+<ul>
+<li><p>文件切分。文件上传HDFS的时候，Client将文件切分成一个一个的Block，然后进行存储；</p></li>
+<li><p>与NameNode交互，获取文件的位置信息；</p></li>
+<li><p>与DataNode交互，读取或者写入数据；</p></li>
+<li><p>Client提供一些命令来管理HDFS，比如启动或者关闭HDFS；</p></li>
+<li><p>Client可以通过一些命令来访问HDFS；</p></li>
+</ul>
+</li>
+<li><p><strong>NameNode</strong>作为Master服务，它负责管理文件系统的命名空间和客户端对文件的访问。 负责执行有关 <code class="docutils literal notranslate"><span class="pre">文件系统命名空间</span></code> 的操作，例如打开，关闭、重命名文件和目录等。它同时还负责集群元数据的存储，记录着文件中各个数据块的位置信息。</p>
+<ul>
+<li><p>帮助client来</p>
+<ul>
+<li><p>Maps a filename to list of Block IDs</p></li>
+<li><p>Maps each Block ID to DataNodes containing a replica of the block</p></li>
+<li><p>Returns list of BlockIDs along with locations of their replicas</p></li>
+</ul>
+</li>
+<li><p>NameNode会保存文件系统的具体信息，包括文件信息、文件被分割成具体block块的信息、以及每一个block块归属的DataNode的信息。</p></li>
+<li><p>对于整个集群来说，HDFS通过NameNode对用户提供了一个单一的命名空间。</p></li>
+</ul>
+</li>
+<li><p><strong>DataNode</strong>作为Slave服务，在集群中可以存在多个。通常每一个DataNode都<strong>对应于一个物理节点</strong>。DataNode负责管理节点上它们拥有的存储，它将存储划分为多个block块，管理block块信息，同时周期性的将其所有的block块信息发送给NameNode。</p>
+<ul>
+<li><p>Maps a Block ID to a physical location on disk</p></li>
+<li><p>Sends data back to client</p></li>
+</ul>
+</li>
+<li><p><strong>Secondary NameNode</strong>：并非NameNode的热备。当NameNode挂掉的时候，它并不能马上替换NameNode并提供服务。</p>
+<ul>
+<li><p>辅助NameNode，分担其工作量；</p></li>
+<li><p>定期合并Fsimage和Edits（编辑日志与命名空间镜像），并推送给NameNode，给namenode提供一些容错机制（不然namenode挂了之后所有的文件会因为无法重建datanode而丢失）</p></li>
+<li><p>在紧急情况下，可辅助恢复NameNode。</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>为什么hadoop让client来读写datanode，而不是让Namenode找到filename之后直接操作</strong></p>
+<ul class="simple">
+<li><p>NameNode 和 DataNode 可能 sit in separate server！</p></li>
+<li><p>可能有几千个datanode但只有一个name node，如果很多requests都停在namenode上，那么namenode会花时间processing all these request and might become the <strong>bottleneck</strong></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id4">
+<h4>执行流程<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><p><a class="reference external" href="https://tyler-zx.blog.csdn.net/article/details/90667918?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-90667918-blog-37655491.pc_relevant_aa&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-90667918-blog-37655491.pc_relevant_aa&amp;utm_relevant_index=3">漫画</a></p>
+</div></blockquote>
+<ul class="simple">
+<li><p>首先明确Block size——一个文件会被拆成的小block有多大；replication factor——一个block会被存在几个地方</p></li>
+<li><p><strong>写文件</strong></p>
+<ul>
+<li><p>Clinet将文件切分</p></li>
+<li><p>Client对每一个数据块：</p>
+<ul>
+<li><p>Client询问Namenode</p></li>
+<li><p>Namenode分配DataNode，并按距离排序</p></li>
+<li><p>Client把数据发给第一个datanode存储</p></li>
+<li><p>第一个Datanode存储后告诉下一个datanode存储</p></li>
+<li><p>最后一个Datanode完成后通知Namenode</p></li>
+<li><p>Nanenode告诉client完成</p></li>
+</ul>
+</li>
+<li><p>关闭文件，namenode中永久存储meta</p></li>
+</ul>
+</li>
+<li><p><strong>读文件</strong></p>
+<ul>
+<li><p>用户请求Client、Client告诉namenode filename</p></li>
+<li><p>Namenode：返回你的file被拆分的block ids，和每个block存储的datanode列表</p></li>
+<li><p>client从最近的datanode开始按顺序一个个下载block</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="mapreduce">
+<h3>MapReduce<a class="headerlink" href="#mapreduce" title="Permalink to this headline">¶</a></h3>
+<p>Hadoop MapReduce 是一个分布式计算框架，用于编写批处理应用程序。编写好的程序可以提交到 Hadoop 集群上用于并行处理大规模的数据集。</p>
+<ul class="simple">
+<li><p><strong>Mapper</strong>: 当你向MapReduce框架提交一个计算作业时，它会首先把计算作业拆分成若干个Map任务，然后分配到不同的节点上去执行，每一个Map任务处理输入数据中的一部分。</p></li>
+<li><p><strong>Reducer</strong>: 当Map任务完成后，它会生成一些中间文件，这些中间文件将会作为Reduce任务的输入数据。Reduce任务的主要目标就是把前面若干个Map的输出汇总并输出。</p></li>
+</ul>
+<div class="section" id="id5">
+<h4><strong>MapReduce编程模型</strong><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Input</span></code>首先map task会从本地文件系统读取数据，转换成key-value形式的键值对集合</p>
+<ul>
+<li><p>使用的是hadoop内置的数据类型，比如longwritable、text等</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Mapping</span></code>将键值对集合输入mapper进行业务处理过程，将其转换成需要的key-value再输出</p></li>
+<li><p>进行一个partition分区操作</p>
+<ul>
+<li><p>默认使用的是hashpartitioner，可以通过重写hashpartitioner的getpartition方法来自定义分区规则</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Shuffling</span></code>对key进行进行sort排序，grouping分组操作将相同key的value合并分组输出</p>
+<ul>
+<li><p>可以使用自定义的数据类型，重写WritableComparator的Comparator方法来自定义排序规则，重写RawComparator的compara方法来自定义分组规则</p></li>
+</ul>
+</li>
+<li><p><em>(optional)</em><code class="docutils literal notranslate"><span class="pre">Combining</span></code>进行一个<strong>combiner</strong>归约操作，其实就是一个<strong>本地段的reduce预处理</strong>，以减小后面shufle和reducer的工作量</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Reducing</span></code>reduce task会通过网络将各个数据收集进行reduce处理</p></li>
+<li><p>最后将数据保存或者显示，结束整个job</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="yarn">
+<h3>Yarn<a class="headerlink" href="#yarn" title="Permalink to this headline">¶</a></h3>
+<p><strong>Apache YARN</strong> (Yet Another Resource Negotiator) 是 hadoop 2.0 引入的集群资源管理系统。用户可以将各种服务框架部署在 YARN 上，由 YARN 进行统一地管理和资源分配。</p>
+<p><a class="reference external" href="https://camo.githubusercontent.com/c201db26b79330366d23da8a59ab5b47bfc80060a2ecff9738fce2fd1c7d8640/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f7961726e2d626173652e706e67"><img alt="img" src="../_images/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f7961726e2d626173652e706e67.png" /></a></p>
+<div class="section" id="id6">
+<h4>架构<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p><img alt="img" src="../_images/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f466967757265334172636869746563747572652d6f662d5941524e2e706e67.png" /></p>
+<ul class="simple">
+<li><p><strong>ResourceManager</strong>：通常在独立的机器上以后台进程的形式运行，它是整个集群资源的主要协调者和管理者。<code class="docutils literal notranslate"><span class="pre">ResourceManager</span></code> 负责<u>给用户提交的所有应用程序分配资源</u>，它根据应用程序优先级、队列容量、ACLs、数据位置等信息，做出决策，然后以共享的、安全的、多租户的方式制定分配策略，调度集群资源。</p></li>
+<li><p><strong>NodeManager</strong>：<code class="docutils literal notranslate"><span class="pre">NodeManager</span></code> 是 YARN 集群中的每个具体节点的管理者。主要负责该节点内<em>所有容器的生命周期的管理</em>，监视资源和跟踪节点健康。具体如下：</p>
+<ul>
+<li><p>启动时向 <code class="docutils literal notranslate"><span class="pre">ResourceManager</span></code> 注册并定时发送心跳消息，等待 <code class="docutils literal notranslate"><span class="pre">ResourceManager</span></code> 的指令；</p></li>
+<li><p>维护 <code class="docutils literal notranslate"><span class="pre">Container</span></code> 的生命周期，监控 <code class="docutils literal notranslate"><span class="pre">Container</span></code> 的资源使用情况；</p></li>
+<li><p>管理任务运行时的相关依赖，根据 <code class="docutils literal notranslate"><span class="pre">ApplicationMaster</span></code> 的需要，在启动 <code class="docutils literal notranslate"><span class="pre">Container</span></code> 之前将需要的程序及其依赖拷贝到本地。</p></li>
+</ul>
+</li>
+<li><p><strong>ApplicationMaster</strong>：在用户提交一个应用程序时，YARN 会启动一个轻量级的进程 <code class="docutils literal notranslate"><span class="pre">ApplicationMaster</span></code>。<code class="docutils literal notranslate"><span class="pre">ApplicationMaster</span></code> 负责协调来自 <code class="docutils literal notranslate"><span class="pre">ResourceManager</span></code> 的资源，并通过 <code class="docutils literal notranslate"><span class="pre">NodeManager</span></code> 监视容器内资源的使用情况，同时还负责任务的监控与容错。具体如下：</p>
+<ul>
+<li><p>根据应用的运行状态来决定动态计算资源需求；</p></li>
+<li><p>向 <code class="docutils literal notranslate"><span class="pre">ResourceManager</span></code> 申请资源，监控申请的资源的使用情况；</p></li>
+<li><p>跟踪任务状态和进度，报告资源的使用情况和应用的进度信息；</p></li>
+<li><p>负责任务的容错。</p></li>
+</ul>
+</li>
+<li><p><strong>Container</strong>：<code class="docutils literal notranslate"><span class="pre">Container</span></code> 是 YARN 中的资源抽象，它封装了某个节点上的多维度资源，如内存、CPU、磁盘、网络等。当 AM 向 RM 申请资源时，RM 为 AM 返回的资源是用 <code class="docutils literal notranslate"><span class="pre">Container</span></code> 表示的。YARN 会为每个任务分配一个 <code class="docutils literal notranslate"><span class="pre">Container</span></code>，该任务只能使用该 <code class="docutils literal notranslate"><span class="pre">Container</span></code> 中描述的资源。<code class="docutils literal notranslate"><span class="pre">ApplicationMaster</span></code> 可在 <code class="docutils literal notranslate"><span class="pre">Container</span></code> 内运行任何类型的任务。例如，<code class="docutils literal notranslate"><span class="pre">MapReduce</span> <span class="pre">ApplicationMaster</span></code> 请求一个容器来启动 map 或 reduce 任务，而 <code class="docutils literal notranslate"><span class="pre">Giraph</span> <span class="pre">ApplicationMaster</span></code> 请求一个容器来运行 Giraph 任务。</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h4>工作原理<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<p>简单版：</p>
+<p><img alt="img" src="../_images/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f7961726ee5b7a5e4bd9ce58e9fe79086e7ae80e59bbe2e706e67.png" /></p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Client</span></code> 提交作业到 YARN 上；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Resource</span> <span class="pre">Manager</span></code> 选择一个 <code class="docutils literal notranslate"><span class="pre">Node</span> <span class="pre">Manager</span></code>，启动一个 <code class="docutils literal notranslate"><span class="pre">Container</span></code> 并运行 <code class="docutils literal notranslate"><span class="pre">Application</span> <span class="pre">Master</span></code> 实例；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Application</span> <span class="pre">Master</span></code> 根据实际需要向 <code class="docutils literal notranslate"><span class="pre">Resource</span> <span class="pre">Manager</span></code> 请求更多的 <code class="docutils literal notranslate"><span class="pre">Container</span></code> 资源（如果作业很小, 应用管理器会选择在其自己的 JVM 中运行任务）；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Application</span> <span class="pre">Master</span></code> 通过获取到的 <code class="docutils literal notranslate"><span class="pre">Container</span></code> 资源执行分布式计算。</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="spark">
+<h2>Spark<a class="headerlink" href="#spark" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="spark-core">
+<h3>Spark Core<a class="headerlink" href="#spark-core" title="Permalink to this headline">¶</a></h3>
+<p>Spark 于 2009 年诞生于加州大学伯克利分校 AMPLab，2013 年被捐赠给 Apache 软件基金会，2014 年 2 月成为 Apache 的顶级项目。相对于 MapReduce 的批处理计算，Spark 可以带来上百倍的性能提升，因此它成为继 MapReduce 之后，最为广泛使用的分布式计算框架。</p>
+<p><strong>Apache Spark 特点：</strong></p>
+<ul class="simple">
+<li><p>使用先进的 DAG 调度程序，查询优化器和物理执行引擎，以实现性能上的保证；</p></li>
+<li><p>多语言支持，目前支持的有 Java，Scala，Python 和 R；</p></li>
+<li><p>提供了 80 多个高级 API，可以轻松地构建应用程序；</p></li>
+<li><p>支持批处理，流处理和复杂的业务分析；</p></li>
+<li><p>丰富的类库支持：包括 SQL，MLlib，GraphX 和 Spark Streaming 等库，并且可以将它们无缝地进行组合；</p></li>
+<li><p>丰富的部署模式：支持本地模式和自带的集群模式，也支持在 Hadoop，Mesos，Kubernetes 上运行；</p></li>
+<li><p>多数据源支持：支持访问 HDFS，Alluxio，Cassandra，HBase，Hive 以及数百个其他数据源中的数据。</p></li>
+</ul>
+<p><img alt="img" src="../_images/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f6675747572652d6f662d737061726b2e706e67-20220925195011737.png" /></p>
+<p><strong>架构</strong>：</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Term（术语）</p></th>
+<th class="head"><p>Meaning（含义）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Application</p></td>
+<td><p>Spark 应用程序，由集群上的一<strong>个 Driver 节点和多个 Executor 节点组成</strong>。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver program</p></td>
+<td><p>主运用程序，该进程运行应用的 main() 方法并且创建 SparkContext</p></td>
+</tr>
+<tr class="row-even"><td><p>Cluster manager</p></td>
+<td><p>集群资源管理器（例如，Standlone Manager，Mesos，YARN）</p></td>
+</tr>
+<tr class="row-odd"><td><p>Worker node</p></td>
+<td><p>执行计算任务的工作节点</p></td>
+</tr>
+<tr class="row-even"><td><p>Executor</p></td>
+<td><p>位于工作节点上的应用进程，负责执行计算任务并且将输出数据保存到内存或者磁盘中</p></td>
+</tr>
+<tr class="row-odd"><td><p>Task</p></td>
+<td><p>被发送到 Executor 中的工作单元</p></td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference external" href="https://camo.githubusercontent.com/c1e2fca4b7ee8067bf6229509bc329570fdc7722cf3cb36782c73358b9d56d10/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f737061726b2de99b86e7bea4e6a8a1e5bc8f2e706e67"><img alt="img" src="../_images/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f737061726b2de99b86e7bea4e6a8a1e5bc8f2e706e67.png" /></a></p>
+<p><strong>执行过程</strong>：</p>
+<ol class="simple">
+<li><p>用户程序创建 <strong>SparkContext</strong> 后，它会连接到集群资源管理器，集群资源管理器会为用户程序分配计算资源，并启动 Executor；</p></li>
+<li><p><strong>Driver</strong> 将计算程序划分为不同的执行阶段和多个 Task，之后将 Task 发送给 Executor；</p></li>
+<li><p><strong>Executor 负责执行 Task</strong>，并将执行状态汇报给 Driver，同时也会将当前节点资源的使用情况汇报给集群资源管理器。</p></li>
+</ol>
+<p>**核心组件：**Spark 基于 Spark Core 扩展了四个核心组件，分别用于满足不同领域的计算需求。</p>
+<p><a class="reference external" href="https://camo.githubusercontent.com/867e8fe1448019c511ae6f7d1d30d6d242ef654eaf95b90d7924b1d1e167074a/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f737061726b2d737461636b2e706e67"><img alt="img" src="../_images/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f737061726b2d737461636b2e706e67.png" /></a></p>
+<ul>
+<li><p>Spark SQL 主要用于结构化数据的处理。其具有以下特点：</p>
+<ul class="simple">
+<li><p>能够将 SQL 查询与 Spark 程序无缝混合，允许您使用 SQL 或 DataFrame API 对结构化数据进行查询；</p></li>
+<li><p>支持多种数据源，包括 Hive，Avro，Parquet，ORC，JSON 和 JDBC；</p></li>
+<li><p>支持 HiveQL 语法以及用户自定义函数 (UDF)，允许你访问现有的 Hive 仓库；</p></li>
+<li><p>支持标准的 JDBC 和 ODBC 连接；</p></li>
+<li><p>支持优化器，列式存储和代码生成等特性，以提高查询效率。</p></li>
+</ul>
+</li>
+<li><p>Spark Streaming：Spark Streaming 主要用于快速构建可扩展，高吞吐量，高容错的流处理程序。支持从 HDFS，Flume，Kafka，Twitter 和 ZeroMQ 读取数据，并进行处理。</p>
+<p><a class="reference external" href="https://camo.githubusercontent.com/bdc8fef2e08b4b88cc32da3c22752ef2b7557c5d9df3fd20950ccf1eec5e58be/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f737061726b2d73747265616d696e672d617263682e706e67"><img alt="img" src="../_images/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f737061726b2d73747265616d696e672d617263682e706e67.png" /></a></p>
+<ul>
+<li><p>Spark Streaming 的本质是微批处理，它将数据流进行极小粒度的拆分，拆分为多个批处理，从而达到接近于流处理的效果。</p>
+<p><a class="reference external" href="https://camo.githubusercontent.com/ddff4927bfe9c2c409b0448817415b87dedc36361e37aca8fb47e79010679e24/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f737061726b2d73747265616d696e672d666c6f772e706e67"><img alt="img" src="../_images/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f737061726b2d73747265616d696e672d666c6f772e706e67.png" /></a></p>
+</li>
+</ul>
+</li>
+<li><p>MLlib： Spark 的机器学习库。其设计目标是使得机器学习变得简单且可扩展。它提供了以下工具：</p>
+<ul class="simple">
+<li><p><strong>常见的机器学习算法</strong>：如分类，回归，聚类和协同过滤；</p></li>
+<li><p><strong>特征化</strong>：特征提取，转换，降维和选择；</p></li>
+<li><p><strong>管道</strong>：用于构建，评估和调整 ML 管道的工具；</p></li>
+<li><p><strong>持久性</strong>：保存和加载算法，模型，管道数据；</p></li>
+<li><p><strong>实用工具</strong>：线性代数，统计，数据处理等。</p></li>
+</ul>
+</li>
+<li><p>GraphX 是 Spark 中用于图形计算和图形并行计算的新组件。在高层次上，GraphX 通过引入一个新的图形抽象来扩展 RDD(一种具有附加到每个顶点和边缘的属性的定向多重图形)。为了支持图计算，GraphX 提供了一组基本运算符（如： subgraph，joinVertices 和 aggregateMessages）以及优化后的 Pregel API。此外，GraphX 还包括越来越多的图形算法和构建器，以简化图形分析任务。</p></li>
+</ul>
+</div>
+<div class="section" id="spark-sql-dataframe">
+<h3>Spark SQL / DataFrame<a class="headerlink" href="#spark-sql-dataframe" title="Permalink to this headline">¶</a></h3>
+<p>The foundation of Spark is Spark Core, which provides distributed data execution on <strong>resilient distributed dataset (RDD)</strong> through multiple application programming interface (Java, Python, Scala, and R).</p>
+<center><img src="https://github.com/Jace-Yang/yelp_db_clone/raw/main/images/spark-architecture-and-ecosystem.png" width="50%"/></center>
+<p>Built upon spark core, Spark ecosystem is composed of the several modules. One of them is spark dataframe, which we will focus on its python version in this tutorial!</p>
+<ul>
+<li><p>The problems that Spark solves:</p>
+<ul>
+<li><p>Since a decade ago, databases have rapidly outgrown the capabilities of a single machine to handle the ever-increasing load with tolerable latency.</p>
+<p>When a single node’s hardware upgrade (increasing memory, storage, or hiring better CPUs) is too expensive to justify the expense, another option to meet this demand is to utilize more machines!</p>
+</li>
+<li><p>Then came Hadoop, with its HDFS + YARN + MapReduce software framework:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">HDFS(Hadoop</span> <span class="pre">Distributed</span> <span class="pre">File</span> <span class="pre">System)</span></code> is for distributedly storing data, which has become the industry standard now. <mark style="background-color:#c3dbfc;">#Still in use</mark></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">YARN(Yet</span> <span class="pre">Another</span> <span class="pre">Resource</span> <span class="pre">Negotiator)</span></code> allocates computational resources to various applications. <mark style="background-color:#c3dbfc;">#Still in use</mark></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MapReduce</span></code> is the programming model. It is designed to processes data through map function, implicitly combine and partition, and then the reduce funtion. <a class="reference external" href="https://www.talend.com/resources/what-is-mapreduce/">A good tutorial of MapReduce</a>.</p>
+<p>However, due to lack of abstraction for utilizing distributed memory, the default Hadoop MapReduce will <u>costly run lots of I/O</u> for intermediate data to a stable file system (e.g. HDFS). Furthermore, the Map + Reduce framework cannot define some complex data processing procedures, especially those involving joining. <mark style="background-color:#c3dbfc;">#Not used ver often</mark></p>
+</li>
+</ul>
+</li>
+<li><p>Then Spark came out, replacing the MapReduce module of Hadoop infrastructure to make it fast! Besides Scala, it also supports Java, python and R, which is important given the typical skillset of today’s data engineer. But Spark Core also lacks API for some data transformation processes like built-in aggregation functions.</p></li>
+</ul>
+</li>
+<li><p>How does Spark DataFrame solve the problems:</p>
+<ul class="simple">
+<li><p><strong>Spark’s in-memory:</strong> Unlike Hadoop MapReduce, Spark stores intermediate results in memory, which highly save cost of I/O to disk and make calculations fast.</p></li>
+<li><p><strong>Built upon Spark RDD:</strong> Spark RDD is the data structure in Spark Core, which allows developers implicitly store imtermediate data set in the memory, and perform much more flexible MapReduce like data operations.</p></li>
+<li><p><strong>Spark DataFrame</strong>: Built upon Spark Core, Spark dataframe another powerful data abstraction in Spark. It implements the <code class="docutils literal notranslate"><span class="pre">table</span></code> in the relational database schema, making spark code easier to write when developers are dealing with structureal or semi-structural datasets.</p></li>
+</ul>
+</li>
+<li><p>What are the alternatives, and what are the pros and cons of Spark DataFrame compared with alternatives?  (what makes it unique?)</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p></p></th>
+<th class="text-align:left head"><p>Spark DataFrame</p></th>
+<th class="text-align:left head"><p>Alternatives</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p><strong>Pros</strong></p></td>
+<td class="text-align:left"><p><strong>Compatibility with the Hadoop framework:</strong>, it can run in Hadoop Yarn, Apache Mesos, Kubernetes, clusters, and it can connect to a number of databases such as HBase, HDFS, Hive, and Cassandra.</p></td>
+<td class="text-align:left"><p>PostgreSQL, DucksDB, ···</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p></p></td>
+<td class="text-align:left"><p><strong>Unify:</strong> Prior to the advent of Spark, multiple Big Data tools had to be deployed in an organization to perform multiple Big Data analytics tasks, such as Hadoop for offline analytics, MapReduce for querying data, Hive for querying data, Storm for streaming data processing, and Mahout for machine learning. This complicates the development of large data systems and leads to complex system operations and maintenance. <br> Spark instead unify the data format between many system, serving as the “One Stack to Rule Them All.”, as AMPLab said.</p></td>
+<td class="text-align:left"><p>Use Hadoop + other tools</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p></p></td>
+<td class="text-align:left"><p><strong>Fast:</strong> Spark runs 100x faster than Hadoop MapReduce for in-memory based operations, and roughly 10x faster in Hard-disk based operations.</p></td>
+<td class="text-align:left"><p>Hadoop MapReduce</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p></p></td>
+<td class="text-align:left"><p><strong>Easier to scale:</strong> Although SQL is expressive and convenient to program, it is harder than Spark to scale up when the data size goes up to TB and even PB per day.</p></td>
+<td class="text-align:left"><p>SQL</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p></p></td>
+<td class="text-align:left"><p><strong>Easier to write:</strong> dealing with large-scale structured data or semi-structured data, which is very common, spark dataframe provides more built-in functions to process data.</p></td>
+<td class="text-align:left"><p>Spark RDD</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><strong>Cons</strong></p></td>
+<td class="text-align:left"><p>In the context of large-scale dataset, spark definitely beats pandas/dplyr(one of R’s dataframe modules) that can only run in single machine with limited memory. But for small data, spark will encounter lots of waste in computational resource in, e.g, reading/storing small random data. Also, now we have communication cost among machines and launching time! And the lazy commit feature of Spark can make you confused at the first time (will show you in the tutorial!)</p></td>
+<td class="text-align:left"><p>Pandas/dplyr···</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p></p></td>
+<td class="text-align:left"><p>By default, Hadoop data is not encrypted so there is a risk of data leakage if data is transmitted over Internet between nodes</p></td>
+<td class="text-align:left"><p>Single machine</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+<div class="section" id="sparkhadoop">
+<h3>Spark和Hadoop的差异<a class="headerlink" href="#sparkhadoop" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p></p></th>
+<th class="text-align:center head"><p>Hadoop</p></th>
+<th class="text-align:center head"><p>Spark</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>类型</p></td>
+<td class="text-align:center"><p>基础平台, 包含计算, 存储, 调度</p></td>
+<td class="text-align:center"><p>分布式计算工具</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>场景</p></td>
+<td class="text-align:center"><p>大规模数据集上的批处理</p></td>
+<td class="text-align:center"><p>迭代计算, 交互式计算, 流计算</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>价格</p></td>
+<td class="text-align:center"><p>对机器要求低, 便宜</p></td>
+<td class="text-align:center"><p>对内存有要求, 相对较贵</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>编程范式</p></td>
+<td class="text-align:center"><p>MapReduce, API 较为底层, 算法 适应性差</p></td>
+<td class="text-align:center"><p>RDD组成DAG有向无环图, API较为 顶层, 方便使用</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>数据存储结</p></td>
+<td class="text-align:center"><p>MapReduce中间计算结果存在 构</p></td>
+<td class="text-align:center"><p>RDD中间运算结果存在内存中, 延 HDFS磁盘上, 延迟大</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>运行方式</p></td>
+<td class="text-align:center"><p>Task以进程方式维护, 任务启动慢</p></td>
+<td class="text-align:center"><p>Task以线程方式维护, 任务启动快</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="hive">
+<h2>Hive<a class="headerlink" href="#hive" title="Permalink to this headline">¶</a></h2>
+<p>Hive 是一个构建于 Hadoop之上的数据仓库工具，它可以将结构化的数据文件映射成表，并提供类 SQL 查询功能，用于查询的 SQL 语句会被转化为 MapReduce 作业，然后提交到 Hadoop 上运行。</p>
+<ul class="simple">
+<li><p>支持大规模数据存储、分析，具有良好的可扩展性。</p></li>
+<li><p>某种程度上可以看作是用户编程接口，本身不存储和处理数据：Hive 定义了简单的类似 SQL 的查询语言——HiveQL，用户可以通过编写的 HiveQL 语句运行 MapReduce 任务，可以很容易把原来构建在关系数据库上的数据仓库应用程序移植到 Hadoop 平台上。</p></li>
+<li><p>注意区别分布式计算框架 MapReduce、Storm、Spark，不同的引擎在SQL翻译的逻辑和底层的程序是不一样的</p>
+<ul>
+<li><p>MR 引擎会把 SQL 翻译成 MR</p></li>
+<li><p>Spark 引擎会把 SQL 翻译成 RDD 程序</p></li>
+<li><p>Tez 引擎可以理解为在 MR 的基础上做了 DAG 方向的基于内存的 shuffle优化</p></li>
+<li><p>HQL就是用sql语法来写的mr程序</p></li>
+</ul>
+</li>
+<li><p>Hive依赖分布式文件系统 HDFS 存储数据，依赖分布式并行计算模型 MapReduce 处理数据（底层计算的引擎默认是 MapReduce，可以将引擎更换为 Spark/Tez）。</p></li>
+</ul>
+<p>**特点：**Hive 是通过构建元数据，<strong>映射 HDFS 文件构建成表</strong>，本质还是 HDFS实现的离线大数据仓库。</p>
+<ul class="simple">
+<li><p><strong>Hive 并不是一个关系数据库</strong> <strong>不能和数据库一样进行实时的CURD操作</strong></p></li>
+<li><p>Hive 中没有定义专门的数据格式，由用户指定，需要指定三个属性：列分隔符、行分隔符 、读取文件数据的方法（Hive 中默认有三个文件格式 TextFile，SequenceFile 以及 RCFile）。</p></li>
+<li><p>Hive 在查询数据的时候，由于没有索引，需要扫描整个表，因此延迟较高；另外一个导致 Hive 执行延迟高的因素是 MapReduce 框架，由于 MapReduce 本身具有较高的延迟，因此在利用 MapReduce 执行 Hive 查询时，也会有较高的延迟（相对的，数据库如 MySQL 的执行延迟较低，当然，这个低是有条件的，即数据规模较小，当数据规模大到超过数据库的处理能力的时候，Hive 的并行计算显然能体现出优势）。</p></li>
+</ul>
+<p><strong>形式：</strong></p>
+<ul class="simple">
+<li><p>db：在 hdfs 中表现为 ${hive.metastore.warehouse.dir} 目录下一个文件夹</p></li>
+<li><p>table：在 hdfs 中表现为所属 db 目录下一个文件夹</p></li>
+<li><p>external table：与 table 类似，不过其数据存放位置可以在任意指定路径</p></li>
+<li><p>partition：在 hdfs 中表现为 table 目录下的子目录</p></li>
+<li><p>bucket：在 hdfs 中表现为同一个表目录下根据 hash 散列之后的多个文件</p></li>
+</ul>
+<p><strong>和HDFS的联系</strong>：</p>
+<ul class="simple">
+<li><p>**Hive 不存储数据：**Hive 需要分析计算的数据，以及计算结果后的数据实际存储在分布式系统上，如 HDFS 上</p></li>
+<li><p>**Hive 某种程度来说也不进行数据计算：**Hive只是个解释器，只是将用户需要对数据处理的逻辑，通过 SQL 编程提交后解释成 MapReduce 程序，然后将这个 MR 程序提交给 Yarn 进行调度执行，所以实际进行分布式运算的是 MapReduce 程序</p></li>
+</ul>
+<p><strong>架构：</strong></p>
+<p><img alt="img" src="../_images/68747470733a2f2f67697465652e636f6d2f68656962616979696e672f426967446174612d4e6f7465732f7261772f6d61737465722f70696374757265732f68697665e4bd93e7b3bbe69eb6e69e842e706e67.png" /></p>
+<ul class="simple">
+<li><p>两种操作方式：</p>
+<ul>
+<li><p><strong>command-line shell</strong>：通过 hive 命令行的的方式来操作数据；</p></li>
+<li><p><strong>thrift／jdbc</strong>：通过 thrift 协议按照标准的 JDBC 的方式操作数据</p></li>
+</ul>
+</li>
+<li><p>Metastore</p>
+<ul>
+<li><p>在 Hive 中，表名、表结构、字段名、字段类型、表的分隔符等统一被称为<strong>元数据</strong>。所有的元数据默认存储在 Hive 内置的 derby 数据库中，但由于 derby 只能有一个实例，也就是说<strong>不能有多个命令行客户端同时访问</strong>，所以在实际生产环境中，通常使用 MySQL 代替 derby。</p></li>
+<li><p>Hive 进行的是<strong>统一的元数据管理</strong>，就是说你在 Hive 上创建了一张表，然后<em>在 presto／impala／sparksql 中都是可以直接使用的</em>，它们会从 Metastore 中获取统一的元数据信息，同样的你在 presto／impala／sparksql 中创建一张表，在 Hive 中也可以直接使用。</p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="hiveql">
+<h3><strong>HiveQL执行流程：</strong><a class="headerlink" href="#hiveql" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>美团技术团队的文章：<a class="reference external" href="https://tech.meituan.com/2014/02/12/hive-sql-to-mapreduce.html">Hive SQL 的编译过程</a></p>
+</div></blockquote>
+<ol class="simple">
+<li><p>语法解析：Antlr 定义 SQL 的语法规则，完成 SQL 词法，语法解析，将 SQL 转化为抽象 语法树 AST Tree；</p></li>
+<li><p>语义解析：遍历 AST Tree，抽象出查询的基本组成单元 QueryBlock；</p></li>
+<li><p>生成逻辑执行计划：遍历 QueryBlock，翻译为执行操作树 OperatorTree；</p></li>
+<li><p>优化逻辑执行计划：逻辑层优化器进行 OperatorTree 变换，合并不必要的 ReduceSinkOperator，减少 shuffle 数据量；</p></li>
+<li><p>生成物理执行计划：遍历 OperatorTree，翻译为 MapReduce 任务；</p></li>
+<li><p>优化物理执行计划：物理层优化器进行 MapReduce 任务的变换，生成最终的执行计划。</p></li>
+</ol>
+</div>
+<div class="section" id="id8">
+<h3>存储形式：<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>Hive 会在 HDFS 为每个数据库上创建一个目录，数据库中的表是该目录的子目录，表中的数据会以文件的形式存储在对应的表目录下。Hive 支持以下几种文件存储格式：</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>格式</p></th>
+<th class="head"><p>说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>TextFile</strong></p></td>
+<td><p>存储为纯文本文件。 这是 Hive 默认的文件存储格式。这种存储方式数据不做压缩，磁盘开销大，数据解析开销大。</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>SequenceFile</strong></p></td>
+<td><p>SequenceFile 是 Hadoop API 提供的一种二进制文件，它将数据以&lt;key,value&gt;的形式序列化到文件中。这种二进制文件内部使用 Hadoop 的标准的 Writable 接口实现序列化和反序列化。它与 Hadoop API 中的 MapFile 是互相兼容的。Hive 中的 SequenceFile 继承自 Hadoop API 的 SequenceFile，不过它的 key 为空，使用 value 存放实际的值，这样是为了避免 MR 在运行 map 阶段进行额外的排序操作。</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>RCFile</strong></p></td>
+<td><p>RCFile 文件格式是 FaceBook 开源的一种 Hive 的文件存储格式，首先将表分为几个行组，对每个行组内的数据按列存储，每一列的数据都是分开存储。</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>ORC Files</strong></p></td>
+<td><p>ORC 是在一定程度上扩展了 RCFile，是对 RCFile 的优化。</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Avro Files</strong></p></td>
+<td><p>Avro 是一个数据序列化系统，设计用于支持大批量数据交换的应用。它的主要特点有：支持二进制序列化方式，可以便捷，快速地处理大量数据；动态语言友好，Avro 提供的机制使动态语言可以方便地处理 Avro 数据。</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Parquet</strong></p></td>
+<td><p>Parquet 是基于 Dremel 的数据模型和算法实现的，面向分析型业务的列式存储格式。它通过按列进行高效压缩和特殊的编码技术，从而在降低存储空间的同时提高了 IO 效率。</p></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div><p>以上压缩格式中 ORC 和 Parquet 的综合性能突出，使用较为广泛，推荐使用这两种格式。</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>参考资料<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://w4121.github.io/">Columbia｜4121 Computing Systems for Data Science</a></p></li>
+<li><p><a class="reference external" href="https://github.com/heibaiying/BigData-Notes">GitHub｜heibaiying｜BigData Notes</a>：非常好的资料！还有Flink、Storm等没有整理进去</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./DE"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="SQL.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">SQL</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Data_cleaning/README.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">数据清洗与处理</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jace Yang<br/>
+    
+        &copy; Copyright 2021.<br/>
+      <div class="extra_footer">
+        Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+      </div>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

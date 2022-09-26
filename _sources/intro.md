@@ -1,7 +1,7 @@
-# Jace六边形DA笔记库
+# 全栈DS/DA养成手册
 
-
-哈喽，欢迎来到我的笔记库！我是一名哥大DS的学生，现在在努力成为一只物理魔法双修的全栈DA！
+## 简介
+哈喽，欢迎来到我的笔记库！我是一名哥大DS的学生Jace，现在在努力成为一只物理魔法双修的全栈DS/DA！
 
 <center><img src="https://cdn.mathpix.com/snip/images/xNWgOsmBVBmEF-_XOMDOj9YBO4QD4uqSFGyLYWJnsow.original.fullsize.png" width="40%"/></center>
 
@@ -20,6 +20,8 @@
 
 
 希望这份笔记可以和自己一起成长，并对你也有帮助！一起加油💪💪
+
+## 职业规划思考
 
 ---
 

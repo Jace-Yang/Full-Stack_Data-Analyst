@@ -4,6 +4,23 @@
 
 
 
+# Lecture 1 - 基础
+
+
+
+
+
+<img src="../../images/image-20220919151957876.png" alt="image-20220919151957876" style="width:50%;" />
+
+
+
+- LR无法提取features，尤其是pixels类的，所以需要DL进行representation layers来做特征提取
+- 与其用手动的特征 找猫的眼睛 e.g，可以让Neural Network automatically learn useful representation of data
+
+
+
+
+
 ### Early Stopping
 
 ### Dropout
@@ -28,3 +45,11 @@
   - 为什么要input小：you do not want to use a high value of report for the input 因为 most the input features will be gone right in the training而我们希望保留！但也可以允许一定的dropout
 
 - Test的时候怎么处理dropout：apply dropout probability！这样test的时候其实layer都在
+
+
+
+
+
+# References
+
+- Columbia Applied Deep Learning 2022 Fall

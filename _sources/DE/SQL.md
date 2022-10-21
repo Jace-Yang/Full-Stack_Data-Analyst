@@ -11,6 +11,28 @@ NULL
 - NULL=NULL 的返回结果是 NULL， 而不是 true。
 - NULL<>1 的返回结果是 NULL，而不是 true。
 
+## 语法
+
+
+
+SQL中的**drop、delete、truncate**都表示删除，但是三者有一些差别
+
+- **相同点：**drop、delete、truncate 都是删除表的内容。
+
+- **不同点：**
+
+  - **delete**是dml：删除表的内容，表的结构还存在，不释放空间，可以回滚恢复；
+    - 这个操作会放到**rollback segement**中，事务提交之后才生效，如果有相应的**trigger**,执行的时候将被触发，在之后需要时可以回滚数据
+    - 还可以加一些其它的where条件，比如删除确定的记录
+
+  - **drop**是ddl：删除表内容和结构，释放空间，没有备份表之前要慎用；
+
+  - **truncate**是ddl：删除表的内容，表的结构存在，可以释放空间,没有备份表之前要慎用；
+
+- **速度**：一般来说drop> truncate > delete
+
+
+
 ## 函数
 
 ### 聚合函数

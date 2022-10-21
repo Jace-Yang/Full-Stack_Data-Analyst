@@ -808,6 +808,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="single-node-multi-gpu-training">
 <h3>Single Node, Multi-GPU Training<a class="headerlink" href="#single-node-multi-gpu-training" title="Permalink to this headline">¶</a></h3>
+<p>原理：比如之前1个GPU的batch size是64，现在每个iteration可以get两个batch然后同时给两个GPU，然后average the gradients。这样就实现了doubling the batch size⇒data parallelism</p>
 <p>最重要的是communicate的cost！让Scaling not linear的各种影响因素——Synchronization</p>
 <ul class="simple">
 <li><p>Communication libraries (e.g., NCCL) and supported communication algorithms/collectives (broadcast, all-reduce, gather)</p>

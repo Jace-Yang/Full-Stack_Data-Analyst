@@ -392,8 +392,8 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#lecture-1">
-   Lecture 1 - 基础
+  <a class="reference internal nav-link" href="#id2">
+   基本概念
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
@@ -404,6 +404,18 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#dropout">
      Dropout
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   基本模型
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dense">
+     Dense
     </a>
    </li>
   </ul>
@@ -439,8 +451,8 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#lecture-1">
-   Lecture 1 - 基础
+  <a class="reference internal nav-link" href="#id2">
+   基本概念
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
@@ -451,6 +463,18 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#dropout">
      Dropout
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   基本模型
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dense">
+     Dense
     </a>
    </li>
   </ul>
@@ -473,12 +497,42 @@ const thebe_selector_output = ".output, .cell_output"
 <h1>基础<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>这一部分cover一些深度学习的基础概念！</p>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="lecture-1">
-<h1>Lecture 1 - 基础<a class="headerlink" href="#lecture-1" title="Permalink to this headline">¶</a></h1>
+<div class="tex2jax_ignore mathjax_ignore section" id="id2">
+<h1>基本概念<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<p>深度学习所处领域</p>
 <img src="../../images/image-20220919151957876.png" alt="image-20220919151957876" style="width:50%;" />
 <ul class="simple">
 <li><p>LR无法提取features，尤其是pixels类的，所以需要DL进行representation layers来做特征提取</p></li>
 <li><p>与其用手动的特征 找猫的眼睛 e.g，可以让Neural Network automatically learn useful representation of data</p></li>
+</ul>
+<p>模型训练</p>
+<p><img alt="image-20221019152557224" src="../../_images/image-20221019152557224.png" /></p>
+<ul>
+<li><p>Epochs：一个epoch指的是用了trainset的所有数据进行了一轮训练</p>
+<ul class="simple">
+<li><p>The longer you train your model, the more tightly it will fit the training data (but may also overfit the test data).</p></li>
+<li><p>To find the right number of epochs, monitor the loss on the validation data when training. Stop training when <strong>the validation loss begins increasing</strong> (rule of thumb).</p></li>
+</ul>
+</li>
+<li><p>Batches：一次训练的时候只会用一个batch，# of batches越多越准确但更慢，有个speed-accuracy的</p>
+<ul class="simple">
+<li><p>Batch Gradient Descent (Full data)：只有一个batch（batch size就是length）</p></li>
+<li><p><strong>Mini batch Gradient Descent</strong>：现在经常被误称为Batch Gradient Descent</p>
+<ul>
+<li><p>最后的example可以丢掉也可以as a smaller batch at the end，在上面的例子里**<u><em>一个epoch有四个updates</em></u>**</p></li>
+</ul>
+</li>
+<li><p>Stochastic: batch size = 1</p></li>
+</ul>
+</li>
+<li><p><strong>Batch size</strong>：The number of examples used per gradient update.</p>
+<ul class="simple">
+<li><p>A batch size of 1 is stochastic gradient descent. Many updates per epoch, but each is inaccurate.</p></li>
+<li><p>A batch size of len(training_set) is batch gradient descent. One accurate update per epoch, but slow to compute.</p></li>
+<li><p>Intermediate sizes (the default in Keras is 32) are called mini-batch gradient descent.</p></li>
+</ul>
+<p>In general, you will not need to change this parameter unless your examples are very small (structured data, in which case you can use a larger batch size).</p>
+</li>
 </ul>
 <div class="section" id="early-stopping">
 <h2>Early Stopping<a class="headerlink" href="#early-stopping" title="Permalink to this headline">¶</a></h2>
@@ -508,6 +562,12 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li><p>Test的时候怎么处理dropout：apply dropout probability！这样test的时候其实layer都在</p></li>
 </ul>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id3">
+<h1>基本模型<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="dense">
+<h2>Dense<a class="headerlink" href="#dense" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 <div class="tex2jax_ignore mathjax_ignore section" id="references">

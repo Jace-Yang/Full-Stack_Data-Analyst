@@ -11,6 +11,7 @@ Training throughput depends on:
 - Floating point precision (FP32 vs FP16)
     - 换了FP16之后相当于working with reduced precision arithmetic｜Using FP16 can reduce training times and enable larger batch sizes/models without significantly impacting the accuracy of the trained model
     
+
 训练时间：Training time with single GPU very large: 6 days with Places dataset (2.5M images) using Alexnet on a single K40.
 
 提高performance的办法一般是Increasing batch size increases throughput
@@ -39,7 +40,10 @@ Training throughput depends on:
 
 ### Single Node, Multi-GPU Training
 
+原理：比如之前1个GPU的batch size是64，现在每个iteration可以get两个batch然后同时给两个GPU，然后average the gradients。这样就实现了doubling the batch size⇒data parallelism
+
 最重要的是communicate的cost！让Scaling not linear的各种影响因素——Synchronization
+
 - Communication libraries (e.g., NCCL) and supported communication algorithms/collectives (broadcast, all-reduce, gather)
     - NCCL ("Nickel") is library of accelerated collectives that is easily integrated and topology-aware so as to improve the scalability of multi-GPU applications
 - Communication link bandwidth: PCle/QPI or NVlink
@@ -168,7 +172,7 @@ Heavy compute and local connectivity -benefit most
 
 
 - 解决方案1——Synchronous SGD Variants
- 
+
     <center><img src="../../images/DL_GPU_6.png" width="100%"/></center>
     
     > P: total number of learners<br>
@@ -380,7 +384,7 @@ $$
 - 现在用新的——logical ring
     - Each node has a left neighbor and a right neighbor
     - Node only sends data to its right neighbor, and only receives data from its left neighbor
-        
+    
 - Both PS and Ring all-reduce involve synchronous parameter updates
 
 `Ring All-Reduce`的Two Step algorithm
@@ -401,7 +405,7 @@ Parameter Server和Ring All-Reduce的communication cost比较
 > P: number of processes  N: total number of model parameters
 - PS (centralized reduce)需要 $2 N(P-1)$
     - Amount of data sent to PS by (P-1) learner processes: N(P-1)
-        
+      
         After reduce, PS sends back updated parameters to each learner
 
     - Amount of data sent by PS to learners: N(P-1)
@@ -499,9 +503,9 @@ Runtime scaling的情况：
     - throughput：how many images propcessed in 1 sec
         - 比如n machine，batchsize/machine=B，那就是$\frac{n \times B}{\text{one iteration across n machine }T(n)}$
         - n machine，batchsize=B，那就是 $\frac{1 \times B}{\text{one iteration across 1 machine }T(1)}$
-
+    
     - Scaling efficiency：$\frac{\text{n machine的 throughput}}{\text{1 machine的throughput}}$ = $\frac{\frac{n \times B}{T(n)}}{\frac{1 \times B}{T(1)}}$=$\frac{n \times T(1)}{T(n)}=n\times$ speedup
-
+    
     - Speedup =  $\frac{m \times \text{time for iteration of 1 machine}}{\text{time for iteration of m machine}}$
 
 - Accuracy and end-to-end training time

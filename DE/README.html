@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>基础概念 &#8212; 全栈DS/DA养成手册</title>
+    <title>基础 &#8212; 全栈DS/DA养成手册</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,6 +53,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="SQL" href="SQL.html" />
@@ -252,7 +254,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   基础概念
+   基础
   </a>
  </li>
  <li class="toctree-l1">
@@ -388,22 +390,114 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
+   数据处理
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   数据库
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   数据集市
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
    数据仓库
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     数据仓库建模方法
+    <a class="reference internal nav-link" href="#id6">
+     数据仓库分层
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       四层分层
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id8">
+       三层分层
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       五层分层
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dim">
+       五层分层+DIM分层
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id10">
+       例子
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     数据仓库建模
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#er">
        ER模型
       </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id12">
+         设计范式
+        </a>
+       </li>
+      </ul>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id4">
+      <a class="reference internal nav-link" href="#id13">
        维度建模
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id14">
+         星形模型
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id15">
+         雪花模型
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id16">
+         <strong>
+          星座模型
+         </strong>
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id17">
+         事实表设计原则
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#data-vault">
+       <strong>
+        Data Vault模型
+       </strong>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#anchor">
+       <strong>
+        Anchor模型
+       </strong>
       </a>
      </li>
     </ul>
@@ -411,61 +505,39 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
-   数据集市
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
+  <a class="reference internal nav-link" href="#id18">
    数据湖
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
-   数据分层
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id8">
-   关系型数据库
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     设计三范式
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id10">
+  <a class="reference internal nav-link" href="#id19">
    底层数据库
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id11">
+    <a class="reference internal nav-link" href="#id20">
      索引
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
+    <a class="reference internal nav-link" href="#id21">
      事务
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
+    <a class="reference internal nav-link" href="#id22">
      三段锁协议
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
+    <a class="reference internal nav-link" href="#id23">
      数据倾斜
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id15">
+  <a class="reference internal nav-link" href="#id24">
    参考资料
   </a>
  </li>
@@ -479,7 +551,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>基础概念</h1>
+                <h1>基础</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -491,22 +563,114 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
+   数据处理
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   数据库
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   数据集市
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
    数据仓库
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     数据仓库建模方法
+    <a class="reference internal nav-link" href="#id6">
+     数据仓库分层
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       四层分层
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id8">
+       三层分层
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       五层分层
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dim">
+       五层分层+DIM分层
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id10">
+       例子
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     数据仓库建模
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#er">
        ER模型
       </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id12">
+         设计范式
+        </a>
+       </li>
+      </ul>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id4">
+      <a class="reference internal nav-link" href="#id13">
        维度建模
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id14">
+         星形模型
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id15">
+         雪花模型
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id16">
+         <strong>
+          星座模型
+         </strong>
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id17">
+         事实表设计原则
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#data-vault">
+       <strong>
+        Data Vault模型
+       </strong>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#anchor">
+       <strong>
+        Anchor模型
+       </strong>
       </a>
      </li>
     </ul>
@@ -514,61 +678,39 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
-   数据集市
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
+  <a class="reference internal nav-link" href="#id18">
    数据湖
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
-   数据分层
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id8">
-   关系型数据库
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     设计三范式
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id10">
+  <a class="reference internal nav-link" href="#id19">
    底层数据库
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id11">
+    <a class="reference internal nav-link" href="#id20">
      索引
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
+    <a class="reference internal nav-link" href="#id21">
      事务
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
+    <a class="reference internal nav-link" href="#id22">
      三段锁协议
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
+    <a class="reference internal nav-link" href="#id23">
      数据倾斜
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id15">
+  <a class="reference internal nav-link" href="#id24">
    参考资料
   </a>
  </li>
@@ -582,91 +724,211 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
-<h1>基础概念<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>基础<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
-<h2>数据仓库<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
-<h3>数据仓库建模方法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>数据模型是抽象描述现实世界的一种工具和方法，是通过抽象的实体及实体之间联系的形式，来表示现实世界中事务的相互关系的一种映射。</p>
-<p>有四种模型：ER模型、维度模型、Data Vault模型、Anchor模型。用的较多的是维度模型和ER模型。</p>
-<div class="section" id="er">
-<h4>ER模型<a class="headerlink" href="#er" title="Permalink to this headline">¶</a></h4>
+<h2>数据处理<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>数据处理大致可以分为两大类：</p>
 <ul class="simple">
-<li><p>ER模型用实体关系模型描述企业业务，在范式理论上满足3NF。数仓中的3NF是站在企业角度面向主题的抽象，而不是针对某个具体业务流程的实体对象关系的抽象。</p></li>
-<li><p>采用ER模型建设数据仓库模型的出发点是整合数据，将各个系统中的数据按照主题进行相似性整合，并进行一致性处理。</p></li>
-<li><p>ER模型特点：</p>
-<ul>
-<li><p>需要全方位了解企业业务数据</p></li>
-<li><p>实施周期较长</p></li>
-<li><p>对建模人员要求教高</p></li>
+<li><p><strong>操作型处理</strong>，叫<strong>联机事务处理 OLTP（On-Line Transaction Processing）</strong>，也可以称面向交易的处理系统，它是针对具体业务在数据库联机的日常操作，通常对少数记录进行查询、修改。用户较为关心操作的响应时间、数据的安全性、完整性和并发支持的用户数等问题。传统的数据库系统作为数据管理的主要手段，主要用于操作型处理。</p></li>
+<li><p><strong>分析型处理</strong>，叫**联机分析处理 OLAP（On-Line Analytical Processing）**一般针对某些主题的历史数据进行分析，支持管理决策。</p></li>
 </ul>
-</li>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>操作型处理</p></th>
+<th class="text-align:center head"><p>分析型处理</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>细节的</p></td>
+<td class="text-align:center"><p>综合的或提炼的</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>实体-关系 (ER) 模型</p></td>
+<td class="text-align:center"><p>星型或雪花模型</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>存取瞬间数据</p></td>
+<td class="text-align:center"><p>存储历史数据，不包含最近的数据</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>可更新的</p></td>
+<td class="text-align:center"><p>只读，只追加</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>一次操作一个单元</p></td>
+<td class="text-align:center"><p>一次操作一个集合</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>性能要求高，响应时间短</p></td>
+<td class="text-align:center"><p>性能要求宽松</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>面向事务</p></td>
+<td class="text-align:center"><p>面向分析</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>一次操作数据量小</p></td>
+<td class="text-align:center"><p>一次操作数据量大</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>支持日常操作</p></td>
+<td class="text-align:center"><p>支持决策需求</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>数据量小</p></td>
+<td class="text-align:center"><p>数据量大</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>客户订单、库存水平和银行账户等</p></td>
+<td class="text-align:center"><p>客户收益分析、市场细分等</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h2>数据库<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>数据库（Database）是按照一定格式和数据结构在计算机保存数据的软件，属于物理层。</p>
+<p>最早期是广义上的数据库，这个阶段的数据库结构主要以<strong>层次或网状的为主</strong>，这是数据库的数据和程序间具备非常强的依赖性，应用有一定局限性。</p>
+<p>我们现在所说的数据库一般指的是<strong>关系型数据库</strong>。关系数据库是指采用了关系模型来组织数据的数据库，其以行和列的形式存储数据，具有结构化程度高，独立性强，冗余度低等优点。</p>
+<ul class="simple">
+<li><p>关系型数据库主要用于联机事务处理OLTP（On-Line Transaction Processing），主要用于进行基本的、日常的事务处理，例如银行交易等场景。</p></li>
 </ul>
 </div>
 <div class="section" id="id4">
-<h4>维度建模<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
-<p>维度建模按照事实表和维度表来构建数仓。</p>
+<h2>数据集市<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>数据集市是一种微型的数据仓库，它通常是有更少的数据，更少的主题区域，以及更少的历史数据，如果数据仓库是企业级的，那数据集市就是部门级的，一般数据集市只能为某个局部范围内的管理人员服务。</p>
+<p>**跟数据仓库的区别：**数据集市是为了特定的应用目的或应用范围，而从数据仓库中独立出来的一部分数据，也可称为部门数据或主题数据（subjectarea）。</p>
 <ul class="simple">
-<li><p>维度建模从分析决策的需求出发构建模型，为分析需求服务。重点关注用户如何快速的完成数据分析，可以直观的反应业务模型中的业务问题，需要大量的数据预处理、数据冗余，有较好的大规模复杂查询的响应性能。</p></li>
+<li><p>在数据仓库的实施过程中往往可以从一个部门的数据集市着手，以后再用几个数据集市组成一个完整的数据仓库。</p></li>
+<li><p>需要注意的就是在实施不同的数据集市时，同一含义的字段<strong>定义一定要相容</strong>，这样在以后实施数据仓库时才不会造成大麻烦。</p></li>
 </ul>
-<p>基本概念</p>
-<ul>
-<li><p><strong>事实表</strong>：在ER模型中抽象出了实体、关系、属性三种类型，每个操作型事件都会产生一个事实表，其中涉及到多个实体，比如：购物下单事件中涉及的主体包括客户、商品、商家，产生可度量值包括商品数量、金额、件数等。发生在现实世界中的操作性事件，其产生的可度量数值，存储在事实表中。从最细粒度级别来看，事实表的一行对应一个度量事件。事实表表示对分析主题的度量。’</p>
-<ul class="simple">
-<li><p>事实表中包含了与各个维度表相关联的外键，可与维度表关联。事实表的度量通常是数值类型，且记录数不断增加，表数据量迅速增长。</p></li>
-<li><p>事实表的设计是以能够正确记录历史信息为准则</p></li>
-</ul>
-</li>
-<li><p><strong>维度表</strong>：维度就是看待事物的角度，维表一般为单一主键，在ER模型中，实体会带有自己描述性的属性，这些属性就称为维度。比如：商品的产生、颜色、单价等。</p>
-<ul class="simple">
-<li><p>每个维度表都包含单独的主键列。维度表行的<strong>描述环境应该与事实表行完全对应</strong>。维度表通常比较宽，是扁平型的非规范表，包含大量的低粒度的文本属性。</p></li>
-<li><p>维度表的设计是以能够以合适的角度来聚合主题内容为准则</p></li>
-</ul>
-</li>
-<li><p><strong>模型</strong></p>
-<ul>
-<li><p>星形模型：以事实表为中心，所有的维度直接连接在事实表上。由一个事实表和一组维度表组成。也是星型模型的扩展。区别是星座模型中存在多张事实表，不同事实表之间共享维表信息，常用于数据关系更复杂的场景。</p>
-<p><img alt="img" src="../_images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dpbnRlclBhc3Npbmc=,size_16,color_FFFFFF,t_70.png" /></p>
-<ul class="simple">
-<li><p>由一个事实表和一组维表组成，且所有维表直接与事实表相连。其特点是不存在渐变维度，有一定数据冗余，效率相对较高。在维表设计方面通常采用降维的方式，通过数据冗余来简化模型，以提高模型易用性和分析效率，标准的星型模型只有一层维度</p></li>
-</ul>
-</li>
-<li><p>雪花模型：是对星形模型的扩展。雪花模型的维度表可以拥有更细的维度，比星形更规范一点。维护成本较高，且查询是要关联多层维表，性能较低</p>
-<p><img alt="img" src="../_images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dpbnRlclBhc3Npbmc=,size_16,color_FFFFFF,t_70-20221020181540311.png" /></p>
-<ul class="simple">
-<li><p>由一个事实表和多个维表组成，且有一个或多个维表通过其他维表与事实表相连。其特点是数据冗余较少，但由于表连接的增加，导致效率相对较低。其设计通常遵循3NF关系模式，但是往往无法严格遵守，因为需付出的性能成本较高</p></li>
-<li><p>雪花模型的设计方式是比较符合数据库范式的理念，设计方式比较正规，数据冗余少，但在查询的时候可能需要join多张表从而导致查询效率下降，此外规范化操作在后期维护比较复杂。</p></li>
-</ul>
-</li>
-<li><p>星座模型：基于多张事实表，多张事实表共享维度信息</p>
-<p><img alt="在这里插入图片描述" src="../_images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01lZ3VzdGFzX0pKQw==,size_16,color_FFFFFF,t_70.jpeg" /></p>
-<ul class="simple">
-<li><p>通常基于多个事实表，且多个事实表之间共享一些维度表，往往应用于数据关系比星型模型和雪花模型更复杂的场合</p></li>
-<li><p>数据仓库大多数时候是比较适合使用星型模型构建底层数据Hive表，通过大量的冗余来提升查询效率</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>ER和维度模型的对比</p>
-<ul class="simple">
-<li><p>维度建模相对能快速上手，快速交付，运营人员只需要根据我们的数据字典，查询自己所属的业务模块对应的业务过程，一个简单的select语句就可以搞定所有事情，但缺点是冗余会较多，不过在当今时代，存储存储可以忽略不计。维度模型是面向业务过程，由于所有主题数据和业务过程数据都已经提前处理好了，在进行查询数据的时候，相对ER模型来讲，就不需要那么多的关联查询，大大提高了执行效率和减低算力、人力成本，但是数据冗余可能会较多，但是将多个源的数据以文本的形式存储在分布式系统中，存储成本（列式存储）并不需要那么多成本。但是从存储、计算、成本、交付、易用性等多方面考虑取平衡值，还是维度模型更实用。</p></li>
-<li><p>ER模型是完全遵守3NF，当查询数据时，需要进行多表关联查询，这时候随着数据量几百亿几千亿的情况下，会大大的降低执行效率并且算力越来越多，最终导致计算成本都要不断的累加，在存储方法由于规范性好，数据冗余比较小。</p></li>
-</ul>
-</div>
-</div>
 </div>
 <div class="section" id="id5">
-<h2>数据集市<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p>为了特定的应用目的或应用范围，而从数据仓库中独立出来的一部分数据，也可称为部门数据或主题数据（subjectarea）。在数据仓库的实施过程中往往可以从一个部门的数据集市着手，以后再用几个数据集市组成一个完整的数据仓库。需要注意的就是在实施不同的数据集市时，同一含义的字段定义一定要相容，这样在以后实施数据仓库时才不会造成大麻烦。</p>
-</div>
+<h2>数据仓库<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>数据仓库（Data Warehouse），可简写为DW或DWH。它是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它是单个数据存储，出于分析性报告和决策支持目的而创建。为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。</p>
+<p>历史：数据仓库之父比尔·恩门于1990年提出数据仓库（Data Warehouse），数仓主要是为解决企业的<strong>数据集成与分析问题</strong>。数据仓库主要功能是将OLTP经年累月所累积的大量数据，通过数据仓库特有的数据储存架构进行OLAP (Online analytical processing)，最终帮助决策者能快速有效地从大量数据中，分析出有价值的信息，提供决策支持。自从数据仓库出现之后，信息产业就开始从以关系型数据库为基础的运营式系统慢慢向<strong>决策支持系统发展。</strong></p>
+<p>总结：<strong>数据仓库存在的意义在于对企业的所有数据进行汇总，为企业各个部门提供统一的， 规范的数据出口。</strong></p>
+<p>相比数据库的两个主要特点：</p>
+<ul class="simple">
+<li><p><strong>数据仓库是面向主题集成的</strong>。数据仓库是为了支撑各种业务而建立的，数据来自于分散的操作型数据。因此需要将所需数据从多个异构的数据源中抽取出来，进行加工与集成，按照主题进行重组，最终进入数据仓库。</p></li>
+<li><p><strong>数据仓库主要用于支撑企业决策分析，所涉及的数据操作主要是<u>数据查询</u></strong>。因此数据仓库通过表结构优化、存储方式优化等方式提高查询速度、降低开销。</p></li>
+</ul>
+<p><strong>与数据库的对比</strong>：</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>维度</p></th>
+<th class="text-align:left head"><p>数据仓库</p></th>
+<th class="text-align:left head"><p>数据库</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>应用场景</p></td>
+<td class="text-align:left"><p>OLAP</p></td>
+<td class="text-align:left"><p>OLTP</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>数据来源</p></td>
+<td class="text-align:left"><p>多数据源</p></td>
+<td class="text-align:left"><p>单数据源</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>数据标准化</p></td>
+<td class="text-align:left"><p>非标准化Schema</p></td>
+<td class="text-align:left"><p>高度标准化的静态 Schema</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>数据读取优势</p></td>
+<td class="text-align:left"><p>针对读操作进行优化</p></td>
+<td class="text-align:left"><p>针对写操作进行优化</p></td>
+</tr>
+</tbody>
+</table>
+<p>四大特点：</p>
+<ul class="simple">
+<li><p><strong>数据仓库是面向主题的</strong></p>
+<ul>
+<li><p>数据仓库中的数据是按照一定的主题域进行组织的，每一个主题对应一个宏观的分析领域。数据仓库排除对于决策无用的数据，提供特定主题的简明视图。</p></li>
+<li><p>举个例子：比如说一个公司会有很多的部门，不同的部门都会去数据仓库拿数据，做自己要做的报表，我们把这一个部门或是某一个业务，也就是独立从我们数据仓库中获取数据的单元，把它称作为主题，也可以理解为<strong>一个主题就是一个部门</strong>。这个部门作为一个主题会从数据仓库总去获取数据，用于完成需要的报表。</p></li>
+</ul>
+</li>
+<li><p><strong>数据仓库是集成的</strong></p>
+<ul>
+<li><p>数据仓库中的数据不是一开始就是在里面的，而是从各个分散的数据库中抽取出来的。但是有一个问题，就是这些来自不同数据库的数据会有重复和不一样的地方，如字段的同名异议、异名同义、单位不统一，字长不统一等。所以在<strong>集成</strong>的过程中，还要对数据进行清洗、规划、去敏等操作。</p></li>
+<li><p><strong>数据仓库是对企业内不同业务部门数据完整集合，而且还是处理过的数据。</strong></p></li>
+</ul>
+</li>
+<li><p><strong>数据仓库的数据是稳定的</strong></p>
+<ul>
+<li><p>数据仓库中的数据主要是为了给企业做决策时分析使用，涉及的主要是对数据的查询，一般情况下不会对数据进行修改，如果数据仓库中的历史数据超过存储期限，则会直接删除。</p></li>
+<li><p>因为数据仓库涉及的操作主要是查询，所以它的系统要比数据库简单很多，但是数据仓库涉及到查询的数据量一般都很大，所以在数据查询就有更高的要求。</p></li>
+<li><p><strong>数仓里不存在数据的更新和删除（不是指数据到期的删除）操作。</strong></p></li>
+</ul>
+</li>
+<li><p><strong>数据仓库中的数据是随时间变化而变化的</strong></p>
+<ul>
+<li><p>数据仓库中的数据不可更新是针对应用来说的，也就是说，数据仓库的用户进行分析处理是不进行数据更新操作的。但并不是说，在从数据集成输入数据仓库开始到最后被删除的整个生存周期中，所有的数据仓库数据都是永远不变的。</p></li>
+<li><p>数据仓库的数据是随着时间变化而变化的主要表现如下：</p>
+<ul>
+<li><p>1）数据仓库随着时间变化不断增加新的数据内容。数据仓库系统必须不断捕捉OLTP数据库中变化的数据，追加到数据仓库当中去，也就是要不断的生成OLTP数据库的快照，经统一集成增加到数据仓库中去；但对于确实不在变化的数据库快照，如果捕捉到新的变化数据，则只生成一个新的数据库快照增加进去，而不会对原有的数据库快照进行修改。</p></li>
+<li><p>2）数据库随着时间变化不断删去旧的数据内容 。数据仓库内的数据也有存储期限，一旦过了这一期限，过期数据就要被删除。</p></li>
+<li><p>3）数据仓库中包含有大量的综合数据，这些综合数据中很多跟时间有关，如数据经常按照时间段进行综合，或隔一定的时间片进行抽样等等。这些数据要随着时间的变化不断地进行从新综合。因此<strong>数据仓库的数据特征都包含时间项，以标明数据的历史时期</strong>。</p></li>
+</ul>
+</li>
+<li><p><strong>数仓里会完整的记录某个对象在一段时期内的变化情况。</strong></p></li>
+</ul>
+</li>
+</ul>
 <div class="section" id="id6">
-<h2>数据湖<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<p><strong>数据仓库</strong>：主要存储的是以关系型数据库组织起来的结构化数据。数据通过转换、整合以及清理，并导入到目标表中。在数仓中，数据存储的结构与其定义的schema是强匹配的。</p>
-<p><strong>数据湖</strong>：存储任何类型的数据，包括像图片、文档这样的非结构化数据。数据湖通常更大，其存储成本也更为廉价。存储其中的数据不需要满足特定的<a class="reference external" href="https://www.zhihu.com/search?q=schema&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2358496829%7D">schema</a>，数据湖也不会尝试去将特定的schema施行其上。相反的是，数据的拥有者通常会在读取数据的时候解析schema（schema-on-read），当处理相应的数据时，将转换施加其上。</p>
-</div>
+<h3>数据仓库分层<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>首先 分层的好处是</p>
+<ul class="simple">
+<li><p>把复杂问题简单化：将复杂的问题分解成多层来完成，每一次只处理简单的任务，方便定位问题</p></li>
+<li><p>减少重复开发：规范数据分层，通过的中间层数据，能够减少极大的重复计算，增加一次计算结果的复用性。</p></li>
+<li><p>隔离原始数据：不论是数据的异常还是数据敏感度，使真实数据与统计数据解耦开。</p></li>
+</ul>
+<p>具体分多少层，是根据企业实际情况来决定的</p>
 <div class="section" id="id7">
-<h2>数据分层<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h4>四层分层<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><strong>ODS——原始数据层</strong>：存放原始数据</p>
+<ul>
+<li><p>ODS层即操作数据存储，是最接近数据源中数据的一层，数据源中的数据，经过抽取、洗净、传输，也就说传说中的ETL之后，装入本层；一般来说ODS层的数据和源系统的数据是同构的，主要目的是简化后续数据加工处理的工作。从数据粒度上来说ODS层的数据粒度是最细的。ODS层的表通常包括两类，一个用于存储当前需要加载的数据，一个用于存储处理完后的历史数据。历史数据一般保存3-6个月后需要清除，以节省空间。但不同的项目要区别对待，如果源系统的数据量不大，可以保留更长的时间，甚至全量保存；数据在装入本层前需要做以下工作：去噪、去重、提脏、业务提取、单位统一、砍字段、业务判别。</p></li>
+</ul>
+</li>
+<li><p><strong>DWD——数据明细层</strong>：对ODS层数据进行清洗、维度退化、脱敏等。</p>
+<ul>
+<li><p>该层一般保持和ODS层<strong>一样的数据粒度</strong>，并且提供一定的数据质量保证，在ODS的基础上对数据进行加工处理，提供更干净的数据。同时，为了提高数据明细层的易用性，该层会采用一些维度退化手法，当一个维度没有数据仓库需要的任何数据时，就可以退化维度，将维度退化至事实表中，减少事实表和维表的关联。例如：订单id,这种量级很大的维度，没必要用一张维度表来进行存储，而我们一般在进行数据分析时订单id又非常重要，所以我们<strong>将订单id冗余在事实表中</strong>，这种维度就是退化维度。</p></li>
+</ul>
+</li>
+<li><p><strong>DWS——数据汇总层</strong>：对DWD层数据进行一个轻度的汇总。</p>
+<ul>
+<li><p>DWS层为公共汇总层，会进行轻度汇总，粒度比明细数据稍粗，会针对度量值进行汇总，目的是避免重复计算。该层数据表会相对比较少，大多都是宽表(一张表会涵盖比较多的业务内容，表中的字段较多)。按照主题划分，如订单、用户等，生成字段比较多的宽表，用于提供后续的业务查询，OLAP分析，数据分发等。</p></li>
+</ul>
+</li>
+<li><p><strong>DM——数据集市层</strong>：为各种统计报表提供数据。</p>
+<ul>
+<li><p>存放的是轻度聚合的数据，也可以称为数据应用层，基于DWD、DWS上的基础数据，整合汇总成分析某一个主题域的报表数据。主要是提供给数据产品和数据分析使用的数据，通常根据业务需求，划分成流量、订单、用户等，生成字段比较多的宽表，用于提供后续的业务查询，OLAP分析，数据分发等。从数据粒度来说，这层的数据是汇总级的数据，也包括部分明细数据。从数据的时间跨度来说，通常是DW层的一部分，主要的目的是为了满足用户分析的需求，而从分析的角度来说，用户通常只需要分析近几年的即可。从数据的广度来说，仍然覆盖了所有业务数据。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h4>三层分层<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><strong>ODS——原始数据层</strong>：存放原始数据</p></li>
+<li><p><strong>DW——数据仓库层</strong>：数据清洗，初步汇总</p>
+<ul>
+<li><p>本层将从 ODS 层中获得的数据按照主题建立各种数据模型，每一个主题对应一个宏观的分析领域，数据仓库层排除对决策无用的数据，提供特定主题的简明视图。在DW层会保存BI系统中所有的历史数据，例如保存10年的数据。</p></li>
+</ul>
+</li>
+<li><p><strong>DM——数据集市层</strong>：为各种统计报表提供数据。</p></li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h4>五层分层<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p><strong>ODS——原始数据层</strong>：存放原始数据</p></li>
+<li><p><strong>DWD——数据明细层</strong>：对ODS层数据进行清洗、维度退化、脱敏等。</p></li>
+<li><p><strong>DWS——数据汇总层</strong>：对DWD层数据进行一个轻度的汇总。DWD和DWS又可以合并称为公共维度层，是可以共用的～</p></li>
+<li><p><strong>ADS——数据应用层</strong>：为各种统计报表提供数据——该层是基于DW层的数据，整合汇总成主题域的服务数据，用于提供后续的业务查询等。</p></li>
+<li><p><strong>DIM——维表层</strong>：基于维度建模理念思想，建立整个企业的一致性维度</p>
+<p>维表层主要包含两部分数据：</p>
+<ul class="simple">
+<li><p><strong>高基数维度数据</strong>：一般是用户资料表、商品资料表类似的资料表。数据量可能是千万级或者上亿级别。</p></li>
+<li><p><strong>低基数维度数据</strong>：一般是配置表，比如枚举值对应的中文含义，或者日期维表。数据量可能是个位数或者几千几万。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="dim">
+<h4>五层分层+DIM分层<a class="headerlink" href="#dim" title="Permalink to this headline">¶</a></h4>
 <p><img alt="image-20221020214719868" src="../_images/image-20221020214719868.png" /></p>
 <ul class="simple">
 <li><p>DIM	Dimension	通用维度层	该层主要存储简单、静态、代码类的维表，包括从OLTP层抽取转换维表、根据业务或分析需求沉淀一致性维度，归一化维度属性口径。可贯穿被使用于数仓任一层。</p></li>
@@ -711,35 +973,486 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </div>
-<div class="section" id="id8">
-<h2>关系型数据库<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id9">
-<h3>设计三范式<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
-<p>为了建立冗余较小、结构合理的数据库，设计数据库时必须遵循一定的规则。在关系型数据库中这种规则就称为范式。范式时符合某一种设计要求的总结。</p>
+<div class="section" id="id10">
+<h4>例子<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<p>阿里：</p>
+<p><img alt="image-20221026023018788" src="../_images/image-20221026023018788.png" /></p>
 <ul class="simple">
-<li><p>第一范式：确保每列保持原子性，即要求数据库表中的所有字段值都是不可分解的原子值。而不能是集合，数组，记录等非原子数据项。即实体中的某个属性有多个值时，必须拆分为不同的属性。</p></li>
-<li><p>第二范式：1NF+确保表中的每列都和主键相关。也就是说在一个数据库表中，一个表中只能保存一种数据，不可以把多种数据保存在同一张数据库表中。</p>
+<li><p>ODS 层：订单粒度的变更过程, 一笔订单有多条记录。</p></li>
+<li><p>DWD 层：订单粒度的支付记录, 一笔订单只有一条记录。</p></li>
+<li><p>DWS 层: 卖家的实时成交金额,一个卖家只有一条记录, 并且 指标在实时刷新。</p></li>
+<li><p>ADS 层: 外卖地区的实时成交金额, 只有外卖业务使用。</p></li>
+<li><p>DIM 层: 订单商品类目和行业的对应关系维表。</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id11">
+<h3>数据仓库建模<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>数据模型是抽象描述现实世界的一种工具和方法，是通过抽象的实体及实体之间联系的形式，来表示现实世界中事务的相互关系的一种映射。数据模型就是数据组织和存储方法，它强调从业务、数据存取和使用角度合理存储数据。</p>
+<p><strong>数据仓库建模的目标是通过建模的方法更好的组织、存储数据，以便在性能、成本、效率和数据质量之间找到最佳平衡点。</strong></p>
+<p>当有了<strong>适合业务和基础数据存储环境的模型（良好的数据模型）</strong>，那么大数据就能获得以下好处：</p>
+<ul class="simple">
+<li><p>性能：快速的查询我们所需要的数据，减少数据的I/O吞吐。</p></li>
+<li><p>成本：极大的减少不必要的数据冗余，实现计算结果复用，降低数据的存储和计算成本。</p></li>
+<li><p>效率：极大的改善用户使用数据的体验，提高使用数据的效率。</p></li>
+<li><p>质量：改善数据统计口径的不一致性，减少数据计算错误的可能性。</p></li>
+</ul>
+<p>有四种模型：ER模型、维度模型、Data Vault模型、Anchor模型。用的较多的是维度模型和ER模型。</p>
+<p>基本原则</p>
+<ul class="simple">
+<li><p>1.高内聚和低耦合：</p>
+<ul>
+<li><p>将业务相近或者相关、粒度相同的数据设计为一个逻辑或者物理模型</p></li>
+<li><p>将高概率同时访问的数据放一起，将低概率同时访问的数据分开存储。</p></li>
+</ul>
+</li>
+<li><p>2.核心模型与扩展模型分离</p>
+<ul>
+<li><p>建立核心模型与扩展模型体系，核心模型包括的字段支持常用的核心业务，扩展模型包括的字段支持个性化或少量应用的需要，不能让扩展模型的字段过度侵入核心模型，以免破坏核心模型的架构简洁性与可维护性。</p></li>
+</ul>
+</li>
+<li><p>3.公共处理逻辑下沉及单一</p>
+<ul>
+<li><p>越是底层公用的处理逻辑越应该在数据调度依赖的底层进行封装与实现，不要让公用的处理逻辑暴露给应用层实现，不要让公共逻辑多处同时存在。</p></li>
+</ul>
+</li>
+<li><p>4.成本与性能平衡</p>
+<ul>
+<li><p>适当的数据冗余可换取查询和刷新性能，不宜过度冗余与数据复制。</p></li>
+</ul>
+</li>
+<li><p>5.数据可回滚</p>
+<ul>
+<li><p>处理逻辑不变，在不同时间多次运行数据结果确定不变。</p></li>
+</ul>
+</li>
+<li><p>6.一致性</p>
+<ul>
+<li><p>具有相同含义的字段在不同表中的命名必须相同,必须使用规范定义中的名称。</p></li>
+</ul>
+</li>
+<li><p>7.命名清晰、可理解</p>
+<ul>
+<li><p>表命名需清晰、一致，表名需易于消费者理解和使用。</p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="er">
+<h4>ER模型<a class="headerlink" href="#er" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>ER模型用实体关系模型描述企业业务，在范式理论上满足3NF。数仓中的3NF是站在企业角度面向主题的抽象，而不是针对某个具体业务流程的实体对象关系的抽象。</p></li>
+<li><p>采用ER模型建设数据仓库模型的出发点是整合数据，将各个系统中的数据按照主题进行相似性整合，并进行一致性处理。</p></li>
+<li><p>ER模型特点：</p>
+<ul>
+<li><p>需要全方位了解企业业务数据</p></li>
+<li><p>设计思路自上而下，适合上游基础数据存储，同一份数据只存储一份，没有数据冗余，方便解耦，易维护</p></li>
+<li><p><strong>缺点</strong>：开发周期一般比较长，维护成本高。对建模人员要求教高</p></li>
+</ul>
+</li>
+<li><p>场景：关系模型主要应用于OLTP系统中，为了保证数据的一致性以及避免冗余，所以大部分业务系统的表都是遵循第三范式的。</p></li>
+</ul>
+<div class="section" id="id12">
+<h5>设计范式<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h5>
+<p>为了建立冗余较小、结构合理的数据库，设计数据库时必须遵循一定的规则。在关系型数据库中这种规则就称为范式。范式时符合某一种设计要求的总结。</p>
+<ul>
+<li><p>第一范式：确保每列保持原子性，即要求数据库表中的<strong>所有字段列都是不可分解的原子值</strong>。而不能是集合，数组，记录等非原子数据项。即实体中的某个属性有多个值时，必须拆分为不同的属性。</p>
+<ul>
+<li><p>不符合一范式的表格设计如下：</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>商品</p></th>
+<th class="head"><p>商家ID</p></th>
+<th class="head"><p>用户ID</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>001</p></td>
+<td><p>5台电脑</p></td>
+<td><p>XXX旗舰店</p></td>
+<td><p>00001</p></td>
+</tr>
+</tbody>
+</table>
+<p>很明显上表所示的表格设计是不符合第一范式的，商品列中的数据不是原子数据项，是可以进行分割的，因此对表格进行修改，让表格符合第一范式的要求，修改结果如下表所示：</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>商品</p></th>
+<th class="head"><p>数量</p></th>
+<th class="head"><p>商家ID</p></th>
+<th class="head"><p>用户ID</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>001</p></td>
+<td><p>电脑</p></td>
+<td><p>5</p></td>
+<td><p>XXX旗舰店</p></td>
+<td><p>00001</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li><p>第二范式：1NF+确保表中的<strong>每列都和主键相</strong>关。也就是说在一个数据库表中，一个表中只能保存一种数据，不可以把多种数据保存在同一张数据库表中。<em>如果存在某些属性只依赖混合主键中的部分属性，那么不符合二范式。</em></p>
 <ul>
 <li><p>作用：减少了数据库的冗余</p></li>
 <li><p>例如在员工表中的身份证号码即可实现每个一员工的区分，该身份证号码即为候选键，任何一个候选键都可以被选作主键。在找不到候选键时，可额外增加属性以实现区分，如果在员工关系中，没有对其身份证号进行存储，而姓名可能会在数据库运行的某个时间重复，无法区分出实体时，设计辟如ID等不重复的编号以实现区分，被添加的编号或ID选作主键。</p>
-<ul>
+<ul class="simple">
 <li><p>（该主键的添加是在ER（Entity Relationship Diagram，实体-联系图)设计时添加，不是建库时随意添加）。简而言之，第二范式就是在第一范式的基础上**<u><em>属性完全依赖于主键。</em></u>**</p></li>
 </ul>
 </li>
+<li><p>不符合二范式的表格设计如下：</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>学生ID</p></th>
+<th class="head"><p>姓名</p></th>
+<th class="head"><p>所属系</p></th>
+<th class="head"><p>系主任</p></th>
+<th class="head"><p>所修课程</p></th>
+<th class="head"><p>分数</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>20170901176</p></td>
+<td><p>王小强</p></td>
+<td><p>计算机系</p></td>
+<td><p>马小腾</p></td>
+<td><p>000001</p></td>
+<td><p>95</p></td>
+</tr>
+<tr class="row-odd"><td><p>20170901176</p></td>
+<td><p>王小强</p></td>
+<td><p>计算机系</p></td>
+<td><p>马小腾</p></td>
+<td><p>000002</p></td>
+<td><p>99</p></td>
+</tr>
+</tbody>
+</table>
+<p>上述表格中是混合主键（学生 ID + 所修课程），但是所属系和系主任这两个属性只依赖于混合主键中的学生 ID 这一个属性，因此，不符合第二范式。</p>
+<p>如果有一天学生的所属系要调整，那么所属系和系主任这两列都需要修改，如果这个学生修了多门课程，那么表中的多行数据都要修改，这是非常麻烦的，不符合第二范式。</p>
+<p>为了消除这种部分依赖，只有一个办法，就是将大数据表拆分成两个或者更多个更小的数据表。符合二范式的表格设计如下：</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>学生ID</p></th>
+<th class="head"><p>所修课程</p></th>
+<th class="head"><p>分数</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>20170901176</p></td>
+<td><p>000001</p></td>
+<td><p>95</p></td>
+</tr>
+<tr class="row-odd"><td><p>20170901176</p></td>
+<td><p>000002</p></td>
+<td><p>99</p></td>
+</tr>
+</tbody>
+</table>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>学生ID</p></th>
+<th class="head"><p>所属系</p></th>
+<th class="head"><p>主任</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>20170901176</p></td>
+<td><p>计算机系</p></td>
+<td><p>马小腾</p></td>
+</tr>
+<tr class="row-odd"><td><p>20170901176</p></td>
+<td><p>计算机系</p></td>
+<td><p>马小腾</p></td>
+</tr>
+</tbody>
+</table>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>学生ID</p></th>
+<th class="head"><p>姓名</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>20170901176</p></td>
+<td><p>王小强</p></td>
+</tr>
+</tbody>
+</table>
+</li>
 </ul>
 </li>
-<li><p>第三范式：2NF+确保每列都和主键列直接相关，而不是间接相关。</p>
+<li><p>第三范式：2NF+确保<strong>每列都和主键列直接相关</strong>，而不是间接相关。：3NF 在 2NF 的基础之上，消除了非主属性对于主键（复合主键）的传递依赖。</p>
 <ul>
 <li><p>例如，存在一个部门信息表，其中每个部门有部门编号（dept_id）、部门名称、部门简介等信息。那么在员工信息表中列出部门编号后就不能再将部门名称、部门简介等与部门有关的信息再加入员工信息表中。如果不存在部门信息表，则根据第三范式（3NF）也应该构建它，否则就会有大量的数据冗余。</p></li>
+<li><p>不符合三范式的表格设计如下：</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>订单ID</p></th>
+<th class="head"><p>商品ID</p></th>
+<th class="head"><p>商品颜色</p></th>
+<th class="head"><p>商品尺寸</p></th>
+<th class="head"><p>商家ID</p></th>
+<th class="head"><p>用户ID</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>001</p></td>
+<td><p>0001</p></td>
+<td><p>深空灰</p></td>
+<td><p>300x270x40</p></td>
+<td><p>XXX旗舰店</p></td>
+<td><p>00001</p></td>
+</tr>
+</tbody>
+</table>
+<p>很明显，上表中，商品颜色依赖于商品 ID，商品 ID 依赖于订单 ID，那么非主属性商品颜色就传递依赖于订单 ID，因此不符合三范式，解决方案是将大数据表拆分成两个或者更多个更小的数据表。（但符合2NF，因为商品尺寸这一列也是和主键订单ID相关的！）</p>
+<p>符合三范式的表格设计如下：</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>订单ID</p></th>
+<th class="head"><p>商品ID</p></th>
+<th class="head"><p>商家ID</p></th>
+<th class="head"><p>用户ID</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>001</p></td>
+<td><p>0001</p></td>
+<td><p>XXX旗舰店</p></td>
+<td><p>00001</p></td>
+</tr>
+</tbody>
+</table>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>商品ID</p></th>
+<th class="head"><p>商家颜色</p></th>
+<th class="head"><p>商家尺寸</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0001</p></td>
+<td><p>深灰色</p></td>
+<td><p>300x270x40</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li><p><strong>BCNF</strong></p>
+<ul class="simple">
+<li><p>意味着在关系模式中每一个决定因素都包含候选键，也就是说，只要属性或属性组A能够决定任何一个属性B，则A的子集中必须有候选键。</p></li>
+<li><p>BCNF范式排除了<strong>任何属性</strong>(不光是非主属性，2NF和3NF所限制的都是非主属性)<strong>对候选键的传递依赖与部分依赖。</strong></p></li>
+<li><p>3NF和BCNF是在函数依赖的条件下对模式分解所能达到的最大程度。一个模式中的关系模式如果都属于BCNF，那么<strong>在函数依赖范围内，它已经实现了彻底的分离</strong>，已消除了插入和删除的异常。3NF的“不彻底”性表现在可能存在主属性对键的部分依赖和传递依赖。</p></li>
+</ul>
+</li>
+</ul>
+<p>范式化设计⇒时间换空间：</p>
+<ul class="simple">
+<li><p>优点：范式化的表减少了数据冗余，数据表更新操作快、占用存储空间小。</p></li>
+<li><p>缺点：</p>
+<ul>
+<li><p>查询时需要对多个表进行Join关联拼接，查询性能降低</p></li>
+<li><p>索引优化会更难进行</p></li>
+</ul>
+</li>
+</ul>
+<p>反范式化设计⇒空间换时间：</p>
+<p>反范式化的过程就是通过增加数据表中的冗余字段来提高数据库的读（查询）性能，但冗余数据会牺牲数据一致性。</p>
+<ul class="simple">
+<li><p>优点：</p>
+<ul>
+<li><p>可以减少表关联</p></li>
+<li><p>可能更好的进行索引优化</p></li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li><p>存在大量冗余数据</p></li>
+<li><p>数据维护成本更高（删除异常，插入异常，更新异常）</p></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div class="section" id="id10">
-<h2>底层数据库<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id11">
-<h3>索引<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id13">
+<h4>维度建模<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<p>关系模型虽然冗余少，但是在大规模数据，跨表分析统计查询过程中，会造成多表关联，这会大大降低执行效率。所以一般都会采用维度模型建模，把相关各种表整理成两种：事实表和维度表两种。</p>
+<p>维度模型如图所示，主要应用于OLAP系统中，通常以某一个事实表为中心进行表的组织，主要面向业务，特征是可能存在数据的冗余，但是能方便的得到数据。</p>
+<p><img alt="image-20221026020254146" src="../_images/image-20221026020254146.png" /></p>
+<p>维度建模按照事实表和维度表来构建数仓。</p>
+<ul class="simple">
+<li><p>维度建模从分析决策的需求出发构建模型，为分析需求服务。重点关注用户如何快速的完成数据分析，可以直观的反应业务模型中的业务问题，需要大量的数据预处理、数据冗余，有较好的大规模复杂查询的响应性能。</p></li>
+</ul>
+<p>基本概念</p>
+<ul class="simple">
+<li><p><strong>事实表</strong>：在ER模型中抽象出了实体、关系、属性三种类型，每个操作型事件都会产生一个事实表，其中涉及到多个实体，比如：购物下单事件中涉及的主体包括客户、商品、商家，产生可度量值包括商品数量、金额、件数等。发生在现实世界中的操作性事件，其产生的可度量数值，存储在事实表中。从最细粒度级别来看，事实表的一行对应一个度量事件。事实表表示对分析主题的度量。’</p>
+<ul>
+<li><p>事实表中包含了与各个维度表相关联的外键，可与维度表关联。事实表的度量通常是数值类型，且记录数不断增加，表数据量迅速增长。</p></li>
+<li><p>事实表的设计是以能够正确记录历史信息为准则</p></li>
+</ul>
+</li>
+<li><p><strong>维度表</strong>：维度就是看待事物的角度，维表一般为单一主键，在ER模型中，实体会带有自己描述性的属性，这些属性就称为维度。比如：商品的产生、颜色、单价等。</p>
+<ul>
+<li><p>每个维度表都包含单独的主键列。维度表行的<strong>描述环境应该与事实表行完全对应</strong>。维度表通常比较宽，是扁平型的非规范表，包含大量的低粒度的文本属性。</p></li>
+</ul>
+</li>
+<li><p>维度表的设计是以能够以合适的角度来聚合主题内容为准则</p></li>
+</ul>
+<p><strong>ER和维度模型的对比</strong></p>
+<ul class="simple">
+<li><p>维度建模相对能快速上手，快速交付，运营人员只需要根据我们的数据字典，查询自己所属的业务模块对应的业务过程，一个简单的select语句就可以搞定所有事情，但缺点是冗余会较多，不过在当今时代，存储存储可以忽略不计。维度模型是面向业务过程，由于所有主题数据和业务过程数据都已经提前处理好了，在进行查询数据的时候，相对ER模型来讲，就不需要那么多的关联查询，大大提高了执行效率和减低算力、人力成本，但是数据冗余可能会较多，但是将多个源的数据以文本的形式存储在分布式系统中，存储成本（列式存储）并不需要那么多成本。但是从存储、计算、成本、交付、易用性等多方面考虑取平衡值，还是维度模型更实用。</p></li>
+<li><p>ER模型是完全遵守3NF，当查询数据时，需要进行多表关联查询，这时候随着数据量几百亿几千亿的情况下，会大大的降低执行效率并且算力越来越多，最终导致计算成本都要不断的累加，在存储方法由于规范性好，数据冗余比较小。</p></li>
+</ul>
+<div class="section" id="id14">
+<h5>星形模型<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h5>
+<p><strong>一个星型模式中可以有一个或多个事实表，每个事实表引用任意数量的维度表。</strong></p>
+<p>星座模型以事实表为中心，所有的维度直接连接在事实表上。由一个事实表和一组维度表组成。也是星型模型的扩展。区别是星座模型中存在多张事实表，不同事实表之间共享维表信息，常用于数据关系更复杂的场景。</p>
+<center><img src="../images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dpbnRlclBhc3Npbmc=,size_16,color_FFFFFF,t_70.png" alt="img" style="width:48%;" /><img src="../images/image-20221026020415552.png" alt="image-20221026020415552" style="width:48%;" /></center>
+<ul class="simple">
+<li><p>由一个事实表和一组维表组成，且所有维表直接与事实表相连。其特点是不存在渐变维度，有一定数据冗余，效率相对较高。在维表设计方面通常采用降维的方式，通过数据冗余来简化模型，以提高模型易用性和分析效率，标准的星型模型只有一层维度</p></li>
+</ul>
+</div>
+<div class="section" id="id15">
+<h5>雪花模型<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h5>
+<p>对星形模型的扩展。雪花模型的维度表可以拥有更细的维度，比星形更规范一点。维护成本较高，且查询是要关联多层维表，性能较低。</p>
+<p><img alt="img" src="../_images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dpbnRlclBhc3Npbmc=,size_16,color_FFFFFF,t_70-20221020181540311.png" /></p>
+<ul class="simple">
+<li><p>由一个事实表和多个维表组成，且有一个或多个维表通过其他维表与事实表相连。其特点是数据冗余较少，但由于表连接的增加，导致效率相对较低。其设计通常遵循3NF关系模式，但是往往无法严格遵守，因为需付出的性能成本较高</p></li>
+<li><p>雪花模型的设计方式是比较符合数据库范式的理念，设计方式比较正规，数据冗余少，但在查询的时候可能需要join多张表从而导致查询效率下降，此外规范化操作在后期维护比较复杂。</p></li>
+<li><p>当所有的维度表完成规范化后，就形成了以事实表为中心的雪花型结构，即雪花模式。</p></li>
+</ul>
+</div>
+<div class="section" id="id16">
+<h5><strong>星座模型</strong><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h5>
+<p>基于多张事实表，多张事实表共享维度信息</p>
+<p><img alt="在这里插入图片描述" src="../_images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01lZ3VzdGFzX0pKQw==,size_16,color_FFFFFF,t_70.jpeg" /></p>
+<ul class="simple">
+<li><p>通常基于多个事实表，且多个事实表之间共享一些维度表，往往应用于数据关系比星型模型和雪花模型更复杂的场合</p></li>
+<li><p>数据仓库大多数时候是比较适合使用星型模型构建底层数据Hive表，通过大量的冗余来提升查询效率</p></li>
+</ul>
+</div>
+<div class="section" id="id17">
+<h5>事实表设计原则<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h5>
+<p><strong>原则一：尽可能包含所有与业务过程相关的事实</strong></p>
+<ul class="simple">
+<li><p>分析哪些事实与业务过程有关是设计中非常重要的关注点。</p></li>
+<li><p>在事实表中应尽量包含所有与业务过程相关的事实，即使存在冗余，不过事实通常为数字型，存储开销不会太大。</p></li>
+</ul>
+<p><strong>原则二：只选择与业务过程相关的事实</strong></p>
+<ul class="simple">
+<li><p>选择事实时，应只选择与业务过程有关的事实。比如在订单的下单这个业务过程中，事实表中不应该存在支付金额这个表示支付业务过程的事实。</p></li>
+</ul>
+<p><strong>原则三：分解不可加性事实为可加的事实</strong></p>
+<ul class="simple">
+<li><p>比如订单的优惠率，应分解为订单原价金额与订单优化金额两个事实存储在事实表中。</p></li>
+</ul>
+<p><strong>原则四：在选择维度和事实之前必须先声明粒度</strong></p>
+<ul class="simple">
+<li><p>粒度用于确定事实表中一行所表示业务的细节层次，决定了维度的扩展性。</p></li>
+<li><p>每个维度和事实必须与所定义的粒度保持一致。</p></li>
+<li><p>事实表设计过程中，粒度定义得越细越好，建议从最低级别的原子粒度开始。</p></li>
+<li><p>原子粒度提供了最大限度的灵活性，可以支持无法预期的各种细节层次的用户需求。</p></li>
+</ul>
+<p><strong>原则五：在同一个事实表中不能有多种不同粒度的事实</strong></p>
+<p>下图为机票支付成功事务事实表：</p>
+<p><img alt="图片" src="../_images/640.png" /></p>
+<ul class="simple">
+<li><p>对于上图事务事实表，粒度为“票一级”（实际业务中，一个订单可以同时支付多张票）</p></li>
+<li><p>票支付金额和票折扣金额两个事实的粒度与表定义的粒度一致，都为“票级”，支持按表的任意维度汇总。</p></li>
+<li><p>订单支付金额和订单票数粒度为“订单级”，与事实表粒度不一致，且不能进行汇总。</p></li>
+<li><p>若在汇总计算时对总订单金额和总票数两个度量进行汇总计算，则会造成重复计算的问题。</p></li>
+</ul>
+<p><strong>原则六：事实的单位要保持一致</strong></p>
+<ul class="simple">
+<li><p>比如原订单金额、订单优惠金额、订单运费金额这三个事实，应采用一致的计量单位，统一为元或分，以方便使用。</p></li>
+</ul>
+<p><strong>原则七：对事实的null值要处理</strong></p>
+<ul class="simple">
+<li><p>在数据库中，null值对常用数字型字段的SQL过滤条件都不生效，比如大于、小于、等于、大于或等于、小于或等于，建议用0代替null。</p></li>
+</ul>
+<p><strong>原则八：使用退化维度提高事实表的易用性</strong></p>
+<ul class="simple">
+<li><p>在Kimball的维度建模中，通常按照星型模型的方式来设计，通过事实表的外键关联专门的维表的方式来获取维度，谨慎使用退化维度，这一点，与大数据领域的事实表设计不一样。</p></li>
+<li><p>在大数据领域的事实表设计中，大量采用退化维度的方式，在事实表中存储各种类型的常用维度信息。这样做的设计目的如下：</p></li>
+<li><ul>
+<li><p>减少下游用户使用时关联多个表的操作，直接通过退化维度实现对事实表的过滤查询、控制聚合层次、排序数据以及定义主从关系等。</p></li>
+<li><p>通过增加冗余存储的方式减少计算开销，提高使用效率。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="data-vault">
+<h4><strong>Data Vault模型</strong><a class="headerlink" href="#data-vault" title="Permalink to this headline">¶</a></h4>
+<p>DataVault由Hub（关键核心业务实体）、Link（关系）、Satellite（实体属性） 三部分组成 ，是Dan Linstedt发起创建的一种模型方法论，它是在ER关系模型上的衍生，同时设计的出发点也是为了实现数据的整合，并非为数据决策分析直接使用。</p>
+</div>
+<div class="section" id="anchor">
+<h4><strong>Anchor模型</strong><a class="headerlink" href="#anchor" title="Permalink to this headline">¶</a></h4>
+<p>Anchor模型是对Data Vault模型做了进一步规范化处理，它是一个高度可扩展的模型，所有的扩展只是添加而不是修改，因此它将模型规范到6NF，基本变成了K-V结构模型。企业很少使用。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id18">
+<h2>数据湖<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<p><strong>数据仓库</strong>：主要存储的是以关系型数据库组织起来的结构化数据。数据通过转换、整合以及清理，并导入到目标表中。在数仓中，数据存储的结构与其定义的schema是强匹配的。</p>
+<p><strong>数据湖</strong>：集中存储各类结构化和非结构化数据的大型数据仓库</p>
+<ul class="simple">
+<li><p>可以存储来自多个数据源、多种数据类型的原始数据，存储任何类型的数据，包括像图片、文档这样的非结构化数据，数据无需经过结构化处理，就可以进行存取、处理、分析和传输。</p></li>
+<li><p>数据湖能帮助企业快速完成异构数据源的联邦分析、挖掘和探索数据价值。</p></li>
+<li><p>数据湖通常更大，其存储成本也更为廉价。存储其中的数据不需要满足特定的<a class="reference external" href="https://www.zhihu.com/search?q=schema&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2358496829%7D">schema</a>，数据湖也不会尝试去将特定的schema施行其上。相反的是，数据的拥有者通常会在读取数据的时候解析schema（schema-on-read），当处理相应的数据时，将转换施加其上。</p></li>
+</ul>
+<p><strong>数据湖的本质</strong>，是由“<strong>数据存储架构+数据处理工具</strong>”组成的解决方案。</p>
+<ul class="simple">
+<li><p><strong>数据存储架构</strong>：要有足够的扩展性和可靠性，可以存储海量的任意类型的数据，包括结构化、半结构化和非结构化数据。</p></li>
+<li><p><strong>数据处理工具</strong>，则分为两大类：</p></li>
+<li><ul>
+<li><p>第一类工具，<strong>聚焦如何把数据“搬到”湖里</strong>。包括定义数据源、制定数据同步策略、移动数据、编制数据目录等。</p></li>
+<li><p>第二类工具，<strong>关注如何对湖中的数据进行分析、挖掘、利用</strong>。数据湖需要具备完善的数据管理能力、多样化的数据分析能力、全面的数据生命周期管理能力、安全的数据获取和数据发布能力。如果没有这些数据治理工具，元数据缺失，湖里的数据质量就没法保障，最终会由数据湖变质为数据沼泽。</p></li>
+</ul>
+</li>
+</ul>
+<p>数据仓库和数据湖的不同类比于仓库和湖泊：仓库存储着来自特定来源的货物；而湖泊的水来自河流、溪流和其他来源，并且是<strong>原始数据。</strong></p>
+<ul class="simple">
+<li><p>与数据仓库的对比</p></li>
+</ul>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>维度</p></th>
+<th class="head"><p>数据湖</p></th>
+<th class="head"><p>数据仓库</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>应用场景</p></td>
+<td><p>可以探索性分析所有类型的数据，包括机器学习、数据发现、特征分析、预测等</p></td>
+<td><p>通过历史的结构化数据进行数据分析</p></td>
+</tr>
+<tr class="row-odd"><td><p>使用成本</p></td>
+<td><p>起步成本低，后期成本较高</p></td>
+<td><p>起步成本高，后期成本较低</p></td>
+</tr>
+<tr class="row-even"><td><p>数据质量</p></td>
+<td><p>包含大量原始数据，使用前需要清洗和标准化处理</p></td>
+<td><p>质量高，可作为事实依据</p></td>
+</tr>
+<tr class="row-odd"><td><p>适用对象</p></td>
+<td><p>数据科学家、数据开发人员为主</p></td>
+<td><p>业务分析师为主</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id19">
+<h2>底层数据库<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id20">
+<h3>索引<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
 <p>索引是对数据库表中一或多个列的值进行排序的结构，是帮助MySQL高效获取数据的数据结构</p>
 <p>你也可以这样理解：索引就是加快检索表中数据的方法。数据库的索引类似于书籍的索引。在书籍中，索引允许用户不必翻阅完整个书就能迅速地找到所需要的信息。在数据库中，索引也允许数据库程序迅速地找到表中的数据，而不必扫描整个数据库。</p>
 <p><strong>MySQL</strong>数据库几个基本的索引类型：普通索引、唯一索引、主键索引、全文索引</p>
@@ -761,12 +1474,12 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </div>
-<div class="section" id="id12">
-<h3>事务<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id21">
+<h3>事务<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
 <p>事务（Transaction）是并发控制的基本单位。所谓的事务，它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位。事务是数据库维护数据一致性的单位，在每个事务结束时，都能保持数据一致性。</p>
 </div>
-<div class="section" id="id13">
-<h3>三段锁协议<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id22">
+<h3>三段锁协议<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
 <p><strong>共享锁（share lock）</strong>：共享 (S) 用于只读操作，如 SELECT 语句。</p>
 <p>如果事务T对数据A加上共享锁后，则其他事务只能对A再加共享锁，不能加排他锁。获准共享锁的事务只能读数据，不能修改数据。</p>
 <p><strong>排他锁（exclusive lock）</strong>：用于数据修改操作，例如 INSERT、UPDATE 或 DELETE。确保不会同时同一资源进行多重更新。</p>
@@ -778,25 +1491,30 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>不可重复读：不可重复读是指事务T1读取数据后，事务T2执行更新操作，使T1无法再现前一次读取结果</p></li>
 </ul>
 </div>
-<div class="section" id="id14">
-<h3>数据倾斜<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id23">
+<h3>数据倾斜<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
 <p><strong>定义</strong>：Hadoop能够进行对海量数据进行批处理的核心，在于它的分布式思想，也就是多台服务器（节点）组成集群，进行分布式的数据处理。但当大量的数据集中到了一台或者几台机器上计算，这些数据的计算速度远远低于平均计算速度，导致整个计算过程过慢，<strong>这种情况就是发生了数据倾斜</strong>。</p>
 <p><strong>产生机制：<strong>无论是MR还是Spark任务进行计算的时候，都会触发</strong>Shuffle</strong>动作。一些典型的操作如distinct、reduceByKey、groupByKey、join、repartition等都会触发shuffle：一旦触发，Spark就会将相同的key及其value拉到一个节点上。如果有某个key及其对应的数据太多的话，那就会发生明显的单点问题——单个节点处理数据量爆增的情况</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Join</span></code></p>
+<li><p>Map端倾斜：map读数据时,由于读入数据的文件大小分布不均匀，会导致有些ma p instance读取并且处理的数据特别多，而有些很少，造成map端长尾</p>
+<ul>
+<li><p>上游表文件的大小特别不均匀，并且小文件特别多</p></li>
+<li><p>Map端做聚合时，某些instance读取文件的某个值特别多而引起长尾（主要是count distinct）</p></li>
+</ul>
+</li>
+<li><p>Join倾斜：Join 操作需要参与map和reduc的整个阶段。</p>
 <ul>
 <li><p>一个表很小但key集中：分发到某一个或几个Reduce/Stage上的数据远高于平均值</p></li>
 <li><p>大表与大表，但是分桶的判断字段0值或空值过多：空值由一个Reduce处理很慢</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">by</span></code></p>
+<li><p><strong>Reduce 端倾斜</strong></p>
 <ul>
-<li><p>维度太小了 有些值处理太多，所以reduce很耗时</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Count</span> <span class="pre">Distinct</span></code> / sum(distinct key)</p>
-<ul>
-<li><p>某特殊值过多，处理特殊值好时</p></li>
+<li><p>对同一个表按照维度对不同的列进行 Count Distinct 操作, 造成 Map 端数据膨胀, 从而使得下游的 Join 和 Reduce 出现链路上的 长尾。</p></li>
+<li><p>维度太小了，有些值处理太多+Map 端直接做聚合时出现 key 值分布不均匀, 造成 Reduce 端长尾。</p></li>
+<li><p>动态分区数过多时可能造成小文件过多, 从而引起 Reduce 端长尾。</p></li>
+<li><p>多个 Distinct 同时出现在一段 <span class="math notranslate nohighlight">\(\mathrm{SQL}\)</span> 代码中时,数据会被分发多次，不仅会造成数据膨胀 <span class="math notranslate nohighlight">\(N\)</span> 倍, 还会把长尾现象放大 <span class="math notranslate nohighlight">\(N\)</span> 倍。</p></li>
+<li><p>某特殊值过多，处理特殊值耗时</p></li>
 </ul>
 </li>
 </ul>
@@ -840,7 +1558,12 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </li>
-<li><p>小表Join大表的时候可以把Reduce Join改成Map Join</p>
+<li><p>Join时候</p>
+<ul class="simple">
+<li><p>用union all代替</p></li>
+</ul>
+</li>
+<li><p>小表Join大表的时候可以<strong>把Reduce Join改成Map Join</strong></p>
 <ul>
 <li><p>原理：mapjoin优化就是在Map阶段完成join工作，而不是像通常的common join在Reduce阶段按照join的列值进行分发数据到每个Reduce上进行join工作。这样避免了<strong>Shuffle</strong>阶段，从而避免了数据倾斜。</p></li>
 <li><p>注意：这个操作会将所有的小表全量复制到每个map任务节点，然后再将小表缓存在每个map节点的内存里与大表进行join工作。小表的大小的不能太大，一般也就几百兆，否则会出现OOM报错。</p></li>
@@ -903,11 +1626,13 @@ set hive.skewjoin.key = skew_key_threshold （default = 100000）
 </ul>
 </div>
 </div>
-<div class="section" id="id15">
-<h2>参考资料<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id24">
+<h2>参考资料<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><p><a class="reference external" href="https://mp.weixin.qq.com/s/S5bjLXS7rdGjeA8qq7siMg">微信公众号｜旧时光大数据｜2.2W字汇总数据仓库知识点</a></p></li>
 <li><p><a class="reference external" href="https://www.cnblogs.com/amyzhu/p/13513425.html">数据仓库分层中的ODS、DWD、DWS</a></p></li>
 <li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/332368318">知乎｜逆流君｜漫谈数据倾斜解决方案（干货）</a></p></li>
+<li><p>《大数据之路——阿里巴巴大数据实战》</p></li>
 </ul>
 </div>
 </div>

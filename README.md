@@ -3,7 +3,10 @@ This is a notebook from Jace Yang.
 哈喽，欢迎来到我的笔记库！我是一名哥大DS的学生，在这个笔记的每次commit中，我都在向着全栈DA的理想不断迈进ing，也希望这份笔记可以和自己一起成长，并对你也有帮助！一起加油💪💪
 
 
-#### Re-configure the website after making changes on `book`｜安装指南:
+> 注意！为了保护版权，本repo的main branch不会再进行更新啦～ 如果你想基于我的笔记进行后续的修改，可以基于目前main branch的版本进行～具体操作方式⬇️
+
+
+### Re-configure the website after making changes on `book`｜安装指南:
 
 
 - Set up｜第一次起笔记环境:
@@ -51,7 +54,7 @@ This is a notebook from Jace Yang.
     rm -r _build
     cd ..
     git add .
-    git commit -m "新增因果推断📒"
+    git commit -m "新增机器学习模块📒"
     git push origin main
     open -a "Google Chrome" https://github.com/Jace-Yang/Full-Stack_Data-Analyst/deployments/
     ```

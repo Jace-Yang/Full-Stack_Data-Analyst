@@ -96,6 +96,8 @@ HDFS采用Master/Slave架构。一个HDFS集群包含一个单独的NameNode和�
 
 > [漫画](https://tyler-zx.blog.csdn.net/article/details/90667918?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-90667918-blog-37655491.pc_relevant_aa&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-90667918-blog-37655491.pc_relevant_aa&utm_relevant_index=3)
 
+**简单版本：**
+
 - 首先明确Block size——一个文件会被拆成的小block有多大；replication factor——一个block会被存在几个地方
 
 - **写文件**
@@ -116,7 +118,36 @@ HDFS采用Master/Slave架构。一个HDFS集群包含一个单独的NameNode和�
   - Namenode：返回你的file被拆分的block ids，和每个block存储的datanode列表
   - client从最近的datanode开始按顺序一个个下载block
 
-  
+
+
+
+**文字完整版本：**
+
+- 写数据
+
+  ![阿里云大数据开发一面面经，已过，面试题已配答案_面试_03](../images/resize,m_fixed,w_750)
+
+  - 1）客户端通过Distributed FileSystem模块向NameNode请求上传文件，NameNode检查目标文件是否已存在，父目录是否存在。
+  - 2）NameNode返回是否可以上传。
+  - 3）客户端请求第一个 block上传到哪几个datanode服务器上。
+  - 4）NameNode返回3个datanode节点，分别为dn1、dn2、dn3。
+  - 5）客户端通过FSDataOutputStream模块请求dn1上传数据，dn1收到请求会继续调用dn2，然后dn2调用dn3，将这个通信管道建立完成。
+  - 6）dn1、dn2、dn3逐级应答客户端。
+  - 7）客户端开始往dn1上传第一个block（先从磁盘读取数据放到一个本地内存缓存），以packet为单位，dn1收到一个packet就会传给dn2，dn2传给dn3；dn1每传一个packet会放入一个应答队列等待应答。
+  - 8）当一个block传输完成之后，客户端再次请求NameNode上传第二个block的服务器。
+  - 重复执行3-8步
+
+- 读数据
+
+  ![阿里云大数据开发一面面经，已过，面试题已配答案_数据_04](../images/resize,m_fixed,w_750-20221026214356405)
+
+  - 1）客户端通过Distributed FileSystem向NameNode请求下载文件
+  - 2）NameNode通过查询元数据，找到文件块所在的DataNode地址，并且返回
+  - 3）客户端挑选一台DataNode（**就近原则，然后随机**）服务器，请求读取数据。
+  - 4）DataNode开始传输数据给客户端（从磁盘里面读取数据输入流，以packet为单位来做校验）。直到所有的datanode完成
+  - 5）客户端以packet为单位接收，先在本地缓存，然后写入目标文件。
+
+
 
 
 ### MapReduce
@@ -138,6 +169,21 @@ Hadoop MapReduce 是一个分布式计算框架，用于编写批处理应用程
 - *(optional)*`Combining`进行一个**combiner**归约操作，其实就是一个**本地段的reduce预处理**，以减小后面shufle和reducer的工作量
 - `Reducing`reduce task会通过网络将各个数据收集进行reduce处理
 - 最后将数据保存或者显示，结束整个job
+
+
+
+wordcount例子：
+
+- spliting ：Documents会根据切割规则被切成若干块，
+- map阶段：然后进行Map过程，Map会并行读取文本，对读取的单词进行单词分割，并且每个词以键值对<key,value>形式生成
+  - 例如：读取到”Hello World Hello Java“，分割单词形成Map <Hello,1> <World,1><Hello,1> <Java,1>
+- combine阶段：接下来Combine(该阶段是可以选择的，Combine其实也是一种reduce）会对每个片相同的词进行统计。
+- shuffle阶段：将Map输出作为reduce的输入的过程就是shuffle,次阶段是最耗时间,也是重点需要优化的阶段。shuffle阶段会对数据进行拉取，对最后得到单词进行统计，每个单词的位置会根据Hash来确定所在的位置，
+- reduce阶段：对数据做最后的汇总，最后结果是存储在hdfs上
+
+
+
+
 
 ### Yarn
 
@@ -381,9 +427,54 @@ Built upon spark core, Spark ecosystem is composed of the several modules. One o
 
 
 
+### **Spark和MapReduce的差异**
+
+1、性能方面
+
+- Spark在内存中处理数据，而MapReduce 是通过map和reduce操作在磁盘中处理数据。因此从这个角度上讲Spark的性能应该是超过MapReduce的。
+
+  然而，既然在内存中处理，Spark就需要很大的内存容量。就像一个标准的数据库系统操作一样，Spark**每次将处理过程加载到内存之中**，然后该操作作为缓存一直保持在内存中直到下一步操作。如果Spark与其它资源需求型服务一同运行在YARN上，又或者数据块太大以至于不能完全读入内存，此时Spark的性能就会有很大的降低。
+
+- 与此相反，MapReduce会在一个工作完成的时候立即结束该进程，因此它可以很容易的和其它服务共同运行而不会产生明显的性能降低。
+- 当涉及需要重复读取同样的数据进行迭代式计算的时候，Spark有着自身优势。 但是当涉及单次读取、类似ETL（抽取、转换、加载）操作的任务，比如数据转化、数据整合等时，**MapReduce绝对是不二之选，因为它就是为此而生的。**
+- 小结：当数据大小适于读入内存，尤其是在专用集群上时，Spark表现更好；MapReduce适用于那些**数据不能全部读入内存的情况**，同时它还可以与其它服务同时运行。
+
+2、使用难度方面
+
+- Spark 有着灵活方便的Java，Scala和 Python 的API，同时对已经熟悉 SQL 的技术员工来说， Spark 还适用 Spark SQL（也就是之前被人熟知的 Shark）。多亏了 Spark 提供的简单易用的构造模块，我们可以很容易的编写自定义函数。它甚至还囊括了可以即时反馈的交互式命令模式。
+- Hadoop **MapReduce是用Java编写的**，但由于其难于编程而备受诟病。尽管需要一定时间去学习语法，Pig还是在一定程度上简化了这个过程，Hive也为平台提供了SQL的兼容。一些Hadoop工具也可以无需编程直接运行MapReduce任务。Xplenty就是一个基于Hadoop的数据整合服务，而且也不需要进行任何编程和部署。
+- 尽管Hive提供了命令行接口，但MapReduce并没有交互式模式。诸如Impala，Presto和Tez等项目都在尝试希望为Hadoop提供全交互式查询模式。
+- 安装与维护方面，Spark并不绑定在Hadoop上，虽然在Hortonworks（HDP 2.2版）和Cloudera（CDH 5版）的产品中Spark和MapReduce都包含在其分布式系统中。（注：Cloudera，Hortonworks及MapR是 Hadoop领域三大知名的初创公司，致力于打造更好的Hadoop企业版应用）。
+- 小结：**Spark更易于编程，同时也包含交互式模式**；MapReduce不易编程但是现有的很多工具使其更易于使用。
+
+3、成本方面
+
+- Spark 集群的内存至少要和需要处理的数据块一样大，因为只有数据块和内存大小合适才能发挥出其最优的性能。所以如果真的需要处理非常大的数据，Hadoop 绝对是合适之选，毕竟硬盘的费用要远远低于内存的费用。
+- 考虑到 Spark 的性能标准，在执行相同的任务的时候，需要的硬件更少而运行速度却更快，因此应该是更合算的，尤其是在云端的时候，此时只需要即用即付。
+- 小结：根据基准要求， Spark 更加合算， 尽管人工成本会很高。依靠着更多熟练的技术人员和 Hadoop 即服务的供给， Hadoop MapReduce 可能更便宜。
+
+4、兼容性
+
+- Spark既可以单独运行，也可以在 Hadoop YARN 上，或者在预置 Mesos 上以及云端。它支持实现 Hadoop 输入范式的数据源，所以可以整合所有 Hadoop 支持的数据源和文件格式。 根据 Spark 官方教程， 它还可以通过 JDBC 和 ODBC 同 BI（商业智能） 工具一起运行。 Hive 和 Pig 也在逐步实现这样的功能。
+- 小结：Spark和Hadoop MapReduce具有相同的数据类型和数据源的兼容性。
+
+5、数据处理
+
+- 除了平常的数据处理，Spark 可以做的远不止这点：它还可以处理**图和利用现有的机器学习库**。高性能也使得 Spark 在实时处理上的表现和批处理上的表现一样好。这也催生了一个更好的机遇，那就是用一个平台解决所有问题而不是只能根据任务选取不同的平台，毕竟所有的平台都需要学习和维护。
+- Hadoop MapReduce 在批处理上表现卓越。如果需要进行**实时处理，可以利用另外的平台比如 Storm 或者 Impala**，而图处理则可以用 Giraph。MapReduce 过去是用 Mahout 做机器学习的，但其负责人已经将其抛弃转而支持 Spark 和 h2o（机器学习引擎）。
+- 小结：Spark是数据处理的瑞士军刀；Hadoop MapReduce 是批处理的突击刀。
+
+6、处理速度
+
+- Hadoop是磁盘级计算，计算时需要在磁盘中读取数据；其采用的是MapReduce的逻辑，把数据进行切片计算用这种方式来处理大量的离线数据.
+- Spark会在内存中以接近“实时”的时间完成所有的数据分析。Spark的批处理速度比MapReduce快10倍，内存中的数据分析速度则快近100倍。
+- 比如实时的市场活动，在线产品推荐等需要对流数据进行分析场景就要使用Spark。
+
+
+
 ## Hive
 
-Hive 是一个构建于 Hadoop之上的数据仓库工具，它可以将结构化的数据文件映射成表，并提供类 SQL 查询功能，用于查询的 SQL 语句会被转化为 MapReduce 作业，然后提交到 Hadoop 上运行。
+Hive是建立在Hadoop之上为了减少MapReducejobs编写工作的批处理系统。它可以将结构化的数据文件映射成表，并提供类 SQL 查询功能，用于查询的 SQL 语句会被转化为 MapReduce 作业，然后提交到 Hadoop 上运行。
 
 - 支持大规模数据存储、分析，具有良好的可扩展性。
 - 某种程度上可以看作是用户编程接口，本身不存储和处理数据：Hive 定义了简单的类似 SQL 的查询语言——HiveQL，用户可以通过编写的 HiveQL 语句运行 MapReduce 任务，可以很容易把原来构建在关系数据库上的数据仓库应用程序移植到 Hadoop 平台上。
@@ -430,7 +521,7 @@ Hive 是一个构建于 Hadoop之上的数据仓库工具，它可以将结构�
   - 在 Hive 中，表名、表结构、字段名、字段类型、表的分隔符等统一被称为**元数据**。所有的元数据默认存储在 Hive 内置的 derby 数据库中，但由于 derby 只能有一个实例，也就是说**不能有多个命令行客户端同时访问**，所以在实际生产环境中，通常使用 MySQL 代替 derby。
   - Hive 进行的是**统一的元数据管理**，就是说你在 Hive 上创建了一张表，然后*在 presto／impala／sparksql 中都是可以直接使用的*，它们会从 Metastore 中获取统一的元数据信息，同样的你在 presto／impala／sparksql 中创建一张表，在 Hive 中也可以直接使用。
 
-### **HiveQL执行流程：*
+### HiveQL执行流程
 
 > 美团技术团队的文章：[Hive SQL 的编译过程](https://tech.meituan.com/2014/02/12/hive-sql-to-mapreduce.html)
 
@@ -460,7 +551,79 @@ Hive 会在 HDFS 为每个数据库上创建一个目录，数据库中的表是
 
 
 
+## HBase
+
+HBase: Hadoop database 的简称，也就是基于Hadoop[数据库](https://cloud.tencent.com/solution/database?from=10680)，是一种NoSQL数据库，主要适用于海量明细数据（十亿、百亿）的随机实时查询，如日志明细、交易清单、轨迹行为等。一种列存储模式与键值对相结合的NoSQL软件,但更多的是使用列存储模式,底层的数据文件采用HDFS存储,其文件结构和元数据等由自身维护。用zookeeper进行管理。
+
+- HBase是Hadoop的重要成员,提供了分布式数据表和更高效的数据查询能力,弥补了HDFS只能进行文件管理以及MapReduce **不适合完成实时任务的缺陷.**
+- HBase利用HDFS实现数据分布式存储，数据分块以及多副本等，HBase在此基础上实现了对记录的更新和删除。Hbase具有灵活的数据模型，不仅可以基于键进行快速查询，还可以实现基于值、列名等的全文遍历和检索。
+
+
+
+HIVE与HBase之间的联系：
+
+- **底层文件的存贮都是依赖hdfs的**
+- 两者有协作关系：![img](../images/1087883-20200419112722802-607840514.png)
+  1. 通过ETL工具将数据源抽取到HDFS存储；
+  2. 通过Hive清洗、处理和计算原始数据；
+  3. HIve清洗处理后的结果，如果是面向海量数据随机查询场景的可存入Hbase
+  4. 数据应用从HBase查询数据；
+
+**更为细致的区别如下：**
+
+- Hive中的表是纯逻辑表，就只是表的定义等，即表的元数据。Hive本身不存储数据，它完全依赖HDFS和MapReduce。这样就可以将**结构化的数据文件映射为为一张数据库表**，并提供完整的SQL查询功能，并将SQL语句最终转换为MapReduce任务进行运行。而HBase表是物理表，适合存放非结构化的数据。
+- Hive是基于MapReduce来处理数据,而MapReduce处理数据是基于行的模式；HBase处理数据是基于列的而不是基于行的模式，适合海量数据的随机访问。
+- HBase的表是疏松的存储的，因此用户可以**<u>给行定义各种不同的列</u>**；而Hive表是稠密型，即定义多少列，每一行有存储固定列数的数据。
+- Hive使用Hadoop来分析处理数据，而Hadoop系统是批处理系统，因此不能保证处理的低迟延问题；而HBase是近实时系统，支持实时查询。
+- *Hive不提供row-level的更新*，它适用于大量append-only数据集（如日志）的批任务处理。而基于HBase的查询，支持和row-level的更新。
+- Hive提供完整的SQL实现，通常被用来做一些基于历史数据的挖掘、分析。而HBase不适用与有join，多级索引，表关系复杂的应用场景。
+
+
+
+### 存储结构
+
+HBase采用的是一种**面向列的键值对存储**模式。
+
+![HBase 逻辑视图](../images/168229210fe3a9ba~tplv-t2oaga2asx-zoom-in-crop-mark:4536:0:0:0.awebp)
+
+在本图中，列簇（`Column Family`）对应的值就是  `info`  和 `area` ，列（ `Column` 或者称为 `Qualifier` ）对应的就是 `name`  、 `age` 、 `country` 和 `city` ，`Row key` 对应的就是 `Row 1` 和 `Row 2`，`Cell` 对应的就是具体的值。
+
+- `Row key` ：表的主键，按照字典序排序。
+- 列簇：在 `HBase` 中，列簇将表进行横向切割。
+- 列：属于某一个列簇，在 `HBase` 中可以进行动态的添加。
+- `Cell` : 是指具体的 `Value` 。
+- `Version` ：在这张图里面没有显示出来，这个是指版本号，用时间戳（`TimeStamp` ）来表示。
+
+获取其中的一条数据：既然 `HBase` 是 `KV` 的数据库，那么当然是以获取 `KEY` 的形式来获取到 `Value` 啦。在 `HBase` 中的 `KEY` 组成是这样的：
+
+
+
+![Key 和 Value 图](../images/168229210e2388e3~tplv-t2oaga2asx-zoom-in-crop-mark:4536:0:0:0.awebp)
+
+
+
+- `KEY` 的组成是以 `Row key` 、`CF(Column Family)` 、`Column` 和 `TimeStamp` 组成的。
+- `TimeStamp` 在 `HBase` 中充当的作用就是版本号，因为在 `HBase` 中有着数据多版本的特性，所以同一个 `KEY` 可以有多个版本的 `Value` 值（可以通过配置来设置多少个版本）。查询的话是默认取回最新版本的那条数据，但是也可以进行查询多个版本号的数据，在接下来的进阶操作文章中会有演示。
+
+
+
+### 架构
+
+![HBase的架构图](../images/168229210f799478~tplv-t2oaga2asx-zoom-in-crop-mark:4536:0:0:0.awebp)
+
+- `Client` 是客户端，要求读写数据的发起者。
+- `ZK` 集群是负责转发 `Client` 的请求和提供心跳机制，会让 `HRegion Server` 和 `HRegion` 注册进来，同时保存着 `Rowkey` 和 `Region` 的映射关系。
+- `HMaster` 中可以有多个待命，只有一个在活跃。
+
+
+
+
+
+
+
 ## 参考资料
 
 - [Columbia｜4121 Computing Systems for Data Science](https://w4121.github.io/)
-- [GitHub｜heibaiying｜BigData Notes](https://github.com/heibaiying/BigData-Notes)：非常好的资料！还有Flink、Storm等没有整理进去
+- [GitHub｜heibaiying｜BigData Notes](https://github.com/heibaiying/BigData-Notes)：PS——非常好的资料！还有Flink、Storm等没有整理进去
+- [51CTO博客｜蓦然1607｜阿里云大数据开发一面面经，已过，面试题已配答案](https://blog.51cto.com/u_15553407/5785534)
+- [稀土掘金｜spacedong｜一文讲清HBase存储结构](https://juejin.cn/post/6844903753271754759)

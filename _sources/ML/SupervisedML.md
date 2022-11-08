@@ -153,8 +153,15 @@
 
 - Synthetic Minority Oversampling Technique (SMOTE)
 
+  - SMOTE全称是Synthetic Minority Oversampling Technique即合成少数类过采样技术，它是基于随机过采样算法的一种改进方案，由 于随机过采样采取简单复制样本的策略来增加少数类样本, 这样容易产生模型过拟合的问题, 即使得模型学习到的信息过于特别 (Specific)而不够泛化(General), SMOTE算法的基本思想是对少数类样本进行分析并根据少数类样本人工合成新样本添加到数据集中
+    - 算法流程：
+      1、对于少数类中每一个样本x, 以欧氏距离为标准计算它到少数类样本集中所有样本的距离, 得到其 $k$ 近邻。
+      2、根据样本不平衡比例设置一个采样比例以确定采样倍率 $\mathrm{N}$, 对于每一个少数类样本 $x$, 从其 $k$ 近邻中随机选择若干个样本, 假设选择的 近邻为 $x n^2$ 。
+      3、对于每一个随机选出的近邻 xn, 分别与原样本按照如下的公式构建新的样本 $x$ new $=x+\operatorname{rand}(0,1) *|x-x n|$
+  
+  
   <img src="../images/image-20220726111730712.png" alt="image-20220726111730712" style="width:50%;" />
-
+  
   - Synthetic Minority Oversampling Technique (SMOTE) is a popular method to handle training with imbalanced datasets
   - SMOTE **adds synthetic interpolated sample**s to minority class
   - The following procedure is repeated for every original data point in minority class:
@@ -905,7 +912,7 @@ Bagging的主要目的是减少方差
 
 - 分类问题：对分类问题：将上步得到的k个模型采用投票的方式得到分类结果
 
-  对回归问题，计算上述模型的均值作为最后的结果。（所有模型的重要性相同） 
+- 对回归问题，计算上述模型的均值作为最后的结果。（所有模型的重要性相同） 
 
 #### Boosting
 
@@ -950,7 +957,11 @@ Boosting的目的主要是减少偏差
 
 
 
-#### Bagging和Boosting的区别
+#### Bagging和Boosting的区别与联系
+
+Bagging和Boosting都是ensemble，就是把弱分类器组装成强分类器的方法。
+
+区别在于以下几点：
 
 - 1）样本选择上：
 
@@ -1160,7 +1171,7 @@ probability of sample reaching that node： the (normalized) total reduction of 
     - 如果有一个sample只去了一个tree，那么这个tree的error就是这个data point的oob error
       - If I built 100 trees and 99 trees used 1 sample and one tree did not use that sample, then that one tree will make a prediction on this, and you can calculate the error from that.
 
- **Feature Importances**
+####  **Feature Importances**
 
 - RF有两种方法：
 
@@ -1168,7 +1179,7 @@ probability of sample reaching that node： the (normalized) total reduction of 
 
   - 对于一颗树，先使用袋外错误率(OOB)样本计算测试误差a，再随机打乱OOB样本中第i个特征（上下打乱特征矩阵第i列的顺序）后计算测试误差b，a与b差距越大特征i越重要。
 
-    - 袋外数据(OOB)： 大约有1/3的训练实例没有参与第k棵树的生成，它们称为第$k$棵树的袋外数据样本。
+    - `袋外数据(OOB)`： 大约有1/3的训练实例没有参与第k棵树的生成，它们称为第$k$棵树的袋外数据样本。
 
     - 在随机森林中某个特征$X$的重要性的计算方法如下：
 
@@ -1426,7 +1437,7 @@ XGBoost采用的是level-wise（BFS）生长策略，能够同时分裂同一层
 
   - Does not support categorical variables natively
 
-**Feature importance：**
+#### **Feature importance：**
 
 - importance_type=weight（默认值），特征重要性使用特征在所有树中作为划分属性的次数。
 
@@ -1443,10 +1454,9 @@ XGBoost采用的是level-wise（BFS）生长策略，能够同时分裂同一层
     - dependency
     - individual
 
+#### **处理过拟合的情况**
 
-
-
-**处理过拟合的情况**：首先BFS的没那么容易过拟合
+首先XGB是基于BFS的，其实没那么容易过拟合
 
 - 目标函数中增加了正则项：使用叶子结点的数目和叶子结点权重的$L2$模的平方，控制树的复杂度。
 
@@ -1492,13 +1502,13 @@ LightGBM采用leaf-wise生长策略（DFS）：每次从当前所有叶子中找
       - 预排序算法每遍历一个特征值就要计算一次在这里分裂的information gain，但直方图只需要计算k个统的数
       - 同时，一个叶子的直方图可以由它的父亲节点的直方图与它兄弟的直方图做差得到
 
-  - 单边梯度采样 `Gradient-based One-Sided Sampling (GOSS)` 
+  - **单边梯度采样** `Gradient-based One-Sided Sampling (GOSS)` 
 
     - GBDT 算法的梯度大小可以反应样本的权重，梯度越小说明模型拟合的越好，单边梯度抽样算法利用这一信息对样本进行**<u>抽样</u>**，减少了大量梯度小的样本，在接下来的计算锅中只需关注梯度高的样本，极大的减少了计算量
       - 在对每个tree做sampling从而加速的时候：**因为每一步的gradient就是residual，我就可以sample based on this residual. 把梯度大的选出来，**梯度小的sample it out. 可以设置一个threshold把低的筛掉
     - 这个操作后面也会用权重平衡回来，让**一方面算法将更多的注意力放在训练不足的样本上，另一方面通过乘上权重来防止采样对原始数据分布造成太大的影响**
 
-  - 互斥特征捆绑Exclusive feature `bundling` to handle sparse features
+  - **互斥特征捆绑Exclusive feature `bundling`** to handle sparse features
 
     - 如果两个特征并不完全互斥（如只有一部分情况下是不同时取非零值），可以用互斥率表示互斥程度。互斥特征捆绑算法（Exclusive Feature Bundling, EFB）指出如果将一些特征进行融合绑定，则可以降低特征数量。
     - speed up the process of splitting
@@ -1507,38 +1517,61 @@ LightGBM采用leaf-wise生长策略（DFS）：每次从当前所有叶子中找
   - **<u>LightGBM 原生支持类别特征｜</u>**Supports GPU training, sparse data & missing values｜Generally faster than XGBoost on CPUs｜Supports **distributed training** on diﬀerent frameworks like Ray, Spark, Dask etc.
 
   - 缺失值处理：每次分割的时候，分别把缺失值放在左右两边各计算一次，然后比较两种情况的增益，择优录取
+  
+  - 带深度限制不过拟合的情况下，Leaf-wise的叶子生长策略效率更高
+  
+    - 在XGBoost中，树是按层生长的，称为Level-wise tree growth，同一层的所有节点都做分裂，最后剪枝
+  
+    - Level-wise过一次数据可以同时分裂同一层的叶子，容易进行多线程优化，也好控制模型复杂度，不容易过拟合。但实际上Level-wise是一种低效的算法，因为它不加区分的对待同一层的叶子，带来了很多没必要的开销，因为实际上很多叶子的分裂增益较低，没必要进行搜索和分裂。
+  
+    - 在Histogram算法之上，LightGBM进行进一步的优化。首先它抛弃了大多数GBDT工具使用的按层生长 (level-wise) 的决策树生长策略，而使用了带有深度限制的按叶子生长 (leaf-wise)算法。
+  
+    - Leaf-wise则是一种更为高效的策略，每次从当前所有叶子中，找到分裂增益最大的一个叶子，然后分裂，如此循环。因此同Level-wise相比，**在分裂次数相同的情况下，Leaf-wise可以降低更多的误差，得到更好的精度**。Leaf-wise的缺点是可能会长出比较深的决策树，产生过拟合。因此LightGBM在Leaf-wise之上增加了一个最大深度的限制，在保证高效率的同时防止过拟合。
+  
+  - 直接支持类别特征(Categorical Feature)
 
 
 
 ### XGBoost和LightGBM的区别
 
-- 树生长策略不同
+- *（model结构的不同）*
 
-  - XGB采用level-wise的分裂策略：XGB对每一层所有节点做无差别分裂，但是可能有些节点增益非常小，对结果影响不大，带来不必要的开销。
+  - 树生长策略不同
+    - XGB采用level-wise的分裂策略：XGB对每一层所有节点做无差别分裂，但是可能有些节点增益非常小，对结果影响不大，带来不必要的开销。
 
-  - LGB采用leaf-wise的分裂策略：Leaf-wise是在所有叶子节点中选取分裂收益最大的节点进行的，但是很容易出现过拟合问题，所以需要对最大深度做限制 
+    - LGB采用leaf-wise的分裂策略：Leaf-wise是在所有叶子节点中选取分裂收益最大的节点进行的，但是很容易出现过拟合问题，所以需要对最大深度做限制 
 
-- 树对特征分割点查找算法不同：
+  - 树对特征分割点查找算法不同：
+    - XGB使用特征预排序算法
 
-  - XGB使用特征预排序算法
+    - LGB使用基于直方图的切分点算法：
+      - 减少内存占用，比如离散为256个bin时，只需要用8位整形就可以保存一个样本被映射为哪个bin(这个bin可以说就是转换后的特征)，对比预排序的exact greedy算法来说（用int_32来存储索引+ 用float_32保存特征值），可以节省7/8的空间。
 
-  - LGB使用基于直方图的切分点算法：
+      - 计算效率提高，预排序的Exact greedy对每个特征都需要遍历一遍数据，并计算增益。而直方图算法在建立完直方图后，只需要对每个特征遍历直方图即可
 
-    - 减少内存占用，比如离散为256个bin时，只需要用8位整形就可以保存一个样本被映射为哪个bin(这个bin可以说就是转换后的特征)，对比预排序的exact greedy算法来说（用int_32来存储索引+ 用float_32保存特征值），可以节省7/8的空间。
+    - 这个特征分割点查找的区别其实也跟分裂方式有关
+      - XGB 在每一层都动态构建直方图， 因为XGB的直方图算法不是针对某个特定的feature，而是所有feature共享一个直方图(每个样本的权重是二阶导)，所以**每一层都要重新构建直方图。**
 
-    - 计算效率提高，预排序的Exact greedy对每个特征都需要遍历一遍数据，并计算增益。而直方图算法在建立完直方图后，只需要对每个特征遍历直方图即可
+      - LGB中对每个特征都有一个直方图，所以构建一次直方图就够了，而且LGB还可以使用直方图做差加速，一个节点的直方图可以通过父节点的直方图减去兄弟节点的直方图得到，从而加速计算
 
-  - 然后这里也跟分裂方式有关
+- *（n的不同）*样本选择：会做单边梯度采样，LightGBM会将更多的注意力放在训练不足的样本上
 
-    - XGB 在每一层都动态构建直方图， 因为XGB的直方图算法不是针对某个特定的feature，而是所有feature共享一个直方图(每个样本的权重是二阶导)，所以每一层都要重新构建直方图。
+- *（run的不同）*并行策略有差异：
 
-    - LGB中对每个特征都有一个直方图，所以构建一次直方图就够了
-    
-      LGB还可以使用直方图做差加速，一个节点的直方图可以通过父节点的直方图减去兄弟节点的直方图得到，从而加速计算
+  - XGB是特征并行
 
-- 样本选择：会做单边梯度采样，LightGBM会将更多的注意力放在训练不足的样本上
+    - XGB每个worker节点中仅有部分的列数据，也就是垂直切分，每个worker寻找局部最佳切分点，worker之间相互通信，然后在具有最佳切分点的worker上进行节点分裂，再由这个节点广播一下被切分到左右节点的样本索引号，其他worker才能开始分裂。
+
+    - LGB特征并行的前提是每个worker留有一份完整的数据集，但是每个worker仅在特征子集上进行最佳切分点的寻找；worker之间需要相互通信，通过比对损失来确定最佳切分点；然后将这个最佳切分点的位置进行全局广播，每个worker进行切分即可。
+
+  - LihgtGBM是数据并行
+
+    - LGB中先对数据水平切分，每个worker上的数据先建立起局部的直方图，然后合并成全局的直方图，采用直方图相减的方式，先计算样本量少的节点的样本索引，然后直接相减得到另一子节点的样本索引，这个直方图算法使得worker间的通信成本降低一倍，因为只用通信以此样本量少的节点
+
+    - XGB中的数据并行也是水平切分，然后单个worker建立局部直方图，再合并为全局，不同在于根据全局直方图进行各个worker上的节点分裂时会单独计算子节点的样本索引
 
 - 还有一些小的区别：
+
   - 离散变量处理上：XGB无法直接输入类别型变量因此需要事先对类别型变量进行编码（例如独热编码），LGB可以直接处理类别型变量
   - 识别一些互斥的特征上，LightGBM可以bundling等等
 

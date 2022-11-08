@@ -421,36 +421,32 @@ WHERE (account_id, PERIOD_ADD(yearmonth, 1)) IN (SELECT * FROM oversave_log)
 
 
 
-#### 查询连续X天登陆的用户
+#### 查询连续7天登陆的用户
 
-```SQL
+- 只需要user_id不需要起点的情况：
+
+```sql
 -- 每个用户先统计一张登陆流水，日期转换int
 WITH user as (
-    SELECT 
-        player_id, 
-        DATEDIFF(event_date, '2000-01-01') AS date_id
-    FROM 
-        Activity 
-    GROUP BY
-        player_id, 
-        date_id
-    ORDER BY date_id
+    SELECT user_id, date
+    FROM Activity 
+    GROUP BY user_id, date
 ),
 
 -- 然后把累加开始的时间当作每个用户的「区间开始」id
 user_cum_tagged AS(
-    SELECT 
-        player_id,
-        date_id - row_number() over(PARTITION by player_id order by date_id) as cum_id
+    SELECT *,
+  	       DATE_SUB(date, INTERVAL ROW_NUMBER() OVER(PARTITION BY user_id ORDER BY date DAY) DAY) AS cum_id
     FROM user
-)
+),
 
--- 每个用户、每个「区间开始」id组中 有2条登录天数的即为连续2天登录，然后把「区间开始」id转化为实际日期
-SELECT player_id, DATE_ADD('2000-01-01', INTERVAL cum_id+1 DAY) AS start_date
-    -- 这里注意-row_number的时候第一天也会减1，所以这里加回来
+-- 得到所有满足条件的连续区间
+SELECT user_id, min(date) AS start_date, max(date) AS end_date
 FROM user_cum_tagged
-GROUP BY player_id, DATE_ADD('2000-01-01', INTERVAL cum_id+1 DAY)
-HAVING COUNT(*) >= 2 -- 这里可以改成任意天～
+GROUP BY user_id, cum_id
+HAVING COUNT(date) >= 7 -- 这里可以改成任意天～
+
+-- 进一步，可以对user_id再去重
 ```
 
 

@@ -53,6 +53,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="数据清洗与处理" href="Data_cleaning/README.html" />
@@ -500,13 +502,22 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#hiveql">
-     HiveQL执行流程
+    <a class="reference internal nav-link" href="#id8">
+     <strong>
+      Hive 底层执行架构
+     </strong>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     存储形式：
+    <a class="reference internal nav-link" href="#hive-sql-mapreduce">
+     <strong>
+      Hive SQL 编译成 MapReduce 过程
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     存储格式
     </a>
    </li>
   </ul>
@@ -517,19 +528,19 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
+    <a class="reference internal nav-link" href="#id10">
      存储结构
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id10">
+    <a class="reference internal nav-link" href="#id11">
      架构
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id11">
+  <a class="reference internal nav-link" href="#id12">
    参考资料
   </a>
  </li>
@@ -667,13 +678,22 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#hiveql">
-     HiveQL执行流程
+    <a class="reference internal nav-link" href="#id8">
+     <strong>
+      Hive 底层执行架构
+     </strong>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     存储形式：
+    <a class="reference internal nav-link" href="#hive-sql-mapreduce">
+     <strong>
+      Hive SQL 编译成 MapReduce 过程
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     存储格式
     </a>
    </li>
   </ul>
@@ -684,19 +704,19 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
+    <a class="reference internal nav-link" href="#id10">
      存储结构
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id10">
+    <a class="reference internal nav-link" href="#id11">
      架构
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id11">
+  <a class="reference internal nav-link" href="#id12">
    参考资料
   </a>
  </li>
@@ -815,10 +835,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id4">
 <h4>执行流程<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<p><strong>简单版本</strong></p>
 <blockquote>
 <div><p><a class="reference external" href="https://tyler-zx.blog.csdn.net/article/details/90667918?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-90667918-blog-37655491.pc_relevant_aa&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-90667918-blog-37655491.pc_relevant_aa&amp;utm_relevant_index=3">漫画</a></p>
 </div></blockquote>
-<p><strong>简单版本：</strong></p>
 <ul class="simple">
 <li><p>首先明确Block size——一个文件会被拆成的小block有多大；replication factor——一个block会被存在几个地方</p></li>
 <li><p><strong>写文件</strong></p>
@@ -855,10 +875,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>3）客户端请求第一个 block上传到哪几个datanode服务器上。</p></li>
 <li><p>4）NameNode返回3个datanode节点，分别为dn1、dn2、dn3。</p></li>
 <li><p>5）客户端通过FSDataOutputStream模块请求dn1上传数据，dn1收到请求会继续调用dn2，然后dn2调用dn3，将这个通信管道建立完成。</p></li>
-<li><p>6）dn1、dn2、dn3逐级应答客户端。</p></li>
-<li><p>7）客户端开始往dn1上传第一个block（先从磁盘读取数据放到一个本地内存缓存），以packet为单位，dn1收到一个packet就会传给dn2，dn2传给dn3；dn1每传一个packet会放入一个应答队列等待应答。</p></li>
-<li><p>8）当一个block传输完成之后，客户端再次请求NameNode上传第二个block的服务器。</p></li>
-<li><p>重复执行3-8步</p></li>
+<li><p>6）dn1、dn2、dn3逐级<strong>应答</strong>客户端。</p></li>
+<li><p>7）客户端开始往dn1上传第一个block <span class="math notranslate nohighlight">\(blk_1\)</span>（先从磁盘读取数据放到一个本地内存缓存），以packet为单位，dn1收到一个packet就会传给dn2，dn2传给dn3；dn1每传一个packet会放入一个应答队列等待应答。</p></li>
+<li><p>8）当一个block传输完成之后，客户端再次请求NameNode上传第二个block的数据。</p></li>
+<li><p>重复执行3-8步直到所有的block执行完成</p></li>
 </ul>
 </li>
 <li><p>读数据</p>
@@ -867,7 +887,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>1）客户端通过Distributed FileSystem向NameNode请求下载文件</p></li>
 <li><p>2）NameNode通过查询元数据，找到文件块所在的DataNode地址，并且返回</p></li>
 <li><p>3）客户端挑选一台DataNode（<strong>就近原则，然后随机</strong>）服务器，请求读取数据。</p></li>
-<li><p>4）DataNode开始传输数据给客户端（从磁盘里面读取数据输入流，以packet为单位来做校验）。直到所有的datanode完成</p></li>
+<li><p>4）DataNode开始传输数据给客户端（从磁盘里面读取数据输入流，以packet为单位来做校验）。直到所有的datanode完成自己负责的block完成传输</p></li>
 <li><p>5）客户端以packet为单位接收，先在本地缓存，然后写入目标文件。</p></li>
 </ul>
 </li>
@@ -1325,7 +1345,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="hive">
 <h2>Hive<a class="headerlink" href="#hive" title="Permalink to this headline">¶</a></h2>
-<p>Hive是建立在Hadoop之上为了减少MapReducejobs编写工作的批处理系统。它可以将结构化的数据文件映射成表，并提供类 SQL 查询功能，用于查询的 SQL 语句会被转化为 MapReduce 作业，然后提交到 Hadoop 上运行。</p>
+<p>Hive 是数据仓库工具，再具体点就是一个 SQL 解析引擎，因为它即不负责存储数据，也不负责计算数据，只负责解析 SQL，记录元数据。Hive直接访问存储在 HDFS 中或者 HBase 中的文件，通过 MapReduce、Spark 或 Tez 执行查询。</p>
+<p>Hive是建立在Hadoop之上为了减少MapReduce jobs编写工作的批处理系统。它可以将结构化的数据文件映射成表，并提供类 SQL 查询功能，用于查询的 SQL 语句会被转化为 MapReduce 作业，然后提交到 Hadoop 上运行。</p>
 <ul class="simple">
 <li><p>支持大规模数据存储、分析，具有良好的可扩展性。</p></li>
 <li><p>某种程度上可以看作是用户编程接口，本身不存储和处理数据：Hive 定义了简单的类似 SQL 的查询语言——HiveQL，用户可以通过编写的 HiveQL 语句运行 MapReduce 任务，可以很容易把原来构建在关系数据库上的数据仓库应用程序移植到 Hadoop 平台上。</p></li>
@@ -1339,7 +1360,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li><p>Hive依赖分布式文件系统 HDFS 存储数据，依赖分布式并行计算模型 MapReduce 处理数据（底层计算的引擎默认是 MapReduce，可以将引擎更换为 Spark/Tez）。</p></li>
 </ul>
-<p>**特点：**Hive 是通过构建元数据，<strong>映射 HDFS 文件构建成表</strong>，本质还是 HDFS实现的离线大数据仓库。</p>
+<p>**特点：**Hive 是通过构建元数据，<strong>映射HDFS文件构建成表</strong>，本质还是 HDFS实现的离线大数据仓库。</p>
 <ul class="simple">
 <li><p><strong>Hive 并不是一个关系数据库</strong> <strong>不能和数据库一样进行实时的CURD操作</strong></p></li>
 <li><p>Hive 中没有定义专门的数据格式，由用户指定，需要指定三个属性：列分隔符、行分隔符 、读取文件数据的方法（Hive 中默认有三个文件格式 TextFile，SequenceFile 以及 RCFile）。</p></li>
@@ -1374,22 +1395,107 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 </ul>
-<div class="section" id="hiveql">
-<h3>HiveQL执行流程<a class="headerlink" href="#hiveql" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3><strong>Hive 底层执行架构</strong><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<img src="../images/v2-adff0057db046aed4666dd25f7aaa284_1440w.webp" alt="img" style="width:33%;" />
+<p>组成成分：</p>
+<ol class="simple">
+<li><p>UI：用户界面。可看作我们提交SQL语句的命令行界面。</p></li>
+<li><p>DRIVER：驱动程序。接收查询的组件。该组件实现了会话句柄的概念。</p></li>
+<li><p>COMPILER：编译器。负责将 SQL 转化为平台可执行的执行计划。对不同的查询块和查询表达式进行语义分析，并最终借助表和从 metastore 查找的分区元数据来生成执行计划。</p></li>
+<li><p>METASTORE：元数据库。存储 Hive 中各种表和分区的所有结构信息。</p></li>
+<li><p>EXECUTION ENGINE：执行引擎。负责提交 COMPILER 阶段编译好的执行计划到不同的平台上。</p></li>
+</ol>
+<p>基本流程是：</p>
+<ul class="simple">
+<li><p>步骤1：UI 调用 DRIVER 的接口；</p></li>
+<li><p>步骤2：DRIVER 为查询创建会话句柄，并将查询发送到 COMPILER(编译器)生成执行计划；</p></li>
+<li><p>步骤3/4：编译器从元数据存储中获取本次查询所需要的元数据，该元数据用于对查询树中的表达式进行类型检查，以及基于查询谓词修建分区；</p></li>
+<li><p>步骤5：编译器生成的计划是分阶段的DAG，每个阶段要么是 map/reduce 作业，要么是一个元数据或者HDFS上的操作。将生成的计划发给 DRIVER。</p>
+<ul>
+<li><p>如果是 map/reduce 作业，该计划包括 map operator trees 和一个 reduce operator tree，执行引擎将会把这些作业发送给 MapReduce ：</p></li>
+</ul>
+</li>
+<li><p><strong>步骤6、6.1、6.2和6.3</strong>：执行引擎将这些阶段提交给适当的组件。在每个 task(mapper/reducer) 中，从HDFS文件中读取与表或中间输出相关联的数据，并通过相关算子树传递这些数据。最终这些数据通过序列化器写入到一个临时HDFS文件中（如果不需要 reduce 阶段，则在 map 中操作）。临时文件用于向计划中后面的 map/reduce 阶段提供数据。</p></li>
+<li><p><strong>步骤7、8和9</strong>：最终的临时文件将移动到表的位置，确保不读取脏数据(文件重命名在HDFS中是原子操作)。对于用户的查询，临时文件的内容由执行引擎直接从HDFS读取，然后通过Driver发送到UI。</p></li>
+</ul>
+</div>
+<div class="section" id="hive-sql-mapreduce">
+<h3><strong>Hive SQL 编译成 MapReduce 过程</strong><a class="headerlink" href="#hive-sql-mapreduce" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>美团技术团队的文章：<a class="reference external" href="https://tech.meituan.com/2014/02/12/hive-sql-to-mapreduce.html">Hive SQL 的编译过程</a></p>
 </div></blockquote>
+<p>编译 SQL 的任务是在上节中介绍的 COMPILER（编译器组件）中完成的。Hive将SQL转化为MapReduce任务，整个编译过程分为六个阶段：</p>
+<ol>
+<li><p><strong>语法解析</strong>：Antlr 定义 SQL 的语法规则，完成 SQL 词法，语法解析，将 SQL 转化为抽象 语法树 AST Tree；</p>
+<p><img alt="SQL生成AST Tree" src="../_images/53c6802d.png" /></p>
+</li>
+<li><p>**语意解析：**遍历 AST Tree，抽象出查询的基本组成单元 QueryBlock；</p>
+<ul class="simple">
+<li><p>AST Tree仍然非常复杂，不够结构化，不方便直接翻译为MapReduce程序，AST Tree转化为QueryBlock就是将SQL进一部抽象和结构化。</p></li>
+<li><p>QueryBlock是一条SQL最基本的组成单元，包括三个部分：输入源，计算过程，输出</p></li>
+</ul>
+</li>
+<li><p>**生成逻辑执行计划：**遍历 QueryBlock，翻译为执行操作树OperatorTree；</p>
+<ul class="simple">
+<li><p>Hive最终生成的MapReduce任务，Map阶段和Reduce阶段均由OperatorTree组成。逻辑操作符，就是在Map阶段或者Reduce阶段完成单一特定的操作。</p></li>
+<li><p>基本的操作符包括TableScanOperator，SelectOperator，FilterOperator，JoinOperator，GroupByOperator，ReduceSinkOperator</p>
+<ul>
+<li><p>由于Join/GroupBy/OrderBy均需要在Reduce阶段完成，所以在生成相应操作的Operator之前都会先生成一个ReduceSinkOperator，将字段组合并序列化为Reduce Key/value, Partition Key</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>**优化逻辑执行计划：**逻辑层优化器进行 OperatorTree 变换，合并不必要的 ReduceSinkOperator，减少 shuffle 数据量；</p>
+<ul class="simple">
+<li><p>投影修剪</p></li>
+<li><p>推导传递谓词</p></li>
+<li><p>谓词下推</p></li>
+<li><p>将Select-Select，Filter-Filter合并为单个操作</p></li>
+<li><p>多路 Join</p></li>
+<li><p>查询重写以适应某些列值的Join倾斜</p></li>
+</ul>
+</li>
+<li><p>**生成物理执行计划：**遍历 OperatorTree，翻译为 MapReduce 任务；</p>
 <ol class="simple">
-<li><p>语法解析：Antlr 定义 SQL 的语法规则，完成 SQL 词法，语法解析，将 SQL 转化为抽象 语法树 AST Tree；</p></li>
-<li><p>语义解析：遍历 AST Tree，抽象出查询的基本组成单元 QueryBlock；</p></li>
-<li><p>生成逻辑执行计划：遍历 QueryBlock，翻译为执行操作树 OperatorTree；</p></li>
-<li><p>优化逻辑执行计划：逻辑层优化器进行 OperatorTree 变换，合并不必要的 ReduceSinkOperator，减少 shuffle 数据量；</p></li>
-<li><p>生成物理执行计划：遍历 OperatorTree，翻译为 MapReduce 任务；</p></li>
-<li><p>优化物理执行计划：物理层优化器进行 MapReduce 任务的变换，生成最终的执行计划。</p></li>
+<li><p>对输出表生成MoveTask</p></li>
+<li><p>从OperatorTree的其中一个根节点向下深度优先遍历</p></li>
+<li><p>ReduceSinkOperator标示Map/Reduce的界限，多个Job间的界限</p></li>
+<li><p>遍历其他根节点，遇过碰到JoinOperator合并MapReduceTask</p></li>
+<li><p>生成StatTask更新元数据</p></li>
+<li><p>剪断Map与Reduce间的Operator的关系</p></li>
+</ol>
+</li>
+<li><p>**优化物理执行计划：**物理层优化器进行 MapReduce 任务的变换，生成最终的执行计划。比如：</p>
+<ul class="simple">
+<li><p>MapJoin——在Map阶段将小表读入内存，顺序扫描大表完成Join</p></li>
+<li><p>CommonJoinResolver优化器——将CommonJoin转化为MapJoin，转化过程如下</p>
+<ol class="simple">
+<li><p>深度优先遍历Task Tree</p></li>
+<li><p>找到JoinOperator，判断左右表数据量大小</p></li>
+<li><p>对与小表 + 大表 =&gt; MapJoinTask，对于小/大表 + 中间表 =&gt; ConditionalTask</p></li>
+</ol>
+</li>
+<li><p>分区修剪(Partition Pruning)</p></li>
+<li><p>基于分区和桶的扫描修剪(Scan pruning)</p></li>
+<li><p>如果查询基于抽样，则扫描修剪</p></li>
+<li><p>在某些情况下，在 map 端应用 Group By</p></li>
+<li><p>优化 Union，使Union只在 map 端执行</p></li>
+<li><p>在多路 Join 中，根据用户提示决定最后流哪个表</p></li>
+<li><p>删除不必要的 ReduceSinkOperators</p></li>
+<li><p>对于带有Limit子句的查询，减少需要为该表扫描的文件数</p></li>
+<li><p>对于带有Limit子句的查询，通过限制 ReduceSinkOperator 生成的内容来限制来自 mapper 的输出</p></li>
+<li><p>减少用户提交的SQL查询所需的Tez作业数量</p></li>
+<li><p>如果是简单的提取查询，避免使用MapReduce作业</p></li>
+<li><p>对于带有聚合的简单获取查询，执行不带 MapReduce 任务的聚合</p></li>
+<li><p>重写 Group By 查询使用索引表代替原来的表</p></li>
+<li><p>当表扫描之上的谓词是相等谓词且谓词中的列具有索引时，使用索引扫描</p></li>
+</ul>
+</li>
 </ol>
 </div>
-<div class="section" id="id8">
-<h3>存储形式：<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h3>存储格式<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>Hive 会在 HDFS 为每个数据库上创建一个目录，数据库中的表是该目录的子目录，表中的数据会以文件的形式存储在对应的表目录下。Hive 支持以下几种文件存储格式：</p>
 <table class="colwidths-auto table">
 <thead>
@@ -1451,8 +1557,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p><em>Hive不提供row-level的更新</em>，它适用于大量append-only数据集（如日志）的批任务处理。而基于HBase的查询，支持和row-level的更新。</p></li>
 <li><p>Hive提供完整的SQL实现，通常被用来做一些基于历史数据的挖掘、分析。而HBase不适用与有join，多级索引，表关系复杂的应用场景。</p></li>
 </ul>
-<div class="section" id="id9">
-<h3>存储结构<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3>存储结构<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>HBase采用的是一种<strong>面向列的键值对存储</strong>模式。</p>
 <p><img alt="HBase 逻辑视图" src="../_images/168229210fe3a9ba~tplv-t2oaga2asx-zoom-in-crop-mark:4536:0:0:0.awebp" /></p>
 <p>在本图中，列簇（<code class="docutils literal notranslate"><span class="pre">Column</span> <span class="pre">Family</span></code>）对应的值就是  <code class="docutils literal notranslate"><span class="pre">info</span></code>  和 <code class="docutils literal notranslate"><span class="pre">area</span></code> ，列（ <code class="docutils literal notranslate"><span class="pre">Column</span></code> 或者称为 <code class="docutils literal notranslate"><span class="pre">Qualifier</span></code> ）对应的就是 <code class="docutils literal notranslate"><span class="pre">name</span></code>  、 <code class="docutils literal notranslate"><span class="pre">age</span></code> 、 <code class="docutils literal notranslate"><span class="pre">country</span></code> 和 <code class="docutils literal notranslate"><span class="pre">city</span></code> ，<code class="docutils literal notranslate"><span class="pre">Row</span> <span class="pre">key</span></code> 对应的就是 <code class="docutils literal notranslate"><span class="pre">Row</span> <span class="pre">1</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Row</span> <span class="pre">2</span></code>，<code class="docutils literal notranslate"><span class="pre">Cell</span></code> 对应的就是具体的值。</p>
@@ -1470,8 +1576,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p><code class="docutils literal notranslate"><span class="pre">TimeStamp</span></code> 在 <code class="docutils literal notranslate"><span class="pre">HBase</span></code> 中充当的作用就是版本号，因为在 <code class="docutils literal notranslate"><span class="pre">HBase</span></code> 中有着数据多版本的特性，所以同一个 <code class="docutils literal notranslate"><span class="pre">KEY</span></code> 可以有多个版本的 <code class="docutils literal notranslate"><span class="pre">Value</span></code> 值（可以通过配置来设置多少个版本）。查询的话是默认取回最新版本的那条数据，但是也可以进行查询多个版本号的数据，在接下来的进阶操作文章中会有演示。</p></li>
 </ul>
 </div>
-<div class="section" id="id10">
-<h3>架构<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3>架构<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p><img alt="HBase的架构图" src="../_images/168229210f799478~tplv-t2oaga2asx-zoom-in-crop-mark:4536:0:0:0.awebp" /></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Client</span></code> 是客户端，要求读写数据的发起者。</p></li>
@@ -1480,13 +1586,14 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </div>
 </div>
-<div class="section" id="id11">
-<h2>参考资料<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id12">
+<h2>参考资料<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://w4121.github.io/">Columbia｜4121 Computing Systems for Data Science</a></p></li>
 <li><p><a class="reference external" href="https://github.com/heibaiying/BigData-Notes">GitHub｜heibaiying｜BigData Notes</a>：PS——非常好的资料！还有Flink、Storm等没有整理进去</p></li>
 <li><p><a class="reference external" href="https://blog.51cto.com/u_15553407/5785534">51CTO博客｜蓦然1607｜阿里云大数据开发一面面经，已过，面试题已配答案</a></p></li>
 <li><p><a class="reference external" href="https://juejin.cn/post/6844903753271754759">稀土掘金｜spacedong｜一文讲清HBase存储结构</a></p></li>
+<li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/379320344">知乎｜五分钟学大数据｜Hive SQL的底层编译过程详解</a></p></li>
 </ul>
 </div>
 </div>

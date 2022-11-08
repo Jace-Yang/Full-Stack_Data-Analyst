@@ -439,6 +439,87 @@ $$
 
 - 案例：比如微信公众号流量影响微信视频号流量有溢出效应
 
+## 时间序列
+
+
+
+### Prophet
+
+$$
+\begin{aligned}
+&y(t)=\operatorname{Trend}(t)+\operatorname{seasonal}(t)+\operatorname{holiday}(t) \\
+&y(t)=\operatorname{Trend}(t) * \operatorname{seasonal}(t) * \operatorname{holiday}(t)
+\end{aligned}
+$$
+
+
+
+## 贝叶斯统计
+
+
+
+贝叶斯统计跟frequency方法的区别：可以 quantify uncertainty
+
+\- Classical的framework：各种事件都是等可能性的
+
+\- Frequentist：需要infinite sequence来判断，是一种relative frequency
+
+\- Bayesian：Persona了的
+
+
+
+### 基础
+
+Bayesian: better for dealing with uncertainty. Both in terms in being able to quantify uncertainty, and also for being able to combine uncertainties in a coherent manner.
+
+Sequential的方式：
+
+- 把前面的posterior当作当前的prior，从而可以chain together to update posterior
+  - 但是：sequential update和single batch update会得到一样的posterior，这个consistency是Bayesian的特点
+    - 好处在于：可以提高效率
+
+各种分布都会有自己的Posterior Mean
+
+### 各种Prior的设定方式
+
+- Non-informative prior
+
+- Vague Prior:可以设置得非常小，让posterior is mainly driven by the data.
+- Jeffreys Prior: 无信息先验分布
+
+
+
+### 贝叶斯时间序列
+
+#### 背景
+
+- 机器学习、传统时间序列等存在的问题
+  - rarely have sufficient historical data to estimate these components with good precision
+  - validation is more difficult for time series models than it is for classifiers and your audience may not be comfortable with the embedded uncertainty
+- BSTS的好处：
+  - Ability to incorporate uncertainty into our forecasts so we quantify future risk
+    - handles uncertainty in a better way because you can quantify the posterior uncertainty of the individual components, control the variance of the components, and impose prior beliefs on the model
+  - Transparency, so we can truly understand how the model works
+  - Ability to incorporate outside information for known business drivers when we cannot extract the relationships from the data at hand
+
+#### 模型结构
+
+A structural time series is a member of the very broad class of [*state-space* ](http://www.scholarpedia.org/article/State_space_model)models, which model our time series as observations of a hidden state that evolves over time.
+
+Bayesian structural model：
+$$
+\begin{gathered}
+Y_t=\mu_t+x_t \beta+S_t+e_t, e_t \sim N\left(0, \sigma_e^2\right) \\
+\mu_{t+1}=\mu_t+\nu_t, \nu_t \sim N\left(0, \sigma_\nu^2\right) .
+\end{gathered}
+$$
+- $x_t$ denotes a set of regressors
+- $S_t$ represents seasonality
+- $\mu_t$ is the local level term. 
+  - The local level term defines how the **latent state** evolves over time and is often referred to as the unobserved trend. This could, for example, represent an underlying growth in the brand value of a company or external factors that are hard to pinpoint, but it can also soak up short term fluctuations that should be controlled for with explicit terms
+
+Building Bayesian models we get a distribution and not a single answer
+
 
 
 
@@ -447,3 +528,5 @@ $$
 
 - https://www.zhihu.com/question/309884517
 - [知乎｜CoffeeCat｜一文详解F检验](https://zhuanlan.zhihu.com/p/139151375)
+- [Coursera｜加州大学圣克鲁兹分校｜Bayesian Statistics: From Concept to Data Analysis](https://www.coursera.org/learn/bayesian-statistics)）
+- [MultiThreaded｜KIM LARSEN｜Sorry ARIMA, but I’m Going Bayesian](https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/)

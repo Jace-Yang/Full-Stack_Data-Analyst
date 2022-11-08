@@ -505,6 +505,52 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     时间序列
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#prophet">
+       Prophet
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     贝叶斯统计
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id18">
+       基础
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#prior">
+       各种Prior的设定方式
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id19">
+       贝叶斯时间序列
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id20">
+         背景
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id21">
+         模型结构
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
@@ -646,6 +692,52 @@ const thebe_selector_output = ".output, .cell_output"
       <a class="reference internal nav-link" href="#spatial-panel-data-analysis">
        Spatial Panel data analysis
       </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id16">
+     时间序列
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#prophet">
+       Prophet
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id17">
+     贝叶斯统计
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id18">
+       基础
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#prior">
+       各种Prior的设定方式
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id19">
+       贝叶斯时间序列
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id20">
+         背景
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id21">
+         模型结构
+        </a>
+       </li>
+      </ul>
      </li>
     </ul>
    </li>
@@ -1150,12 +1242,105 @@ the change in <span class="math notranslate nohighlight">\(Y\)</span> per unit c
 </ul>
 </div>
 </div>
+<div class="section" id="id16">
+<h2>时间序列<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="prophet">
+<h3>Prophet<a class="headerlink" href="#prophet" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+&amp;y(t)=\operatorname{Trend}(t)+\operatorname{seasonal}(t)+\operatorname{holiday}(t) \\
+&amp;y(t)=\operatorname{Trend}(t) * \operatorname{seasonal}(t) * \operatorname{holiday}(t)
+\end{aligned}
+\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="id17">
+<h2>贝叶斯统计<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<p>贝叶斯统计跟frequency方法的区别：可以 quantify uncertainty</p>
+<p>- Classical的framework：各种事件都是等可能性的</p>
+<p>- Frequentist：需要infinite sequence来判断，是一种relative frequency</p>
+<p>- Bayesian：Persona了的</p>
+<div class="section" id="id18">
+<h3>基础<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p>Bayesian: better for dealing with uncertainty. Both in terms in being able to quantify uncertainty, and also for being able to combine uncertainties in a coherent manner.</p>
+<p>Sequential的方式：</p>
+<ul class="simple">
+<li><p>把前面的posterior当作当前的prior，从而可以chain together to update posterior</p>
+<ul>
+<li><p>但是：sequential update和single batch update会得到一样的posterior，这个consistency是Bayesian的特点</p>
+<ul>
+<li><p>好处在于：可以提高效率</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>各种分布都会有自己的Posterior Mean</p>
+</div>
+<div class="section" id="prior">
+<h3>各种Prior的设定方式<a class="headerlink" href="#prior" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Non-informative prior</p></li>
+<li><p>Vague Prior:可以设置得非常小，让posterior is mainly driven by the data.</p></li>
+<li><p>Jeffreys Prior: 无信息先验分布</p></li>
+</ul>
+</div>
+<div class="section" id="id19">
+<h3>贝叶斯时间序列<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id20">
+<h4>背景<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>机器学习、传统时间序列等存在的问题</p>
+<ul>
+<li><p>rarely have sufficient historical data to estimate these components with good precision</p></li>
+<li><p>validation is more difficult for time series models than it is for classifiers and your audience may not be comfortable with the embedded uncertainty</p></li>
+</ul>
+</li>
+<li><p>BSTS的好处：</p>
+<ul>
+<li><p>Ability to incorporate uncertainty into our forecasts so we quantify future risk</p>
+<ul>
+<li><p>handles uncertainty in a better way because you can quantify the posterior uncertainty of the individual components, control the variance of the components, and impose prior beliefs on the model</p></li>
+</ul>
+</li>
+<li><p>Transparency, so we can truly understand how the model works</p></li>
+<li><p>Ability to incorporate outside information for known business drivers when we cannot extract the relationships from the data at hand</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id21">
+<h4>模型结构<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
+<p>A structural time series is a member of the very broad class of <a class="reference external" href="http://www.scholarpedia.org/article/State_space_model"><em>state-space</em> </a>models, which model our time series as observations of a hidden state that evolves over time.</p>
+<p>Bayesian structural model：
+$<span class="math notranslate nohighlight">\(
+\begin{gathered}
+Y_t=\mu_t+x_t \beta+S_t+e_t, e_t \sim N\left(0, \sigma_e^2\right) \\
+\mu_{t+1}=\mu_t+\nu_t, \nu_t \sim N\left(0, \sigma_\nu^2\right) .
+\end{gathered}
+\)</span>$</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_t\)</span> denotes a set of regressors</p></li>
+<li><p><span class="math notranslate nohighlight">\(S_t\)</span> represents seasonality</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mu_t\)</span> is the local level term.</p>
+<ul>
+<li><p>The local level term defines how the <strong>latent state</strong> evolves over time and is often referred to as the unobserved trend. This could, for example, represent an underlying growth in the brand value of a company or external factors that are hard to pinpoint, but it can also soak up short term fluctuations that should be controlled for with explicit terms</p></li>
+</ul>
+</li>
+</ul>
+<p>Building Bayesian models we get a distribution and not a single answer</p>
+</div>
+</div>
+</div>
 </div>
 <div class="tex2jax_ignore mathjax_ignore section" id="reference">
 <h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.zhihu.com/question/309884517">https://www.zhihu.com/question/309884517</a></p></li>
 <li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/139151375">知乎｜CoffeeCat｜一文详解F检验</a></p></li>
+<li><p><a class="reference external" href="https://www.coursera.org/learn/bayesian-statistics">Coursera｜加州大学圣克鲁兹分校｜Bayesian Statistics: From Concept to Data Analysis</a>）</p></li>
+<li><p><a class="reference external" href="https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/">MultiThreaded｜KIM LARSEN｜Sorry ARIMA, but I’m Going Bayesian</a></p></li>
 </ul>
 </div>
 

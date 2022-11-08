@@ -605,7 +605,7 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
      <li class="toc-h3 nav-item toc-entry">
       <a class="reference internal nav-link" href="#baggingboosting">
-       Bagging和Boosting的区别
+       Bagging和Boosting的区别与联系
       </a>
      </li>
      <li class="toc-h3 nav-item toc-entry">
@@ -653,6 +653,22 @@ const thebe_selector_output = ".output, .cell_output"
       <a class="reference internal nav-link" href="#xgboost">
        XGBoost
       </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#feature-importance">
+         <strong>
+          Feature importance：
+         </strong>
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id11">
+         <strong>
+          处理过拟合的情况
+         </strong>
+        </a>
+       </li>
+      </ul>
      </li>
      <li class="toc-h3 nav-item toc-entry">
       <a class="reference internal nav-link" href="#lightgbm">
@@ -672,7 +688,7 @@ const thebe_selector_output = ".output, .cell_output"
     </ul>
    </li>
    <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id11">
+    <a class="reference internal nav-link" href="#id12">
      时间序列类
     </a>
     <ul class="nav section-nav flex-column">
@@ -927,7 +943,7 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
      <li class="toc-h3 nav-item toc-entry">
       <a class="reference internal nav-link" href="#baggingboosting">
-       Bagging和Boosting的区别
+       Bagging和Boosting的区别与联系
       </a>
      </li>
      <li class="toc-h3 nav-item toc-entry">
@@ -975,6 +991,22 @@ const thebe_selector_output = ".output, .cell_output"
       <a class="reference internal nav-link" href="#xgboost">
        XGBoost
       </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#feature-importance">
+         <strong>
+          Feature importance：
+         </strong>
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id11">
+         <strong>
+          处理过拟合的情况
+         </strong>
+        </a>
+       </li>
+      </ul>
      </li>
      <li class="toc-h3 nav-item toc-entry">
       <a class="reference internal nav-link" href="#lightgbm">
@@ -994,7 +1026,7 @@ const thebe_selector_output = ".output, .cell_output"
     </ul>
    </li>
    <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id11">
+    <a class="reference internal nav-link" href="#id12">
      时间序列类
     </a>
     <ul class="nav section-nav flex-column">
@@ -1209,6 +1241,16 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li><p>Synthetic Minority Oversampling Technique (SMOTE)</p>
+<ul class="simple">
+<li><p>SMOTE全称是Synthetic Minority Oversampling Technique即合成少数类过采样技术，它是基于随机过采样算法的一种改进方案，由 于随机过采样采取简单复制样本的策略来增加少数类样本, 这样容易产生模型过拟合的问题, 即使得模型学习到的信息过于特别 (Specific)而不够泛化(General), SMOTE算法的基本思想是对少数类样本进行分析并根据少数类样本人工合成新样本添加到数据集中</p>
+<ul>
+<li><p>算法流程：
+1、对于少数类中每一个样本x, 以欧氏距离为标准计算它到少数类样本集中所有样本的距离, 得到其 <span class="math notranslate nohighlight">\(k\)</span> 近邻。
+2、根据样本不平衡比例设置一个采样比例以确定采样倍率 <span class="math notranslate nohighlight">\(\mathrm{N}\)</span>, 对于每一个少数类样本 <span class="math notranslate nohighlight">\(x\)</span>, 从其 <span class="math notranslate nohighlight">\(k\)</span> 近邻中随机选择若干个样本, 假设选择的 近邻为 <span class="math notranslate nohighlight">\(x n^2\)</span> 。
+3、对于每一个随机选出的近邻 xn, 分别与原样本按照如下的公式构建新的样本 <span class="math notranslate nohighlight">\(x\)</span> new <span class="math notranslate nohighlight">\(=x+\operatorname{rand}(0,1) *|x-x n|\)</span></p></li>
+</ul>
+</li>
+</ul>
 <img src="../images/image-20220726111730712.png" alt="image-20220726111730712" style="width:50%;" />
 <ul class="simple">
 <li><p>Synthetic Minority Oversampling Technique (SMOTE) is a popular method to handle training with imbalanced datasets</p></li>
@@ -2022,9 +2064,8 @@ P( '代开'， '发票'， '发票'， '我' | S) = P('代开' | S)   P( '发票
 <li><p>每次使用一个训练集得到一个模型，k个训练集共得到k个模型。（注：这里并没有具体的分类算法或回归方法，我们可以根据具体问题采用不同的分类或回归方法，如决策树、感知器等）</p></li>
 </ul>
 </li>
-<li><p>分类问题：对分类问题：将上步得到的k个模型采用投票的方式得到分类结果</p>
-<p>对回归问题，计算上述模型的均值作为最后的结果。（所有模型的重要性相同）</p>
-</li>
+<li><p>分类问题：对分类问题：将上步得到的k个模型采用投票的方式得到分类结果</p></li>
+<li><p>对回归问题，计算上述模型的均值作为最后的结果。（所有模型的重要性相同）</p></li>
 </ul>
 </div>
 <div class="section" id="boosting">
@@ -2070,7 +2111,9 @@ P( '代开'， '发票'， '发票'， '我' | S) = P('代开' | S)   P( '发票
 </ul>
 </div>
 <div class="section" id="baggingboosting">
-<h3>Bagging和Boosting的区别<a class="headerlink" href="#baggingboosting" title="Permalink to this headline">¶</a></h3>
+<h3>Bagging和Boosting的区别与联系<a class="headerlink" href="#baggingboosting" title="Permalink to this headline">¶</a></h3>
+<p>Bagging和Boosting都是ensemble，就是把弱分类器组装成强分类器的方法。</p>
+<p>区别在于以下几点：</p>
 <ul class="simple">
 <li><p>1）样本选择上：</p>
 <ul>
@@ -2205,7 +2248,7 @@ P( '代开'， '发票'， '发票'， '我' | S) = P('代开' | S)   P( '发票
   - 每个data point 的 error = 样本外预测的error的平均
     - 如果有一个sample去了所有的tree，那么它就不会加入out-of-bag的计算
     - 如果有一个sample只去了一个tree，那么这个tree的error就是这个data point的oob error
-      - If I built 100 trees and 99 trees used 1 sample and one tree did not use that sample, then that one tree will make a prediction on this, and you can calculate the error from that.\\ **Feature Importances**\\- RF有两种方法：\\  - 通过计算Gini系数的减少量VIm=GI−(GIL+GIR)判断特征重要性，越大越重要。\\  - 对于一颗树，先使用袋外错误率(OOB)样本计算测试误差a，再随机打乱OOB样本中第i个特征（上下打乱特征矩阵第i列的顺序）后计算测试误差b，a与b差距越大特征i越重要。\\    - 袋外数据(OOB)： 大约有1/3的训练实例没有参与第k棵树的生成，它们称为第$k$棵树的袋外数据样本。\\    - 在随机森林中某个特征$X$的重要性的计算方法如下：\\    - 对于随机森林中的每一颗决策树，使用相应的OOB(袋外数据)来计算它的袋外数据误差，记为$err_{OOB1}$。\\    - 随机地对袋外数据OOB所有样本的特征$X$加入噪声干扰(就可以随机的改变样本在特征X处的值)，再次计算它的袋外数据误差，记为$err_{OOB2}$。\\    - 假设随机森林中有$N$棵树，那么对于特征$X$的重要性为$(err_{OOB2}-err_{OOB1}/N)$，之所以可以用这个表达式来作为相应特征的重要性的度量值是因为：若给某个特征随机加入噪声之后，袋外的准确率大幅度降低，则说明这个特征对于样本的分类结果影响很大，也就是说它的重要程度比较高。\\- Feature importance is calculated as the **decrease in node impurity** weighted by the *probability of samples in node*s that are reaching that node.
+      - If I built 100 trees and 99 trees used 1 sample and one tree did not use that sample, then that one tree will make a prediction on this, and you can calculate the error from that.\\####  **Feature Importances**\\- RF有两种方法：\\  - 通过计算Gini系数的减少量VIm=GI−(GIL+GIR)判断特征重要性，越大越重要。\\  - 对于一颗树，先使用袋外错误率(OOB)样本计算测试误差a，再随机打乱OOB样本中第i个特征（上下打乱特征矩阵第i列的顺序）后计算测试误差b，a与b差距越大特征i越重要。\\    - `袋外数据(OOB)`： 大约有1/3的训练实例没有参与第k棵树的生成，它们称为第$k$棵树的袋外数据样本。\\    - 在随机森林中某个特征$X$的重要性的计算方法如下：\\    - 对于随机森林中的每一颗决策树，使用相应的OOB(袋外数据)来计算它的袋外数据误差，记为$err_{OOB1}$。\\    - 随机地对袋外数据OOB所有样本的特征$X$加入噪声干扰(就可以随机的改变样本在特征X处的值)，再次计算它的袋外数据误差，记为$err_{OOB2}$。\\    - 假设随机森林中有$N$棵树，那么对于特征$X$的重要性为$(err_{OOB2}-err_{OOB1}/N)$，之所以可以用这个表达式来作为相应特征的重要性的度量值是因为：若给某个特征随机加入噪声之后，袋外的准确率大幅度降低，则说明这个特征对于样本的分类结果影响很大，也就是说它的重要程度比较高。\\- Feature importance is calculated as the **decrease in node impurity** weighted by the *probability of samples in node*s that are reaching that node.
   - The node probability can be calculated by the **number of samples that reach the node**, divided by the total number of samples.
   - 有时候会选少的number of trees 特别是提升不显著的时候，比如100个tree可能只用了5个features，那么后面我就可以只maintain这5个features
 - The higher the value the more important the feature.\\&lt;img src=&quot;../images/(null)-20220725101112347.(null)&quot; alt=&quot;img&quot; style=&quot;width:50%;&quot; /&gt;\\- SKLearn中的 `warm_start`
@@ -2460,7 +2503,8 @@ F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
 </ul>
 </li>
 </ul>
-<p><strong>Feature importance：</strong></p>
+<div class="section" id="feature-importance">
+<h4><strong>Feature importance：</strong><a class="headerlink" href="#feature-importance" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>importance_type=weight（默认值），特征重要性使用特征在所有树中作为划分属性的次数。</p></li>
 <li><p>mportance_type=gain，特征重要性使用特征在作为划分属性时loss平均的降低量。</p></li>
@@ -2482,7 +2526,10 @@ F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
 </ul>
 </li>
 </ul>
-<p><strong>处理过拟合的情况</strong>：首先BFS的没那么容易过拟合</p>
+</div>
+<div class="section" id="id11">
+<h4><strong>处理过拟合的情况</strong><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<p>首先XGB是基于BFS的，其实没那么容易过拟合</p>
 <ul class="simple">
 <li><p>目标函数中增加了正则项：使用叶子结点的数目和叶子结点权重的<span class="math notranslate nohighlight">\(L2\)</span>模的平方，控制树的复杂度。</p></li>
 <li><p>设置目标函数的<strong>增益阈值</strong>：如果分裂后目标函数的增益小于该阈值，则不分裂。</p></li>
@@ -2508,6 +2555,7 @@ F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
 <li><p>还有就是直接减小learning rate，但需要同时增加estimator 参数。</p></li>
 </ul>
 </div>
+</div>
 <div class="section" id="lightgbm">
 <h3>LightGBM<a class="headerlink" href="#lightgbm" title="Permalink to this headline">¶</a></h3>
 <p>从 LightGBM 名字我们可以看出其是轻量级（Light）的梯度提升机（GBM），其相对 XGBoost 具有训练速度快、内存占用低的特点。</p>
@@ -2527,7 +2575,7 @@ F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
 </li>
 </ul>
 </li>
-<li><p>单边梯度采样 <code class="docutils literal notranslate"><span class="pre">Gradient-based</span> <span class="pre">One-Sided</span> <span class="pre">Sampling</span> <span class="pre">(GOSS)</span></code></p>
+<li><p><strong>单边梯度采样</strong> <code class="docutils literal notranslate"><span class="pre">Gradient-based</span> <span class="pre">One-Sided</span> <span class="pre">Sampling</span> <span class="pre">(GOSS)</span></code></p>
 <ul class="simple">
 <li><p>GBDT 算法的梯度大小可以反应样本的权重，梯度越小说明模型拟合的越好，单边梯度抽样算法利用这一信息对样本进行**<u>抽样</u>**，减少了大量梯度小的样本，在接下来的计算锅中只需关注梯度高的样本，极大的减少了计算量</p>
 <ul>
@@ -2537,7 +2585,7 @@ F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
 <li><p>这个操作后面也会用权重平衡回来，让<strong>一方面算法将更多的注意力放在训练不足的样本上，另一方面通过乘上权重来防止采样对原始数据分布造成太大的影响</strong></p></li>
 </ul>
 </li>
-<li><p>互斥特征捆绑Exclusive feature <code class="docutils literal notranslate"><span class="pre">bundling</span></code> to handle sparse features</p>
+<li><p><strong>互斥特征捆绑Exclusive feature <code class="docutils literal notranslate"><span class="pre">bundling</span></code></strong> to handle sparse features</p>
 <ul class="simple">
 <li><p>如果两个特征并不完全互斥（如只有一部分情况下是不同时取非零值），可以用互斥率表示互斥程度。互斥特征捆绑算法（Exclusive Feature Bundling, EFB）指出如果将一些特征进行融合绑定，则可以降低特征数量。</p></li>
 <li><p>speed up the process of splitting</p></li>
@@ -2546,15 +2594,26 @@ F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
 </li>
 <li><p>**<u>LightGBM 原生支持类别特征｜</u>**Supports GPU training, sparse data &amp; missing values｜Generally faster than XGBoost on CPUs｜Supports <strong>distributed training</strong> on diﬀerent frameworks like Ray, Spark, Dask etc.</p></li>
 <li><p>缺失值处理：每次分割的时候，分别把缺失值放在左右两边各计算一次，然后比较两种情况的增益，择优录取</p></li>
+<li><p>带深度限制不过拟合的情况下，Leaf-wise的叶子生长策略效率更高</p>
+<ul class="simple">
+<li><p>在XGBoost中，树是按层生长的，称为Level-wise tree growth，同一层的所有节点都做分裂，最后剪枝</p></li>
+<li><p>Level-wise过一次数据可以同时分裂同一层的叶子，容易进行多线程优化，也好控制模型复杂度，不容易过拟合。但实际上Level-wise是一种低效的算法，因为它不加区分的对待同一层的叶子，带来了很多没必要的开销，因为实际上很多叶子的分裂增益较低，没必要进行搜索和分裂。</p></li>
+<li><p>在Histogram算法之上，LightGBM进行进一步的优化。首先它抛弃了大多数GBDT工具使用的按层生长 (level-wise) 的决策树生长策略，而使用了带有深度限制的按叶子生长 (leaf-wise)算法。</p></li>
+<li><p>Leaf-wise则是一种更为高效的策略，每次从当前所有叶子中，找到分裂增益最大的一个叶子，然后分裂，如此循环。因此同Level-wise相比，<strong>在分裂次数相同的情况下，Leaf-wise可以降低更多的误差，得到更好的精度</strong>。Leaf-wise的缺点是可能会长出比较深的决策树，产生过拟合。因此LightGBM在Leaf-wise之上增加了一个最大深度的限制，在保证高效率的同时防止过拟合。</p></li>
+</ul>
+</li>
+<li><p>直接支持类别特征(Categorical Feature)</p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="xgboostlightgbm">
 <h3>XGBoost和LightGBM的区别<a class="headerlink" href="#xgboostlightgbm" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><em>（model结构的不同）</em></p>
 <ul>
 <li><p>树生长策略不同</p>
-<ul class="simple">
+<ul>
 <li><p>XGB采用level-wise的分裂策略：XGB对每一层所有节点做无差别分裂，但是可能有些节点增益非常小，对结果影响不大，带来不必要的开销。</p></li>
 <li><p>LGB采用leaf-wise的分裂策略：Leaf-wise是在所有叶子节点中选取分裂收益最大的节点进行的，但是很容易出现过拟合问题，所以需要对最大深度做限制</p></li>
 </ul>
@@ -2563,24 +2622,40 @@ F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
 <ul>
 <li><p>XGB使用特征预排序算法</p></li>
 <li><p>LGB使用基于直方图的切分点算法：</p>
-<ul class="simple">
+<ul>
 <li><p>减少内存占用，比如离散为256个bin时，只需要用8位整形就可以保存一个样本被映射为哪个bin(这个bin可以说就是转换后的特征)，对比预排序的exact greedy算法来说（用int_32来存储索引+ 用float_32保存特征值），可以节省7/8的空间。</p></li>
 <li><p>计算效率提高，预排序的Exact greedy对每个特征都需要遍历一遍数据，并计算增益。而直方图算法在建立完直方图后，只需要对每个特征遍历直方图即可</p></li>
 </ul>
 </li>
-<li><p>然后这里也跟分裂方式有关</p>
+<li><p>这个特征分割点查找的区别其实也跟分裂方式有关</p>
 <ul>
-<li><p>XGB 在每一层都动态构建直方图， 因为XGB的直方图算法不是针对某个特定的feature，而是所有feature共享一个直方图(每个样本的权重是二阶导)，所以每一层都要重新构建直方图。</p></li>
-<li><p>LGB中对每个特征都有一个直方图，所以构建一次直方图就够了</p>
-<p>LGB还可以使用直方图做差加速，一个节点的直方图可以通过父节点的直方图减去兄弟节点的直方图得到，从而加速计算</p>
-</li>
+<li><p>XGB 在每一层都动态构建直方图， 因为XGB的直方图算法不是针对某个特定的feature，而是所有feature共享一个直方图(每个样本的权重是二阶导)，所以<strong>每一层都要重新构建直方图。</strong></p></li>
+<li><p>LGB中对每个特征都有一个直方图，所以构建一次直方图就够了，而且LGB还可以使用直方图做差加速，一个节点的直方图可以通过父节点的直方图减去兄弟节点的直方图得到，从而加速计算</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>样本选择：会做单边梯度采样，LightGBM会将更多的注意力放在训练不足的样本上</p></li>
+</ul>
+</li>
+<li><p>*（n的不同）*样本选择：会做单边梯度采样，LightGBM会将更多的注意力放在训练不足的样本上</p></li>
+<li><p>*（run的不同）*并行策略有差异：</p>
+<ul>
+<li><p>XGB是特征并行</p>
+<ul>
+<li><p>XGB每个worker节点中仅有部分的列数据，也就是垂直切分，每个worker寻找局部最佳切分点，worker之间相互通信，然后在具有最佳切分点的worker上进行节点分裂，再由这个节点广播一下被切分到左右节点的样本索引号，其他worker才能开始分裂。</p></li>
+<li><p>LGB特征并行的前提是每个worker留有一份完整的数据集，但是每个worker仅在特征子集上进行最佳切分点的寻找；worker之间需要相互通信，通过比对损失来确定最佳切分点；然后将这个最佳切分点的位置进行全局广播，每个worker进行切分即可。</p></li>
+</ul>
+</li>
+<li><p>LihgtGBM是数据并行</p>
+<ul>
+<li><p>LGB中先对数据水平切分，每个worker上的数据先建立起局部的直方图，然后合并成全局的直方图，采用直方图相减的方式，先计算样本量少的节点的样本索引，然后直接相减得到另一子节点的样本索引，这个直方图算法使得worker间的通信成本降低一倍，因为只用通信以此样本量少的节点</p></li>
+<li><p>XGB中的数据并行也是水平切分，然后单个worker建立局部直方图，再合并为全局，不同在于根据全局直方图进行各个worker上的节点分裂时会单独计算子节点的样本索引</p></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><p>还有一些小的区别：</p>
-<ul class="simple">
+<ul>
 <li><p>离散变量处理上：XGB无法直接输入类别型变量因此需要事先对类别型变量进行编码（例如独热编码），LGB可以直接处理类别型变量</p></li>
 <li><p>识别一些互斥的特征上，LightGBM可以bundling等等</p></li>
 </ul>
@@ -2604,8 +2679,8 @@ F_{m}(x)=F_{m-1}(x)+\gamma_{m} h_{m}(x) .
 </ul>
 </div>
 </div>
-<div class="section" id="id11">
-<h2>时间序列类<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id12">
+<h2>时间序列类<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="prophet">
 <h3>Prophet<a class="headerlink" href="#prophet" title="Permalink to this headline">¶</a></h3>
 <p>常见的时间序列分解方法</p>

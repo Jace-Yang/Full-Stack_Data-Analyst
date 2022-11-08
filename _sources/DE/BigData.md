@@ -100,9 +100,9 @@ HDFS采用Master/Slave架构。一个HDFS集群包含一个单独的NameNode和�
 
 #### 执行流程
 
-> [漫画](https://tyler-zx.blog.csdn.net/article/details/90667918?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-90667918-blog-37655491.pc_relevant_aa&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-90667918-blog-37655491.pc_relevant_aa&utm_relevant_index=3)
+**简单版本**
 
-**简单版本：**
+>  [漫画](https://tyler-zx.blog.csdn.net/article/details/90667918?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-90667918-blog-37655491.pc_relevant_aa&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-90667918-blog-37655491.pc_relevant_aa&utm_relevant_index=3)
 
 - 首先明确Block size——一个文件会被拆成的小block有多大；replication factor——一个block会被存在几个地方
 
@@ -126,7 +126,6 @@ HDFS采用Master/Slave架构。一个HDFS集群包含一个单独的NameNode和�
 
 
 
-
 **文字完整版本：**
 
 - 写数据
@@ -138,10 +137,10 @@ HDFS采用Master/Slave架构。一个HDFS集群包含一个单独的NameNode和�
   - 3）客户端请求第一个 block上传到哪几个datanode服务器上。
   - 4）NameNode返回3个datanode节点，分别为dn1、dn2、dn3。
   - 5）客户端通过FSDataOutputStream模块请求dn1上传数据，dn1收到请求会继续调用dn2，然后dn2调用dn3，将这个通信管道建立完成。
-  - 6）dn1、dn2、dn3逐级应答客户端。
-  - 7）客户端开始往dn1上传第一个block（先从磁盘读取数据放到一个本地内存缓存），以packet为单位，dn1收到一个packet就会传给dn2，dn2传给dn3；dn1每传一个packet会放入一个应答队列等待应答。
-  - 8）当一个block传输完成之后，客户端再次请求NameNode上传第二个block的服务器。
-  - 重复执行3-8步
+  - 6）dn1、dn2、dn3逐级**应答**客户端。
+  - 7）客户端开始往dn1上传第一个block $blk_1$（先从磁盘读取数据放到一个本地内存缓存），以packet为单位，dn1收到一个packet就会传给dn2，dn2传给dn3；dn1每传一个packet会放入一个应答队列等待应答。
+  - 8）当一个block传输完成之后，客户端再次请求NameNode上传第二个block的数据。
+  - 重复执行3-8步直到所有的block执行完成
 
 - 读数据
 
@@ -150,7 +149,7 @@ HDFS采用Master/Slave架构。一个HDFS集群包含一个单独的NameNode和�
   - 1）客户端通过Distributed FileSystem向NameNode请求下载文件
   - 2）NameNode通过查询元数据，找到文件块所在的DataNode地址，并且返回
   - 3）客户端挑选一台DataNode（**就近原则，然后随机**）服务器，请求读取数据。
-  - 4）DataNode开始传输数据给客户端（从磁盘里面读取数据输入流，以packet为单位来做校验）。直到所有的datanode完成
+  - 4）DataNode开始传输数据给客户端（从磁盘里面读取数据输入流，以packet为单位来做校验）。直到所有的datanode完成自己负责的block完成传输
   - 5）客户端以packet为单位接收，先在本地缓存，然后写入目标文件。
 
 
@@ -480,7 +479,9 @@ Built upon spark core, Spark ecosystem is composed of the several modules. One o
 
 ## Hive
 
-Hive是建立在Hadoop之上为了减少MapReducejobs编写工作的批处理系统。它可以将结构化的数据文件映射成表，并提供类 SQL 查询功能，用于查询的 SQL 语句会被转化为 MapReduce 作业，然后提交到 Hadoop 上运行。
+Hive 是数据仓库工具，再具体点就是一个 SQL 解析引擎，因为它即不负责存储数据，也不负责计算数据，只负责解析 SQL，记录元数据。Hive直接访问存储在 HDFS 中或者 HBase 中的文件，通过 MapReduce、Spark 或 Tez 执行查询。
+
+Hive是建立在Hadoop之上为了减少MapReduce jobs编写工作的批处理系统。它可以将结构化的数据文件映射成表，并提供类 SQL 查询功能，用于查询的 SQL 语句会被转化为 MapReduce 作业，然后提交到 Hadoop 上运行。
 
 - 支持大规模数据存储、分析，具有良好的可扩展性。
 - 某种程度上可以看作是用户编程接口，本身不存储和处理数据：Hive 定义了简单的类似 SQL 的查询语言——HiveQL，用户可以通过编写的 HiveQL 语句运行 MapReduce 任务，可以很容易把原来构建在关系数据库上的数据仓库应用程序移植到 Hadoop 平台上。
@@ -492,7 +493,7 @@ Hive是建立在Hadoop之上为了减少MapReducejobs编写工作的批处理系
   - HQL就是用sql语法来写的mr程序
 - Hive依赖分布式文件系统 HDFS 存储数据，依赖分布式并行计算模型 MapReduce 处理数据（底层计算的引擎默认是 MapReduce，可以将引擎更换为 Spark/Tez）。
 
-**特点：**Hive 是通过构建元数据，**映射 HDFS 文件构建成表**，本质还是 HDFS实现的离线大数据仓库。
+**特点：**Hive 是通过构建元数据，**映射HDFS文件构建成表**，本质还是 HDFS实现的离线大数据仓库。
 
 - **Hive 并不是一个关系数据库** **不能和数据库一样进行实时的CURD操作**
 - Hive 中没有定义专门的数据格式，由用户指定，需要指定三个属性：列分隔符、行分隔符 、读取文件数据的方法（Hive 中默认有三个文件格式 TextFile，SequenceFile 以及 RCFile）。
@@ -527,20 +528,94 @@ Hive是建立在Hadoop之上为了减少MapReducejobs编写工作的批处理系
   - 在 Hive 中，表名、表结构、字段名、字段类型、表的分隔符等统一被称为**元数据**。所有的元数据默认存储在 Hive 内置的 derby 数据库中，但由于 derby 只能有一个实例，也就是说**不能有多个命令行客户端同时访问**，所以在实际生产环境中，通常使用 MySQL 代替 derby。
   - Hive 进行的是**统一的元数据管理**，就是说你在 Hive 上创建了一张表，然后*在 presto／impala／sparksql 中都是可以直接使用的*，它们会从 Metastore 中获取统一的元数据信息，同样的你在 presto／impala／sparksql 中创建一张表，在 Hive 中也可以直接使用。
 
-### HiveQL执行流程
+### **Hive 底层执行架构**
+
+<img src="../images/v2-adff0057db046aed4666dd25f7aaa284_1440w.webp" alt="img" style="width:33%;" />
+
+组成成分：
+
+1. UI：用户界面。可看作我们提交SQL语句的命令行界面。
+2. DRIVER：驱动程序。接收查询的组件。该组件实现了会话句柄的概念。
+3. COMPILER：编译器。负责将 SQL 转化为平台可执行的执行计划。对不同的查询块和查询表达式进行语义分析，并最终借助表和从 metastore 查找的分区元数据来生成执行计划。
+4. METASTORE：元数据库。存储 Hive 中各种表和分区的所有结构信息。
+5. EXECUTION ENGINE：执行引擎。负责提交 COMPILER 阶段编译好的执行计划到不同的平台上。
+
+基本流程是：
+
+- 步骤1：UI 调用 DRIVER 的接口；
+- 步骤2：DRIVER 为查询创建会话句柄，并将查询发送到 COMPILER(编译器)生成执行计划；
+- 步骤3/4：编译器从元数据存储中获取本次查询所需要的元数据，该元数据用于对查询树中的表达式进行类型检查，以及基于查询谓词修建分区；
+- 步骤5：编译器生成的计划是分阶段的DAG，每个阶段要么是 map/reduce 作业，要么是一个元数据或者HDFS上的操作。将生成的计划发给 DRIVER。
+  - 如果是 map/reduce 作业，该计划包括 map operator trees 和一个 reduce operator tree，执行引擎将会把这些作业发送给 MapReduce ：
+- **步骤6、6.1、6.2和6.3**：执行引擎将这些阶段提交给适当的组件。在每个 task(mapper/reducer) 中，从HDFS文件中读取与表或中间输出相关联的数据，并通过相关算子树传递这些数据。最终这些数据通过序列化器写入到一个临时HDFS文件中（如果不需要 reduce 阶段，则在 map 中操作）。临时文件用于向计划中后面的 map/reduce 阶段提供数据。
+- **步骤7、8和9**：最终的临时文件将移动到表的位置，确保不读取脏数据(文件重命名在HDFS中是原子操作)。对于用户的查询，临时文件的内容由执行引擎直接从HDFS读取，然后通过Driver发送到UI。
+
+
+
+### **Hive SQL 编译成 MapReduce 过程**
 
 > 美团技术团队的文章：[Hive SQL 的编译过程](https://tech.meituan.com/2014/02/12/hive-sql-to-mapreduce.html)
 
-1. 语法解析：Antlr 定义 SQL 的语法规则，完成 SQL 词法，语法解析，将 SQL 转化为抽象 语法树 AST Tree；
-2. 语义解析：遍历 AST Tree，抽象出查询的基本组成单元 QueryBlock；
-3. 生成逻辑执行计划：遍历 QueryBlock，翻译为执行操作树 OperatorTree；
-4. 优化逻辑执行计划：逻辑层优化器进行 OperatorTree 变换，合并不必要的 ReduceSinkOperator，减少 shuffle 数据量；
-5. 生成物理执行计划：遍历 OperatorTree，翻译为 MapReduce 任务；
-6. 优化物理执行计划：物理层优化器进行 MapReduce 任务的变换，生成最终的执行计划。
+编译 SQL 的任务是在上节中介绍的 COMPILER（编译器组件）中完成的。Hive将SQL转化为MapReduce任务，整个编译过程分为六个阶段：
+
+1. **语法解析**：Antlr 定义 SQL 的语法规则，完成 SQL 词法，语法解析，将 SQL 转化为抽象 语法树 AST Tree；
+
+   ![SQL生成AST Tree](../images/53c6802d.png)
+
+2. **语意解析：**遍历 AST Tree，抽象出查询的基本组成单元 QueryBlock；
+
+   - AST Tree仍然非常复杂，不够结构化，不方便直接翻译为MapReduce程序，AST Tree转化为QueryBlock就是将SQL进一部抽象和结构化。
+   - QueryBlock是一条SQL最基本的组成单元，包括三个部分：输入源，计算过程，输出
+
+3. **生成逻辑执行计划：**遍历 QueryBlock，翻译为执行操作树OperatorTree；
+
+   - Hive最终生成的MapReduce任务，Map阶段和Reduce阶段均由OperatorTree组成。逻辑操作符，就是在Map阶段或者Reduce阶段完成单一特定的操作。
+   - 基本的操作符包括TableScanOperator，SelectOperator，FilterOperator，JoinOperator，GroupByOperator，ReduceSinkOperator
+     - 由于Join/GroupBy/OrderBy均需要在Reduce阶段完成，所以在生成相应操作的Operator之前都会先生成一个ReduceSinkOperator，将字段组合并序列化为Reduce Key/value, Partition Key
+
+4. **优化逻辑执行计划：**逻辑层优化器进行 OperatorTree 变换，合并不必要的 ReduceSinkOperator，减少 shuffle 数据量；
+
+   - 投影修剪
+   - 推导传递谓词
+   - 谓词下推
+   - 将Select-Select，Filter-Filter合并为单个操作
+   - 多路 Join
+   - 查询重写以适应某些列值的Join倾斜
+
+5. **生成物理执行计划：**遍历 OperatorTree，翻译为 MapReduce 任务；
+
+   1. 对输出表生成MoveTask
+   2. 从OperatorTree的其中一个根节点向下深度优先遍历
+   3. ReduceSinkOperator标示Map/Reduce的界限，多个Job间的界限
+   4. 遍历其他根节点，遇过碰到JoinOperator合并MapReduceTask
+   5. 生成StatTask更新元数据
+   6. 剪断Map与Reduce间的Operator的关系
+
+6. **优化物理执行计划：**物理层优化器进行 MapReduce 任务的变换，生成最终的执行计划。比如：
+
+   - MapJoin——在Map阶段将小表读入内存，顺序扫描大表完成Join
+   - CommonJoinResolver优化器——将CommonJoin转化为MapJoin，转化过程如下
+     1. 深度优先遍历Task Tree
+     2. 找到JoinOperator，判断左右表数据量大小
+     3. 对与小表 + 大表 => MapJoinTask，对于小/大表 + 中间表 => ConditionalTask
+   - 分区修剪(Partition Pruning)
+   - 基于分区和桶的扫描修剪(Scan pruning)
+   - 如果查询基于抽样，则扫描修剪
+   - 在某些情况下，在 map 端应用 Group By
+   - 优化 Union，使Union只在 map 端执行
+   - 在多路 Join 中，根据用户提示决定最后流哪个表
+   - 删除不必要的 ReduceSinkOperators
+   - 对于带有Limit子句的查询，减少需要为该表扫描的文件数
+   - 对于带有Limit子句的查询，通过限制 ReduceSinkOperator 生成的内容来限制来自 mapper 的输出
+   - 减少用户提交的SQL查询所需的Tez作业数量
+   - 如果是简单的提取查询，避免使用MapReduce作业
+   - 对于带有聚合的简单获取查询，执行不带 MapReduce 任务的聚合
+   - 重写 Group By 查询使用索引表代替原来的表
+   - 当表扫描之上的谓词是相等谓词且谓词中的列具有索引时，使用索引扫描
 
 
 
-### 存储形式：
+### 存储格式
 
 Hive 会在 HDFS 为每个数据库上创建一个目录，数据库中的表是该目录的子目录，表中的数据会以文件的形式存储在对应的表目录下。Hive 支持以下几种文件存储格式：
 
@@ -633,3 +708,4 @@ HBase采用的是一种**面向列的键值对存储**模式。
 - [GitHub｜heibaiying｜BigData Notes](https://github.com/heibaiying/BigData-Notes)：PS——非常好的资料！还有Flink、Storm等没有整理进去
 - [51CTO博客｜蓦然1607｜阿里云大数据开发一面面经，已过，面试题已配答案](https://blog.51cto.com/u_15553407/5785534)
 - [稀土掘金｜spacedong｜一文讲清HBase存储结构](https://juejin.cn/post/6844903753271754759)
+- [知乎｜五分钟学大数据｜Hive SQL的底层编译过程详解](https://zhuanlan.zhihu.com/p/379320344)

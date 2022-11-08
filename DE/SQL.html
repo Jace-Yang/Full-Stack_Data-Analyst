@@ -502,12 +502,12 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#x">
-     查询连续X天登陆的用户
+    <a class="reference internal nav-link" href="#id15">
+     查询连续7天登陆的用户
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id15">
+    <a class="reference internal nav-link" href="#id16">
      上周流失用户
     </a>
    </li>
@@ -647,12 +647,12 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#x">
-     查询连续X天登陆的用户
+    <a class="reference internal nav-link" href="#id15">
+     查询连续7天登陆的用户
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id15">
+    <a class="reference internal nav-link" href="#id16">
      上周流失用户
     </a>
    </li>
@@ -1084,40 +1084,37 @@ const thebe_selector_output = ".output, .cell_output"
 </pre></div>
 </div>
 </div>
-<div class="section" id="x">
-<h3>查询连续X天登陆的用户<a class="headerlink" href="#x" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-SQL notranslate"><div class="highlight"><pre><span></span><span class="c1">-- 每个用户先统计一张登陆流水，日期转换int</span>
+<div class="section" id="id15">
+<h3>查询连续7天登陆的用户<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>只需要user_id不需要起点的情况：</p></li>
+</ul>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- 每个用户先统计一张登陆流水，日期转换int</span>
 <span class="k">WITH</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span>
-<span class="w">        </span><span class="n">player_id</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="n">DATEDIFF</span><span class="p">(</span><span class="n">event_date</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2000-01-01&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">date_id</span><span class="w"></span>
-<span class="w">    </span><span class="k">FROM</span><span class="w"> </span>
-<span class="w">        </span><span class="n">Activity</span><span class="w"> </span>
-<span class="w">    </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"></span>
-<span class="w">        </span><span class="n">player_id</span><span class="p">,</span><span class="w"> </span>
-<span class="w">        </span><span class="n">date_id</span><span class="w"></span>
-<span class="w">    </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">date_id</span><span class="w"></span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="nb">date</span><span class="w"></span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Activity</span><span class="w"> </span>
+<span class="w">    </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="nb">date</span><span class="w"></span>
 <span class="p">),</span><span class="w"></span>
 
 <span class="c1">-- 然后把累加开始的时间当作每个用户的「区间开始」id</span>
 <span class="n">user_cum_tagged</span><span class="w"> </span><span class="k">AS</span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span>
-<span class="w">        </span><span class="n">player_id</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">date_id</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">row_number</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">player_id</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">date_id</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">cum_id</span><span class="w"></span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"></span>
+<span class="w">  	       </span><span class="n">DATE_SUB</span><span class="p">(</span><span class="nb">date</span><span class="p">,</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="k">DAY</span><span class="p">)</span><span class="w"> </span><span class="k">DAY</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">cum_id</span><span class="w"></span>
 <span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="k">user</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="p">),</span><span class="w"></span>
 
-<span class="c1">-- 每个用户、每个「区间开始」id组中 有2条登录天数的即为连续2天登录，然后把「区间开始」id转化为实际日期</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">player_id</span><span class="p">,</span><span class="w"> </span><span class="n">DATE_ADD</span><span class="p">(</span><span class="s1">&#39;2000-01-01&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="n">cum_id</span><span class="o">+</span><span class="mi">1</span><span class="w"> </span><span class="k">DAY</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">start_date</span><span class="w"></span>
-<span class="w">    </span><span class="c1">-- 这里注意-row_number的时候第一天也会减1，所以这里加回来</span>
+<span class="c1">-- 得到所有满足条件的连续区间</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="k">min</span><span class="p">(</span><span class="nb">date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">start_date</span><span class="p">,</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="nb">date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">end_date</span><span class="w"></span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">user_cum_tagged</span><span class="w"></span>
-<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">player_id</span><span class="p">,</span><span class="w"> </span><span class="n">DATE_ADD</span><span class="p">(</span><span class="s1">&#39;2000-01-01&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="n">cum_id</span><span class="o">+</span><span class="mi">1</span><span class="w"> </span><span class="k">DAY</span><span class="p">)</span><span class="w"></span>
-<span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="c1">-- 这里可以改成任意天～</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">cum_id</span><span class="w"></span>
+<span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="nb">date</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="c1">-- 这里可以改成任意天～</span>
+
+<span class="c1">-- 进一步，可以对user_id再去重</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id15">
-<h3>上周流失用户<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id16">
+<h3>上周流失用户<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <p>每个用户登录流水中<strong>max(date) &lt;=上周最后一个日期</strong></p>
 </div>
 </div>
